@@ -17,13 +17,13 @@ enum PlayerState
 
 public class ProtoPlayer : MonoBehaviour
 {
-    [SerializeField] private CharacterController m_CharacterController;
-    [SerializeField] private Vector3 m_vMove;
-    [SerializeField] private Vector3 m_vGravity;
-    [SerializeField] private float m_fJumpPow;
-    [SerializeField] private PlayerState m_PlayerState;
-    private Vector3 m_vMoveAmount;
-    private bool bInputUp;
+    [SerializeField] private CharacterController m_CharacterController; //キャラコントローラー(仮)
+    [SerializeField] private Vector3 m_vMove;                           // 移動する量
+    [SerializeField] private Vector3 m_vGravity;                        // 重力
+    [SerializeField] private float   m_fJumpPow;                        // 跳躍力
+    [SerializeField] private PlayerState m_PlayerState;                 // Playerの状態を管理する
+    private Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したもの)        
+    private bool bInputUp; 
     private bool bInputRight;
     private bool bInputLeft;
 
@@ -87,7 +87,7 @@ public class ProtoPlayer : MonoBehaviour
             m_vMoveAmount.z += m_vGravity.z;
         }
 
-        Debug.Log(m_CharacterController.isGrounded);
+        //Debug.Log(m_CharacterController.isGrounded);
 
         // 合計移動量を加算
         m_CharacterController.Move(m_vMoveAmount);
@@ -125,6 +125,7 @@ public class ProtoPlayer : MonoBehaviour
         m_vMoveAmount.y = 0.0f;
         m_vMoveAmount.z = 0.0f;
 
+        // DAキーで移動する
         if (bInputRight)
         {
             m_vMoveAmount.x += m_vMove.x;
@@ -136,6 +137,7 @@ public class ProtoPlayer : MonoBehaviour
 
         // 状態遷移
         // 「移動 → 跳躍」
+        //  Wキーで跳躍する
         if (bInputUp)
         {
             m_PlayerState = PlayerState.PlayerJump;
@@ -157,6 +159,7 @@ public class ProtoPlayer : MonoBehaviour
         m_vMoveAmount.x = 0.0f;
         m_vMoveAmount.z = 0.0f;
 
+        // DAキーで移動する
         if (bInputRight)
         {
             m_vMoveAmount.x += m_vMove.x;
