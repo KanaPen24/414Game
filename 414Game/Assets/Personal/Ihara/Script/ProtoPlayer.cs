@@ -2,27 +2,35 @@
 // ProtoPlayer.cs
 // Auther:Ihara
 // Update:2023/02/20 cs作成
+// Update:2023/02/21 移動法を「CharacterController」から
+//                   「RigidBody」に変更
+// Update:2023/02/21 地面判定関数を作成(仮)
 // ==============================================================
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// ================================
+// PlayerState
+// … Playerの状態を管理する列挙体
+// ================================
 enum PlayerState
 {
-    PlayerWait,
-    PlayerMove,
-    PlayerJump,
-    PlayerDrop,
+    PlayerWait, // 待ち状態
+    PlayerMove, // 移動状態
+    PlayerJump, // 跳躍状態
+    PlayerDrop, // 落下状態
 }
 
 public class ProtoPlayer : MonoBehaviour
 {
-    [SerializeField] private CharacterController m_CharacterController; //キャラコントローラー(仮)
+    [SerializeField] private Rigidbody m_Rigidbody;                     // PlayerのRigidBody
+    [SerializeField] private GameObject m_RayPoint;                     // Rayを飛ばす始点
     [SerializeField] private Vector3 m_vMove;                           // 移動する量
     [SerializeField] private Vector3 m_vGravity;                        // 重力
     [SerializeField] private float   m_fJumpPow;                        // 跳躍力
     [SerializeField] private PlayerState m_PlayerState;                 // Playerの状態を管理する
-    private Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したもの)        
+    private Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したものをvelocityに代入する)        
     private bool bInputUp; 
     private bool bInputRight;
     private bool bInputLeft;
@@ -31,7 +39,6 @@ public class ProtoPlayer : MonoBehaviour
     void Start()
     {
         // メンバの初期化
-        m_PlayerState = PlayerState.PlayerDrop;
         bInputUp = false;
         bInputRight = false;
         bInputLeft = false;
@@ -80,17 +87,26 @@ public class ProtoPlayer : MonoBehaviour
         }
 
         // 空中にいる場合、重力を与える
-        if (!m_CharacterController.isGrounded)
+        if (!IsGroundCollision())
         {
-            m_vMoveAmount.x += m_vGravity.x;
-            m_vMoveAmount.y += m_vGravity.y;
-            m_vMoveAmount.z += m_vGravity.z;
+            // 重力を合計移動量に加算
+            m_vMoveAmount += m_vGravity;
+
+            if(m_PlayerState != PlayerState.PlayerJump)
+            {
+                m_PlayerState = PlayerState.PlayerDrop;
+            }
+        }
+        else
+        {
+            if (m_PlayerState == PlayerState.PlayerDrop)
+            {
+                m_PlayerState = PlayerState.PlayerWait;
+            }
         }
 
-        //Debug.Log(m_CharacterController.isGrounded);
-
-        // 合計移動量を加算
-        m_CharacterController.Move(m_vMoveAmount);
+        // 合計移動量をvelocityに加算
+        m_Rigidbody.velocity = m_vMoveAmount;
     }
 
     // 待ち状態の更新処理
@@ -101,7 +117,9 @@ public class ProtoPlayer : MonoBehaviour
         m_vMoveAmount.y = 0.0f;
         m_vMoveAmount.z = 0.0f;
 
+        // =========
         // 状態遷移
+        // =========
         // 「待ち → 跳躍」
         if (bInputUp)
         {
@@ -135,7 +153,9 @@ public class ProtoPlayer : MonoBehaviour
             m_vMoveAmount.x -= m_vMove.x;
         }
 
+        // =========
         // 状態遷移
+        // =========
         // 「移動 → 跳躍」
         //  Wキーで跳躍する
         if (bInputUp)
@@ -155,7 +175,7 @@ public class ProtoPlayer : MonoBehaviour
     // 跳躍状態の更新処理
     private void UpdateJump()
     {
-        // 合計移動量をリセット
+        // 合計移動量をリセット(y成分はリセットしない)
         m_vMoveAmount.x = 0.0f;
         m_vMoveAmount.z = 0.0f;
 
@@ -180,10 +200,11 @@ public class ProtoPlayer : MonoBehaviour
     // 落下状態の更新処理
     private void UpdateDrop()
     {
-        // 合計移動量をリセット
+        // 合計移動量をリセット(y成分はリセットしない)
         m_vMoveAmount.x = 0.0f;
         m_vMoveAmount.z = 0.0f;
 
+        // DAキーで移動する
         if (bInputRight)
         {
             m_vMoveAmount.x += m_vMove.x;
@@ -192,10 +213,35 @@ public class ProtoPlayer : MonoBehaviour
         {
             m_vMoveAmount.x -= m_vMove.x;
         }
+    }
 
-        if(m_CharacterController.isGrounded)
+    // ===========================================================
+    // 地面判定関数
+    // 戻り値: bool型
+    // … 地面にrayが当たっていたらtrueを返す,
+    //    当たっていなければfalseを返す
+    // ===========================================================
+    private bool IsGroundCollision()
+    {
+        //Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
+        Ray ray = new Ray(m_RayPoint.transform.position, new Vector3(0, -1, 0));
+
+        //Rayが当たったオブジェクトの情報を入れる箱
+        RaycastHit hit;
+
+        //Rayの飛ばせる距離
+        float distance = 1.0f;
+
+        //Rayの可視化    ↓Rayの原点　　　　↓Rayの方向　　　　　　　　　↓Rayの色
+        Debug.DrawLine(ray.origin, ray.direction * distance, Color.red);
+
+        //もしRayにオブジェクトが衝突したら
+        //                  ↓Ray  ↓Rayが当たったオブジェクト ↓距離
+        if (Physics.Raycast(ray, out hit, distance))
         {
-            m_PlayerState = PlayerState.PlayerWait;
+            return true;
         }
+        else return false;
     }
 }
+
