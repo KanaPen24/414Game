@@ -22,14 +22,27 @@ enum PlayerState
     PlayerDrop, // 落下状態
 }
 
+// ================================
+// PlayerDir
+// … Playerの方向を管理する列挙体
+// ================================
+enum PlayerDir
+{
+    Right,
+    Left,
+}
+
 public class ProtoPlayer : MonoBehaviour
 {
+    [SerializeField] private PlayerState m_PlayerState;                 // Playerの状態を管理する
+    [SerializeField] private PlayerDir m_PlayerDir;                     // Playerの方向を管理する
     [SerializeField] private Rigidbody m_Rigidbody;                     // PlayerのRigidBody
-    [SerializeField] private GameObject m_RayPoint;                     // Rayを飛ばす始点
+    [SerializeField] private GameObject[] m_RayPoints;                  // Rayを飛ばす始点(4つ)
     [SerializeField] private Vector3 m_vMove;                           // 移動する量
     [SerializeField] private Vector3 m_vGravity;                        // 重力
     [SerializeField] private float   m_fJumpPow;                        // 跳躍力
-    [SerializeField] private PlayerState m_PlayerState;                 // Playerの状態を管理する
+    [SerializeField] private float   m_fRayLength;                      // Rayの長さ
+
     private Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したものをvelocityに代入する)        
     private bool bInputUp; 
     private bool bInputRight;
@@ -39,9 +52,11 @@ public class ProtoPlayer : MonoBehaviour
     void Start()
     {
         // メンバの初期化
-        bInputUp = false;
-        bInputRight = false;
-        bInputLeft = false;
+        m_PlayerDir   = PlayerDir.Right;
+        m_vMoveAmount = new Vector3(0.0f, 0.0f, 0.0f);
+        bInputUp      = false;
+        bInputRight   = false;
+        bInputLeft    = false;
     }
 
     // Update is called once per frame
@@ -69,7 +84,7 @@ public class ProtoPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // プレイヤーの状態によって更新処理
+        // Playerの状態によって更新処理
         switch (m_PlayerState)
         {
             case PlayerState.PlayerWait:
@@ -107,9 +122,13 @@ public class ProtoPlayer : MonoBehaviour
 
         // 合計移動量をvelocityに加算
         m_Rigidbody.velocity = m_vMoveAmount;
+
+        //Debug.Log(m_RayPoint.transform.position);
     }
 
+    // ================================= 
     // 待ち状態の更新処理
+    // =================================
     private void UpdateWait()
     {
         // 合計移動量をリセット
@@ -135,7 +154,9 @@ public class ProtoPlayer : MonoBehaviour
         }
     }
 
+    // ================================= 
     // 移動状態の更新処理
+    // =================================
     private void UpdateMove()
     {
         // 合計移動量をリセット
@@ -147,10 +168,12 @@ public class ProtoPlayer : MonoBehaviour
         if (bInputRight)
         {
             m_vMoveAmount.x += m_vMove.x;
+            m_PlayerDir = PlayerDir.Right;
         }
         if (bInputLeft)
         {
             m_vMoveAmount.x -= m_vMove.x;
+            m_PlayerDir = PlayerDir.Left;
         }
 
         // =========
@@ -172,7 +195,9 @@ public class ProtoPlayer : MonoBehaviour
         }
     }
 
+    // ================================= 
     // 跳躍状態の更新処理
+    // =================================
     private void UpdateJump()
     {
         // 合計移動量をリセット(y成分はリセットしない)
@@ -183,10 +208,12 @@ public class ProtoPlayer : MonoBehaviour
         if (bInputRight)
         {
             m_vMoveAmount.x += m_vMove.x;
+            m_PlayerDir = PlayerDir.Right;
         }
         if (bInputLeft)
         {
             m_vMoveAmount.x -= m_vMove.x;
+            m_PlayerDir = PlayerDir.Left;
         }
 
         // 状態遷移
@@ -197,7 +224,10 @@ public class ProtoPlayer : MonoBehaviour
         }
     }
 
+    // ============================================
     // 落下状態の更新処理
+    // ※状態遷移は他の関数で行う
+    // ============================================
     private void UpdateDrop()
     {
         // 合計移動量をリセット(y成分はリセットしない)
@@ -208,10 +238,12 @@ public class ProtoPlayer : MonoBehaviour
         if (bInputRight)
         {
             m_vMoveAmount.x += m_vMove.x;
+            m_PlayerDir = PlayerDir.Right;
         }
         if (bInputLeft)
         {
             m_vMoveAmount.x -= m_vMove.x;
+            m_PlayerDir = PlayerDir.Left;
         }
     }
 
@@ -223,25 +255,42 @@ public class ProtoPlayer : MonoBehaviour
     // ===========================================================
     private bool IsGroundCollision()
     {
-        //Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
-        Ray ray = new Ray(m_RayPoint.transform.position, new Vector3(0, -1, 0));
+        // =========================================== 
+        // 変数宣言 
+        // ===========================================
 
+        // Rayの初期化
+        Ray[] ray = new Ray[m_RayPoints.Length];
         //Rayが当たったオブジェクトの情報を入れる箱
         RaycastHit hit;
 
-        //Rayの飛ばせる距離
-        float distance = 1.0f;
+        // ===========================================
 
-        //Rayの可視化    ↓Rayの原点　　　　↓Rayの方向　　　　　　　　　↓Rayの色
-        Debug.DrawLine(ray.origin, ray.direction * distance, Color.red);
-
-        //もしRayにオブジェクトが衝突したら
-        //                  ↓Ray  ↓Rayが当たったオブジェクト ↓距離
-        if (Physics.Raycast(ray, out hit, distance))
+        // Rayの数だけ生成する
+        for (int i = 0; i < m_RayPoints.Length;++i)
         {
-            return true;
+            //Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
+            ray[i] = new Ray(m_RayPoints[i].transform.position, Vector3.down);
+            Debug.DrawRay(m_RayPoints[i].transform.position, Vector3.down, Color.red, m_fRayLength);
         }
-        else return false;
+
+        // 地面との当たり判定(一回でも通ればtrue)
+        for (int i = 0; i < m_RayPoints.Length; i++)
+        {
+            if (Physics.Raycast(ray[i], out hit, m_fRayLength))
+            {
+                //if (m_PlayerState != PlayerState.PlayerJump)
+                //{
+                //    // 座標の修正
+                //    this.transform.position = this.transform.position + 
+                //        new Vector3(0.0f,
+                //                    hit.collider.transform.position.y / 2,
+                //                    0.0f);
+                //}
+                return true;
+            }
+        }
+        return false;
     }
 }
 
