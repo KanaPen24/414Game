@@ -1,5 +1,5 @@
 // ==============================================================
-// ProtoPlayer.cs
+// IS_ProtoPlayer.cs
 // Auther:Ihara
 // Update:2023/02/20 csì¬
 // Update:2023/02/21 ˆÚ“®–@‚ğuCharacterControllerv‚©‚ç
@@ -32,7 +32,7 @@ enum PlayerDir
     Left,
 }
 
-public class ProtoPlayer : MonoBehaviour
+public class IS_ProtoPlayer : MonoBehaviour
 {
     [SerializeField] private PlayerState m_PlayerState;                 // Player‚Ìó‘Ô‚ğŠÇ—‚·‚é
     [SerializeField] private PlayerDir m_PlayerDir;                     // Player‚Ì•ûŒü‚ğŠÇ—‚·‚é
