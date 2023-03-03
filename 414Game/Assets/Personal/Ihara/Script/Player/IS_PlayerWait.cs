@@ -31,7 +31,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
         // ó‘Ô‘JˆÚ
         // =========
         //u‘Ò‹@ ¨ —‰ºv
-        if(!m_PlayerGroundColl)
+        if (!m_PlayerGroundColl.IsGroundCollision())
         {
             m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
             return;

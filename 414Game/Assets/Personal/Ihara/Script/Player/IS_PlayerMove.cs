@@ -42,7 +42,7 @@ public class IS_PlayerMove : IS_PlayerStrategy
         // ó‘Ô‘JˆÚ
         // =========
         //uˆÚ“® ¨ —‰ºv
-        if (!m_PlayerGroundColl)
+        if (!m_PlayerGroundColl.IsGroundCollision())
         {
             m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
             return;
