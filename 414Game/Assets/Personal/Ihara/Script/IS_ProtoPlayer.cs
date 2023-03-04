@@ -1,5 +1,5 @@
 // ==============================================================
-// ProtoPlayer.cs
+// IS_ProtoPlayer.cs
 // Auther:Ihara
 // Update:2023/02/20 cs作成
 // Update:2023/02/21 移動法を「CharacterController」から
@@ -14,7 +14,7 @@ using UnityEngine;
 // PlayerState
 // … Playerの状態を管理する列挙体
 // ================================
-enum PlayerState
+enum ProtoPlayerState
 {
     PlayerWait, // 待ち状態
     PlayerMove, // 移動状態
@@ -32,9 +32,9 @@ enum PlayerDir
     Left,
 }
 
-public class ProtoPlayer : MonoBehaviour
+public class IS_ProtoPlayer : MonoBehaviour
 {
-    [SerializeField] private PlayerState m_PlayerState;                 // Playerの状態を管理する
+    [SerializeField] private ProtoPlayerState m_PlayerState;                 // Playerの状態を管理する
     [SerializeField] private PlayerDir m_PlayerDir;                     // Playerの方向を管理する
     [SerializeField] private Rigidbody m_Rigidbody;                     // PlayerのRigidBody
     [SerializeField] private GameObject[] m_RayPoints;                  // Rayを飛ばす始点(4つ)
@@ -87,16 +87,16 @@ public class ProtoPlayer : MonoBehaviour
         // Playerの状態によって更新処理
         switch (m_PlayerState)
         {
-            case PlayerState.PlayerWait:
+            case ProtoPlayerState.PlayerWait:
                 UpdateWait();
                 break;
-            case PlayerState.PlayerMove:
+            case ProtoPlayerState.PlayerMove:
                 UpdateMove();
                 break;
-            case PlayerState.PlayerJump:
+            case ProtoPlayerState.PlayerJump:
                 UpdateJump();
                 break;
-            case PlayerState.PlayerDrop:
+            case ProtoPlayerState.PlayerDrop:
                 UpdateDrop();
                 break;
         }
@@ -107,16 +107,16 @@ public class ProtoPlayer : MonoBehaviour
             // 重力を合計移動量に加算
             m_vMoveAmount += m_vGravity;
 
-            if(m_PlayerState != PlayerState.PlayerJump)
+            if(m_PlayerState != ProtoPlayerState.PlayerJump)
             {
-                m_PlayerState = PlayerState.PlayerDrop;
+                m_PlayerState = ProtoPlayerState.PlayerDrop;
             }
         }
         else
         {
-            if (m_PlayerState == PlayerState.PlayerDrop)
+            if (m_PlayerState == ProtoPlayerState.PlayerDrop)
             {
-                m_PlayerState = PlayerState.PlayerWait;
+                m_PlayerState = ProtoPlayerState.PlayerWait;
             }
         }
 
@@ -142,14 +142,14 @@ public class ProtoPlayer : MonoBehaviour
         // 「待ち → 跳躍」
         if (bInputUp)
         {
-            m_PlayerState = PlayerState.PlayerJump;
+            m_PlayerState = ProtoPlayerState.PlayerJump;
             m_vMoveAmount.y = m_fJumpPow;
             return;
         }
         // 「待ち → 移動」
         if (bInputRight || bInputLeft)
         {
-            m_PlayerState = PlayerState.PlayerMove;
+            m_PlayerState = ProtoPlayerState.PlayerMove;
             return;
         }
     }
@@ -183,14 +183,14 @@ public class ProtoPlayer : MonoBehaviour
         //  Wキーで跳躍する
         if (bInputUp)
         {
-            m_PlayerState = PlayerState.PlayerJump;
+            m_PlayerState = ProtoPlayerState.PlayerJump;
             m_vMoveAmount.y = m_fJumpPow;
             return;
         }
         // 「移動 → 待ち」
         if (!bInputRight && !bInputLeft)
         {
-            m_PlayerState = PlayerState.PlayerWait;
+            m_PlayerState = ProtoPlayerState.PlayerWait;
             return;
         }
     }
@@ -220,7 +220,7 @@ public class ProtoPlayer : MonoBehaviour
         // 「跳躍 → 落下」
         if (m_vMoveAmount.y <= 0.0f)
         {
-            m_PlayerState = PlayerState.PlayerDrop;
+            m_PlayerState = ProtoPlayerState.PlayerDrop;
         }
     }
 
@@ -279,14 +279,6 @@ public class ProtoPlayer : MonoBehaviour
         {
             if (Physics.Raycast(ray[i], out hit, m_fRayLength))
             {
-                //if (m_PlayerState != PlayerState.PlayerJump)
-                //{
-                //    // 座標の修正
-                //    this.transform.position = this.transform.position + 
-                //        new Vector3(0.0f,
-                //                    hit.collider.transform.position.y / 2,
-                //                    0.0f);
-                //}
                 return true;
             }
         }
