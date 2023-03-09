@@ -1,8 +1,15 @@
+/**
+ * @file HPBarVisible.cs
+ * @brief HPBar‚ğÁ‚µ‚½‚è•\¦‚µ‚½‚è‚·‚é
+ * @author ‹g“cŠ¹
+ * @date 2023/03/06
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class HPBar : MonoBehaviour
+
+public class HPBarVisible : MonoBehaviour
 {
     [SerializeField] Slider HP;
     // Start is called before the first frame update
@@ -23,10 +30,14 @@ public class HPBar : MonoBehaviour
             HPEnableTrue();
         }
     }
+
+    //HPBar‚ğÁ‚·
     private void HPEnableFalse()
     {
         HP.gameObject.SetActive(false);
     }
+
+    //HPBar‚ğ•\¦
     private void HPEnableTrue()
     {
         HP.gameObject.SetActive(true);
