@@ -26,7 +26,7 @@ enum ProtoPlayerState
 // PlayerDir
 // c Player‚Ì•ûŒü‚ğŠÇ—‚·‚é—ñ‹“‘Ì
 // ================================
-enum PlayerDir
+enum ProtoPlayerDir
 {
     Right,
     Left,

@@ -4,6 +4,7 @@
  * @author IharaShota
  * @date   2023/03/10
  * @Update 2023/03/10 作成
+ * @Update 2023/03/12 アニメーション処理追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -48,5 +49,16 @@ public class IS_PlayerAttack : IS_PlayerStrategy
             i = 0;
             return;
         }
+    }
+
+    /**
+     * @fn
+     * Playerの攻撃処理
+     * @brief  方法はまだ考え中
+     * @detail 制作中
+     */
+    private void Attack()
+    {
+
     }
 }

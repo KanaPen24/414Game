@@ -4,7 +4,8 @@
  * @author IharaShota
  * @date   2023/03/03
  * @Update 2023/03/03 作成
- * @Update 2023/03/10 「待機」→「攻撃」への処理追加
+ * @Update 2023/03/10「待機」→「攻撃」への処理追加
+ * @Update 2023/03/12 アニメーション処理追加
  */
 using System.Collections;
 using System.Collections.Generic;

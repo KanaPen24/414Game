@@ -1,15 +1,16 @@
 /**
- * @file   IS_PlayerMove.cs
+ * @file   IS_PlayerWalk.cs
  * @brief  Playerの移動クラス
  * @author IharaShota
  * @date   2023/03/03
  * @Update 2023/03/03 作成
+ * @Update 2023/03/12 アニメーション処理追加
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IS_PlayerMove : IS_PlayerStrategy
+public class IS_PlayerWalk : IS_PlayerStrategy
 {
     [SerializeField] private IS_Player m_Player;                          // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
@@ -32,10 +33,12 @@ public class IS_PlayerMove : IS_PlayerStrategy
         if (m_Player.bInputRight)
         {
             m_Player.m_vMoveAmount.x += m_fMovePow;
+            m_Player.GetSetPlayerDir = PlayerDir.Right;
         }
         if (m_Player.bInputLeft)
         {
             m_Player.m_vMoveAmount.x -= m_fMovePow;
+            m_Player.GetSetPlayerDir = PlayerDir.Left;
         }
 
         // =========

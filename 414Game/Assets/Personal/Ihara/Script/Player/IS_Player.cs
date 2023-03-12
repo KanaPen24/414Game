@@ -5,6 +5,8 @@
  * @date   2023/03/03
  * @Update 2023/03/03 作成
  * @Update 2023/03/10 攻撃専用の変数追加
+ * @Update 2023/03/12 Animator追加
+ * @Update 2023/03/12 向きを追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -26,12 +28,25 @@ public enum PlayerState
     MaxPlayerState
 }
 
+// ===============================================
+// PlayerDir
+// … Playerの向きを管理する列挙体
+// ===============================================
+public enum PlayerDir
+{
+    Left, // 左向き
+    Right,// 右向き
+
+    MaxDir
+}
+
 public class IS_Player : MonoBehaviour
 {
     [SerializeField] private Animator m_animator;                         // Playerのアニメーション
     [SerializeField] private Rigidbody m_Rigidbody;                       // PlayerのRigidBody
     [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;   // Player挙動クラスの動的配列
     [SerializeField] private PlayerState m_PlayerState;                   // Playerの状態を管理する
+    [SerializeField] private PlayerDir   m_PlayerDir;                     // Playerの向きを管理する
     [SerializeField] private float m_fGravity;                            // 重力
 
     public Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したものをvelocityに代入する)
@@ -99,6 +114,18 @@ public class IS_Player : MonoBehaviour
 
         // 合計移動量をvelocityに加算
         m_Rigidbody.velocity = m_vMoveAmount;
+
+        // 向きによってモデルの角度変更
+        // 右向き
+        if(GetSetPlayerDir == PlayerDir.Right)
+        {
+            this.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 90.0f, 0f));
+        }
+        // 左向き
+        else if (GetSetPlayerDir == PlayerDir.Left)
+        {
+            this.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
+        }
     }
 
     /**
@@ -121,6 +148,30 @@ public class IS_Player : MonoBehaviour
     public Rigidbody GetRigidbody()
     {
         return m_Rigidbody;
+    }
+
+    /**
+     * @fn
+     * Playerの状態のgetter・setter
+     * @return m_PlayerState
+     * @brief Playerの状態を返す・セット
+     */
+    public PlayerState GetSetPlayerState
+    {
+        get { return m_PlayerState; }
+        set { m_PlayerState = value; }
+    }
+
+    /**
+     * @fn
+     * Playerの向きのgetter・setter
+     * @return m_PlayerDir
+     * @brief Playerの向きを返す・セット
+     */
+    public PlayerDir GetSetPlayerDir
+    {
+        get { return m_PlayerDir; }
+        set { m_PlayerDir = value; }
     }
 
     /**
@@ -169,17 +220,5 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_bAttackFlg; }
         set { m_bAttackFlg = value; }
-    }
-
-    /**
-     * @fn
-     * Playerの状態のgetter・setter
-     * @return m_PlayerState
-     * @brief Playerの状態を返す・セット
-     */
-    public PlayerState GetSetPlayerState
-    {
-        get { return m_PlayerState; }
-        set { m_PlayerState = value; }
     }
 }

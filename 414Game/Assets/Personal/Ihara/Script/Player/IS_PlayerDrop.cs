@@ -4,6 +4,7 @@
  * @author IharaShota
  * @date   2023/03/03
  * @Update 2023/03/03 作成
+ * @Update 2023/03/12 アニメーション処理追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -34,10 +35,12 @@ public class IS_PlayerDrop : IS_PlayerStrategy
         if (m_Player.bInputRight)
         {
             m_Player.m_vMoveAmount.x += m_fMovePow;
+            m_Player.GetSetPlayerDir = PlayerDir.Right;
         }
         if (m_Player.bInputLeft)
         {
             m_Player.m_vMoveAmount.x -= m_fMovePow;
+            m_Player.GetSetPlayerDir = PlayerDir.Left;
         }
 
         // 重力を合計移動量に加算
@@ -54,6 +57,7 @@ public class IS_PlayerDrop : IS_PlayerStrategy
                 m_Player.GetSetPlayerState = PlayerState.PlayerWalk;
                 m_Player.GetAnimator().SetBool("isWalk", true);
                 m_Player.GetAnimator().SetBool("isDrop", false);
+                return;
             }
 
             m_Player.GetSetPlayerState = PlayerState.PlayerWait;
