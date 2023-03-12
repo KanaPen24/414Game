@@ -1,0 +1,52 @@
+/**
+ * @file   IS_PlayerAttack.cs
+ * @brief  Playerの攻撃クラス
+ * @author IharaShota
+ * @date   2023/03/10
+ * @Update 2023/03/10 作成
+ */
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class IS_PlayerAttack : IS_PlayerStrategy
+{
+    [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
+    private int i = 0;
+
+    /**
+     * @fn
+     * 更新処理
+     * @brief  Playerの攻撃更新処理
+     * @detail 継承元からoverrideしています
+     */
+    public override void UpdateStrategy()
+    {
+        // ここにStateごとに処理を加える
+        //Debug.Log("PlayerAttack");
+
+        // 攻撃開始時の処理
+        if (m_Player.GetSetAttackFlg)
+        {
+            m_Player.GetSetAttackFlg = false;
+        }
+        else i++;
+
+        // 合計移動量をリセット
+        m_Player.GetSetMoveAmount =
+            new Vector3(0f, 0f, 0f);
+
+        // =========
+        // 状態遷移
+        // =========
+        // 「攻撃 → 待機」
+        if (i > 60)
+        {
+            m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+            m_Player.GetAnimator().SetBool("isWait", true);
+            m_Player.GetAnimator().SetBool("isAttack", false);
+            i = 0;
+            return;
+        }
+    }
+}
