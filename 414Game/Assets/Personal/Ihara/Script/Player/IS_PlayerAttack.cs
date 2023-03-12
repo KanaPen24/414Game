@@ -30,18 +30,21 @@ public class IS_PlayerAttack : IS_PlayerStrategy
         if (m_Player.GetSetAttackFlg)
         {
             m_Player.GetSetAttackFlg = false;
+            m_Player.GetWeapons((int)m_Player.GetSetPlayerWeaponState).GetSetAttack = true;
         }
-        else i++;
 
         // 合計移動量をリセット
         m_Player.GetSetMoveAmount =
             new Vector3(0f, 0f, 0f);
 
+        // 指定した武器で攻撃処理
+        m_Player.GetWeapons((int)m_Player.GetSetPlayerWeaponState).Attack();
+
         // =========
         // 状態遷移
         // =========
         // 「攻撃 → 待機」
-        if (i > 60)
+        if (!m_Player.GetWeapons(m_Player.nWeaponState).GetSetAttack)
         {
             m_Player.GetSetPlayerState = PlayerState.PlayerWait;
             m_Player.GetAnimator().SetBool("isWait", true);

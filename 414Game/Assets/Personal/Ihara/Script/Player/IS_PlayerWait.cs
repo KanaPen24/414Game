@@ -61,6 +61,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
         if (m_Player.bInputSpace)
         {
             m_Player.GetSetPlayerState = PlayerState.PlayerAttack;
+            m_Player.GetSetAttackFlg = true;
             m_Player.GetAnimator().SetBool("isAttack", true);
             m_Player.GetAnimator().SetBool("isWait", false);
             return;
