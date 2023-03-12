@@ -15,6 +15,7 @@ public class FpsDisplay : MonoBehaviour
     int frameCount;
     float prevTime;
     float fps;
+    public int nFont;
 
     // 初期化処理
     void Start()
@@ -40,7 +41,7 @@ public class FpsDisplay : MonoBehaviour
     private void OnGUI()
     {
         GUI.color = Color.black;
-        GUI.skin.label.fontSize = 100;
+        GUI.skin.label.fontSize = nFont;
         GUILayout.Label(fps.ToString());
     }
 }
