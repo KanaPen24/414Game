@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HPBarVisible : MonoBehaviour
+public class YK_HPBarVisible : MonoBehaviour
 {
     [SerializeField] Slider HP;
     // Start is called before the first frame update
@@ -32,13 +32,13 @@ public class HPBarVisible : MonoBehaviour
     }
 
     //HPBarÇè¡Ç∑
-    private void HPEnableFalse()
+    public void HPEnableFalse()
     {
         HP.gameObject.SetActive(false);
     }
 
     //HPBarÇï\é¶
-    private void HPEnableTrue()
+    public void HPEnableTrue()
     {
         HP.gameObject.SetActive(true);
     }
