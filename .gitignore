@@ -5,10 +5,9 @@
 Library
 Temp
 Logs
-/[Oo]bj/
+obj
 /[Bb]uild/
 /[Bb]uilds/
-/[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
