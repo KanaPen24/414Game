@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HPBerHP : MonoBehaviour
+public class YK_HPBerHP : MonoBehaviour
 {
     // ‘Ì—Í’l‚ğŠi”[‚·‚é•Ï”iˆê’U 100j
     public static int nMaxHP = 100;
