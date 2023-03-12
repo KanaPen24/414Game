@@ -13,7 +13,6 @@ using UnityEngine;
 public class IS_PlayerAttack : IS_PlayerStrategy
 {
     [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
-    private int i = 0;
 
     /**
      * @fn
@@ -49,7 +48,6 @@ public class IS_PlayerAttack : IS_PlayerStrategy
             m_Player.GetSetPlayerState = PlayerState.PlayerWait;
             m_Player.GetAnimator().SetBool("isWait", true);
             m_Player.GetAnimator().SetBool("isAttack", false);
-            i = 0;
             return;
         }
     }
