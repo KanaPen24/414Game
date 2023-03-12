@@ -7,6 +7,7 @@
  * @Update 2023/03/10 攻撃専用の変数追加
  * @Update 2023/03/12 Animator追加
  * @Update 2023/03/12 向きを追加
+ * @Update 2023/03/12 武器を追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -40,14 +41,31 @@ public enum PlayerDir
     MaxDir
 }
 
+// ================================================
+// PlayerWeapon
+// … Playerの武器を管理する列挙体
+// ※m_PlayerWeaponはこの順番になるように入れること
+// ================================================
+public enum PlayerWeaponState
+{
+    PlayerHpBar,
+
+    MaxPlayerWeaponState
+}
+
 public class IS_Player : MonoBehaviour
 {
-    [SerializeField] private Animator m_animator;                         // Playerのアニメーション
-    [SerializeField] private Rigidbody m_Rigidbody;                       // PlayerのRigidBody
-    [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;   // Player挙動クラスの動的配列
-    [SerializeField] private PlayerState m_PlayerState;                   // Playerの状態を管理する
-    [SerializeField] private PlayerDir   m_PlayerDir;                     // Playerの向きを管理する
-    [SerializeField] private float m_fGravity;                            // 重力
+    [SerializeField] private GameObject              m_PlayerObj;        // Playerのモデル
+    [SerializeField] private Animator                m_animator;         // Playerのアニメーション
+    [SerializeField] private Rigidbody               m_Rigidbody;        // PlayerのRigidBody
+    [SerializeField] private YK_HPBarVisible         m_HpVisible;        // PlayerのHp表示管理
+    [SerializeField] private YK_PlayerHP             m_Hp;               // PlayerのHp
+    [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // Player挙動クラスの動的配列
+    [SerializeField] private List<IS_Weapon>         m_PlayerWeapons;          // 武器クラスの動的配列
+    [SerializeField] private PlayerState             m_PlayerState;      // Playerの状態を管理する
+    [SerializeField] private PlayerDir               m_PlayerDir;        // Playerの向きを管理する
+    [SerializeField] private PlayerWeaponState       m_PlayerWeaponState;// Playerの武器状態を管理する
+    [SerializeField] private float                   m_fGravity;         // 重力
 
     public Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したものをvelocityに代入する)
     public bool bInputUp;
@@ -55,6 +73,7 @@ public class IS_Player : MonoBehaviour
     public bool bInputLeft;
     public bool bInputSpace;
 
+    public int nWeaponState;     // 武器状態をint型で格納する
     private bool m_bJumpFlg;      // 跳躍開始フラグ
     private bool m_bAttackFlg;    // 攻撃開始フラグ
 
@@ -65,14 +84,20 @@ public class IS_Player : MonoBehaviour
         {
             Debug.Log("m_PlayerStarategyの要素数とm_PlayerStateの数が同じではありません");
         }
-        
+
+        // 武器クラスと列挙型の数が違えばログ出力
+        if (m_PlayerWeapons.Count != (int)PlayerWeaponState.MaxPlayerWeaponState)
+        {
+            Debug.Log("m_PlayerWeaponsの要素数とm_PlayerWeaponStateの数が同じではありません");
+        }
+
         // メンバの初期化
         m_vMoveAmount = new Vector3(0.0f, 0.0f, 0.0f);
-        m_bJumpFlg = false;
-        bInputUp = false;
-        bInputRight = false;
-        bInputLeft = false;
-        bInputSpace = false;
+        m_bJumpFlg    = false;
+        bInputUp      = false;
+        bInputRight   = false;
+        bInputLeft    = false;
+        bInputSpace   = false;
     }
 
     // Update is called once per frame
@@ -102,15 +127,27 @@ public class IS_Player : MonoBehaviour
             bInputSpace = true;
         }
         else bInputSpace = false;
+
+        if (Input.GetKey(KeyCode.Z))
+        {
+            m_HpVisible.GetSetVisible = false;
+        }
+        if (Input.GetKey(KeyCode.X))
+        {
+            m_HpVisible.GetSetVisible = true;
+        }
     }
 
     private void FixedUpdate()
     {
         // 現在のPlayerの状態をint型に格納
-        int nState = (int)GetSetPlayerState;
+        int nPlayerState = (int)GetSetPlayerState;
+
+        // 現在のPlayerの武器状態をint型に格納
+        nWeaponState = (int)GetSetPlayerWeaponState;
 
         // Playerの状態によって更新処理
-        m_PlayerStrategys[nState].UpdateStrategy();
+        m_PlayerStrategys[nPlayerState].UpdateStrategy();
 
         // 合計移動量をvelocityに加算
         m_Rigidbody.velocity = m_vMoveAmount;
@@ -119,12 +156,12 @@ public class IS_Player : MonoBehaviour
         // 右向き
         if(GetSetPlayerDir == PlayerDir.Right)
         {
-            this.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 90.0f, 0f));
+            m_PlayerObj.transform.rotation = Quaternion.Euler(new Vector3(0f, 90.0f, 0f));
         }
         // 左向き
         else if (GetSetPlayerDir == PlayerDir.Left)
         {
-            this.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
+            m_PlayerObj.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
         }
     }
 
@@ -152,6 +189,39 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
+     * PlayerのHp表示のgetter
+     * @return m_HpVisible(YK_HPBarVisible)
+     * @brief PlayerのYK_HPBarVisibleを返す
+     */
+    public YK_HPBarVisible GetHPVisible()
+    {
+        return m_HpVisible;
+    }
+
+    /**
+     * @fn
+     * PlayerのHp管理のgetter
+     * @return m_Hp(YK_PlayerHP)
+     * @brief PlayerのYK_PlayerHPを返す
+     */
+    public YK_PlayerHP GetPlayerHp()
+    {
+        return m_Hp;
+    }
+
+    /**
+     * @fn
+     * 武器クラスのgetter
+     * @return m_Weapons[i]
+     * @brief 武器を返す
+     */
+    public IS_Weapon GetWeapons(int i)
+    {
+        return m_PlayerWeapons[i];
+    }
+
+    /**
+     * @fn
      * Playerの状態のgetter・setter
      * @return m_PlayerState
      * @brief Playerの状態を返す・セット
@@ -172,6 +242,18 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_PlayerDir; }
         set { m_PlayerDir = value; }
+    }
+
+    /**
+     * @fn
+     * Playerの武器状態のgetter・setter
+     * @return m_PlayerWeaponState
+     * @brief Playerの武器状態を返す・セット
+     */
+    public PlayerWeaponState GetSetPlayerWeaponState
+    {
+        get { return m_PlayerWeaponState; }
+        set { m_PlayerWeaponState = value; }
     }
 
     /**
