@@ -3,6 +3,7 @@
  * @brief 体力バーの体力
  * @author 吉田叶聖
  * @date 2023/03/06
+ * @date 2023/03/13 体力により色を変える
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +21,8 @@ public class YK_HPBerHP : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //初期カラー
+        HpBarWeapon.GetComponent<Renderer>().material.color = Color.green;
     }
 
     // Update is called once per frame

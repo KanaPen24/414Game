@@ -23,6 +23,7 @@ public class IS_ProtoEnemy : MonoBehaviour
             {
                 Debug.Log("Enemy Damage!!");
                 m_HpBarHP.DelLife(10);
+                m_Player.GetPlayerHp().AddLife(5);
             }
         }
     }
