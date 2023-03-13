@@ -4,11 +4,12 @@
 #
 Library
 Temp
-/[Oo]bj/
+Logs
+obj
+UserSettings
 /[Bb]uild/
 /[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -60,6 +61,7 @@ sysinfo.txt
 *.aab
 *.unitypackage
 *.app
+*.exe
 
 # Crashlytics generated file
 crashlytics-build.properties
