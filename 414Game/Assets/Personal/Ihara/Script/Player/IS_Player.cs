@@ -1,13 +1,14 @@
 /**
  * @file   IS_Player.cs
- * @brief  Player‚ÌƒNƒ‰ƒX
+ * @brief  Playerã®ã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/03
- * @Update 2023/03/03 ì¬
- * @Update 2023/03/10 UŒ‚ê—p‚Ì•Ï”’Ç‰Á
- * @Update 2023/03/12 Animator’Ç‰Á
- * @Update 2023/03/12 Œü‚«‚ğ’Ç‰Á
- * @Update 2023/03/12 •Ší‚ğ’Ç‰Á
+ * @Update 2023/03/03 ä½œæˆ
+ * @Update 2023/03/10 æ”»æ’ƒå°‚ç”¨ã®å¤‰æ•°è¿½åŠ 
+ * @Update 2023/03/12 Animatorè¿½åŠ 
+ * @Update 2023/03/12 å‘ãã‚’è¿½åŠ 
+ * @Update 2023/03/12 æ­¦å™¨ã‚’è¿½åŠ 
+ * @date   2023/03/13 ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼å¯¾å¿œ(YK)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -15,36 +16,36 @@ using UnityEngine;
 
 // ===============================================
 // PlayerState
-// c Player‚Ìó‘Ô‚ğŠÇ—‚·‚é—ñ‹“‘Ì
-// ¦m_PlayerState‚Í‚±‚Ì‡”Ô‚É‚È‚é‚æ‚¤‚É“ü‚ê‚é‚±‚Æ
+// â€¦ Playerã®çŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹åˆ—æŒ™ä½“
+// â€»m_PlayerStateã¯ã“ã®é †ç•ªã«ãªã‚‹ã‚ˆã†ã«å…¥ã‚Œã‚‹ã“ã¨
 // ===============================================
 public enum PlayerState
 {
-    PlayerWait,   // ‘Ò‚¿ó‘Ô
-    PlayerWalk,   // ˆÚ“®ó‘Ô
-    PlayerJump,   // ’µ–ôó‘Ô
-    PlayerDrop,   // —‰ºó‘Ô
-    PlayerAttack, // UŒ‚ó‘Ô
+    PlayerWait,   // å¾…ã¡çŠ¶æ…‹
+    PlayerWalk,   // ç§»å‹•çŠ¶æ…‹
+    PlayerJump,   // è·³èºçŠ¶æ…‹
+    PlayerDrop,   // è½ä¸‹çŠ¶æ…‹
+    PlayerAttack, // æ”»æ’ƒçŠ¶æ…‹
 
     MaxPlayerState
 }
 
 // ===============================================
 // PlayerDir
-// c Player‚ÌŒü‚«‚ğŠÇ—‚·‚é—ñ‹“‘Ì
+// â€¦ Playerã®å‘ãã‚’ç®¡ç†ã™ã‚‹åˆ—æŒ™ä½“
 // ===============================================
 public enum PlayerDir
 {
-    Left, // ¶Œü‚«
-    Right,// ‰EŒü‚«
+    Left, // å·¦å‘ã
+    Right,// å³å‘ã
 
     MaxDir
 }
 
 // ================================================
 // PlayerWeapon
-// c Player‚Ì•Ší‚ğŠÇ—‚·‚é—ñ‹“‘Ì
-// ¦m_PlayerWeapon‚Í‚±‚Ì‡”Ô‚É‚È‚é‚æ‚¤‚É“ü‚ê‚é‚±‚Æ
+// â€¦ Playerã®æ­¦å™¨ã‚’ç®¡ç†ã™ã‚‹åˆ—æŒ™ä½“
+// â€»m_PlayerWeaponã¯ã“ã®é †ç•ªã«ãªã‚‹ã‚ˆã†ã«å…¥ã‚Œã‚‹ã“ã¨
 // ================================================
 public enum PlayerWeaponState
 {
@@ -55,110 +56,112 @@ public enum PlayerWeaponState
 
 public class IS_Player : MonoBehaviour
 {
-    [SerializeField] private GameObject              m_PlayerObj;        // Player‚Ìƒ‚ƒfƒ‹
-    [SerializeField] private Animator                m_animator;         // Player‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
-    [SerializeField] private Rigidbody               m_Rigidbody;        // Player‚ÌRigidBody
-    [SerializeField] private YK_HPBarVisible         m_HpVisible;        // Player‚ÌHp•\¦ŠÇ—
-    [SerializeField] private YK_PlayerHP             m_Hp;               // Player‚ÌHp
-    [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // Player‹““®ƒNƒ‰ƒX‚Ì“®“I”z—ñ
-    [SerializeField] private List<IS_Weapon>         m_PlayerWeapons;          // •ŠíƒNƒ‰ƒX‚Ì“®“I”z—ñ
-    [SerializeField] private PlayerState             m_PlayerState;      // Player‚Ìó‘Ô‚ğŠÇ—‚·‚é
-    [SerializeField] private PlayerDir               m_PlayerDir;        // Player‚ÌŒü‚«‚ğŠÇ—‚·‚é
-    [SerializeField] private PlayerWeaponState       m_PlayerWeaponState;// Player‚Ì•Šíó‘Ô‚ğŠÇ—‚·‚é
-    [SerializeField] private float                   m_fGravity;         // d—Í
+    [SerializeField] private GameObject              m_PlayerObj;        // Playerã®ãƒ¢ãƒ‡ãƒ«
+    [SerializeField] private Animator                m_animator;         // Playerã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
+    [SerializeField] private Rigidbody               m_Rigidbody;        // Playerã®RigidBody
+    [SerializeField] private YK_HPBarVisible         m_HpVisible;        // Playerã®Hpè¡¨ç¤ºç®¡ç†
+    [SerializeField] private YK_PlayerHP             m_Hp;               // Playerã®Hp
+    [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // PlayeræŒ™å‹•ã‚¯ãƒ©ã‚¹ã®å‹•çš„é…åˆ—
+    [SerializeField] private List<IS_Weapon>         m_PlayerWeapons;          // æ­¦å™¨ã‚¯ãƒ©ã‚¹ã®å‹•çš„é…åˆ—
+    [SerializeField] private PlayerState             m_PlayerState;      // Playerã®çŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹
+    [SerializeField] private PlayerDir               m_PlayerDir;        // Playerã®å‘ãã‚’ç®¡ç†ã™ã‚‹
+    [SerializeField] private PlayerWeaponState       m_PlayerWeaponState;// Playerã®æ­¦å™¨çŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹
+    [SerializeField] private float                   m_fGravity;         // é‡åŠ›
 
-    public Vector3 m_vMoveAmount; // ‡ŒvˆÚ“®—Ê(ˆÚ“®‚âd—Í‚ğ‰ÁZ‚µ‚½‚à‚Ì‚ğvelocity‚É‘ã“ü‚·‚é)
+    public Vector3 m_vMoveAmount; // åˆè¨ˆç§»å‹•é‡(ç§»å‹•æ™‚ã‚„é‡åŠ›ã‚’åŠ ç®—ã—ãŸã‚‚ã®ã‚’velocityã«ä»£å…¥ã™ã‚‹)
     public bool bInputUp;
     public bool bInputRight;
     public bool bInputLeft;
     public bool bInputSpace;
 
-    public int nWeaponState;     // •Šíó‘Ô‚ğintŒ^‚ÅŠi”[‚·‚é
-    private bool m_bJumpFlg;      // ’µ–ôŠJnƒtƒ‰ƒO
-    private bool m_bAttackFlg;    // UŒ‚ŠJnƒtƒ‰ƒO
+    public int nWeaponState;     // æ­¦å™¨çŠ¶æ…‹ã‚’intå‹ã§æ ¼ç´ã™ã‚‹
+    private bool m_bJumpFlg;      // è·³èºé–‹å§‹ãƒ•ãƒ©ã‚°
+    private bool m_bAttackFlg;    // æ”»æ’ƒé–‹å§‹ãƒ•ãƒ©ã‚°
+    private float m_fDeadZone;    //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³
 
     private void Start()
     {
-        // ‹““®ƒNƒ‰ƒX‚Æ—ñ‹“Œ^‚Ì”‚ªˆá‚¦‚ÎƒƒOo—Í
+        // æŒ™å‹•ã‚¯ãƒ©ã‚¹ã¨åˆ—æŒ™å‹ã®æ•°ãŒé•ãˆã°ãƒ­ã‚°å‡ºåŠ›
         if(m_PlayerStrategys.Count != (int)PlayerState.MaxPlayerState)
         {
-            Debug.Log("m_PlayerStarategy‚Ì—v‘f”‚Æm_PlayerState‚Ì”‚ª“¯‚¶‚Å‚Í‚ ‚è‚Ü‚¹‚ñ");
+            Debug.Log("m_PlayerStarategyã®è¦ç´ æ•°ã¨m_PlayerStateã®æ•°ãŒåŒã˜ã§ã¯ã‚ã‚Šã¾ã›ã‚“");
         }
 
-        // •ŠíƒNƒ‰ƒX‚Æ—ñ‹“Œ^‚Ì”‚ªˆá‚¦‚ÎƒƒOo—Í
+        // æ­¦å™¨ã‚¯ãƒ©ã‚¹ã¨åˆ—æŒ™å‹ã®æ•°ãŒé•ãˆã°ãƒ­ã‚°å‡ºåŠ›
         if (m_PlayerWeapons.Count != (int)PlayerWeaponState.MaxPlayerWeaponState)
         {
-            Debug.Log("m_PlayerWeapons‚Ì—v‘f”‚Æm_PlayerWeaponState‚Ì”‚ª“¯‚¶‚Å‚Í‚ ‚è‚Ü‚¹‚ñ");
+            Debug.Log("m_PlayerWeaponsã®è¦ç´ æ•°ã¨m_PlayerWeaponStateã®æ•°ãŒåŒã˜ã§ã¯ã‚ã‚Šã¾ã›ã‚“");
         }
 
-        // ƒƒ“ƒo‚Ì‰Šú‰»
+        // ãƒ¡ãƒ³ãƒã®åˆæœŸåŒ–
         m_vMoveAmount = new Vector3(0.0f, 0.0f, 0.0f);
         m_bJumpFlg    = false;
         bInputUp      = false;
         bInputRight   = false;
         bInputLeft    = false;
         bInputSpace   = false;
+        m_fDeadZone = 0.2f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // “ü—ÍŠÇ—
-        if (Input.GetKey(KeyCode.W))
+        // å…¥åŠ›ç®¡ç†
+        // Jump=Key.w,Joy.B
+        if (Input.GetButtonDown("Jump"))
         {
             bInputUp = true;
         }
         else bInputUp = false;
 
-        if (Input.GetKey(KeyCode.D))
+        // å³ç§»å‹•
+        if ((Input.GetAxis("Horizontal")) >= m_fDeadZone)
         {
             bInputRight = true;
         }
         else bInputRight = false;
 
-        if (Input.GetKey(KeyCode.A))
+        // å·¦ç§»å‹•
+        if ((Input.GetAxis("Horizontal")) <= -m_fDeadZone)
         {
             bInputLeft = true;
         }
         else bInputLeft = false;
 
-        if (Input.GetKey(KeyCode.Space))
+        // Atk=Key.Spsce,Joy.X
+        if (Input.GetButtonDown("Atk"))
         {
             bInputSpace = true;
         }
         else bInputSpace = false;
 
-        if (Input.GetKey(KeyCode.Z))
+        // Decision=Key.Z,Joy.A
+        if (Input.GetButtonDown("Decision"))
         {
-            m_HpVisible.GetSetVisible = false;
-        }
-        if (Input.GetKey(KeyCode.X))
-        {
-            m_HpVisible.GetSetVisible = true;
+            m_HpVisible.GetSetVisible = !m_HpVisible.GetSetVisible;
         }
     }
-
     private void FixedUpdate()
     {
-        // Œ»İ‚ÌPlayer‚Ìó‘Ô‚ğintŒ^‚ÉŠi”[
+        // ç¾åœ¨ã®Playerã®çŠ¶æ…‹ã‚’intå‹ã«æ ¼ç´
         int nPlayerState = (int)GetSetPlayerState;
 
-        // Œ»İ‚ÌPlayer‚Ì•Šíó‘Ô‚ğintŒ^‚ÉŠi”[
+        // ç¾åœ¨ã®Playerã®æ­¦å™¨çŠ¶æ…‹ã‚’intå‹ã«æ ¼ç´
         nWeaponState = (int)GetSetPlayerWeaponState;
 
-        // Player‚Ìó‘Ô‚É‚æ‚Á‚ÄXVˆ—
+        // Playerã®çŠ¶æ…‹ã«ã‚ˆã£ã¦æ›´æ–°å‡¦ç†
         m_PlayerStrategys[nPlayerState].UpdateStrategy();
 
-        // ‡ŒvˆÚ“®—Ê‚ğvelocity‚É‰ÁZ
+        // åˆè¨ˆç§»å‹•é‡ã‚’velocityã«åŠ ç®—
         m_Rigidbody.velocity = m_vMoveAmount;
 
-        // Œü‚«‚É‚æ‚Á‚Äƒ‚ƒfƒ‹‚ÌŠp“x•ÏX
-        // ‰EŒü‚«
+        // å‘ãã«ã‚ˆã£ã¦ãƒ¢ãƒ‡ãƒ«ã®è§’åº¦å¤‰æ›´
+        // å³å‘ã
         if(GetSetPlayerDir == PlayerDir.Right)
         {
             m_PlayerObj.transform.rotation = Quaternion.Euler(new Vector3(0f, 90.0f, 0f));
         }
-        // ¶Œü‚«
+        // å·¦å‘ã
         else if (GetSetPlayerDir == PlayerDir.Left)
         {
             m_PlayerObj.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
@@ -167,9 +170,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * Player‚ÌAnimator‚Ìgetter
+     * Playerã®Animatorã®getter
      * @return m_Animator(Animator)
-     * @brief Player‚ÌAnimator‚ğ•Ô‚·
+     * @brief Playerã®Animatorã‚’è¿”ã™
      */
     public Animator GetAnimator()
     {
@@ -178,9 +181,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * Player‚ÌRigidbody‚Ìgetter
+     * Playerã®Rigidbodyã®getter
      * @return m_Rigidbody(Rigidbody)
-     * @brief Player‚ÌRIgidbody‚ğ•Ô‚·
+     * @brief Playerã®RIgidbodyã‚’è¿”ã™
      */
     public Rigidbody GetRigidbody()
     {
@@ -189,9 +192,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * Player‚ÌHp•\¦‚Ìgetter
+     * Playerã®Hpè¡¨ç¤ºã®getter
      * @return m_HpVisible(YK_HPBarVisible)
-     * @brief Player‚ÌYK_HPBarVisible‚ğ•Ô‚·
+     * @brief Playerã®YK_HPBarVisibleã‚’è¿”ã™
      */
     public YK_HPBarVisible GetHPVisible()
     {
@@ -200,9 +203,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * Player‚ÌHpŠÇ—‚Ìgetter
+     * Playerã®Hpç®¡ç†ã®getter
      * @return m_Hp(YK_PlayerHP)
-     * @brief Player‚ÌYK_PlayerHP‚ğ•Ô‚·
+     * @brief Playerã®YK_PlayerHPã‚’è¿”ã™
      */
     public YK_PlayerHP GetPlayerHp()
     {
@@ -211,9 +214,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * •ŠíƒNƒ‰ƒX‚Ìgetter
+     * æ­¦å™¨ã‚¯ãƒ©ã‚¹ã®getter
      * @return m_Weapons[i]
-     * @brief •Ší‚ğ•Ô‚·
+     * @brief æ­¦å™¨ã‚’è¿”ã™
      */
     public IS_Weapon GetWeapons(int i)
     {
@@ -222,9 +225,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * Player‚Ìó‘Ô‚ÌgetterEsetter
+     * Playerã®çŠ¶æ…‹ã®getterãƒ»setter
      * @return m_PlayerState
-     * @brief Player‚Ìó‘Ô‚ğ•Ô‚·EƒZƒbƒg
+     * @brief Playerã®çŠ¶æ…‹ã‚’è¿”ã™ãƒ»ã‚»ãƒƒãƒˆ
      */
     public PlayerState GetSetPlayerState
     {
@@ -234,9 +237,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * Player‚ÌŒü‚«‚ÌgetterEsetter
+     * Playerã®å‘ãã®getterãƒ»setter
      * @return m_PlayerDir
-     * @brief Player‚ÌŒü‚«‚ğ•Ô‚·EƒZƒbƒg
+     * @brief Playerã®å‘ãã‚’è¿”ã™ãƒ»ã‚»ãƒƒãƒˆ
      */
     public PlayerDir GetSetPlayerDir
     {
@@ -246,9 +249,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * Player‚Ì•Šíó‘Ô‚ÌgetterEsetter
+     * Playerã®æ­¦å™¨çŠ¶æ…‹ã®getterãƒ»setter
      * @return m_PlayerWeaponState
-     * @brief Player‚Ì•Šíó‘Ô‚ğ•Ô‚·EƒZƒbƒg
+     * @brief Playerã®æ­¦å™¨çŠ¶æ…‹ã‚’è¿”ã™ãƒ»ã‚»ãƒƒãƒˆ
      */
     public PlayerWeaponState GetSetPlayerWeaponState
     {
@@ -258,9 +261,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * d—Í‚ÌgetterEsetter
+     * é‡åŠ›ã®getterãƒ»setter
      * @return m_fGravity(float)
-     * @brief d—Í‚ğ•Ô‚·EƒZƒbƒg
+     * @brief é‡åŠ›ã‚’è¿”ã™ãƒ»ã‚»ãƒƒãƒˆ
      */
     public float GetSetGravity
     {
@@ -270,9 +273,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * ‡ŒvˆÚ“®—Ê‚ÌgetterEsetter
+     * åˆè¨ˆç§»å‹•é‡ã®getterãƒ»setter
      * @return m_vAmount(Vector3)
-     * @brief ‡ŒvˆÚ“®—Ê‚ğ•Ô‚·EƒZƒbƒg
+     * @brief åˆè¨ˆç§»å‹•é‡ã‚’è¿”ã™ãƒ»ã‚»ãƒƒãƒˆ
      */
     public Vector3 GetSetMoveAmount
     {
@@ -282,9 +285,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * ’µ–ôŠJnƒtƒ‰ƒO‚ÌgetterEsetter
+     * è·³èºé–‹å§‹ãƒ•ãƒ©ã‚°ã®getterãƒ»setter
      * @return m_bJumpFlg(bool)
-     * @brief ’µ–ôŠJnƒtƒ‰ƒO‚ğ•Ô‚·EƒZƒbƒg
+     * @brief è·³èºé–‹å§‹ãƒ•ãƒ©ã‚°ã‚’è¿”ã™ãƒ»ã‚»ãƒƒãƒˆ
      */
     public bool GetSetJumpFlg
     {
@@ -294,9 +297,9 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * UŒ‚ŠJnƒtƒ‰ƒO‚ÌgetterEsetter
+     * æ”»æ’ƒé–‹å§‹ãƒ•ãƒ©ã‚°ã®getterãƒ»setter
      * @return m_bAttackFlg(bool)
-     * @brief UŒ‚ŠJnƒtƒ‰ƒO‚ğ•Ô‚·EƒZƒbƒg
+     * @brief æ”»æ’ƒé–‹å§‹ãƒ•ãƒ©ã‚°ã‚’è¿”ã™ãƒ»ã‚»ãƒƒãƒˆ
      */
     public bool GetSetAttackFlg
     {
