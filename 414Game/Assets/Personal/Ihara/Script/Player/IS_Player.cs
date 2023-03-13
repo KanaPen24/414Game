@@ -8,6 +8,7 @@
  * @Update 2023/03/12 Animator追加
  * @Update 2023/03/12 向きを追加
  * @Update 2023/03/12 武器を追加
+ * @date   2023/03/13 コントローラー対応(YK)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -76,6 +77,7 @@ public class IS_Player : MonoBehaviour
     public int nWeaponState;     // 武器状態をint型で格納する
     private bool m_bJumpFlg;      // 跳躍開始フラグ
     private bool m_bAttackFlg;    // 攻撃開始フラグ
+    private float m_fDeadZone;    //コントローラーのスティックデッドゾーン
 
     private void Start()
     {
@@ -98,41 +100,48 @@ public class IS_Player : MonoBehaviour
         bInputRight   = false;
         bInputLeft    = false;
         bInputSpace   = false;
+        m_fDeadZone = 0.2f;
     }
 
     // Update is called once per frame
     void Update()
     {
         // 入力管理
-        if (Input.GetKey(KeyCode.W))
+        // Jump=Key.w,Joy.B
+        if (Input.GetButtonDown("Jump"))
         {
             bInputUp = true;
         }
         else bInputUp = false;
 
-        if (Input.GetKey(KeyCode.D))
+        // 右移動
+        if ((Input.GetAxis("Horizontal")) >= m_fDeadZone)
         {
             bInputRight = true;
         }
         else bInputRight = false;
 
-        if (Input.GetKey(KeyCode.A))
+        // 左移動
+        if ((Input.GetAxis("Horizontal")) <= -m_fDeadZone)
         {
             bInputLeft = true;
         }
         else bInputLeft = false;
 
-        if (Input.GetKey(KeyCode.Space))
+        // Atk=Key.Spsce,Joy.X
+        if (Input.GetButtonDown("Atk"))
         {
             bInputSpace = true;
         }
         else bInputSpace = false;
 
-        if (Input.GetKey(KeyCode.Z))
+        // Decision=Key.Z,Joy.A
+        /*同じボタンを押して切り替えれるようにしたい*/
+        if (Input.GetButtonDown("Decision"))
         {
             m_HpVisible.GetSetVisible = false;
         }
-        if (Input.GetKey(KeyCode.X))
+        if (Input.GetButtonDown("Decision"))
         {
             m_HpVisible.GetSetVisible = true;
         }
