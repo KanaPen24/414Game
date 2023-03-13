@@ -27,14 +27,7 @@ public class YK_PlayerHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            AddLife(1);
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            DelLife(1);
-        }
+       
         //最大HPにおける現在のHPをSliderに反映。
         //int同士の割り算は小数点以下は0になるので、
         //(float)をつけてfloatの変数として振舞わせる。

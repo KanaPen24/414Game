@@ -15,6 +15,8 @@ public class YK_HPBerHP : MonoBehaviour
     public static int nMaxHP = 100;
     // 現在の体力値を格納する変数（初期値は maxHealth）
     public int nCurrentHP = nMaxHP;
+    //武器のゲームオブジェクト
+    [SerializeField] private GameObject HpBarWeapon;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,14 +26,16 @@ public class YK_HPBerHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            AddLife(1);
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            DelLife(1);
-        }
+        //50以下
+        if (nCurrentHP <= 50)
+            HpBarWeapon.GetComponent<Renderer>().material.color = Color.yellow;
+        //20以下
+        if (nCurrentHP <= 20)
+            HpBarWeapon.GetComponent<Renderer>().material.color = Color.red;
+        //0
+        if (nCurrentHP <= 0)
+            Destroy(HpBarWeapon);
+            /*ゲームオーバー処理呼び出し*/
     }
     // ダメージ処理
     public void DelLife(int damage)

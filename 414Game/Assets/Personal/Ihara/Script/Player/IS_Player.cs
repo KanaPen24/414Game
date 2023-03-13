@@ -136,12 +136,11 @@ public class IS_Player : MonoBehaviour
         else bInputSpace = false;
 
         // Decision=Key.Z,Joy.A
-        /*同じボタンを押して切り替えれるようにしたい*/
         if (Input.GetButtonDown("Decision"))
         {
             m_HpVisible.GetSetVisible = !m_HpVisible.GetSetVisible;
         }
-
+    }
     private void FixedUpdate()
     {
         // 現在のPlayerの状態をint型に格納
