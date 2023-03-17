@@ -1,35 +1,58 @@
-/**
+ï»¿/**
  * @file   IS_Weapon.cs
- * @brief  •Ší‚ÌƒNƒ‰ƒX
+ * @brief  æ­¦å™¨ã®ã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/12
- * @Update 2023/03/12 ì¬
+ * @Update 2023/03/12 ä½œæˆ
+ * @Update 2023/03/16 æ­¦å™¨ç¨®é¡ã‚’åˆ¤åˆ¥ã™ã‚‹åˆ—æŒ™ä½“è¿½åŠ 
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// ================================================
+// WeaponType
+// â€¦ æ­¦å™¨ç¨®é¡ã®åˆ—æŒ™ä½“
+// ================================================
+public enum WeaponType
+{
+    HPBar,// HPãƒãƒ¼
+
+    MaxWeaponType
+}
+
 public class IS_Weapon : MonoBehaviour
 {
-    private bool m_bAttack; // UŒ‚’†‚©‚Ç‚¤‚©
+    protected WeaponType m_eWeaponType; // æ­¦å™¨ã®ç¨®é¡
+    protected bool m_bAttack;           // æ”»æ’ƒä¸­ã‹ã©ã†ã‹
 
     /**
      * @fn
-     * UŒ‚ˆ—(override‘O’ñ)
-     * @brief UŒ‚ˆ—
+     * æ”»æ’ƒå‡¦ç†(overrideå‰æ)
+     * @brief æ”»æ’ƒå‡¦ç†
      */
     public virtual void Attack()
     {
-        // ‚±‚±‚Éˆ—‚ğ‰Á‚¦‚é
-        Debug.Log("‰F•”ˆä");
+        // ã“ã“ã«å‡¦ç†ã‚’åŠ ãˆã‚‹
     }
-
 
     /**
      * @fn
-     * UŒ‚’†‚ÌgetterEsetter
+     * æ­¦å™¨ç¨®é¡ã®getterãƒ»setter
+     * @return m_eWeaponType(WeaponType)
+     * @brief æ­¦å™¨ç¨®é¡ã‚’è¿”ã™ãƒ»ã‚»ãƒƒãƒˆ
+     */
+    public WeaponType GetSetWeaponType
+    {
+        get { return m_eWeaponType; }
+        set { m_eWeaponType = value; }
+    }
+
+    /**
+     * @fn
+     * æ”»æ’ƒä¸­ã®getterãƒ»setter
      * @return m_bAttack(bool)
-     * @brief UŒ‚’†‚ğ•Ô‚·EƒZƒbƒg
+     * @brief æ”»æ’ƒä¸­ã‚’è¿”ã™ãƒ»ã‚»ãƒƒãƒˆ
      */
     public bool GetSetAttack
     {

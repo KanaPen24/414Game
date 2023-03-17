@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file   IS_Player.cs
  * @brief  Playerのクラス
  * @author IharaShota
@@ -56,13 +56,12 @@ public enum PlayerWeaponState
 
 public class IS_Player : MonoBehaviour
 {
-    [SerializeField] private GameObject              m_PlayerObj;        // Playerのモデル
     [SerializeField] private Animator                m_animator;         // Playerのアニメーション
     [SerializeField] private Rigidbody               m_Rigidbody;        // PlayerのRigidBody
     [SerializeField] private YK_HPBarVisible         m_HpVisible;        // PlayerのHp表示管理
     [SerializeField] private YK_PlayerHP             m_Hp;               // PlayerのHp
     [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // Player挙動クラスの動的配列
-    [SerializeField] private List<IS_Weapon>         m_PlayerWeapons;          // 武器クラスの動的配列
+    [SerializeField] private List<IS_Weapon>         m_PlayerWeapons;    // 武器クラスの動的配列
     [SerializeField] private PlayerState             m_PlayerState;      // Playerの状態を管理する
     [SerializeField] private PlayerDir               m_PlayerDir;        // Playerの向きを管理する
     [SerializeField] private PlayerWeaponState       m_PlayerWeaponState;// Playerの武器状態を管理する
@@ -159,12 +158,12 @@ public class IS_Player : MonoBehaviour
         // 右向き
         if(GetSetPlayerDir == PlayerDir.Right)
         {
-            m_PlayerObj.transform.rotation = Quaternion.Euler(new Vector3(0f, 90.0f, 0f));
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90.0f, 0f));
         }
         // 左向き
         else if (GetSetPlayerDir == PlayerDir.Left)
         {
-            m_PlayerObj.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
         }
     }
 

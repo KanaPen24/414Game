@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  * @file   IS_WeaponHPBar.cs
- * @brief  HPBar‚Ì•ŠíƒNƒ‰ƒX
+ * @brief  HPBarã®æ­¦å™¨ã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/12
- * @Update 2023/03/12 ì¬
+ * @Update 2023/03/12 ä½œæˆ
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -11,37 +11,49 @@ using UnityEngine;
 
 public class IS_WeaponHPBar : IS_Weapon
 {
-    [SerializeField] private Vector3 vRotAmount;  // UŒ‚‚Ì‰ñ“]—Ê
-    [SerializeField] private Vector3 vRotOrigin;  // UŒ‚‚Ì‰ŠúŠp“x
-    [SerializeField] private float fAttackRate;   // UŒ‚‚ÌŠ„‡(ƒXƒs[ƒh)
+    [SerializeField] private IS_Player m_Player;  // Player
+    [SerializeField] private Vector3 vRotAmount;  // æ”»æ’ƒã®å›žè»¢é‡
+    [SerializeField] private Vector3 vRotOrigin;  // æ”»æ’ƒã®åˆæœŸè§’åº¦
+    [SerializeField] private float fAttackRate;   // æ”»æ’ƒã®å‰²åˆ(ã‚¹ãƒ”ãƒ¼ãƒ‰)
 
-    private float m_fRateAmount;                   // Š„‡‚Ì‡Œv
+    private float m_fRateAmount;                   // å‰²åˆã®åˆè¨ˆ
+    Vector3 vRot;
 
     private void Start()
     {
-        //m_vOriginRot = Quaternion.Euler(this.transform.rotation);
+        m_eWeaponType = WeaponType.HPBar; // æ­¦å™¨ç¨®é¡žã¯HPãƒãƒ¼
         GetSetAttack = false;
     }
 
     /**
      * @fn
-     * UŒ‚ˆ—(override)
-     * @brief UŒ‚ˆ—
+     * æ”»æ’ƒå‡¦ç†(override)
+     * @brief æ”»æ’ƒå‡¦ç†
      */
     public override void Attack()
     {
-        // ‚±‚±‚Éˆ—‚ð‰Á‚¦‚é
-        // ‰ñ“]—Ê‚ðŒvŽZ
-        Vector3 vRot =
-            new Vector3(vRotAmount.x * fAttackRate, 
-                        vRotAmount.y * fAttackRate, 
-                        vRotAmount.z * fAttackRate);
+        // ã“ã“ã«å‡¦ç†ã‚’åŠ ãˆã‚‹
 
-        // •Ší‚ð‰ñ“]‚³‚¹‚é
-        //this.transform.position = this.transform.position + vRot;
-        this.transform.rotation = this.transform.rotation * Quaternion.Euler(vRot);
+        // å›žè»¢é‡ã‚’è¨ˆç®—
+        // å³å‘ããªã‚‰
+        if (m_Player.GetSetPlayerDir == PlayerDir.Right)
+        {
+            vRot = new Vector3(-vRotAmount.x * m_fRateAmount,
+            -vRotAmount.y * m_fRateAmount,
+            -vRotAmount.z * m_fRateAmount);
+        }
+        // å·¦å‘ããªã‚‰
+        else if (m_Player.GetSetPlayerDir == PlayerDir.Left)
+        {
+            vRot = new Vector3(vRotAmount.x * m_fRateAmount,
+                        vRotAmount.y * m_fRateAmount,
+                        vRotAmount.z * m_fRateAmount);
+        }
 
-        // UŒ‚ŽdØ‚Á‚½‚çI—¹‚·‚é
+        // æ­¦å™¨ã‚’å›žè»¢ã•ã›ã‚‹
+        this.transform.rotation = Quaternion.Euler(vRot);
+
+        // æ”»æ’ƒä»•åˆ‡ã£ãŸã‚‰çµ‚äº†ã™ã‚‹
         if (m_fRateAmount >= 1.0f)
         {
             GetSetAttack = false;
