@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4046765456409590388}
   - component: {fileID: 2525600869589869567}
   m_Layer: 0
-  m_Name: UIWeapon
+  m_Name: WeaponHPBar
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
