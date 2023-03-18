@@ -8,15 +8,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class YK_SkillIcon : MonoBehaviour
 {
+
+    // フェードさせる時間を設定
+    [SerializeField]
+    [Tooltip("フェードさせる時間(秒)")]
+    private float fadeTime = 1f;
+    // 経過時間を取得
+    private float timer;
+
     private int m_SkillPoint;  //現在のスキル数
-    public GameObject[] SkillArray;
+    public CanvasGroup[] SkillArray;
     public int m_nMaxSkill; //最高スキル数
 
     private void Start()
     {
-        GameObject[] SkillArray = new GameObject[m_SkillPoint];
+        CanvasGroup[] SkillArray = new CanvasGroup[m_SkillPoint];
         m_SkillPoint = m_nMaxSkill;
     }
 
@@ -38,7 +47,7 @@ public class YK_SkillIcon : MonoBehaviour
         if (m_SkillPoint < m_nMaxSkill)
         {
             m_SkillPoint+=Heal;
-            SkillArray[m_SkillPoint - 1].SetActive(true);
+            SkillArray[m_SkillPoint - 1].alpha = 1;
         }
     }
     //スキル数減らす
@@ -46,7 +55,7 @@ public class YK_SkillIcon : MonoBehaviour
     {
         if(m_SkillPoint > 0)
         {
-            SkillArray[m_SkillPoint - 1].SetActive(false);
+            SkillArray[m_SkillPoint - 1].alpha = 0;
             m_SkillPoint-=Use;
         }
     }

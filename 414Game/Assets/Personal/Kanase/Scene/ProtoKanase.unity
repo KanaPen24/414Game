@@ -337,12 +337,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96401397}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06, y: 3.0900002, z: -9.1900015}
+  m_LocalPosition: {x: -0.06, y: 4.09, z: -9.1900015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2086339979}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &99168781 stripped
 MonoBehaviour:
@@ -974,6 +974,11 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
+    - target: {fileID: 2532925282676772383, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
+        type: 3}
+      propertyPath: m_Player
+      value: 
+      objectReference: {fileID: 2086339978}
     - target: {fileID: 2602812492749303807, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
         type: 3}
       propertyPath: m_Hp
@@ -1129,9 +1134,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79f12a7dfd01e5a40afa4c28dbd7a139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &2086339979 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7160487676030067649, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
-    type: 3}
-  m_PrefabInstance: {fileID: 1880422412}
-  m_PrefabAsset: {fileID: 0}
