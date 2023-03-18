@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YK_UIChather : MonoBehaviour
+public class YK_UICatcher : MonoBehaviour
 {
     [SerializeField] private ParticleSystem particle;   //エフェクトオブジェクト
 
