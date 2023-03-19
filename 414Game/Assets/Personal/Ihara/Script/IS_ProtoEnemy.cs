@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  * @file   IS_ProtoEnemy.cs
- * @brief  “G‚ÌƒvƒƒgƒNƒ‰ƒX
+ * @brief  æ•µã®ãƒ—ãƒ­ãƒˆã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/13
- * @Update 2023/03/13 ì¬
+ * @Update 2023/03/13 ä½œæˆ
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -12,14 +12,14 @@ using UnityEngine;
 public class IS_ProtoEnemy : MonoBehaviour
 {
     [SerializeField] private IS_Player m_Player;  // Player
-    [SerializeField] private YK_HPBerHP m_HpBarHP;// HPBar‚ÌHP
+    [SerializeField] private YK_HPBerHP m_HpBarHP;// HPBarã®HP
 
     private void OnTriggerEnter(Collider collision)
     {
-        // •Ší‚¾‚Á‚½‚ç
+        // æ­¦å™¨ã ã£ãŸã‚‰
         if (collision.gameObject.tag == "Weapon")
         {
-            if (m_Player.GetWeapons(m_Player.nWeaponState).GetSetAttack)
+            if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
             {
                 Debug.Log("Enemy Damage!!");
                 m_HpBarHP.DelLife(10);
@@ -30,11 +30,18 @@ public class IS_ProtoEnemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // ƒvƒŒƒCƒ„[‚¾‚Á‚½‚ç
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã ã£ãŸã‚‰
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("Player Damage!!");
             m_Player.GetPlayerHp().DelLife(10);
+        }
+
+        // æ­¦å™¨ã ã£ãŸã‚‰
+        if (collision.gameObject.tag == "Weapon")
+        {
+            Debug.Log("Enemy Damage!!");
+            m_HpBarHP.DelLife(10);
         }
     }
 }

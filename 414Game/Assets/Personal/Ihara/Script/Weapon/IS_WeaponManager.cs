@@ -35,7 +35,7 @@ public class IS_WeaponManager : MonoBehaviour
      * @brief  武器とUIの表示を切り替える
      * @detail 武器とUIの列挙番号を連動させる必要がある
      */
-    public void ChangeWeapon(PlayerWeaponState weaponState)
+    public void ChangeWeapon(EquipWeaponState weaponState)
     {
         // 武器とUIの数が合わなければ終了する
         if(m_Weapons.Count != 1)
