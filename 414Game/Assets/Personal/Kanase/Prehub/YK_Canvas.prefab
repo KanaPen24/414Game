@@ -205,6 +205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: {fileID: 1760798992097435640}
   m_WeaponHpBar: {fileID: 0}
+  Fill: {fileID: 1760798993247540416}
+  BackGround: {fileID: 1760798993224633480}
 --- !u!114 &9209205998206117221
 MonoBehaviour:
   m_ObjectHideFlags: 0
