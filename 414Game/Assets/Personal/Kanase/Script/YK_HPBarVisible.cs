@@ -1,36 +1,39 @@
-/**
+ï»¿/**
  * @file HPBarVisible.cs
- * @brief HPBar‚ğÁ‚µ‚½‚è•\¦‚µ‚½‚è‚·‚é
- * @author ‹g“cŠ¹
+ * @brief HPBarã‚’æ¶ˆã—ãŸã‚Šè¡¨ç¤ºã—ãŸã‚Šã™ã‚‹
+ * @author å‰ç”°å¶è–
  * @date 2023/03/06
- * @date 2023/03/12 HPBar‚ğ•\¦ŠÇ—‚·‚éboolŒ^ì¬(Ihara)
+ * @date 2023/03/12 HPBarã‚’è¡¨ç¤ºç®¡ç†ã™ã‚‹boolå‹ä½œæˆ(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System; // Œ^ƒLƒƒƒXƒg‚·‚éÛ‚É•K—v
+using System; // å‹ã‚­ãƒ£ã‚¹ãƒˆã™ã‚‹éš›ã«å¿…è¦
+using DG.Tweening;
 
 public class YK_HPBarVisible : MonoBehaviour
 {
     [SerializeField] Slider HP;
     [SerializeField] private IS_WeaponHPBar m_WeaponHpBar;
+    [SerializeField] private UnityEngine.UI.Image Fill;         //ãƒãƒ¼ã®è¡¨é¢ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
+    [SerializeField] private UnityEngine.UI.Image BackGround;   //ãƒãƒ¼ã®è£ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
     private bool m_bVisible;
     private int m_nCnt;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ƒƒ“ƒo‚Ì‰Šú‰»
+        // ãƒ¡ãƒ³ãƒã®åˆæœŸåŒ–
         m_bVisible = true;
         m_nCnt = Convert.ToInt32(m_bVisible);
 
-        // •\¦ó‘Ô‚¾‚Á‚½‚ç
+        // è¡¨ç¤ºçŠ¶æ…‹ã ã£ãŸã‚‰
         if (m_bVisible)
         {
             HPEnableTrue();
         }
-        // ”ñ•\¦ó‘Ô‚¾‚Á‚½‚ç
+        // éè¡¨ç¤ºçŠ¶æ…‹ã ã£ãŸã‚‰
         else
         {
             HPEnableFalse();
@@ -40,33 +43,36 @@ public class YK_HPBarVisible : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ‘O‰ñ‚Æó‘Ô‚ªˆá‚Á‚½‚ç
+        // å‰å›ã¨çŠ¶æ…‹ãŒé•ã£ãŸã‚‰
         if(m_nCnt != Convert.ToInt32(m_bVisible))
         {
-            // •\¦ó‘Ô‚¾‚Á‚½‚ç
+            // è¡¨ç¤ºçŠ¶æ…‹ã ã£ãŸã‚‰
             if(m_bVisible)
             {
                 HPEnableTrue();
             }
-            // ”ñ•\¦ó‘Ô‚¾‚Á‚½‚ç
+            // éè¡¨ç¤ºçŠ¶æ…‹ã ã£ãŸã‚‰
             else
             {
                 HPEnableFalse();
             }
         }
 
-        // Œ»İ‚Ìó‘Ô‚ÉXV
+        // ç¾åœ¨ã®çŠ¶æ…‹ã«æ›´æ–°
         m_nCnt = Convert.ToInt32(m_bVisible);
     }
 
-    //HPBar‚ğÁ‚·
+    //HPBarã‚’æ¶ˆã™
     public void HPEnableFalse()
     {
-        HP.gameObject.SetActive(false);
-        m_WeaponHpBar.gameObject.SetActive(true);
+        // 1ç§’ã§å¾ŒX,Yæ–¹å‘ã‚’2å€ã«å¤‰æ›´
+        HP.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 1f);
+        // 1ç§’ã§ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ
+        Fill.DOFade(0f, 1f);
+        BackGround.DOFade(0f, 1f);
     }
 
-    //HPBar‚ğ•\¦
+    //HPBarã‚’è¡¨ç¤º
     public void HPEnableTrue()
     {
         HP.gameObject.SetActive(true);
@@ -75,9 +81,9 @@ public class YK_HPBarVisible : MonoBehaviour
 
     /**
      * @fn
-     * PlayerHP•\¦‚ÌgetterEsetter
+     * PlayerHPè¡¨ç¤ºã®getterãƒ»setter
      * @return m_bVisible(bool)
-     * @brief PlayerHP•\¦‚ğ•Ô‚·EƒZƒbƒg
+     * @brief PlayerHPè¡¨ç¤ºã‚’è¿”ã™ãƒ»ã‚»ãƒƒãƒˆ
      */
     public bool GetSetVisible
     {
