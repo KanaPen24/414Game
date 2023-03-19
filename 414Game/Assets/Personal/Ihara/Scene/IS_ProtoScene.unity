@@ -344,7 +344,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2120341403}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478942302}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
@@ -534,12 +534,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc6c0eed1201cba448c98a7658e8ae6c, type: 3}
---- !u!1 &478942302 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1760798992097435622, guid: 7e9ed24051ee45f4496066d407091c07,
-    type: 3}
-  m_PrefabInstance: {fileID: 2120341403}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &588077381
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,6 +643,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79f12a7dfd01e5a40afa4c28dbd7a139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1286211915 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 655419432361369475, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
+    type: 3}
+  m_PrefabInstance: {fileID: 1950512273}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8485a6031c3e06849ae3cf6957582b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1505877822 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2532925282676772383, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
@@ -733,6 +739,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 655419432361369474, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1146706412506865741, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -820,14 +831,24 @@ PrefabInstance:
       objectReference: {fileID: 1949784661}
     - target: {fileID: 2602812492749303807, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
         type: 3}
-      propertyPath: m_Weapons.Array.size
+      propertyPath: m_PlayerWeaponState
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602812492749303807, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
+        type: 3}
+      propertyPath: m_Weapons.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2602812492749303807, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
         type: 3}
       propertyPath: m_Weapons.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1505877822}
+    - target: {fileID: 2602812492749303807, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
+        type: 3}
+      propertyPath: m_Weapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286211915}
     - target: {fileID: 2602812492749303807, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
         type: 3}
       propertyPath: m_PlayerWeapons.Array.size
@@ -842,7 +863,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PlayerWeapons.Array.data[1]
       value: 
-      objectReference: {fileID: 1505877822}
+      objectReference: {fileID: 1286211915}
     - target: {fileID: 3757335813787959470, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -887,7 +908,7 @@ PrefabInstance:
         type: 3}
       propertyPath: HpBarWeapon
       value: 
-      objectReference: {fileID: 478942302}
+      objectReference: {fileID: 2087567308}
     - target: {fileID: 6484361817297386329, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -993,6 +1014,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nCurrentHP: 100
   HPBar: {fileID: 124930584}
+--- !u!1 &2087567308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4035930320828808530, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
+    type: 3}
+  m_PrefabInstance: {fileID: 1950512273}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2120341403
 PrefabInstance:
   m_ObjectHideFlags: 0

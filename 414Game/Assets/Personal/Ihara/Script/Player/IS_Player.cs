@@ -9,6 +9,8 @@
  * @Update 2023/03/12 向きを追加
  * @Update 2023/03/12 武器を追加
  * @date   2023/03/13 コントローラー対応(YK)
+ * @date   2023/03/19 武器種類追加(Ball),装備フラグのbool型追加
+ * @date   2023/03/20 武器チェンジ処理(仮)追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -44,14 +46,15 @@ public enum PlayerDir
 
 // ================================================
 // PlayerWeapon
-// … Playerの武器を管理する列挙体
+// … 装備武器を管理する列挙体
 // ※m_PlayerWeaponはこの順番になるように入れること
 // ================================================
-public enum PlayerWeaponState
+public enum EquipWeaponState
 {
-    PlayerHpBar,
+    PlayerHpBar, // HPバー
+    PlayerBall,  // Ball
 
-    MaxPlayerWeaponState
+    MaxEquipWeaponState
 }
 
 public class IS_Player : MonoBehaviour
@@ -61,10 +64,10 @@ public class IS_Player : MonoBehaviour
     [SerializeField] private YK_HPBarVisible         m_HpVisible;        // PlayerのHp表示管理
     [SerializeField] private YK_PlayerHP             m_Hp;               // PlayerのHp
     [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // Player挙動クラスの動的配列
-    [SerializeField] private List<IS_Weapon>         m_PlayerWeapons;    // 武器クラスの動的配列
+    [SerializeField] private List<IS_Weapon>         m_Weapons;          // 武器クラスの動的配列
     [SerializeField] private PlayerState             m_PlayerState;      // Playerの状態を管理する
     [SerializeField] private PlayerDir               m_PlayerDir;        // Playerの向きを管理する
-    [SerializeField] private PlayerWeaponState       m_PlayerWeaponState;// Playerの武器状態を管理する
+    [SerializeField] private EquipWeaponState        m_EquipWeaponState; // 装備武器を管理する
     [SerializeField] private float                   m_fGravity;         // 重力
 
     public Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したものをvelocityに代入する)
@@ -73,10 +76,10 @@ public class IS_Player : MonoBehaviour
     public bool bInputLeft;
     public bool bInputSpace;
 
-    public int nWeaponState;     // 武器状態をint型で格納する
-    private bool m_bJumpFlg;      // 跳躍開始フラグ
-    private bool m_bAttackFlg;    // 攻撃開始フラグ
-    private float m_fDeadZone;    //コントローラーのスティックデッドゾーン
+    private bool m_bJumpFlg;     // 跳躍開始フラグ
+    private bool m_bAttackFlg;   // 攻撃開始フラグ
+    private bool m_bEquipFlg;    // 装備フラグ
+    private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
 
     private void Start()
     {
@@ -87,7 +90,7 @@ public class IS_Player : MonoBehaviour
         }
 
         // 武器クラスと列挙型の数が違えばログ出力
-        if (m_PlayerWeapons.Count != (int)PlayerWeaponState.MaxPlayerWeaponState)
+        if (m_Weapons.Count != (int)EquipWeaponState.MaxEquipWeaponState)
         {
             Debug.Log("m_PlayerWeaponsの要素数とm_PlayerWeaponStateの数が同じではありません");
         }
@@ -95,6 +98,8 @@ public class IS_Player : MonoBehaviour
         // メンバの初期化
         m_vMoveAmount = new Vector3(0.0f, 0.0f, 0.0f);
         m_bJumpFlg    = false;
+        m_bAttackFlg  = false;
+        m_bEquipFlg   = false;
         bInputUp      = false;
         bInputRight   = false;
         bInputLeft    = false;
@@ -138,18 +143,28 @@ public class IS_Player : MonoBehaviour
         if (Input.GetButtonDown("Decision"))
         {
             m_HpVisible.GetSetVisible = !m_HpVisible.GetSetVisible;
+            m_bEquipFlg = !m_HpVisible.GetSetVisible;
+        }
+
+        // 武器チェンジ(仮)…関数化する予定
+        // ※装備している && Playerが攻撃状態以外 だったら可能
+        if(m_PlayerState != PlayerState.PlayerAttack && GetSetEquipFlg)
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                int nEqipWeaponState = (int)GetSetEquipWeaponState + 1;
+                if (nEqipWeaponState >= (int)EquipWeaponState.MaxEquipWeaponState)
+                {
+                    GetSetEquipWeaponState = 0;
+                }
+                else m_EquipWeaponState = (EquipWeaponState)nEqipWeaponState;
+            }
         }
     }
     private void FixedUpdate()
     {
-        // 現在のPlayerの状態をint型に格納
-        int nPlayerState = (int)GetSetPlayerState;
-
-        // 現在のPlayerの武器状態をint型に格納
-        nWeaponState = (int)GetSetPlayerWeaponState;
-
         // Playerの状態によって更新処理
-        m_PlayerStrategys[nPlayerState].UpdateStrategy();
+        m_PlayerStrategys[(int)GetSetPlayerState].UpdateStrategy();
 
         // 合計移動量をvelocityに加算
         m_Rigidbody.velocity = m_vMoveAmount;
@@ -219,7 +234,7 @@ public class IS_Player : MonoBehaviour
      */
     public IS_Weapon GetWeapons(int i)
     {
-        return m_PlayerWeapons[i];
+        return m_Weapons[i];
     }
 
     /**
@@ -248,14 +263,14 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * Playerの武器状態のgetter・setter
-     * @return m_PlayerWeaponState
-     * @brief Playerの武器状態を返す・セット
+     * 装備武器のgetter・setter
+     * @return m_EquipWeaponState(EquipWeaponState)
+     * @brief 装備武器を返す・セット
      */
-    public PlayerWeaponState GetSetPlayerWeaponState
+    public EquipWeaponState GetSetEquipWeaponState
     {
-        get { return m_PlayerWeaponState; }
-        set { m_PlayerWeaponState = value; }
+        get { return m_EquipWeaponState; }
+        set { m_EquipWeaponState = value; }
     }
 
     /**
@@ -304,5 +319,17 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_bAttackFlg; }
         set { m_bAttackFlg = value; }
+    }
+
+    /**
+     * @fn
+     * 装備フラグのgetter・setter
+     * @return m_bEquipFlg(bool)
+     * @brief 装備フラグを返す・セット
+     */
+    public bool GetSetEquipFlg
+    {
+        get { return m_bEquipFlg; }
+        set { m_bEquipFlg = value; }
     }
 }

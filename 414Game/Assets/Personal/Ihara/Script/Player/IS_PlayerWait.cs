@@ -1,11 +1,11 @@
-/**
+ï»¿/**
  * @file   IS_PlayerWait.cs
- * @brief  Player‚Ì‘Ò‹@ƒNƒ‰ƒX
+ * @brief  Playerã®å¾…æ©Ÿã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/03
- * @Update 2023/03/03 ì¬
- * @Update 2023/03/10u‘Ò‹@v¨uUŒ‚v‚Ö‚Ìˆ—’Ç‰Á
- * @Update 2023/03/12 ƒAƒjƒ[ƒVƒ‡ƒ“ˆ—’Ç‰Á
+ * @Update 2023/03/03 ä½œæˆ
+ * @Update 2023/03/10ã€Œå¾…æ©Ÿã€â†’ã€Œæ”»æ’ƒã€ã¸ã®å‡¦ç†è¿½åŠ 
+ * @Update 2023/03/12 ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†è¿½åŠ 
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -13,26 +13,26 @@ using UnityEngine;
 
 public class IS_PlayerWait : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player; // IS_Player‚ğƒAƒ^ƒbƒ`‚·‚é
-    [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Player‚Ì’n–Ê”»’è
+    [SerializeField] private IS_Player m_Player; // IS_Playerã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹
+    [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerã®åœ°é¢åˆ¤å®š
     /**
      * @fn
-     * XVˆ—
-     * @brief  Player‚Ì‘Ò‹@XVˆ—
-     * @detail Œp³Œ³‚©‚çoverride‚µ‚Ä‚¢‚Ü‚·
+     * æ›´æ–°å‡¦ç†
+     * @brief  Playerã®å¾…æ©Ÿæ›´æ–°å‡¦ç†
+     * @detail ç¶™æ‰¿å…ƒã‹ã‚‰overrideã—ã¦ã„ã¾ã™
      */
     public override void UpdateStrategy()
     {
-        // ‚±‚±‚ÉState‚²‚Æ‚Éˆ—‚ğ‰Á‚¦‚é
+        // ã“ã“ã«Stateã”ã¨ã«å‡¦ç†ã‚’åŠ ãˆã‚‹
         //Debug.Log("PlayerWait");
 
-        // ‡ŒvˆÚ“®—Ê‚ğƒŠƒZƒbƒg
+        // åˆè¨ˆç§»å‹•é‡ã‚’ãƒªã‚»ãƒƒãƒˆ
         m_Player.GetSetMoveAmount = new Vector3(0f, 0f, 0f);
 
         // =========
-        // ó‘Ô‘JˆÚ
+        // çŠ¶æ…‹é·ç§»
         // =========
-        //u‘Ò‹@ ¨ —‰ºv
+        //ã€Œå¾…æ©Ÿ â†’ è½ä¸‹ã€
         if (!m_PlayerGroundColl.IsGroundCollision())
         {
             m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
@@ -40,7 +40,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
             m_Player.GetAnimator().SetBool("isWait", false);
             return;
         }
-        //u‘Ò‹@ ¨ ’µ–ôv
+        //ã€Œå¾…æ©Ÿ â†’ è·³èºã€
         if (m_Player.bInputUp)
         {
             m_Player.GetSetPlayerState = PlayerState.PlayerJump;
@@ -49,7 +49,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
             m_Player.GetSetJumpFlg = true;
             return;
         }
-        // u‘Ò‹@ ¨ ˆÚ“®v
+        // ã€Œå¾…æ©Ÿ â†’ ç§»å‹•ã€
         if (m_Player.bInputRight || m_Player.bInputLeft)
         {
             m_Player.GetSetPlayerState = PlayerState.PlayerWalk;
@@ -57,8 +57,8 @@ public class IS_PlayerWait : IS_PlayerStrategy
             m_Player.GetAnimator().SetBool("isWait", false);
             return;
         }
-        // u‘Ò‹@ ¨ UŒ‚v
-        if (m_Player.bInputSpace)
+        // ã€Œå¾…æ©Ÿ â†’ æ”»æ’ƒã€
+        if (m_Player.bInputSpace && m_Player.GetSetEquipFlg)
         {
             m_Player.GetSetPlayerState = PlayerState.PlayerAttack;
             m_Player.GetSetAttackFlg = true;

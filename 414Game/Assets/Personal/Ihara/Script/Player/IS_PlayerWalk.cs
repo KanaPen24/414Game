@@ -70,7 +70,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             return;
         }
         // 「移動 → 攻撃」
-        if (m_Player.bInputSpace)
+        if (m_Player.bInputSpace && m_Player.GetSetEquipFlg)
         {
             m_Player.GetSetPlayerState = PlayerState.PlayerAttack;
             m_Player.GetSetAttackFlg = true;

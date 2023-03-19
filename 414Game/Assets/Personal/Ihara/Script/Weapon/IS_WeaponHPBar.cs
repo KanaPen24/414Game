@@ -26,11 +26,33 @@ public class IS_WeaponHPBar : IS_Weapon
     }
 
     /**
+    * @fn
+    * 攻撃初期化処理(override)
+    * @brief 攻撃初期化処理
+    */
+    public override void StartAttack()
+    {
+        GetSetAttack = true; // 攻撃ON
+    }
+
+    /**
      * @fn
-     * 攻撃処理(override)
+     * 攻撃終了処理(override)
+     * @brief 攻撃終了処理
+     */
+    public override void FinAttack()
+    {
+        GetSetAttack = false; // 攻撃OFF
+        m_fRateAmount = 0.0f;
+        this.transform.rotation = Quaternion.Euler(vRotOrigin);
+    }
+
+    /**
+     * @fn
+     * 攻撃更新処理(override)
      * @brief 攻撃処理
      */
-    public override void Attack()
+    public override void UpdateAttack()
     {
         // ここに処理を加える
 
@@ -56,9 +78,7 @@ public class IS_WeaponHPBar : IS_Weapon
         // 攻撃仕切ったら終了する
         if (m_fRateAmount >= 1.0f)
         {
-            GetSetAttack = false;
-            m_fRateAmount = 0.0f;
-            this.transform.rotation = Quaternion.Euler(vRotOrigin);
+            FinAttack();
         }
         else m_fRateAmount += fAttackRate;
     }
