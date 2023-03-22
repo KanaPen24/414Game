@@ -1,10 +1,10 @@
-// ==============================================================
+ï»¿// ==============================================================
 // IS_ProtoPlayer.cs
 // Auther:Ihara
-// Update:2023/02/20 csì¬
-// Update:2023/02/21 ˆÚ“®–@‚ğuCharacterControllerv‚©‚ç
-//                   uRigidBodyv‚É•ÏX
-// Update:2023/02/21 ’n–Ê”»’èŠÖ”‚ğì¬(‰¼)
+// Update:2023/02/20 csä½œæˆ
+// Update:2023/02/21 ç§»å‹•æ³•ã‚’ã€ŒCharacterControllerã€ã‹ã‚‰
+//                   ã€ŒRigidBodyã€ã«å¤‰æ›´
+// Update:2023/02/21 åœ°é¢åˆ¤å®šé–¢æ•°ã‚’ä½œæˆ(ä»®)
 // ==============================================================
 using System.Collections;
 using System.Collections.Generic;
@@ -12,19 +12,19 @@ using UnityEngine;
 
 // ================================
 // PlayerState
-// c Player‚Ìó‘Ô‚ğŠÇ—‚·‚é—ñ‹“‘Ì
+// â€¦ Playerã®çŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹åˆ—æŒ™ä½“
 // ================================
 enum ProtoPlayerState
 {
-    PlayerWait, // ‘Ò‚¿ó‘Ô
-    PlayerMove, // ˆÚ“®ó‘Ô
-    PlayerJump, // ’µ–ôó‘Ô
-    PlayerDrop, // —‰ºó‘Ô
+    PlayerWait, // å¾…ã¡çŠ¶æ…‹
+    PlayerMove, // ç§»å‹•çŠ¶æ…‹
+    PlayerJump, // è·³èºçŠ¶æ…‹
+    PlayerDrop, // è½ä¸‹çŠ¶æ…‹
 }
 
 // ================================
 // PlayerDir
-// c Player‚Ì•ûŒü‚ğŠÇ—‚·‚é—ñ‹“‘Ì
+// â€¦ Playerã®æ–¹å‘ã‚’ç®¡ç†ã™ã‚‹åˆ—æŒ™ä½“
 // ================================
 enum ProtoPlayerDir
 {
@@ -34,16 +34,16 @@ enum ProtoPlayerDir
 
 public class IS_ProtoPlayer : MonoBehaviour
 {
-    [SerializeField] private ProtoPlayerState m_PlayerState;                 // Player‚Ìó‘Ô‚ğŠÇ—‚·‚é
-    [SerializeField] private PlayerDir m_PlayerDir;                     // Player‚Ì•ûŒü‚ğŠÇ—‚·‚é
-    [SerializeField] private Rigidbody m_Rigidbody;                     // Player‚ÌRigidBody
-    [SerializeField] private GameObject[] m_RayPoints;                  // Ray‚ğ”ò‚Î‚·n“_(4‚Â)
-    [SerializeField] private Vector3 m_vMove;                           // ˆÚ“®‚·‚é—Ê
-    [SerializeField] private Vector3 m_vGravity;                        // d—Í
-    [SerializeField] private float   m_fJumpPow;                        // ’µ–ô—Í
-    [SerializeField] private float   m_fRayLength;                      // Ray‚Ì’·‚³
+    [SerializeField] private ProtoPlayerState m_PlayerState;            // Playerã®çŠ¶æ…‹ã‚’ç®¡ç†ã™ã‚‹
+    [SerializeField] private PlayerDir m_PlayerDir;                     // Playerã®æ–¹å‘ã‚’ç®¡ç†ã™ã‚‹
+    [SerializeField] private Rigidbody m_Rigidbody;                     // Playerã®RigidBody
+    [SerializeField] private GameObject[] m_RayPoints;                  // Rayã‚’é£›ã°ã™å§‹ç‚¹(4ã¤)
+    [SerializeField] private Vector3 m_vMove;                           // ç§»å‹•ã™ã‚‹é‡
+    [SerializeField] private Vector3 m_vGravity;                        // é‡åŠ›
+    [SerializeField] private float   m_fJumpPow;                        // è·³èºåŠ›
+    [SerializeField] private float   m_fRayLength;                      // Rayã®é•·ã•
 
-    private Vector3 m_vMoveAmount; // ‡ŒvˆÚ“®—Ê(ˆÚ“®‚âd—Í‚ğ‰ÁZ‚µ‚½‚à‚Ì‚ğvelocity‚É‘ã“ü‚·‚é)        
+    private Vector3 m_vMoveAmount; // åˆè¨ˆç§»å‹•é‡(ç§»å‹•æ™‚ã‚„é‡åŠ›ã‚’åŠ ç®—ã—ãŸã‚‚ã®ã‚’velocityã«ä»£å…¥ã™ã‚‹)        
     private bool bInputUp; 
     private bool bInputRight;
     private bool bInputLeft;
@@ -51,7 +51,7 @@ public class IS_ProtoPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // ƒƒ“ƒo‚Ì‰Šú‰»
+        // ãƒ¡ãƒ³ãƒã®åˆæœŸåŒ–
         m_PlayerDir   = PlayerDir.Right;
         m_vMoveAmount = new Vector3(0.0f, 0.0f, 0.0f);
         bInputUp      = false;
@@ -62,7 +62,7 @@ public class IS_ProtoPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // “ü—ÍŠÇ—
+        // å…¥åŠ›ç®¡ç†
         if (Input.GetKey(KeyCode.W))
         {
             bInputUp = true;
@@ -84,7 +84,7 @@ public class IS_ProtoPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Player‚Ìó‘Ô‚É‚æ‚Á‚ÄXVˆ—
+        // Playerã®çŠ¶æ…‹ã«ã‚ˆã£ã¦æ›´æ–°å‡¦ç†
         switch (m_PlayerState)
         {
             case ProtoPlayerState.PlayerWait:
@@ -101,10 +101,10 @@ public class IS_ProtoPlayer : MonoBehaviour
                 break;
         }
 
-        // ‹ó’†‚É‚¢‚éê‡Ad—Í‚ğ—^‚¦‚é
+        // ç©ºä¸­ã«ã„ã‚‹å ´åˆã€é‡åŠ›ã‚’ä¸ãˆã‚‹
         if (!IsGroundCollision())
         {
-            // d—Í‚ğ‡ŒvˆÚ“®—Ê‚É‰ÁZ
+            // é‡åŠ›ã‚’åˆè¨ˆç§»å‹•é‡ã«åŠ ç®—
             m_vMoveAmount += m_vGravity;
 
             if(m_PlayerState != ProtoPlayerState.PlayerJump)
@@ -120,33 +120,33 @@ public class IS_ProtoPlayer : MonoBehaviour
             }
         }
 
-        // ‡ŒvˆÚ“®—Ê‚ğvelocity‚É‰ÁZ
+        // åˆè¨ˆç§»å‹•é‡ã‚’velocityã«åŠ ç®—
         m_Rigidbody.velocity = m_vMoveAmount;
 
         //Debug.Log(m_RayPoint.transform.position);
     }
 
     // ================================= 
-    // ‘Ò‚¿ó‘Ô‚ÌXVˆ—
+    // å¾…ã¡çŠ¶æ…‹ã®æ›´æ–°å‡¦ç†
     // =================================
     private void UpdateWait()
     {
-        // ‡ŒvˆÚ“®—Ê‚ğƒŠƒZƒbƒg
+        // åˆè¨ˆç§»å‹•é‡ã‚’ãƒªã‚»ãƒƒãƒˆ
         m_vMoveAmount.x = 0.0f;
         m_vMoveAmount.y = 0.0f;
         m_vMoveAmount.z = 0.0f;
 
         // =========
-        // ó‘Ô‘JˆÚ
+        // çŠ¶æ…‹é·ç§»
         // =========
-        // u‘Ò‚¿ ¨ ’µ–ôv
+        // ã€Œå¾…ã¡ â†’ è·³èºã€
         if (bInputUp)
         {
             m_PlayerState = ProtoPlayerState.PlayerJump;
             m_vMoveAmount.y = m_fJumpPow;
             return;
         }
-        // u‘Ò‚¿ ¨ ˆÚ“®v
+        // ã€Œå¾…ã¡ â†’ ç§»å‹•ã€
         if (bInputRight || bInputLeft)
         {
             m_PlayerState = ProtoPlayerState.PlayerMove;
@@ -155,16 +155,16 @@ public class IS_ProtoPlayer : MonoBehaviour
     }
 
     // ================================= 
-    // ˆÚ“®ó‘Ô‚ÌXVˆ—
+    // ç§»å‹•çŠ¶æ…‹ã®æ›´æ–°å‡¦ç†
     // =================================
     private void UpdateMove()
     {
-        // ‡ŒvˆÚ“®—Ê‚ğƒŠƒZƒbƒg
+        // åˆè¨ˆç§»å‹•é‡ã‚’ãƒªã‚»ãƒƒãƒˆ
         m_vMoveAmount.x = 0.0f;
         m_vMoveAmount.y = 0.0f;
         m_vMoveAmount.z = 0.0f;
 
-        // DAƒL[‚ÅˆÚ“®‚·‚é
+        // DAã‚­ãƒ¼ã§ç§»å‹•ã™ã‚‹
         if (bInputRight)
         {
             m_vMoveAmount.x += m_vMove.x;
@@ -177,17 +177,17 @@ public class IS_ProtoPlayer : MonoBehaviour
         }
 
         // =========
-        // ó‘Ô‘JˆÚ
+        // çŠ¶æ…‹é·ç§»
         // =========
-        // uˆÚ“® ¨ ’µ–ôv
-        //  WƒL[‚Å’µ–ô‚·‚é
+        // ã€Œç§»å‹• â†’ è·³èºã€
+        //  Wã‚­ãƒ¼ã§è·³èºã™ã‚‹
         if (bInputUp)
         {
             m_PlayerState = ProtoPlayerState.PlayerJump;
             m_vMoveAmount.y = m_fJumpPow;
             return;
         }
-        // uˆÚ“® ¨ ‘Ò‚¿v
+        // ã€Œç§»å‹• â†’ å¾…ã¡ã€
         if (!bInputRight && !bInputLeft)
         {
             m_PlayerState = ProtoPlayerState.PlayerWait;
@@ -196,15 +196,15 @@ public class IS_ProtoPlayer : MonoBehaviour
     }
 
     // ================================= 
-    // ’µ–ôó‘Ô‚ÌXVˆ—
+    // è·³èºçŠ¶æ…‹ã®æ›´æ–°å‡¦ç†
     // =================================
     private void UpdateJump()
     {
-        // ‡ŒvˆÚ“®—Ê‚ğƒŠƒZƒbƒg(y¬•ª‚ÍƒŠƒZƒbƒg‚µ‚È‚¢)
+        // åˆè¨ˆç§»å‹•é‡ã‚’ãƒªã‚»ãƒƒãƒˆ(yæˆåˆ†ã¯ãƒªã‚»ãƒƒãƒˆã—ãªã„)
         m_vMoveAmount.x = 0.0f;
         m_vMoveAmount.z = 0.0f;
 
-        // DAƒL[‚ÅˆÚ“®‚·‚é
+        // DAã‚­ãƒ¼ã§ç§»å‹•ã™ã‚‹
         if (bInputRight)
         {
             m_vMoveAmount.x += m_vMove.x;
@@ -216,8 +216,8 @@ public class IS_ProtoPlayer : MonoBehaviour
             m_PlayerDir = PlayerDir.Left;
         }
 
-        // ó‘Ô‘JˆÚ
-        // u’µ–ô ¨ —‰ºv
+        // çŠ¶æ…‹é·ç§»
+        // ã€Œè·³èº â†’ è½ä¸‹ã€
         if (m_vMoveAmount.y <= 0.0f)
         {
             m_PlayerState = ProtoPlayerState.PlayerDrop;
@@ -225,16 +225,16 @@ public class IS_ProtoPlayer : MonoBehaviour
     }
 
     // ============================================
-    // —‰ºó‘Ô‚ÌXVˆ—
-    // ¦ó‘Ô‘JˆÚ‚Í‘¼‚ÌŠÖ”‚Ås‚¤
+    // è½ä¸‹çŠ¶æ…‹ã®æ›´æ–°å‡¦ç†
+    // â€»çŠ¶æ…‹é·ç§»ã¯ä»–ã®é–¢æ•°ã§è¡Œã†
     // ============================================
     private void UpdateDrop()
     {
-        // ‡ŒvˆÚ“®—Ê‚ğƒŠƒZƒbƒg(y¬•ª‚ÍƒŠƒZƒbƒg‚µ‚È‚¢)
+        // åˆè¨ˆç§»å‹•é‡ã‚’ãƒªã‚»ãƒƒãƒˆ(yæˆåˆ†ã¯ãƒªã‚»ãƒƒãƒˆã—ãªã„)
         m_vMoveAmount.x = 0.0f;
         m_vMoveAmount.z = 0.0f;
 
-        // DAƒL[‚ÅˆÚ“®‚·‚é
+        // DAã‚­ãƒ¼ã§ç§»å‹•ã™ã‚‹
         if (bInputRight)
         {
             m_vMoveAmount.x += m_vMove.x;
@@ -248,33 +248,33 @@ public class IS_ProtoPlayer : MonoBehaviour
     }
 
     // ===========================================================
-    // ’n–Ê”»’èŠÖ”
-    // –ß‚è’l: boolŒ^
-    // c ’n–Ê‚Éray‚ª“–‚½‚Á‚Ä‚¢‚½‚çtrue‚ğ•Ô‚·,
-    //    “–‚½‚Á‚Ä‚¢‚È‚¯‚ê‚Îfalse‚ğ•Ô‚·
+    // åœ°é¢åˆ¤å®šé–¢æ•°
+    // æˆ»ã‚Šå€¤: boolå‹
+    // â€¦ åœ°é¢ã«rayãŒå½“ãŸã£ã¦ã„ãŸã‚‰trueã‚’è¿”ã™,
+    //    å½“ãŸã£ã¦ã„ãªã‘ã‚Œã°falseã‚’è¿”ã™
     // ===========================================================
     private bool IsGroundCollision()
     {
         // =========================================== 
-        // •Ï”éŒ¾ 
+        // å¤‰æ•°å®£è¨€ 
         // ===========================================
 
-        // Ray‚Ì‰Šú‰»
+        // Rayã®åˆæœŸåŒ–
         Ray[] ray = new Ray[m_RayPoints.Length];
-        //Ray‚ª“–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ìî•ñ‚ğ“ü‚ê‚é” 
+        //RayãŒå½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æƒ…å ±ã‚’å…¥ã‚Œã‚‹ç®±
         RaycastHit hit;
 
         // ===========================================
 
-        // Ray‚Ì”‚¾‚¯¶¬‚·‚é
+        // Rayã®æ•°ã ã‘ç”Ÿæˆã™ã‚‹
         for (int i = 0; i < m_RayPoints.Length;++i)
         {
-            //Ray‚Ìì¬@@@@@@@«Ray‚ğ”ò‚Î‚·Œ´“_@@@«Ray‚ğ”ò‚Î‚·•ûŒü
+            //Rayã®ä½œæˆã€€ã€€ã€€ã€€ã€€ã€€ã€€â†“Rayã‚’é£›ã°ã™åŸç‚¹ã€€ã€€ã€€â†“Rayã‚’é£›ã°ã™æ–¹å‘
             ray[i] = new Ray(m_RayPoints[i].transform.position, Vector3.down);
             Debug.DrawRay(m_RayPoints[i].transform.position, Vector3.down, Color.red, m_fRayLength);
         }
 
-        // ’n–Ê‚Æ‚Ì“–‚½‚è”»’è(ˆê‰ñ‚Å‚à’Ê‚ê‚Îtrue)
+        // åœ°é¢ã¨ã®å½“ãŸã‚Šåˆ¤å®š(ä¸€å›ã§ã‚‚é€šã‚Œã°true)
         for (int i = 0; i < m_RayPoints.Length; i++)
         {
             if (Physics.Raycast(ray[i], out hit, m_fRayLength))
