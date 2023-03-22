@@ -39,6 +39,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Sky
+    uniqueID: 3646295673
+    locked: 0
+  - name: FarGround
+    uniqueID: 2635768397
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: NerGround
+    uniqueID: 514518275
     locked: 0
