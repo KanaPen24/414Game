@@ -70,12 +70,16 @@ public class YK_HPBarVisible : MonoBehaviour
         // 1秒でオブジェクトをフェードアウト
         Fill.DOFade(0f, 1f);
         BackGround.DOFade(0f, 1f);
+        m_WeaponHpBar.gameObject.SetActive(true);
     }
 
     //HPBarを表示
     public void HPEnableTrue()
     {
-        HP.gameObject.SetActive(true);
+        HP.transform.DOScale(new Vector3(1.0f, 1.0f, 0f), 1f);
+        Fill.DOFade(1f, 0f);
+        BackGround.DOFade(1f, 0f);
+        //HP.gameObject.SetActive(true);
         m_WeaponHpBar.gameObject.SetActive(false);
     }
 
