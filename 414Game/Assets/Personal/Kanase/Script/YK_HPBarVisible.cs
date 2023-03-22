@@ -14,9 +14,10 @@ using DG.Tweening;
 
 public class YK_HPBarVisible : MonoBehaviour
 {
-    [SerializeField] Slider HP;
+    [SerializeField] Slider HP;   
     [SerializeField] private IS_WeaponHPBar m_WeaponHpBar;
-    [SerializeField] private UnityEngine.UI.Image Fill;         //バーの表面のテクスチャ
+    [SerializeField] private UnityEngine.UI.Image FrontFill;         //バーの表面のテクスチャ
+    [SerializeField] private UnityEngine.UI.Image BackFill;     //後ろのバーの表面のテクスチャ
     [SerializeField] private UnityEngine.UI.Image BackGround;   //バーの裏のテクスチャ
     private bool m_bVisible;
     private int m_nCnt;
@@ -65,10 +66,11 @@ public class YK_HPBarVisible : MonoBehaviour
     //HPBarを消す
     public void HPEnableFalse()
     {
-        // 1秒で後X,Y方向を2倍に変更
+        // 1秒で後X,Y方向を0.5倍に変更
         HP.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 1f);
-        // 1秒でオブジェクトをフェードアウト
-        Fill.DOFade(0f, 1f);
+        // 1秒でテクスチャをフェードアウト
+        FrontFill.DOFade(0f, 1f);
+        BackFill.DOFade(0f, 1f);
         BackGround.DOFade(0f, 1f);
         m_WeaponHpBar.gameObject.SetActive(true);
     }
@@ -76,10 +78,12 @@ public class YK_HPBarVisible : MonoBehaviour
     //HPBarを表示
     public void HPEnableTrue()
     {
-        HP.transform.DOScale(new Vector3(1.0f, 1.0f, 0f), 1f);
-        Fill.DOFade(1f, 0f);
+        // 1秒で後X,Y方向を元の大きさに変更
+        HP.transform.DOScale(new Vector3(1.5f, 3f, 0f), 1f);
+        // 1秒でテクスチャをフェードイン
+        FrontFill.DOFade(1f, 0f);
+        BackFill.DOFade(1f, 1f);
         BackGround.DOFade(1f, 0f);
-        //HP.gameObject.SetActive(true);
         m_WeaponHpBar.gameObject.SetActive(false);
     }
 
