@@ -1,7 +1,7 @@
-// ==============================================================
+ï»¿// ==============================================================
 // NK_AttackAreaFunction.cs
 // Auther:Naito
-// Update:2023/03/10 csì¬
+// Update:2023/03/10 csä½œæˆ
 // ==============================================================
 using System.Collections;
 using System.Collections.Generic;
@@ -9,9 +9,10 @@ using UnityEngine;
 
 public class NK_AttackAreaFunction : MonoBehaviour
 {
+    [SerializeField] private IS_Player m_Player;  // Player
     private void Start()
     {
-        //UŒ‚”ÍˆÍ‚ªÁ‚¦‚éˆ—
+        //æ”»æ’ƒç¯„å›²ãŒæ¶ˆãˆã‚‹å‡¦ç†
         Invoke("AttackAreaDereta", 0.5f);
     }
 
@@ -19,7 +20,9 @@ public class NK_AttackAreaFunction : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            //‚±‚±‚ÉƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚ğH‚ç‚¤ˆ—‚ğ‘‚¢‚Ä‚Ë
+            //ã“ã“ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’é£Ÿã‚‰ã†å‡¦ç†ã‚’æ›¸ã„ã¦ã­
+            Debug.Log("Player Damage!!");
+            m_Player.GetPlayerHp().DelLife(10);
         }
     }
 
