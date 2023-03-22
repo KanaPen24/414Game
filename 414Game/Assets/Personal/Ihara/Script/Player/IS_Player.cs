@@ -45,9 +45,9 @@ public enum PlayerDir
 }
 
 // ================================================
-// PlayerWeapon
+// EquipWeaponState
 // … 装備武器を管理する列挙体
-// ※m_PlayerWeaponはこの順番になるように入れること
+// ※m_Weaponsはこの順番になるように入れること
 // ================================================
 public enum EquipWeaponState
 {
