@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class YK_SkillIcon : MonoBehaviour
+public class YK_SkillIcon : YK_UI
 {
 
     // フェードさせる時間を設定
@@ -25,6 +25,7 @@ public class YK_SkillIcon : MonoBehaviour
 
     private void Start()
     {
+        m_eUIType = UIType.SkillIcon;
         CanvasGroup[] SkillArray = new CanvasGroup[m_SkillPoint];
         m_SkillPoint = m_nMaxSkill;
     }
@@ -58,6 +59,11 @@ public class YK_SkillIcon : MonoBehaviour
             SkillArray[m_SkillPoint - 1].DOFade(0f, 1f);
             m_SkillPoint -=Use;
         }
+    }
+    //座標引っ張ってくる
+    public Vector3 GetPos(int SkillPoint)
+    {
+        return SkillArray[SkillPoint].GetComponent<RectTransform>().position;
     }
 
 }
