@@ -190,6 +190,8 @@ GameObject:
   - component: {fileID: 1760798992062702863}
   - component: {fileID: 9209205998206117221}
   - component: {fileID: 9161827827903175012}
+  - component: {fileID: 8869376178457381434}
+  - component: {fileID: 3952642685700576965}
   m_Layer: 5
   m_Name: YK_Canvas
   m_TagString: Untagged
@@ -336,6 +338,36 @@ MonoBehaviour:
   - {fileID: 1932298952399256963}
   - {fileID: 7514058828221106517}
   m_nMaxSkill: 5
+--- !u!114 &8869376178457381434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760798992062702856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987c3cc421f483c4e983e9af78de9715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 1762658163894744905, guid: d843617ab7d0d754e885c2bb8a5c659a,
+    type: 3}
+  HPBar: {fileID: 3952642685700576965}
+  SkillIcon: {fileID: 9161827827903175012}
+--- !u!114 &3952642685700576965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760798992062702856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ec68dcdd5fe36438ab0aa2f8816a55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nMaxHP: 100
+  HP: {fileID: 6078767593954968639}
 --- !u!1 &3782182018259197221
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,7 +27,7 @@ public class YK_HPBarVisible : MonoBehaviour
     {
         // メンバの初期化
         m_bVisible = true;
-        m_nCnt = Convert.ToInt32(m_bVisible);
+        m_nCnt = Convert.ToInt32(m_bVisible);        
 
         // 表示状態だったら
         if (m_bVisible)
