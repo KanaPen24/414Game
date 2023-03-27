@@ -1,7 +1,8 @@
-// ==============================================================
+ï»¿// ==============================================================
 // NK_EnemyControl_Slime.cs
 // Auther:Naito
-// Update:2023/03/06 csì¬
+// Update:2023/03/06 csä½œæˆ
+// Update:2023/03/22 å½“ãŸã‚Šåˆ¤å®šå‡¦ç†è¿½åŠ (æ­¦å™¨ã®å½“ãŸã‚Šåˆ¤å®š)â€¦IS
 // ==============================================================
 using System.Collections;
 using System.Collections.Generic;
@@ -9,24 +10,28 @@ using UnityEngine;
 
 public class NK_EnemyControl_Slime : MonoBehaviour
 {
-    //“G‚Ì‘Ì—Í
+    //æ•µã®ä½“åŠ›
     [SerializeField] private int m_nHP;
-    //“G‚ÌUŒ‚”ÍˆÍ
+    //æ•µã®æ”»æ’ƒç¯„å›²
     [SerializeField] private float m_fAttackRange;
-    //ƒtƒ‰ƒOŠÇ—
-    private bool m_bMoveFlag;       //“®‚¢‚Ä‚¢‚¢‚©
-    private bool m_bAttackFlag;     //UŒ‚‚µ‚Ä‚¢‚¢‚©
-    private bool m_bPosRight;          //ƒvƒŒƒCƒ„[‚æ‚è‰E‚É‚¢‚é‚©¶‚É‚¢‚é‚©Btrue‚¾‚Á‚½‚ç‰E
-    //ƒ‚ƒ“ƒXƒ^[‚Ì“®‚«‚Ì‚â‚Â
+    //ãƒ•ãƒ©ã‚°ç®¡ç†
+    private bool m_bMoveFlag;       //å‹•ã„ã¦ã„ã„ã‹
+    private bool m_bAttackFlag;     //æ”»æ’ƒã—ã¦ã„ã„ã‹
+    private bool m_bPosRight;          //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚ˆã‚Šå³ã«ã„ã‚‹ã‹å·¦ã«ã„ã‚‹ã‹ã€‚trueã ã£ãŸã‚‰å³
+    //ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®å‹•ãã®ã‚„ã¤
     private NK_EnemyMove_Slime m_Move;
-    //UŒ‚‚Ì‚â‚Â
+    //æ”»æ’ƒã®ã‚„ã¤
     private NK_EnemyAttack_Slime m_Attack;
-    //“®‚«o‚·‚Ü‚Å‚ÌŠÔŠu
+    //å‹•ãå‡ºã™ã¾ã§ã®é–“éš”
     [SerializeField] private int m_nMoveTime;
-    //UŒ‚‚Ü‚Å‚ÌŠÔŠu
+    //æ”»æ’ƒã¾ã§ã®é–“éš”
     [SerializeField] private int m_nAttackTime;
-    //ƒvƒŒƒCƒ„[‚ÌˆÊ’uî•ñŠi”[—p
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®æƒ…å ±æ ¼ç´ç”¨
     [SerializeField] private GameObject m_gPlayer;
+
+    [SerializeField] private IS_Player m_Player;  // Player
+    [SerializeField] private YK_HPBerHP m_HpBarHP;// HPBarã®HP
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,12 +42,12 @@ public class NK_EnemyControl_Slime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //HP‚ªƒ[ƒˆÈ‰º‚È‚çÁ‚¦‚é
+        //HPãŒã‚¼ãƒ­ä»¥ä¸‹ãªã‚‰æ¶ˆãˆã‚‹
         if(m_nHP <= 0)
         {
             Destroy(this.gameObject);
         }
-        //ƒvƒŒƒCƒ„[‚Éˆê’è‹——£‹ß‚Ã‚¢‚½‚çUŒ‚A‚»‚êˆÈŠO‚ÍˆÚ“®
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ä¸€å®šè·é›¢è¿‘ã¥ã„ãŸã‚‰æ”»æ’ƒã€ãã‚Œä»¥å¤–ã¯ç§»å‹•
         if (m_gPlayer.transform.position.x - m_fAttackRange <= this.transform.position.x && m_gPlayer.transform.position.x + m_fAttackRange >= this.transform.position.x)
         {
             if (m_bAttackFlag == false)
@@ -83,10 +88,48 @@ public class NK_EnemyControl_Slime : MonoBehaviour
         m_bAttackFlag = false;
     }
 
-    //ƒXƒ‰ƒCƒ€‚ªƒ_ƒ[ƒW‚ğH‚ç‚¢AŒã‚ë‚É‚Ì‚¯‚¼‚é‚â‚ÂB‚±‚¢‚Â‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚½‚¢‚Æ‚«‚Í‚±‚êg‚¤
+    //ã‚¹ãƒ©ã‚¤ãƒ ãŒãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’é£Ÿã‚‰ã„ã€å¾Œã‚ã«ã®ã‘ãã‚‹ã‚„ã¤ã€‚ã“ã„ã¤ã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆãŸã„ã¨ãã¯ã“ã‚Œä½¿ã†
     public void SlimeDamage()
     {
         m_nHP -= 1;
         m_Move.KnockBack(m_bPosRight);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã ã£ãŸã‚‰
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Player Damage!!");
+            m_Player.GetPlayerHp().DelLife(10);
+        }
+
+        // æ­¦å™¨ã ã£ãŸã‚‰
+        if (collision.gameObject.tag == "Weapon")
+        {
+            Debug.Log("Enemy Damage!!");
+            m_HpBarHP.DelLife(10);
+            m_nHP -= 1;
+        }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        // æ­¦å™¨ã ã£ãŸã‚‰
+        if (collision.gameObject.tag == "Weapon")
+        {
+            if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+            {
+                Debug.Log("Enemy Damage!!");
+                m_HpBarHP.DelLife(10);
+                m_nHP--;
+
+                // Hpãƒãƒ¼ãŒå½“ãŸã£ã¦ã„ãŸæ™‚ã€ãƒ‰ãƒ¬ã‚¤ãƒ³å‡¦ç†ã‚’è¡Œã†
+                if(m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar)
+                {
+                    m_Player.GetPlayerHp().AddLife(5);
+                }
+            }
+        }
     }
 }

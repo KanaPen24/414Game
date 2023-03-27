@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  * @file   IS_PlayerGroundCollision.cs
- * @brief  Player‚Ì’n–Ê”»’èƒNƒ‰ƒX
+ * @brief  Playerã®åœ°é¢åˆ¤å®šã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/03
- * @Update 2023/03/03 ì¬
+ * @Update 2023/03/03 ä½œæˆ
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -11,37 +11,37 @@ using UnityEngine;
 
 public class IS_PlayerGroundCollision : MonoBehaviour
 {
-    [SerializeField] private GameObject[] m_RayPoints; // Ray‚ğ”ò‚Î‚·n“_(4‚Â)
-    [SerializeField] private float m_fRayLength;       // Ray‚Ì’·‚³
+    [SerializeField] private GameObject[] m_RayPoints; // Rayã‚’é£›ã°ã™å§‹ç‚¹(4ã¤)
+    [SerializeField] private float m_fRayLength;       // Rayã®é•·ã•
 
     /**
      * @fn
-     * Player‚Ì’n–Ê”»’èŠÖ”
-     * @brief@’n–Ê‚Éray‚ª“–‚½‚Á‚Ä‚¢‚½‚çtrue‚ğ•Ô‚·,
-     *         “–‚½‚Á‚Ä‚¢‚È‚¯‚ê‚Îfalse‚ğ•Ô‚·
+     * Playerã®åœ°é¢åˆ¤å®šé–¢æ•°
+     * @briefã€€åœ°é¢ã«rayãŒå½“ãŸã£ã¦ã„ãŸã‚‰trueã‚’è¿”ã™,
+     *         å½“ãŸã£ã¦ã„ãªã‘ã‚Œã°falseã‚’è¿”ã™
      */
     public bool IsGroundCollision()
     {
         // =========================================== 
-        // •Ï”éŒ¾ 
+        // å¤‰æ•°å®£è¨€ 
         // ===========================================
 
-        // Ray‚Ì‰Šú‰»
+        // Rayã®åˆæœŸåŒ–
         Ray[] ray = new Ray[m_RayPoints.Length];
-        //Ray‚ª“–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ìî•ñ‚ğ“ü‚ê‚é” 
+        //RayãŒå½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æƒ…å ±ã‚’å…¥ã‚Œã‚‹ç®±
         RaycastHit hit;
 
         // ===========================================
 
-        // Ray‚Ì”‚¾‚¯¶¬‚·‚é
+        // Rayã®æ•°ã ã‘ç”Ÿæˆã™ã‚‹
         for (int i = 0; i < m_RayPoints.Length; ++i)
         {
-            //Ray‚Ìì¬@@@@@@@«Ray‚ğ”ò‚Î‚·Œ´“_@@@«Ray‚ğ”ò‚Î‚·•ûŒü
+            //Rayã®ä½œæˆã€€ã€€ã€€ã€€ã€€ã€€ã€€â†“Rayã‚’é£›ã°ã™åŸç‚¹ã€€ã€€ã€€â†“Rayã‚’é£›ã°ã™æ–¹å‘
             ray[i] = new Ray(m_RayPoints[i].transform.position, Vector3.down);
             Debug.DrawRay(m_RayPoints[i].transform.position, Vector3.down, Color.red, m_fRayLength);
         }
 
-        // ’n–Ê‚Æ‚Ì“–‚½‚è”»’è(ˆê‰ñ‚Å‚à’Ê‚ê‚Îtrue)
+        // åœ°é¢ã¨ã®å½“ãŸã‚Šåˆ¤å®š(ä¸€å›ã§ã‚‚é€šã‚Œã°true)
         for (int i = 0; i < m_RayPoints.Length; i++)
         {
             if (Physics.Raycast(ray[i], out hit, m_fRayLength))
