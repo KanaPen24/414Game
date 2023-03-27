@@ -7,9 +7,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-
-public class YK_SkillIcon : MonoBehaviour
+public class YK_SkillIcon : YK_UI
 {
 
     // フェードさせる時間を設定
@@ -25,18 +25,19 @@ public class YK_SkillIcon : MonoBehaviour
 
     private void Start()
     {
+        m_eUIType = UIType.SkillIcon;
         CanvasGroup[] SkillArray = new CanvasGroup[m_SkillPoint];
         m_SkillPoint = m_nMaxSkill;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             AddSkill(1);
         }
 
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             DelSkill(1); 
         }
@@ -47,7 +48,7 @@ public class YK_SkillIcon : MonoBehaviour
         if (m_SkillPoint < m_nMaxSkill)
         {
             m_SkillPoint+=Heal;
-            SkillArray[m_SkillPoint - 1].alpha = 1;
+            SkillArray[m_SkillPoint - 1].DOFade(1f, 1f);
         }
     }
     //スキル数減らす
@@ -55,9 +56,14 @@ public class YK_SkillIcon : MonoBehaviour
     {
         if(m_SkillPoint > 0)
         {
-            SkillArray[m_SkillPoint - 1].alpha = 0;
-            m_SkillPoint-=Use;
+            SkillArray[m_SkillPoint - 1].DOFade(0f, 1f);
+            m_SkillPoint -=Use;
         }
+    }
+    //座標引っ張ってくる
+    public Vector3 GetPos(int SkillPoint)
+    {
+        return SkillArray[SkillPoint].GetComponent<RectTransform>().position;
     }
 
 }

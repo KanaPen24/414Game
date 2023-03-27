@@ -1,0 +1,24 @@
+{
+	"Version": 3,
+	"FileReferences": {
+		"Moc": "otamesi.moc3",
+		"Textures": [
+			"otamesi.2048/texture_00.png",
+			"otamesi.2048/texture_01.png",
+			"otamesi.2048/texture_02.png"
+		],
+		"DisplayInfo": "otamesi.cdi3.json"
+	},
+	"Groups": [
+		{
+			"Target": "Parameter",
+			"Name": "LipSync",
+			"Ids": []
+		},
+		{
+			"Target": "Parameter",
+			"Name": "EyeBlink",
+			"Ids": []
+		}
+	]
+}
