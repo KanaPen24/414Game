@@ -26,7 +26,7 @@ public class YK_UICatcher : MonoBehaviour
     void Start()
     {
         particleUI.GetComponent<Transform>().position = HPBar.GetSetPos;
-        particleUI.transform.localScale = new Vector3(2, 2, 0);
+        
         //ParticleStop();
         m_bParticleFlg = false;
     }
