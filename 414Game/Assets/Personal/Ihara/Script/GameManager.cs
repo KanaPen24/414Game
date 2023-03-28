@@ -1,6 +1,6 @@
 ﻿/**
- * @file   IS_GameManager.cs
- * @brief  IS_GameManagerクラス
+ * @file   GameManager.cs
+ * @brief  GameManagerクラス
  * @author IharaShota
  * @date   2023/03/27
  * @Update 2023/03/27 作成
@@ -24,9 +24,9 @@ public enum GameState
     MaxGameState
 }
 
-public class IS_GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static IS_GameManager instance;  
+    public static GameManager instance;  
     [SerializeField] private GameState m_GameState;
 
     private void Start()
