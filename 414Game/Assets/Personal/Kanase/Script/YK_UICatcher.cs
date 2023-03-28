@@ -11,24 +11,49 @@ using UnityEngine;
 public class YK_UICatcher : MonoBehaviour
 {
 
-    [SerializeField] private ParticleSystem particle;   //エフェクトオブジェクト
-    [SerializeField] private YK_HPBar HPBar;
-    [SerializeField] private YK_SkillIcon SkillIcon;
+    [SerializeField] private ParticleSystem particleUI; //UI用エフェクトオブジェクト
+    [SerializeField] private ParticleSystem particlePL; //プレイヤー用エフェクトオブジェクト
+    [SerializeField] private GameObject PortalObjUI;    //UIの歪みのオブジェクト
+    [SerializeField] private GameObject PortalObjPL;    //プレイヤーの歪みのオブジェクト
+    [SerializeField] private YK_HPBarVisible m_HpVisible;        // PlayerのHp表示管理
+    [SerializeField] private YK_HPBar HPBar;            //HPバー
+    [SerializeField] private YK_SkillIcon SkillIcon;    //スキルアイコン
+    [SerializeField] private IS_Player Player;          //プレイヤーの情報
+
+    private bool m_bParticleFlg;                        //パーティクルエフェクト用のフラグ
 
     // Start is called before the first frame update
     void Start()
     {
-        particle.GetComponent<Transform>().position = HPBar.GetSetPos;
-        particle.transform.localScale = new Vector3(2, 2, 0);
+        particleUI.GetComponent<Transform>().position = HPBar.GetSetPos;
+        
+        //ParticleStop();
+        m_bParticleFlg = false;
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Decision"))
+        m_bParticleFlg = m_HpVisible.GetSetVisible;
+
+        //プレイヤーの向き比較
+        if(Player.GetSetPlayerDir<=0.0f)
+        {
+            particlePL.transform.position = Player.transform.position + new Vector3(-0.5f, 1.0f, 0.0f);
+        }
+        else
+        {
+            particlePL.transform.position = Player.transform.position + new Vector3(0.5f, 1.0f, 0.0f);
+        }
+
+        if (!m_bParticleFlg)
         {
             ParticlePlay();
         }
-            //どのUIを選んでるかで引っ張ってくる座標を変える
+        else
+        {
+            ParticleStop();
+        }
+        //どのUIを選んでるかで引っ張ってくる座標を変える
         //    switch (UI.GetSetUIType)
         //{
         //    case UIType.HPBar:
@@ -43,20 +68,25 @@ public class YK_UICatcher : MonoBehaviour
     // 1. 再生
     private void ParticlePlay()
     {
-        Instantiate(particle,HPBar.GetSetPos, Quaternion.identity); //パーティクル用ゲームオブジェクト生成
-        particle.Play();
+        particleUI.Play();
+        particlePL.Play();
+        PortalObjUI.SetActive(true);
+        PortalObjPL.SetActive(true);
     }
 
     // 2. 一時停止
     private void ParticlePause()
     {
-        particle.Pause();
+        particleUI.Pause();
     }
 
     // 3. 停止
     private void ParticleStop()
     {
-        particle.Stop();
+        particleUI.Stop();
+        particlePL.Stop();
+        PortalObjUI.SetActive(false);
+        PortalObjPL.SetActive(false);
     }
 
     //アニメーション動かす

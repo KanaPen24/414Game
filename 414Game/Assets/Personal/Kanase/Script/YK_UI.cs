@@ -16,6 +16,7 @@ public enum UIType
 {
     HPBar,      // HPバー
     SkillIcon,  // スキルアイコン
+    BossBar,    // Bossバー
 
     MaxUIType
 }
@@ -98,8 +99,8 @@ public class YK_UI : MonoBehaviour
         {
             // 現在の体力値に 最大値 を代入
             m_nHP = maxHP;
-            // コンソールに"HPBarHPMax!"を表示する
-            Debug.Log("HPBarHPMax!");
+            // コンソールに"HPMax!"を表示する
+            Debug.Log("HPMax!");
         }
     }
 }
