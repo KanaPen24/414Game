@@ -1,0 +1,37 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "手閉じ"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "グー出現"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "",
+			"Name": "グー透明"
+		},
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "掴む"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "手ニギ"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "",
+			"Name": "パー小～大"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": []
+}
