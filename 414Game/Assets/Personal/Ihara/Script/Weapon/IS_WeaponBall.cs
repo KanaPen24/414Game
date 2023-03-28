@@ -12,42 +12,53 @@ using System;
 
 public class IS_WeaponBall : IS_Weapon
 {
-    [SerializeField] private IS_Player m_Player; // Player    
-    [SerializeField] private IS_Ball m_Ball;     // 生成Ball
-    [SerializeField] private float fInitVel;     // 初期速度
-    [SerializeField] private float m_fAttackRate;// 攻撃速度     
+    [SerializeField] private IS_Player m_Player;        // Player    
+    [SerializeField] private IS_Ball m_Ball;            // 生成Ball
+    [SerializeField] private MeshRenderer m_MeshRender; // メッシュ
+    [SerializeField] private float fInitVel;            // 初期速度
+    [SerializeField] private float m_fAttackRate;       // 攻撃速度
 
-    private float m_fRateAmount;                   // 割合の合計
-    private int nVisible;                          // bool型を格納するための変数
+    private float m_fRateAmount;                        // 割合の合計
+    private int m_nCnt;
 
-    private void Start()
+    /**
+     * @fn
+     * 初期化処理(override前提)
+     * @brief 初期化処理(外部参照は避けること)
+     */
+    protected override void Awake()
     {
+        // メンバの初期化
         m_eWeaponType = WeaponType.Ball; // 武器種類はBall
-        GetSetAttack = false;
-    }
-
-    private void FixedUpdate()
-    {
-        UpdateVisible();
+        m_bAttack = false;
+        m_bVisible = false;
+        m_bDestroy = false;
     }
 
     /**
      * @fn
-     * 表示更新処理
-     * @brief MeshRenderとColliderのコンポーネントのチェック有無
+     * 初期化処理(override前提)
+     * @brief 初期化処理(外部参照する場合)
      */
-    private void UpdateVisible()
+    protected override void Start()
     {
-        if (nVisible != Convert.ToInt32(m_bVisible))
+        // 現在の状態に更新
+        m_nCnt = Convert.ToInt32(m_bVisible);
+
+        // 表示更新
+        UpdateVisible();
+    }
+
+    private void Update()
+    {
+        // 前回と状態が違ったら
+        if (m_nCnt != Convert.ToInt32(m_bVisible))
         {
-            if (m_bVisible)
-            {
-            }
-            else
-            {
-            }
+            UpdateVisible();
         }
-        nVisible = Convert.ToInt32(m_bVisible);
+
+        // 現在の状態に更新
+        m_nCnt = Convert.ToInt32(m_bVisible);
     }
 
     /**
@@ -89,5 +100,24 @@ public class IS_WeaponBall : IS_Weapon
             FinAttack();
         }
         else m_fRateAmount += m_fAttackRate;
+    }
+
+    /**
+     * @fn
+     * 表示更新処理(override)
+     * @brief 表示更新処理
+     */
+    public override void UpdateVisible()
+    {
+        // 表示状態だったら
+        if (m_bVisible)
+        {
+            m_MeshRender.enabled = true;
+        }
+        // 非表示状態だったら
+        else
+        {
+            m_MeshRender.enabled = false;
+        }
     }
 }

@@ -180,6 +180,15 @@ public class IS_Player : MonoBehaviour
         {
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
         }
+
+        for(int i = 0, size = m_Weapons.Count; i < size; ++i)
+        {
+            if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquipFlg)
+            {
+                m_Weapons[i].GetSetVisible = true;
+            }
+            else m_Weapons[i].GetSetVisible = false;
+        }
     }
 
     /**
