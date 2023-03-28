@@ -12,23 +12,37 @@ public class YK_UICatcher : MonoBehaviour
 {
 
     [SerializeField] private ParticleSystem particle;   //エフェクトオブジェクト
-    [SerializeField] private YK_HPBar HPBar;
-    [SerializeField] private YK_SkillIcon SkillIcon;
+    [SerializeField] private GameObject PortalObj;      //歪みのオブジェクト
+    [SerializeField] private YK_HPBarVisible m_HpVisible;        // PlayerのHp表示管理
+    [SerializeField] private YK_HPBar HPBar;            //HPバー
+    [SerializeField] private YK_SkillIcon SkillIcon;    //スキルアイコン
+
+    private bool m_bParticleFlg;                        //パーティクルエフェクト用のフラグ
 
     // Start is called before the first frame update
     void Start()
     {
         particle.GetComponent<Transform>().position = HPBar.GetSetPos;
         particle.transform.localScale = new Vector3(2, 2, 0);
+        ParticleStop();
+        m_bParticleFlg = false;
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Decision"))
+        m_bParticleFlg = m_HpVisible.GetSetVisible;
+        if (!m_bParticleFlg)
         {
             ParticlePlay();
         }
-            //どのUIを選んでるかで引っ張ってくる座標を変える
+        else
+        {
+            ParticleStop();
+        }
+        
+        
+        
+        //どのUIを選んでるかで引っ張ってくる座標を変える
         //    switch (UI.GetSetUIType)
         //{
         //    case UIType.HPBar:
@@ -43,8 +57,8 @@ public class YK_UICatcher : MonoBehaviour
     // 1. 再生
     private void ParticlePlay()
     {
-        Instantiate(particle,HPBar.GetSetPos, Quaternion.identity); //パーティクル用ゲームオブジェクト生成
         particle.Play();
+        PortalObj.SetActive(true);
     }
 
     // 2. 一時停止
@@ -57,6 +71,7 @@ public class YK_UICatcher : MonoBehaviour
     private void ParticleStop()
     {
         particle.Stop();
+        PortalObj.SetActive(false);
     }
 
     //アニメーション動かす
