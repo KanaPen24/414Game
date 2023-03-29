@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TitleScene.unity
     guid: 8ad3abd2205ed1945a050418b0673a9a
+  - enabled: 0
+    path: Assets/Personal/Naito/Scene/NK_proto.unity
+    guid: 1b9972d400330c44cb65e59747f98c29
   m_configObjects: {}
