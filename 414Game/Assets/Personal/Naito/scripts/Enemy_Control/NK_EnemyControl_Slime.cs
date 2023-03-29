@@ -2,6 +2,7 @@
 // NK_EnemyControl_Slime.cs
 // Auther:Naito
 // Update:2023/03/06 cs作成
+// Update:2023/03/22 当たり判定処理追加(武器の当たり判定)…IS
 // ==============================================================
 using System.Collections;
 using System.Collections.Generic;
@@ -109,6 +110,26 @@ public class NK_EnemyControl_Slime : MonoBehaviour
             Debug.Log("Enemy Damage!!");
             m_HpBarHP.DelLife(10);
             m_nHP -= 1;
+        }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        // 武器だったら
+        if (collision.gameObject.tag == "Weapon")
+        {
+            if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+            {
+                Debug.Log("Enemy Damage!!");
+                m_HpBarHP.DelLife(10);
+                m_nHP--;
+
+                // Hpバーが当たっていた時、ドレイン処理を行う
+                if(m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar)
+                {
+                    m_Player.GetPlayerHp().AddLife(5);
+                }
+            }
         }
     }
 }

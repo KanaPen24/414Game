@@ -63,6 +63,7 @@ public class IS_Player : MonoBehaviour
     [SerializeField] private Rigidbody               m_Rigidbody;        // PlayerのRigidBody
     [SerializeField] private YK_HPBarVisible         m_HpVisible;        // PlayerのHp表示管理
     [SerializeField] private YK_PlayerHP             m_Hp;               // PlayerのHp
+    [SerializeField] private YK_UICatcher            m_UICatcher;        // UIキャッチャー
     [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // Player挙動クラスの動的配列
     [SerializeField] private List<IS_Weapon>         m_Weapons;          // 武器クラスの動的配列
     [SerializeField] private PlayerState             m_PlayerState;      // Playerの状態を管理する
@@ -141,9 +142,16 @@ public class IS_Player : MonoBehaviour
 
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision"))
-        {
-            m_HpVisible.GetSetVisible = !m_HpVisible.GetSetVisible;
-            m_bEquipFlg = !m_HpVisible.GetSetVisible;
+        {            
+            if(m_bEquipFlg)
+            {
+                m_HpVisible.GetSetVisible = true;
+                m_bEquipFlg = false;
+            }
+            else
+            {
+                m_UICatcher.ParticlePlay();
+            }
         }
 
         // 武器チェンジ(仮)…関数化する予定
@@ -179,6 +187,15 @@ public class IS_Player : MonoBehaviour
         else if (GetSetPlayerDir == PlayerDir.Left)
         {
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
+        }
+
+        for(int i = 0, size = m_Weapons.Count; i < size; ++i)
+        {
+            if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquipFlg)
+            {
+                m_Weapons[i].GetSetVisible = true;
+            }
+            else m_Weapons[i].GetSetVisible = false;
         }
     }
 

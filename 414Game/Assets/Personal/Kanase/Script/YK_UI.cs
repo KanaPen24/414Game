@@ -14,7 +14,9 @@ using UnityEngine;
 // ================================================
 public enum UIType
 {
-    HPBar,// HPバー
+    HPBar,      // HPバー
+    SkillIcon,  // スキルアイコン
+    BossBar,    // Bossバー
 
     MaxUIType
 }
@@ -23,7 +25,8 @@ public class YK_UI : MonoBehaviour
 {
     protected UIType m_eUIType; // UIの種類
     protected bool m_bVisible;  // 表示非表示フラグ
-    protected int m_nHP;        // 耐久値
+    protected int m_nHP;        // 体力
+    protected Vector3 m_Pos;    // UIの座標
 
     /**
      * @fn
@@ -60,6 +63,17 @@ public class YK_UI : MonoBehaviour
         get { return m_nHP; }
         set { m_nHP = value; }
     }
+    /**
+ * @fn
+ * 表示非表示のgetter・setter
+ * @return m_Pos(Vector3)
+ * @brief 表示中を返す・セット
+ */
+    public Vector3 GetSetPos
+    {
+        get { return m_Pos; }
+        set { m_Pos = value; }
+    }
 
     // ダメージ処理
     public void DelLife(int damage)
@@ -85,8 +99,8 @@ public class YK_UI : MonoBehaviour
         {
             // 現在の体力値に 最大値 を代入
             m_nHP = maxHP;
-            // コンソールに"HPBarHPMax!"を表示する
-            Debug.Log("HPBarHPMax!");
+            // コンソールに"HPMax!"を表示する
+            Debug.Log("HPMax!");
         }
     }
 }
