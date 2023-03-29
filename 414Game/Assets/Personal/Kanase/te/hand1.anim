@@ -682,12 +682,19 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
+    functionName: InstanceId
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: -5288
+    messageOptions: 1
+  - time: 0.06666667
     functionName: AnimationStart
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 66269d7ae9423ee48a5620409bd14857,
       type: 3}
     floatParameter: 0
-    intParameter: -5288
+    intParameter: 0
     messageOptions: 1
   - time: 0.6333333
     functionName: HandCatch
