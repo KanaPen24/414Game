@@ -15,6 +15,7 @@ public class YK_UICatcher : MonoBehaviour
     [SerializeField] private ParticleSystem particlePL; //プレイヤー用エフェクトオブジェクト
     [SerializeField] private GameObject PortalObjUI;    //UIの歪みのオブジェクト
     [SerializeField] private GameObject PortalObjPL;    //プレイヤーの歪みのオブジェクト
+    [SerializeField] private GameObject Hand;           //手のオブジェクト
     [SerializeField] private YK_HPBarVisible m_HpVisible;        // PlayerのHp表示管理
     [SerializeField] private YK_HPBar HPBar;            //HPバー
     [SerializeField] private YK_SkillIcon SkillIcon;    //スキルアイコン
@@ -26,15 +27,13 @@ public class YK_UICatcher : MonoBehaviour
     void Start()
     {
         particleUI.GetComponent<Transform>().position = HPBar.GetSetPos;
-        
-        //ParticleStop();
+        Hand.transform.position = HPBar.GetSetPos;
+        ParticleStop();
         m_bParticleFlg = false;
     }
 
     private void Update()
     {
-        m_bParticleFlg = m_HpVisible.GetSetVisible;
-
         //プレイヤーの向き比較
         if(Player.GetSetPlayerDir<=0.0f)
         {
@@ -45,14 +44,6 @@ public class YK_UICatcher : MonoBehaviour
             particlePL.transform.position = Player.transform.position + new Vector3(0.5f, 1.0f, 0.0f);
         }
 
-        if (!m_bParticleFlg)
-        {
-            ParticlePlay();
-        }
-        else
-        {
-            ParticleStop();
-        }
         //どのUIを選んでるかで引っ張ってくる座標を変える
         //    switch (UI.GetSetUIType)
         //{
@@ -66,8 +57,9 @@ public class YK_UICatcher : MonoBehaviour
     }
 
     // 1. 再生
-    private void ParticlePlay()
+    public void ParticlePlay()
     {
+        Hand.GetComponent<Animator>().SetTrigger("Hand");
         particleUI.Play();
         particlePL.Play();
         PortalObjUI.SetActive(true);
@@ -75,13 +67,13 @@ public class YK_UICatcher : MonoBehaviour
     }
 
     // 2. 一時停止
-    private void ParticlePause()
+    public void ParticlePause()
     {
         particleUI.Pause();
     }
 
     // 3. 停止
-    private void ParticleStop()
+    public void ParticleStop()
     {
         particleUI.Stop();
         particlePL.Stop();
@@ -93,6 +85,6 @@ public class YK_UICatcher : MonoBehaviour
     public void AnimationPlay()
     {
         // アニメーターで動かす
-        //GetComponent<Animator>().SetTrigger("Hand");
+        //
     }
 }
