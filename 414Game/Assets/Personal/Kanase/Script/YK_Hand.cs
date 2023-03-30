@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Live2D.Cubism.Rendering;
+using Live2D.Cubism.Framework;
 
 public class YK_Hand : MonoBehaviour
 {
@@ -39,10 +40,13 @@ public class YK_Hand : MonoBehaviour
     //引っ込む時
     void HandPull()
     {
-        for (int i = 0; i < 100; i++)
-        {
-            renderController.Opacity -= 0.1f;
-        }
+        //for (int i = 0; i < 100; i++)
+        //{
+        //    renderController.Opacity -= 0.1f;
+        //}
+        renderController.Opacity = 0f;
+        //レイヤーをUIの後ろにする
+        renderController.SortingOrder = -1;
         HPBarVisible.GetSetVisible = false;
     }
 
