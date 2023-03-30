@@ -54,7 +54,7 @@ public class YK_Hand : MonoBehaviour
     void AnimationEnd()
     {
         UICatcher.ParticleStop();
-        Player.GetSetEquipFlg = true;
+        Player.GetSetEquip = true;
     }
 
 }
