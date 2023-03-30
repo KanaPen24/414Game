@@ -50,7 +50,7 @@ public class NK_EnemyMove_Slime : MonoBehaviour
         if (PosRight)
         {
             //右ノックバック
-            this.m_rRdoby.AddForce(transform.up * m_fJumpPower, ForceMode.Impulse);
+            this.m_rRdoby.AddForce(transform.up * m_fJumpPower * 0.5f, ForceMode.Impulse);
             this.m_rRdoby.AddForce(transform.right * m_fMovePower * 2, ForceMode.Impulse);
         }
         else
