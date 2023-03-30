@@ -120,14 +120,14 @@ public class IS_Player : MonoBehaviour
         else bInputUp = false;
 
         // 右移動
-        if ((Input.GetAxis("Horizontal")) >= m_fDeadZone)
+        if ((Input.GetAxis("HorizontalL")) >= m_fDeadZone)
         {
             bInputRight = true;
         }
         else bInputRight = false;
 
         // 左移動
-        if ((Input.GetAxis("Horizontal")) <= -m_fDeadZone)
+        if ((Input.GetAxis("HorizontalL")) <= -m_fDeadZone)
         {
             bInputLeft = true;
         }

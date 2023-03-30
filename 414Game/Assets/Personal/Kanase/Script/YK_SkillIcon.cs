@@ -11,14 +11,6 @@ using DG.Tweening;
 
 public class YK_SkillIcon : YK_UI
 {
-
-    // フェードさせる時間を設定
-    [SerializeField]
-    [Tooltip("フェードさせる時間(秒)")]
-    private float fadeTime = 1f;
-    // 経過時間を取得
-    private float timer;
-
     private int m_SkillPoint;  //現在のスキル数
     public CanvasGroup[] SkillArray;
     public int m_nMaxSkill; //最高スキル数
