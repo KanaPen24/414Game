@@ -59,7 +59,7 @@ public class YK_UICatcher : MonoBehaviour
     // 1. 再生
     public void ParticlePlay()
     {
-        Hand.GetComponent<Animator>().SetTrigger("Hand");
+        Hand.GetComponent<Animator>().SetBool("Hand", true);
         particleUI.Play();
         particlePL.Play();
         PortalObjUI.SetActive(true);
@@ -75,6 +75,7 @@ public class YK_UICatcher : MonoBehaviour
     // 3. 停止
     public void ParticleStop()
     {
+        Hand.GetComponent<Animator>().SetBool("Hand", false);
         particleUI.Stop();
         particlePL.Stop();
         PortalObjUI.SetActive(false);

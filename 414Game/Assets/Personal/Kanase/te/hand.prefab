@@ -543,7 +543,6 @@ GameObject:
   - component: {fileID: 3762822690150767850}
   - component: {fileID: 8428045002076007401}
   - component: {fileID: 7361274919984119978}
-  - component: {fileID: 9000036787265733072}
   - component: {fileID: 7593704865377815655}
   m_Layer: 0
   m_Name: hand
@@ -705,20 +704,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9000036787265733072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4617032788645373026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd9e6647bfff7542acb0200ab74bdd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CubismFadeMotionList: {fileID: 11400000, guid: 236a2bd9369eccd4d9cc190c465ef7af,
-    type: 2}
 --- !u!114 &7593704865377815655
 MonoBehaviour:
   m_ObjectHideFlags: 0
