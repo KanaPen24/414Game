@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  * @file   IS_PlayerStrategy.cs
- * @brief  Player‚Ì‹““®Šî’êƒNƒ‰ƒX
+ * @brief  Playerã®æŒ™å‹•åŸºåº•ã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/03
- * @Update 2023/03/03 ì¬
+ * @Update 2023/03/03 ä½œæˆ
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -13,12 +13,11 @@ public class IS_PlayerStrategy : MonoBehaviour
 {
     /**
      * @fn
-     * XVˆ—(override‘O’ñ)
-     * @brief Player‚ÌXVˆ—
+     * æ›´æ–°å‡¦ç†(overrideå‰æ)
+     * @brief Playerã®æ›´æ–°å‡¦ç†
      */
     public virtual void UpdateStrategy()
     {
-        // ‚±‚±‚ÉState‚²‚Æ‚Éˆ—‚ğ‰Á‚¦‚é
-        Debug.Log("‰F•”ˆä");
+        // ã“ã“ã«Stateã”ã¨ã«å‡¦ç†ã‚’åŠ ãˆã‚‹
     }
 }

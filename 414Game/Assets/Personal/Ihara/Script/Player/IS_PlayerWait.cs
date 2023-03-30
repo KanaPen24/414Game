@@ -58,7 +58,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
             return;
         }
         // 「待機 → 攻撃」
-        if (m_Player.bInputSpace && m_Player.GetSetEquipFlg)
+        if (m_Player.bInputSpace && m_Player.GetSetEquip)
         {
             m_Player.GetSetPlayerState = PlayerState.PlayerAttack;
             m_Player.GetSetAttackFlg = true;

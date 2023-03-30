@@ -79,7 +79,7 @@ public class IS_Player : MonoBehaviour
 
     private bool m_bJumpFlg;     // 跳躍開始フラグ
     private bool m_bAttackFlg;   // 攻撃開始フラグ
-    private bool m_bEquipFlg;    // 装備フラグ
+    private bool m_bEquip;       // 装備しているかどうか
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
 
     private void Start()
@@ -100,7 +100,7 @@ public class IS_Player : MonoBehaviour
         m_vMoveAmount = new Vector3(0.0f, 0.0f, 0.0f);
         m_bJumpFlg    = false;
         m_bAttackFlg  = false;
-        m_bEquipFlg   = false;
+        m_bEquip      = false;
         bInputUp      = false;
         bInputRight   = false;
         bInputLeft    = false;
@@ -143,10 +143,10 @@ public class IS_Player : MonoBehaviour
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision"))
         {            
-            if(m_bEquipFlg)
+            if(m_bEquip)
             {
                 m_HpVisible.GetSetVisible = true;
-                m_bEquipFlg = false;
+                m_bEquip = false;
             }
             else
             {
@@ -156,7 +156,7 @@ public class IS_Player : MonoBehaviour
 
         // 武器チェンジ(仮)…関数化する予定
         // ※装備している && Playerが攻撃状態以外 だったら可能
-        if(m_PlayerState != PlayerState.PlayerAttack && GetSetEquipFlg)
+        if(m_PlayerState != PlayerState.PlayerAttack && GetSetEquip)
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
@@ -191,7 +191,7 @@ public class IS_Player : MonoBehaviour
 
         for(int i = 0, size = m_Weapons.Count; i < size; ++i)
         {
-            if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquipFlg)
+            if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquip)
             {
                 m_Weapons[i].GetSetVisible = true;
             }
@@ -340,13 +340,13 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * 装備フラグのgetter・setter
+     * 装備しているかのgetter・setter
      * @return m_bEquipFlg(bool)
-     * @brief 装備フラグを返す・セット
+     * @brief 装備しているかを返す・セット
      */
-    public bool GetSetEquipFlg
+    public bool GetSetEquip
     {
-        get { return m_bEquipFlg; }
-        set { m_bEquipFlg = value; }
+        get { return m_bEquip; }
+        set { m_bEquip = value; }
     }
 }
