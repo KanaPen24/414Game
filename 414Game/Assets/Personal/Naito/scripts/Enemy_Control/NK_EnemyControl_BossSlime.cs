@@ -23,9 +23,9 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
     //ビュー視点で画面のどこにいるか
     private float m_fViewX;
     //子供すらいむを召喚させる確率
-    [SerializeField] private int m_nKidRnd;
+    //[SerializeField] private int m_nKidRnd;
     //子供すらいむ出すやつ
-    [SerializeField] private GameObject m_gKidSlimeSpooner;
+    //[SerializeField] private GameObject m_gKidSlimeSpooner;
     //攻撃までの間隔
     //[SerializeField] private int m_nAttackTime;
     //プレイヤーの位置情報格納用
@@ -44,7 +44,7 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
         m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
         if (m_bMoveFlag == false && m_bKnockBack == false && m_bStandFlag == true)
         {
-            //StartCoroutine(Move());
+            StartCoroutine(Move());
         }
         if(m_fViewX <= 0 && m_bKnockBack==false)
         {
@@ -66,15 +66,15 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
     {
         m_bMoveFlag = true;
         //確率で動くか召喚か
-        int rnd = Random.Range(1, m_nKidRnd);
-        if (rnd != 1)
-        {
+        //int rnd = Random.Range(1, m_nKidRnd);
+        //if (rnd != 1)
+        //{
             m_Move.MoveFlagChanger(m_bPosRight);
             m_bStandFlag = false;
-        }else
-        {
-            Instantiate(m_gKidSlimeSpooner, new Vector3(this.transform.position.x + 1.0f, this.transform.position.y, this.transform.position.z), Quaternion.identity);
-        }
+        //}else
+        //{
+            //Instantiate(m_gKidSlimeSpooner, new Vector3(this.transform.position.x + 1.0f, this.transform.position.y, this.transform.position.z), Quaternion.identity);
+        //}
         yield return new WaitForSeconds(m_nMoveTime);
         m_bMoveFlag = false;
     }
