@@ -26,7 +26,7 @@ public class YK_SkillIcon : YK_UI
     {
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            AddSkill(1);
+            ResetSkill();
         }
 
         else if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -34,12 +34,12 @@ public class YK_SkillIcon : YK_UI
             DelSkill(1); 
         }
     }
-    //スキル数増やす
-    public void AddSkill(int Heal)
+    //スキル数元に戻す
+    public void ResetSkill()
     {
-        if (m_SkillPoint < m_nMaxSkill)
+        while (m_SkillPoint < m_nMaxSkill)
         {
-            m_SkillPoint+=Heal;
+            m_SkillPoint++;
             SkillArray[m_SkillPoint - 1].DOFade(1f, 1f);
         }
     }
@@ -56,6 +56,15 @@ public class YK_SkillIcon : YK_UI
     public Vector3 GetPos(int SkillPoint)
     {
         return SkillArray[SkillPoint].GetComponent<RectTransform>().position;
+    }
+
+    public void VisibleSkill(int Icon)
+    {
+        m_SkillPoint--;
+        SkillArray[Icon].DOFade(0f, 0.5f);
+        if (m_SkillPoint <= 0)
+            ResetSkill();
+        Debug.Log(m_SkillPoint);
     }
 
 }

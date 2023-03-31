@@ -14,7 +14,14 @@ public class YK_CursolEvent : MonoBehaviour
 
     //　このスロットのアイテム名
     private string itemName;
-   
+    private string HPBar = "HPBack";
+    private string Skill = "Skill";
+    private string Skill1 = "Skill1";
+    private string Skill2 = "Skill2";
+    private string Skill3 = "Skill3";
+    private string Skill4 = "Skill4";
+    public static int m_nUINumber = 0;
+
 
     void Start()
     {
@@ -41,15 +48,36 @@ public class YK_CursolEvent : MonoBehaviour
                 //　このUIをフォーカスする
                 EventSystem.current.SetSelectedGameObject(gameObject);
                 itemName = col.name;
-
+                
                 //　アイテムに応じて表示する情報を変える
-                if (itemName == "HPBack")
+               switch(itemName)
                 {
-                    Debug.Log("HPバーに当たってる");
-                }
-                else if (itemName == "armor")
-                {
-
+                    case "HPBack":
+                        m_nUINumber = 0;
+                        Debug.Log("体力バー");
+                        break;
+                    case "Skill":
+                        m_nUINumber = 1;
+                        Debug.Log("スキルアイコン");
+                        break;
+                    case "Skill1":
+                        m_nUINumber = 2;
+                        Debug.Log("スキルアイコン1");
+                        break;
+                    case "Skill2":
+                        m_nUINumber = 3;
+                        Debug.Log("スキルアイコン2");
+                        break;
+                    case "Skill3":
+                        m_nUINumber = 4;
+                        Debug.Log("スキルアイコン3");
+                        break;
+                    case "Skill4":
+                        m_nUINumber = 5;
+                        Debug.Log("スキルアイコン4");
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -63,6 +91,14 @@ public class YK_CursolEvent : MonoBehaviour
         {
             //　フォーカスを解除する
             EventSystem.current.SetSelectedGameObject(null);
+            itemName = "何もない";
+            Debug.Log("何もない");
         }
     }
+
+    public int GetUINumber()
+    {
+        return m_nUINumber;
+    }
+
 }
