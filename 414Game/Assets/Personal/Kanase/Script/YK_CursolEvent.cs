@@ -22,6 +22,8 @@ public class YK_CursolEvent : MonoBehaviour
     private string Skill4 = "Skill4";
     public static int m_nUINumber = 0;
 
+    [SerializeField] private IS_Player m_Player;
+
 
     void Start()
     {
@@ -33,10 +35,10 @@ public class YK_CursolEvent : MonoBehaviour
     {
         CheckEvent(col);
     }
-    private void OnTriggerStay2D(Collider2D col)
-    {
-        CheckEvent(col);
-    }
+    //private void OnTriggerStay2D(Collider2D col)
+    //{
+    //    CheckEvent(col);
+    //}
     void CheckEvent(Collider2D col)
     {
         //　アイコンを検知する
@@ -54,26 +56,38 @@ public class YK_CursolEvent : MonoBehaviour
                 {
                     case "HPBack":
                         m_nUINumber = 0;
+                        m_Player.GetSetEquipWeaponState = EquipWeaponState.PlayerHpBar;
+                        m_Player.GetSetEquip = true;
                         Debug.Log("体力バー");
                         break;
                     case "Skill":
                         m_nUINumber = 1;
+                        m_Player.GetSetEquipWeaponState = EquipWeaponState.PlayerBall;
+                        m_Player.GetSetEquip = true;
                         Debug.Log("スキルアイコン");
                         break;
                     case "Skill1":
                         m_nUINumber = 2;
+                        m_Player.GetSetEquipWeaponState = EquipWeaponState.PlayerBall;
+                        m_Player.GetSetEquip = true;
                         Debug.Log("スキルアイコン1");
                         break;
                     case "Skill2":
                         m_nUINumber = 3;
+                        m_Player.GetSetEquipWeaponState = EquipWeaponState.PlayerBall;
+                        m_Player.GetSetEquip = true;
                         Debug.Log("スキルアイコン2");
                         break;
                     case "Skill3":
                         m_nUINumber = 4;
+                        m_Player.GetSetEquipWeaponState = EquipWeaponState.PlayerBall;
+                        m_Player.GetSetEquip = true;
                         Debug.Log("スキルアイコン3");
                         break;
                     case "Skill4":
                         m_nUINumber = 5;
+                        m_Player.GetSetEquipWeaponState = EquipWeaponState.PlayerBall;
+                        m_Player.GetSetEquip = true;
                         Debug.Log("スキルアイコン4");
                         break;
                     default:

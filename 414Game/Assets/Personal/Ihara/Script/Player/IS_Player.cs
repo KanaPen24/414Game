@@ -156,18 +156,18 @@ public class IS_Player : MonoBehaviour
 
         // 武器チェンジ(仮)…関数化する予定
         // ※装備している && Playerが攻撃状態以外 だったら可能
-        if(m_PlayerState != PlayerState.PlayerAttack && GetSetEquip)
-        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                int nEqipWeaponState = (int)GetSetEquipWeaponState + 1;
-                if (nEqipWeaponState >= (int)EquipWeaponState.MaxEquipWeaponState)
-                {
-                    GetSetEquipWeaponState = 0;
-                }
-                else m_EquipWeaponState = (EquipWeaponState)nEqipWeaponState;
-            }
-        }
+        //if(m_PlayerState != PlayerState.PlayerAttack && GetSetEquip)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.X))
+        //    {
+        //        int nEqipWeaponState = (int)GetSetEquipWeaponState + 1;
+        //        if (nEqipWeaponState >= (int)EquipWeaponState.MaxEquipWeaponState)
+        //        {
+        //            GetSetEquipWeaponState = 0;
+        //        }
+        //        else m_EquipWeaponState = (EquipWeaponState)nEqipWeaponState;
+        //    }
+        //}
     }
     private void FixedUpdate()
     {
