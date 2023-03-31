@@ -27,7 +27,7 @@ public class NK_EnemyControl_Slime : MonoBehaviour
     //攻撃までの間隔
     [SerializeField] private int m_nAttackTime;
     //プレイヤーの位置情報格納用
-    [SerializeField] private GameObject m_gPlayer;
+    //[SerializeField] private GameObject m_gPlayer;
 
     [SerializeField] private IS_Player m_Player;  // Player
     [SerializeField] private YK_HPBerHP m_HpBarHP;// HPBarのHP
@@ -48,7 +48,7 @@ public class NK_EnemyControl_Slime : MonoBehaviour
             Destroy(this.gameObject);
         }
         //プレイヤーに一定距離近づいたら攻撃、それ以外は移動
-        if (m_gPlayer.transform.position.x - m_fAttackRange <= this.transform.position.x && m_gPlayer.transform.position.x + m_fAttackRange >= this.transform.position.x)
+        if (m_Player.transform.position.x - m_fAttackRange <= this.transform.position.x && m_Player.transform.position.x + m_fAttackRange >= this.transform.position.x)
         {
             if (m_bAttackFlag == false)
             {
@@ -57,7 +57,7 @@ public class NK_EnemyControl_Slime : MonoBehaviour
         }
         else
         {
-            if (m_gPlayer.transform.position.x > this.transform.position.x)
+            if (m_Player.transform.position.x > this.transform.position.x)
             {
                 m_bPosRight = true;
             }

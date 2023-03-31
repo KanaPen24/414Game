@@ -1,7 +1,7 @@
-// ==============================================================
+ï»¿// ==============================================================
 // NK_EnemyMove_Slime.cs
 // Auther:Naito
-// Update:2023/03/06 csì¬
+// Update:2023/03/06 csä½œæˆ
 // ==============================================================
 
 using System.Collections;
@@ -10,14 +10,14 @@ using UnityEngine;
 
 public class NK_EnemyMove_Slime : MonoBehaviour
 {
-    //ƒtƒ‰ƒOŠÇ—
-    //private bool m_bMoveFlag;           //ˆÚ“®ƒtƒ‰ƒO
-    //private bool m_bPosRight;           //ƒvƒŒƒCƒ„[‚æ‚è‰E‚É‚¢‚é‚©¶‚É‚¢‚é‚©Btrue‚¾‚Á‚½‚ç‰E
-    //ƒŠƒWƒbƒgƒ{ƒfƒB
+    //ãƒ•ãƒ©ã‚°ç®¡ç†
+    //private bool m_bMoveFlag;           //ç§»å‹•ãƒ•ãƒ©ã‚°
+    //private bool m_bPosRight;           //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚ˆã‚Šå³ã«ã„ã‚‹ã‹å·¦ã«ã„ã‚‹ã‹ã€‚trueã ã£ãŸã‚‰å³
+    //ãƒªã‚¸ãƒƒãƒˆãƒœãƒ‡ã‚£
     private Rigidbody m_rRdoby;
-    //‰¡ˆÚ“®
+    //æ¨ªç§»å‹•
     [SerializeField] private float m_fMovePower;
-    //ƒWƒƒƒ“ƒv—Í
+    //ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
     [SerializeField] private float m_fJumpPower;
 
     private void Start()
@@ -33,13 +33,13 @@ public class NK_EnemyMove_Slime : MonoBehaviour
     {
         if (PosRight)
         {
-            //Î‚ß”ò‚Ñ
+            //å·¦æ–œã‚é£›ã³
             this.m_rRdoby.AddForce(transform.up * m_fJumpPower, ForceMode.Impulse);
             this.m_rRdoby.AddForce(transform.right * m_fMovePower, ForceMode.Impulse);
         }
         else
         {
-            //Î‚ß”ò‚Ñ
+            //å³æ–œã‚é£›ã³
             this.m_rRdoby.AddForce(transform.up * m_fJumpPower, ForceMode.Impulse);
             this.m_rRdoby.AddForce(transform.right * -m_fMovePower, ForceMode.Impulse);
         }
@@ -49,15 +49,15 @@ public class NK_EnemyMove_Slime : MonoBehaviour
     {
         if (PosRight)
         {
-            //ƒmƒbƒNƒoƒbƒN
-            this.m_rRdoby.AddForce(transform.up * m_fJumpPower, ForceMode.Impulse);
-            this.m_rRdoby.AddForce(transform.right * -m_fMovePower, ForceMode.Impulse);
+            //å³ãƒãƒƒã‚¯ãƒãƒƒã‚¯
+            this.m_rRdoby.AddForce(transform.up * m_fJumpPower * 0.5f, ForceMode.Impulse);
+            this.m_rRdoby.AddForce(transform.right * m_fMovePower * 2, ForceMode.Impulse);
         }
         else
         {
-            //ƒmƒbƒNƒoƒbƒN
+            //å·¦ãƒãƒƒã‚¯ãƒãƒƒã‚¯
             this.m_rRdoby.AddForce(transform.up * m_fJumpPower, ForceMode.Impulse);
-            this.m_rRdoby.AddForce(transform.right * m_fMovePower, ForceMode.Impulse);
+            this.m_rRdoby.AddForce(transform.right * -m_fMovePower* 2, ForceMode.Impulse);
         }
     }
 }

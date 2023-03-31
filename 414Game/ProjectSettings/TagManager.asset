@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Weapon
+  - Floor
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -50,4 +52,7 @@ TagManager:
     locked: 0
   - name: NerGround
     uniqueID: 514518275
+    locked: 0
+  - name: Canvas
+    uniqueID: 3792832829
     locked: 0

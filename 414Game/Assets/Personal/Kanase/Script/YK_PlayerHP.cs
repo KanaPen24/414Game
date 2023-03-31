@@ -1,5 +1,5 @@
 ﻿/**
- * @file PlayerHP.cs
+ * @file YK_PlayerHP.cs
  * @brief プレイヤーの体力
  * @author 吉田叶聖
  * @date 2023/03/06
