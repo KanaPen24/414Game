@@ -18,7 +18,7 @@ public class YK_TargetCamera : MonoBehaviour
     /// <summary>
     /// プレイヤーが移動した後にカメラが移動するようにするためにLateUpdateにする。
     /// </summary>
-    void LateUpdate()
+    void FixedUpdate()
     {
         // カメラの位置をターゲットの位置にオフセットを足した場所にする。
         gameObject.transform.position = target.transform.position + offset;

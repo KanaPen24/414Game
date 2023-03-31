@@ -35,10 +35,10 @@ public class YK_CursolEvent : MonoBehaviour
     {
         CheckEvent(col);
     }
-    //private void OnTriggerStay2D(Collider2D col)
-    //{
-    //    CheckEvent(col);
-    //}
+    private void OnTriggerStay2D(Collider2D col)
+    {
+        CheckEvent(col);
+    }
     void CheckEvent(Collider2D col)
     {
         //　アイコンを検知する
