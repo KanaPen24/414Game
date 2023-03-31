@@ -1,7 +1,7 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; // UnityEngine.SceneManagemnt‚Ì‹@”\‚ğg—p
+using UnityEngine.SceneManagement; // UnityEngine.SceneManagemntã®æ©Ÿèƒ½ã‚’ä½¿ç”¨
 using UnityEngine.UI;
 
 public class Title : MonoBehaviour
@@ -15,15 +15,15 @@ public class Title : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Return))
+        if (Input.GetButtonDown("Decision"))
         {
-            //ƒgƒ‰ƒ“ƒWƒVƒ‡ƒ“‚ğŠ|‚¯‚ÄƒV[ƒ“‘JˆÚ‚·‚é
+            //ãƒˆãƒ©ãƒ³ã‚¸ã‚·ãƒ§ãƒ³ã‚’æ›ã‘ã¦ã‚·ãƒ¼ãƒ³é·ç§»ã™ã‚‹
             fade.FadeIn(1f, () =>
             {
                 SceneManager.LoadScene("GameScene");
             });
         }
         if (Input.GetKey(KeyCode.Escape))
-            Application.Quit();             //ƒQ[ƒ€I—¹ˆ—
+            Application.Quit();             //ã‚²ãƒ¼ãƒ çµ‚äº†å‡¦ç†
     }
 }
