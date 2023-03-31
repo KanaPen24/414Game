@@ -42,11 +42,4 @@ public class YK_MoveCursol : MonoBehaviour
         rect.anchoredPosition = pos;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "UI")
-        {
-            Debug.Log("当たった");
-        }
-    }
 }
