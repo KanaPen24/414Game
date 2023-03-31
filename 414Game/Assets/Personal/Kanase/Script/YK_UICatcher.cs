@@ -20,6 +20,7 @@ public class YK_UICatcher : MonoBehaviour
     [SerializeField] private YK_HPBar HPBar;            //HPバー
     [SerializeField] private YK_SkillIcon SkillIcon;    //スキルアイコン
     [SerializeField] private IS_Player Player;          //プレイヤーの情報
+    [SerializeField] private YK_CursolEvent CursolEvent;          //カーソルイベント
 
     private bool m_bParticleFlg;                        //パーティクルエフェクト用のフラグ
 
@@ -45,15 +46,33 @@ public class YK_UICatcher : MonoBehaviour
         }
 
         //どのUIを選んでるかで引っ張ってくる座標を変える
-        //    switch (UI.GetSetUIType)
-        //{
-        //    case UIType.HPBar:
-        //        particle.GetComponent<Transform>().position = UI.GetSetPos;
-        //        break;
-        //    case UIType.SkillIcon:
-        //        particle.GetComponent<Transform>().position = SkillIcon.GetPos(0);
-        //        break;
-        //}
+        switch (CursolEvent.GetUINumber())
+        {
+            case 0:
+                particleUI.GetComponent<Transform>().position = HPBar.GetSetPos;
+                Hand.transform.position = HPBar.GetSetPos;
+                break;
+            case 1:
+                particleUI.GetComponent<Transform>().position = SkillIcon.GetPos(0);
+                Hand.transform.position = SkillIcon.GetPos(0);
+                break;
+            case 2:
+                particleUI.GetComponent<Transform>().position = SkillIcon.GetPos(1);
+                Hand.transform.position = SkillIcon.GetPos(1);
+                break;
+            case 3:
+                particleUI.GetComponent<Transform>().position = SkillIcon.GetPos(2);
+                Hand.transform.position = SkillIcon.GetPos(2);
+                break;
+            case 4:
+                particleUI.GetComponent<Transform>().position = SkillIcon.GetPos(3);
+                Hand.transform.position = SkillIcon.GetPos(3);
+                break;
+            case 5:
+                particleUI.GetComponent<Transform>().position = SkillIcon.GetPos(4);
+                Hand.transform.position = SkillIcon.GetPos(4);
+                break;
+        }
     }
 
     // 1. 再生

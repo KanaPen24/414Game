@@ -14,8 +14,10 @@ public class YK_Hand : MonoBehaviour
 {
     [SerializeField] private YK_UICatcher UICatcher;
     [SerializeField] private YK_HPBarVisible HPBarVisible;
+    [SerializeField] private YK_SkillIcon SkillIconVisible;
     [SerializeField] private IS_Player Player;
     [SerializeField] private CubismRenderController renderController;
+    [SerializeField] private YK_CursolEvent CursolEvent;          //カーソルイベント
     private void Start()
     {
         //レイヤーをUIの後ろにする
@@ -47,7 +49,28 @@ public class YK_Hand : MonoBehaviour
         renderController.Opacity = 0f;
         //レイヤーをUIの後ろにする
         renderController.SortingOrder = -1;
-        HPBarVisible.GetSetVisible = false;
+        //どのUIを選んでるかで引っ張ってくる座標を変える
+        switch (CursolEvent.GetUINumber())
+        {
+            case 0:
+                HPBarVisible.GetSetVisible = false;
+                break;
+            case 1:
+                SkillIconVisible.VisibleSkill(0);
+                break;
+            case 2:
+                SkillIconVisible.VisibleSkill(1);
+                break;
+            case 3:
+                SkillIconVisible.VisibleSkill(2);
+                break;
+            case 4:
+                SkillIconVisible.VisibleSkill(3);
+                break;
+            case 5:
+                SkillIconVisible.VisibleSkill(4);
+                break;
+        }
     }
 
     //アニメーションの終わり
