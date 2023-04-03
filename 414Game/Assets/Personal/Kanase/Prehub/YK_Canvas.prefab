@@ -796,7 +796,6 @@ GameObject:
   - component: {fileID: 8649584780937492168}
   - component: {fileID: 6078767593954968639}
   - component: {fileID: 3025209795214502946}
-  - component: {fileID: 4121512901038686614}
   - component: {fileID: 7025658565330855289}
   - component: {fileID: 3233989728016196554}
   m_Layer: 5
@@ -906,23 +905,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 160, y: 20}
   m_EdgeRadius: 0
---- !u!114 &4121512901038686614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4377861224097800853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daec858c22c49144682c796f4c7a2fc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HP: {fileID: 6078767593954968639}
-  m_WeaponHpBar: {fileID: 0}
-  FrontFill: {fileID: 9124122075695678880}
-  BackFill: {fileID: 8539656332212317112}
-  BackGround: {fileID: 1622296871220671274}
 --- !u!114 &7025658565330855289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,6 +922,7 @@ MonoBehaviour:
   FrontFill: {fileID: 0}
   BackFill: {fileID: 0}
   BackGround: {fileID: 0}
+  m_Hand: {fileID: 0}
 --- !u!114 &3233989728016196554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2637,7 +2620,7 @@ PrefabInstance:
         type: 3}
       propertyPath: HPBarVisible
       value: 
-      objectReference: {fileID: 4121512901038686614}
+      objectReference: {fileID: 0}
     - target: {fileID: 7593704865377815655, guid: a9110f4a12152b24c862162e8d677d66,
         type: 3}
       propertyPath: SkillIconVisible
@@ -2690,6 +2673,7 @@ MonoBehaviour:
   Hand: {fileID: 4170220941375990246}
   Player: {fileID: 0}
   CursolEvent: {fileID: 2393806690329829352}
+  m_HpBar: {fileID: 0}
 --- !u!4 &5575801802254962303 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3795511048978973691, guid: a9110f4a12152b24c862162e8d677d66,

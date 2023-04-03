@@ -1,6 +1,6 @@
 ﻿/**
- * @file   IS_WeaponBall.cs
- * @brief  Ballの武器クラス
+ * @file   IS_WeaponSkillIcon.cs
+ * @brief  SkillIconの武器クラス
  * @author IharaShota
  * @date   2023/03/18
  * @Update 2023/03/18 作成
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class IS_WeaponBall : IS_Weapon
+public class IS_WeaponSkillIcon : IS_Weapon
 {
     [SerializeField] private IS_Player m_Player;        // Player    
     [SerializeField] private IS_Ball m_Ball;            // 生成Ball
@@ -29,7 +29,7 @@ public class IS_WeaponBall : IS_Weapon
     protected override void Awake()
     {
         // メンバの初期化
-        m_eWeaponType = WeaponType.Ball; // 武器種類はBall
+        m_eWeaponType = WeaponType.SkillIcon; // 武器種類はBall
         m_bAttack = false;
         m_bVisible = false;
         m_bDestroy = false;
