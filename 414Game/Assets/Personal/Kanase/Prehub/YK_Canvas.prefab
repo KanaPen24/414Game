@@ -953,6 +953,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_nMaxHP: 100
   HP: {fileID: 6078767593954968639}
+  FrontFill: {fileID: 0}
+  BackFill: {fileID: 0}
+  BackGround: {fileID: 0}
 --- !u!114 &3233989728016196554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1267,6 +1270,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Player: {fileID: 0}
+  m_Uis:
+  - {fileID: 7025658565330855289}
+  - {fileID: 2233225829822323988}
 --- !u!61 &932708811827471731
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2682,9 +2688,6 @@ MonoBehaviour:
   PortalObjUI: {fileID: 7029231617844326134}
   PortalObjPL: {fileID: 1648110041240283361}
   Hand: {fileID: 4170220941375990246}
-  m_HpVisible: {fileID: 4121512901038686614}
-  HPBar: {fileID: 7025658565330855289}
-  SkillIcon: {fileID: 2233225829822323988}
   Player: {fileID: 0}
   CursolEvent: {fileID: 2393806690329829352}
 --- !u!4 &5575801802254962303 stripped
