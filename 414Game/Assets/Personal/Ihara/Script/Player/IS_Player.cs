@@ -61,6 +61,7 @@ public class IS_Player : MonoBehaviour
 {
     [SerializeField] private Animator                m_animator;         // Playerのアニメーション
     [SerializeField] private Rigidbody               m_Rigidbody;        // PlayerのRigidBody
+    [SerializeField] private YK_CursolEvent          m_CursolEvent;
     [SerializeField] private YK_HPBarVisible         m_HpVisible;        // PlayerのHp表示管理
     [SerializeField] private YK_PlayerHP             m_Hp;               // PlayerのHp
     [SerializeField] private YK_UICatcher            m_UICatcher;        // UIキャッチャー
@@ -150,24 +151,10 @@ public class IS_Player : MonoBehaviour
             }
             else
             {
+                if(m_CursolEvent.GetSetUIExist)
                 m_UICatcher.ParticlePlay();
             }
         }
-
-        // 武器チェンジ(仮)…関数化する予定
-        // ※装備している && Playerが攻撃状態以外 だったら可能
-        //if(m_PlayerState != PlayerState.PlayerAttack && GetSetEquip)
-        //{
-        //    if (Input.GetKeyDown(KeyCode.X))
-        //    {
-        //        int nEqipWeaponState = (int)GetSetEquipWeaponState + 1;
-        //        if (nEqipWeaponState >= (int)EquipWeaponState.MaxEquipWeaponState)
-        //        {
-        //            GetSetEquipWeaponState = 0;
-        //        }
-        //        else m_EquipWeaponState = (EquipWeaponState)nEqipWeaponState;
-        //    }
-        //}
     }
     private void FixedUpdate()
     {
