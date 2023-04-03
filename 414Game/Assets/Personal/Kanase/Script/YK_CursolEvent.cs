@@ -15,7 +15,7 @@ public class YK_CursolEvent : MonoBehaviour
 {
     [SerializeField] private IS_Player m_Player; // Player
     [SerializeField] private List<YK_UI> m_Uis;  // ゲーム上にあるUIをすべて格納する
-    private YK_UI m_CurrentUI;                   // 現在選択中のUI
+    private YK_UI m_CurrentUI;                   // 現在選択中のUI(カーソルが選択しているUI)
     private bool m_bUIExist;                     // UIが存在するかどうか
 
     /**
@@ -60,8 +60,6 @@ public class YK_CursolEvent : MonoBehaviour
                 return;
             }
         }
-
-        // 最後までYK_UIのゲームオブジェクトがなかったら中身を空にする
     }
     //　マウスアイコンが自分のアイコン上から出て行った時
     void OnTriggerExit2D(Collider2D col)

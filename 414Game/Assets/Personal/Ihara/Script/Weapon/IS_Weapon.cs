@@ -17,8 +17,9 @@ using UnityEngine;
 // ================================================
 public enum WeaponType
 {
-    HPBar,// HPバー
-    Ball, // Ball
+    HPBar,     // HPバー
+    SkillIcon, // スキルアイコン
+    BossBar,   // Bossバー
 
     MaxWeaponType
 }
@@ -27,6 +28,7 @@ public class IS_Weapon : MonoBehaviour
 {
     protected WeaponType m_eWeaponType; // 武器の種類
     protected bool m_bAttack;           // 攻撃中かどうか
+    [SerializeField]
     protected bool m_bVisible;          // 表示するかどうか
     protected bool m_bDestroy;          // 破壊されたかどうか
     [SerializeField]

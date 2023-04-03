@@ -51,8 +51,9 @@ public enum PlayerDir
 // ================================================
 public enum EquipWeaponState
 {
-    PlayerHpBar, // HPバー
-    PlayerBall,  // Ball
+    PlayerHpBar,  // HPバー
+    PlayerBall,   // Ball
+    PlayerBossBar,// Bossバー
 
     MaxEquipWeaponState
 }
@@ -61,8 +62,7 @@ public class IS_Player : MonoBehaviour
 {
     [SerializeField] private Animator                m_animator;         // Playerのアニメーション
     [SerializeField] private Rigidbody               m_Rigidbody;        // PlayerのRigidBody
-    [SerializeField] private YK_CursolEvent          m_CursolEvent;
-    [SerializeField] private YK_HPBarVisible         m_HpVisible;        // PlayerのHp表示管理
+    [SerializeField] private YK_CursolEvent          m_CursolEvent;      // カーソルイベントの情報
     [SerializeField] private YK_PlayerHP             m_Hp;               // PlayerのHp
     [SerializeField] private YK_UICatcher            m_UICatcher;        // UIキャッチャー
     [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // Player挙動クラスの動的配列
@@ -80,7 +80,7 @@ public class IS_Player : MonoBehaviour
 
     private bool m_bJumpFlg;     // 跳躍開始フラグ
     private bool m_bAttackFlg;   // 攻撃開始フラグ
-    private bool m_bEquip;       // 装備しているかどうか
+    public bool m_bEquip;       // 装備しているかどうか
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
 
     private void Start()
@@ -143,16 +143,31 @@ public class IS_Player : MonoBehaviour
 
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision"))
-        {            
-            if(m_bEquip)
+        {
+            // UICatcherのイベント中は処理しない
+            if (m_UICatcher.GetSetUICatcherState == UICatcherState.None)
             {
-                m_HpVisible.GetSetVisible = true;
-                m_bEquip = false;
-            }
-            else
-            {
-                if(m_CursolEvent.GetSetUIExist)
-                m_UICatcher.ParticlePlay();
+                // 装備状態の場合
+                if (m_bEquip)
+                {
+                    // 武器をUIにする
+                    m_UICatcher.StartWeapon2UIEvent();
+
+                    // 装備状態をfalseにする
+                    m_bEquip = false;
+                }
+                // 装備状態ではない場合
+                else
+                {
+                    // UIを武器化する
+                    if (m_CursolEvent.GetSetUIExist)
+                    {
+                        m_UICatcher.StartUI2WeaponEvent();
+
+                        // 装備状態をtrueにする
+                        m_bEquip = true;
+                    }
+                }
             }
         }
     }
@@ -176,7 +191,7 @@ public class IS_Player : MonoBehaviour
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
         }
 
-        for(int i = 0, size = m_Weapons.Count; i < size; ++i)
+        for (int i = 0, size = m_Weapons.Count; i < size; ++i)
         {
             if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquip)
             {
@@ -206,17 +221,6 @@ public class IS_Player : MonoBehaviour
     public Rigidbody GetRigidbody()
     {
         return m_Rigidbody;
-    }
-
-    /**
-     * @fn
-     * PlayerのHp表示のgetter
-     * @return m_HpVisible(YK_HPBarVisible)
-     * @brief PlayerのYK_HPBarVisibleを返す
-     */
-    public YK_HPBarVisible GetHPVisible()
-    {
-        return m_HpVisible;
     }
 
     /**

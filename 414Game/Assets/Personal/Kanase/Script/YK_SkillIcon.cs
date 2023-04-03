@@ -3,6 +3,7 @@
  * @brief スキルのアイコン処理
  * @author 吉田叶聖
  * @date 2023/03/16
+ * @Update 2023/04/03 フェード処理実装(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -12,9 +13,7 @@ using DG.Tweening;
 
 public class YK_SkillIcon : YK_UI
 {
-   
     public Image SkillIcon;
-   
 
     private void Start()
     {
@@ -22,19 +21,6 @@ public class YK_SkillIcon : YK_UI
         m_eFadeState = FadeState.FadeNone;
         GetSetPos = SkillIcon.GetComponent<RectTransform>().position;
 
-    }
-
-    void Update()
-    {
-        switch (m_eFadeState)
-        {
-            case FadeState.FadeIN:
-                UIFadeIN();
-                break;
-            case FadeState.FadeOUT:
-                UIFadeOUT();
-                break;
-        }
     }
 
     public override void UIFadeIN()
