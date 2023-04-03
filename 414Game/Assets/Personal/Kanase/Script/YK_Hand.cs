@@ -50,27 +50,27 @@ public class YK_Hand : MonoBehaviour
         //レイヤーをUIの後ろにする
         renderController.SortingOrder = -1;
         //どのUIを選んでるかで引っ張ってくる座標を変える
-        switch (CursolEvent.GetUINumber())
-        {
-            case 0:
-                HPBarVisible.GetSetVisible = false;
-                break;
-            case 1:
-                SkillIconVisible.VisibleSkill(0);
-                break;
-            case 2:
-                SkillIconVisible.VisibleSkill(1);
-                break;
-            case 3:
-                SkillIconVisible.VisibleSkill(2);
-                break;
-            case 4:
-                SkillIconVisible.VisibleSkill(3);
-                break;
-            case 5:
-                SkillIconVisible.VisibleSkill(4);
-                break;
-        }
+        //switch (CursolEvent.GetUINumber())
+        //{
+        //    case 0:
+        //        HPBarVisible.GetSetVisible = false;
+        //        break;
+        //    case 1:
+        //        SkillIconVisible.VisibleSkill(0);
+        //        break;
+        //    case 2:
+        //        SkillIconVisible.VisibleSkill(1);
+        //        break;
+        //    case 3:
+        //        SkillIconVisible.VisibleSkill(2);
+        //        break;
+        //    case 4:
+        //        SkillIconVisible.VisibleSkill(3);
+        //        break;
+        //    case 5:
+        //        SkillIconVisible.VisibleSkill(4);
+        //        break;
+        //}
     }
 
     //アニメーションの終わり

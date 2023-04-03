@@ -21,12 +21,26 @@ public enum UIType
     MaxUIType
 }
 
+// ================================================
+// FadeState
+// … Fadeを管理する列挙体
+// ================================================
+public enum FadeState
+{
+    FadeNone,
+    FadeIN,
+    FadeOUT,
+
+    MaxFadeState
+}
+
 public class YK_UI : MonoBehaviour
 {
-    protected UIType m_eUIType; // UIの種類
-    protected bool m_bVisible;  // 表示非表示フラグ
-    protected int m_nHP;        // 体力
-    protected Vector3 m_Pos;    // UIの座標
+    protected UIType m_eUIType;      // UIの種類
+    protected FadeState m_eFadeState;// フェードの状態
+    protected bool m_bVisible;       // 表示非表示フラグ
+    protected int m_nHP;             // 体力
+    protected Vector3 m_Pos;         // UIの座標
 
     /**
      * @fn
@@ -38,6 +52,18 @@ public class YK_UI : MonoBehaviour
     {
         get { return m_eUIType; }
         set { m_eUIType = value; }
+    }
+
+    /**
+     * @fn
+     * Fade状態のgetter・setter
+     * @return m_eFadeState(FadeState)
+     * @brief Fade状態を返す・セット
+     */
+    public FadeState GetSetFadeState
+    {
+        get { return m_eFadeState; }
+        set { m_eFadeState = value; }
     }
 
     /**
@@ -73,6 +99,16 @@ public class YK_UI : MonoBehaviour
     {
         get { return m_Pos; }
         set { m_Pos = value; }
+    }
+
+    public virtual void UIFadeIN()
+    {
+
+    }
+
+    public virtual void UIFadeOUT()
+    {
+
     }
 
     // ダメージ処理

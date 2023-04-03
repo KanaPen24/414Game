@@ -16,19 +16,14 @@ public class YK_UICatcher : MonoBehaviour
     [SerializeField] private GameObject PortalObjUI;    //UIの歪みのオブジェクト
     [SerializeField] private GameObject PortalObjPL;    //プレイヤーの歪みのオブジェクト
     [SerializeField] private GameObject Hand;           //手のオブジェクト
-    [SerializeField] private YK_HPBarVisible m_HpVisible;        // PlayerのHp表示管理
-    [SerializeField] private YK_HPBar HPBar;            //HPバー
-    [SerializeField] private YK_SkillIcon SkillIcon;    //スキルアイコン
     [SerializeField] private IS_Player Player;          //プレイヤーの情報
-    [SerializeField] private YK_CursolEvent CursolEvent;          //カーソルイベント
+    [SerializeField] private YK_CursolEvent CursolEvent;//カーソルイベント
 
     private bool m_bParticleFlg;                        //パーティクルエフェクト用のフラグ
 
     // Start is called before the first frame update
     void Start()
     {
-        particleUI.GetComponent<Transform>().position = HPBar.GetSetPos;
-        Hand.transform.position = HPBar.GetSetPos;
         ParticleStop();
         m_bParticleFlg = false;
     }
@@ -36,53 +31,36 @@ public class YK_UICatcher : MonoBehaviour
     private void Update()
     {
         //プレイヤーの向き比較
-        if(Player.GetSetPlayerDir<=0.0f)
+        if(Player.GetSetPlayerDir == PlayerDir.Left)
         {
             particlePL.transform.position = Player.transform.position + new Vector3(-0.5f, 1.0f, 0.0f);
         }
-        else
+        else if(Player.GetSetPlayerDir == PlayerDir.Right)
         {
             particlePL.transform.position = Player.transform.position + new Vector3(0.5f, 1.0f, 0.0f);
         }
 
-        //どのUIを選んでるかで引っ張ってくる座標を変える
-        switch (CursolEvent.GetUINumber())
+        if(CursolEvent.GetSetUIExist && !m_bParticleFlg)
         {
-            case 0:
-                particleUI.GetComponent<Transform>().position = HPBar.GetSetPos;
-                Hand.transform.position = HPBar.GetSetPos;
-                break;
-            case 1:
-                particleUI.GetComponent<Transform>().position = SkillIcon.GetPos(0);
-                Hand.transform.position = SkillIcon.GetPos(0);
-                break;
-            case 2:
-                particleUI.GetComponent<Transform>().position = SkillIcon.GetPos(1);
-                Hand.transform.position = SkillIcon.GetPos(1);
-                break;
-            case 3:
-                particleUI.GetComponent<Transform>().position = SkillIcon.GetPos(2);
-                Hand.transform.position = SkillIcon.GetPos(2);
-                break;
-            case 4:
-                particleUI.GetComponent<Transform>().position = SkillIcon.GetPos(3);
-                Hand.transform.position = SkillIcon.GetPos(3);
-                break;
-            case 5:
-                particleUI.GetComponent<Transform>().position = SkillIcon.GetPos(4);
-                Hand.transform.position = SkillIcon.GetPos(4);
-                break;
+            particleUI.GetComponent<Transform>().position = CursolEvent.GetSetCurrentUI.GetSetPos;
+            Hand.transform.position = CursolEvent.GetSetCurrentUI.GetSetPos;
         }
     }
 
     // 1. 再生
     public void ParticlePlay()
     {
-        Hand.GetComponent<Animator>().SetBool("Hand", true);
-        particleUI.Play();
-        particlePL.Play();
-        PortalObjUI.SetActive(true);
-        PortalObjPL.SetActive(true);
+        // プレイしてなかったら再生する
+        if (!m_bParticleFlg)
+        {
+            Hand.GetComponent<Animator>().SetBool("Hand", true);
+            particleUI.Play();
+            particlePL.Play();
+            PortalObjUI.SetActive(true);
+            PortalObjPL.SetActive(true);
+            m_bParticleFlg = true;
+            Debug.Log(Hand.transform.position);
+        }
     }
 
     // 2. 一時停止
@@ -99,6 +77,7 @@ public class YK_UICatcher : MonoBehaviour
         particlePL.Stop();
         PortalObjUI.SetActive(false);
         PortalObjPL.SetActive(false);
+        m_bParticleFlg = false;
     }
 
     //アニメーション動かす
