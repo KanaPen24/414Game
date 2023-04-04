@@ -3,68 +3,46 @@
  * @brief スキルのアイコン処理
  * @author 吉田叶聖
  * @date 2023/03/16
+ * @Update 2023/04/03 フェード処理実装(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class YK_SkillIcon : YK_UI
 {
-    private int m_SkillPoint;  //現在のスキル数
-    public CanvasGroup[] SkillArray;
-    public int m_nMaxSkill; //最高スキル数
+    public Image SkillIcon;
 
     private void Start()
     {
         m_eUIType = UIType.SkillIcon;
-        CanvasGroup[] SkillArray = new CanvasGroup[m_SkillPoint];
-        m_SkillPoint = m_nMaxSkill;
+        m_eFadeState = FadeState.FadeNone;
+        GetSetPos = SkillIcon.GetComponent<RectTransform>().position;
+
     }
 
-    void Update()
+    public override void UIFadeIN()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        // 1秒で後X,Y方向を元の大きさに変更
+        SkillIcon.transform.DOScale(new Vector3(1f, 1f, 0f), 0f);
+        // 1秒でテクスチャをフェードイン
+        SkillIcon.DOFade(1f, 0f).OnComplete(() =>
         {
-            ResetSkill();
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            DelSkill(1); 
-        }
-    }
-    //スキル数元に戻す
-    public void ResetSkill()
-    {
-        while (m_SkillPoint < m_nMaxSkill)
-        {
-            m_SkillPoint++;
-            SkillArray[m_SkillPoint - 1].DOFade(1f, 1f);
-        }
-    }
-    //スキル数減らす
-    public void DelSkill(int Use)
-    {
-        if(m_SkillPoint > 0)
-        {
-            SkillArray[m_SkillPoint - 1].DOFade(0f, 1f);
-            m_SkillPoint -=Use;
-        }
-    }
-    //座標引っ張ってくる
-    public Vector3 GetPos(int SkillPoint)
-    {
-        return SkillArray[SkillPoint].GetComponent<RectTransform>().position;
+            GetSetFadeState = FadeState.FadeNone;
+        });
     }
 
-    public void VisibleSkill(int Icon)
+    public override void UIFadeOUT()
     {
-        m_SkillPoint--;
-        SkillArray[Icon].DOFade(0f, 0.5f);
-        if (m_SkillPoint <= 0)
-            ResetSkill();
-        Debug.Log(m_SkillPoint);
+        // 1秒で後X,Y方向を0.5倍に変更
+        SkillIcon.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 1f);
+        // 1秒でテクスチャをフェードアウト
+        SkillIcon.DOFade(0f, 1f).OnComplete(() =>
+        {
+            GetSetFadeState = FadeState.FadeNone;
+        });
     }
 
 }
