@@ -118,16 +118,23 @@ public class YK_UICatcher : MonoBehaviour
         m_UICatcherState = UICatcherState.UI2Weapon; // UIから武器化するイベント状態にする
         ParticlePlay(); // エフェクト再生
 
-
         // 選択したUIを探す
         for(int i = 0,size = m_Uis.Count; i < size;++i)
         {
+            // 探し出せたら…
             if(CursolEvent.GetSetCurrentUI.gameObject == m_Uis[i].gameObject)
             {
+                // 予め格納する
                 m_SelectUI = m_Uis[i];
+
+                // エフェクトの位置を設定
                 particleUI.GetComponent<Transform>().position = m_SelectUI.GetSetPos;
                 Hand.transform.position = m_SelectUI.GetSetPos;
+
+                // 選択したUIのフェードアウト開始
                 m_SelectUI.UIFadeOUT();
+
+                // for文から抜ける
                 break;
             }
         }
@@ -135,12 +142,16 @@ public class YK_UICatcher : MonoBehaviour
         // 武器を装備する(武器チェンジ)
         for(int i = 0,size = (int)EquipWeaponState.MaxEquipWeaponState; i < size;++i)
         {
+            // 番号が一致したら…
             if((int)m_SelectUI.GetSetUIType == i)
             {
+                // その番号の武器を装備する
+                // ※ 装備武器の列挙数とUIの種類の列挙数は一致していることが条件
                 Player.GetSetEquipWeaponState = (EquipWeaponState)i;
+
+                // for文から抜ける
                 break;
             }
-
         }
     }
 
@@ -153,7 +164,11 @@ public class YK_UICatcher : MonoBehaviour
     public void StartWeapon2UIEvent()
     {
         //m_UICatcherState = UICatcherState.Weapon2UI;
+
+        // 選択したUIのフェードイン開始
         m_SelectUI.UIFadeIN();
+
+        // 選択したUIを空にする
         m_SelectUI = null;
     }
 }

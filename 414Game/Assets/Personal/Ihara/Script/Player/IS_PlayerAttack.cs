@@ -14,6 +14,30 @@ public class IS_PlayerAttack : IS_PlayerStrategy
 {
     [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
 
+    private void Update()
+    {
+        if (m_Player.GetSetPlayerState == PlayerState.PlayerAttack)
+        {
+            // 攻撃開始時の処理
+            if (m_Player.GetSetAttackFlg)
+            {
+                m_Player.GetSetAttackFlg = false;
+                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartAttack();
+            }
+
+            // =========
+            // 状態遷移
+            // =========
+            // 「攻撃 → 待機」
+            if (!m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                m_Player.GetAnimator().SetBool("isWait", true);
+                m_Player.GetAnimator().SetBool("isAttack", false);
+                return;
+            }
+        }
+    }
     /**
      * @fn
      * 更新処理
@@ -25,31 +49,12 @@ public class IS_PlayerAttack : IS_PlayerStrategy
         // ここにStateごとに処理を加える
         //Debug.Log("PlayerAttack");
 
-        // 攻撃開始時の処理
-        if (m_Player.GetSetAttackFlg)
-        {
-            m_Player.GetSetAttackFlg = false;
-            m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartAttack();
-        }
-
         // 合計移動量をリセット
         m_Player.GetSetMoveAmount =
             new Vector3(0f, 0f, 0f);
 
         // 指定した武器で攻撃処理
         m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).UpdateAttack();
-
-        // =========
-        // 状態遷移
-        // =========
-        // 「攻撃 → 待機」
-        if (!m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
-        {
-            m_Player.GetSetPlayerState = PlayerState.PlayerWait;
-            m_Player.GetAnimator().SetBool("isWait", true);
-            m_Player.GetAnimator().SetBool("isAttack", false);
-            return;
-        }
     }
 
     /**

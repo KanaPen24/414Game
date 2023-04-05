@@ -6,6 +6,8 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
 {
     //敵の体力
     [SerializeField] private int m_nHP;
+    [SerializeField] private int m_nMaxHP;
+    [SerializeField] private IS_Player m_Player;
     //敵の攻撃範囲
     //[SerializeField] private float m_fAttackRange;
     //フラグ管理
@@ -42,23 +44,28 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
         //Debug.Log(m_bStandFlag);
         //Debug.Log(m_bMoveFlag);
         m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
-        if (m_bMoveFlag == false && m_bKnockBack == false && m_bStandFlag == true)
+        if (!m_bMoveFlag && !m_bKnockBack && m_bStandFlag)
         {
             StartCoroutine(Move());
         }
-        if(m_fViewX <= 0 && m_bKnockBack==false)
+        if(m_fViewX <= 0 && !m_bKnockBack)
         {
             m_Move.KnockBack(true);
             m_bKnockBack = true;
             Invoke("KnockBackFlagChanger", 1.0f);
             RightFlagChanger();
         }
-        if (m_fViewX >= 1 && m_bKnockBack == false)
+        if (m_fViewX >= 1 && !m_bKnockBack)
         {
             m_Move.KnockBack(false);
             m_bKnockBack = true;
             Invoke("KnockBackFlagChanger", 1.0f);
             RightFlagChanger();
+        }
+
+        if(m_nHP <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -94,5 +101,53 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
         {
             m_bStandFlag = true;
         }
+
+        // プレイヤーだったら
+        if (collision.gameObject == m_Player.gameObject)
+        {
+            Debug.Log("Player Damage!!");
+            m_Player.GetPlayerHp().DelLife(10);
+        }
+
+        // 武器だったら
+        if (collision.gameObject.tag == "Weapon")
+        {
+            Debug.Log("Enemy Damage!!");
+            //m_HpBarHP.DelLife(10);
+            m_nHP -= 5;
+        }
     }
+
+    //private void OnTriggerEnter(Collider collision)
+    //{
+    //    // 武器だったら
+    //    if (collision.gameObject.tag == "Weapon")
+    //    {
+    //        if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+    //        {
+    //            Debug.Log("Enemy Damage!!");
+    //            m_HpBarHP.DelLife(10);
+    //            m_nHP--;
+
+    //            // Hpバーが当たっていた時、ドレイン処理を行う
+    //            if (m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar)
+    //            {
+    //                m_Player.GetPlayerHp().AddLife(5);
+    //            }
+    //        }
+    //    }
+    //}
+
+
+    public int GetSetHp
+    {
+        get { return m_nHP; }
+        set { m_nHP = value; }
+    }
+    public int GetSetMaxHp
+    {
+        get { return m_nMaxHP; }
+        set { m_nMaxHP = value; }
+    }
+
 }
