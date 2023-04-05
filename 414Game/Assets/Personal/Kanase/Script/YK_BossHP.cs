@@ -11,48 +11,30 @@ using UnityEngine.UI;
 
 public class YK_BossHP : YK_UI
 {
-    private const int m_nMaxHp = 100;               // 敵キャラのHP最大値を100とする
-    private int m_nBossHP;                          // 現在のHP
-    public Slider BossSlider;                       // シーンに配置したSlider格納用
+    [SerializeField] private Slider BossSlider;     // シーンに配置したSlider格納用
     [SerializeField] private GameObject BossBar;    // ボスのバーの大元
-    [SerializeField] private GameObject Boss;       // 登場するボスのオブジェクト
+    [SerializeField] private NK_EnemyControl_BossSlime Boss;
 
     // Use this for initialization
     void Start()
     {
         m_eUIType = UIType.BossBar;
+        m_eFadeState = FadeState.FadeNone;
         GetSetVisible = false;
-        GetSetHP = m_nMaxHp;
-        BossSlider.maxValue = m_nMaxHp;    // Sliderの最大値を敵キャラのHP最大値と合わせる
-        m_nBossHP = m_nMaxHp;      // 初期状態はHP満タン
-        BossSlider.value = m_nBossHP;   // Sliderの初期状態を設定（HP満タン）
-        BossBar.gameObject.SetActive(false);
+        BossSlider.maxValue = Boss.GetSetMaxHp;// Sliderの最大値を敵キャラのHP最大値と合わせる
+        BossSlider.value = Boss.GetSetHp;   // Sliderの初期状態を設定（HP満タン）
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            DelLife(10);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            AddLife(10,m_nMaxHp);
-            VisibleTrue();
-        }
-        m_nBossHP = GetSetHP;
-        BossSlider.value = m_nBossHP;   // Sliderを更新
+        // Sliderの更新
+        BossSlider.value = Boss.GetSetHp;
+
         // Sliderが最小値になったら（例：ボスキャラを倒したら）
         if (BossSlider.value <= 0)
         {
-            Destroy(Boss);      // ボスを消去
-            Destroy(BossSlider);   // Sliderも消去
+            Destroy(this.gameObject);
         }
-    }
-    //ボスバー表示
-    public void VisibleTrue()
-    {
-        BossBar.gameObject.SetActive(true);
     }
 }

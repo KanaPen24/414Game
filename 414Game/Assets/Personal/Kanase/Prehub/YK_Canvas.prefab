@@ -917,7 +917,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ec68dcdd5fe36438ab0aa2f8816a55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nMaxHP: 100
   HP: {fileID: 6078767593954968639}
   FrontFill: {fileID: 0}
   BackFill: {fileID: 0}
@@ -1719,7 +1718,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 3614546344597714229}
-  m_FillRect: {fileID: 0}
+  m_FillRect: {fileID: 2884428736769097518}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
@@ -2666,6 +2665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987c3cc421f483c4e983e9af78de9715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Uis: []
   particleUI: {fileID: 8447496686035757344}
   particlePL: {fileID: 173409248256782135}
   PortalObjUI: {fileID: 7029231617844326134}
@@ -2673,7 +2673,6 @@ MonoBehaviour:
   Hand: {fileID: 4170220941375990246}
   Player: {fileID: 0}
   CursolEvent: {fileID: 2393806690329829352}
-  m_HpBar: {fileID: 0}
 --- !u!4 &5575801802254962303 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3795511048978973691, guid: a9110f4a12152b24c862162e8d677d66,

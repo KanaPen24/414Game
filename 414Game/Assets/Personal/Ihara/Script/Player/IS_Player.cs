@@ -80,7 +80,7 @@ public class IS_Player : MonoBehaviour
 
     private bool m_bJumpFlg;     // 跳躍開始フラグ
     private bool m_bAttackFlg;   // 攻撃開始フラグ
-    public bool m_bEquip;       // 装備しているかどうか
+    private bool m_bEquip;       // 装備しているかどうか
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
 
     private void Start()
@@ -110,7 +110,7 @@ public class IS_Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // 入力管理
         // Jump=Key.w,Joy.B
@@ -150,7 +150,7 @@ public class IS_Player : MonoBehaviour
                 // 装備状態の場合
                 if (m_bEquip)
                 {
-                    // 武器をUIにする
+                    // 武器をUIにするイベント開始
                     m_UICatcher.StartWeapon2UIEvent();
 
                     // 装備状態をfalseにする
@@ -162,6 +162,7 @@ public class IS_Player : MonoBehaviour
                     // UIを武器化する
                     if (m_CursolEvent.GetSetUIExist)
                     {
+                        // UIを武器にするイベント開始
                         m_UICatcher.StartUI2WeaponEvent();
 
                         // 装備状態をtrueにする
