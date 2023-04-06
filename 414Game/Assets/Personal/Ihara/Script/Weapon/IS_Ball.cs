@@ -4,6 +4,7 @@
  * @author IharaShota
  * @date   2023/03/19
  * @Update 2023/03/19 作成
+ * @Update 2023/04/06 着弾エフェクト実装 
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using UnityEngine;
 public class IS_Ball : MonoBehaviour
 {
     [SerializeField] private Rigidbody m_Rigidbody; //RigidBody
+    [SerializeField] private ParticleSystem hitEffect; // 着弾エフェクト
 
     /**
      * @fn
@@ -36,6 +38,14 @@ public class IS_Ball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // エフェクト再生
+        ParticleSystem Effect = Instantiate(hitEffect);
+        Effect.Play();
+        Effect.transform.position = this.transform.position;
+        Effect.transform.localScale = new Vector3(2f, 2f, 2f);
+        Destroy(Effect.gameObject, 1.0f); // 1秒後に消える
+
+        // 自身のオブジェクトを削除
         Destroy(this.gameObject);
     }
 
