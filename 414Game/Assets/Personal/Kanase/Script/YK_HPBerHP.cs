@@ -1,9 +1,9 @@
-/**
+ï»¿/**
  * @file HPBarHP.cs
- * @brief ‘Ì—Íƒo[‚Ì‘Ì—Í
- * @author ‹g“cŠ¹
+ * @brief ä½“åŠ›ãƒãƒ¼ã®ä½“åŠ›
+ * @author å‰ç”°å¶è–
  * @date 2023/03/06
- * @date 2023/03/13 ‘Ì—Í‚É‚æ‚èF‚ğ•Ï‚¦‚é
+ * @date 2023/03/13 ä½“åŠ›ã«ã‚ˆã‚Šè‰²ã‚’å¤‰ãˆã‚‹
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -12,58 +12,58 @@ using UnityEngine.UI;
 
 public class YK_HPBerHP : MonoBehaviour
 {
-    // ‘Ì—Í’l‚ğŠi”[‚·‚é•Ï”iˆê’U 100j
+    // ä½“åŠ›å€¤ã‚’æ ¼ç´ã™ã‚‹å¤‰æ•°ï¼ˆä¸€æ—¦ 100ï¼‰
     public static int nMaxHP = 100;
-    // Œ»İ‚Ì‘Ì—Í’l‚ğŠi”[‚·‚é•Ï”i‰Šú’l‚Í maxHealthj
+    // ç¾åœ¨ã®ä½“åŠ›å€¤ã‚’æ ¼ç´ã™ã‚‹å¤‰æ•°ï¼ˆåˆæœŸå€¤ã¯ maxHealthï¼‰
     public int nCurrentHP = nMaxHP;
-    //•Ší‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
+    //æ­¦å™¨ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     [SerializeField] private GameObject HpBarWeapon;
     // Start is called before the first frame update
     void Start()
     {
-        //‰ŠúƒJƒ‰[
+        //åˆæœŸã‚«ãƒ©ãƒ¼
         HpBarWeapon.GetComponent<Renderer>().material.color = Color.green;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //50ˆÈ‰º
+        //50ä»¥ä¸‹
         if (nCurrentHP <= 50)
             HpBarWeapon.GetComponent<Renderer>().material.color = Color.yellow;
-        //20ˆÈ‰º
+        //20ä»¥ä¸‹
         if (nCurrentHP <= 20)
             HpBarWeapon.GetComponent<Renderer>().material.color = Color.red;
         //0
         if (nCurrentHP <= 0)
             Destroy(HpBarWeapon);
-            /*ƒQ[ƒ€ƒI[ƒo[ˆ—ŒÄ‚Ño‚µ*/
+            /*ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼å‡¦ç†å‘¼ã³å‡ºã—*/
     }
-    // ƒ_ƒ[ƒWˆ—
+    // ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
     public void DelLife(int damage)
     {
-        // Œ»İ‚Ì‘Ì—Í’l‚©‚ç ˆø” damage ‚Ì’l‚ğˆø‚­
+        // ç¾åœ¨ã®ä½“åŠ›å€¤ã‹ã‚‰ å¼•æ•° damage ã®å€¤ã‚’å¼•ã
         nCurrentHP -= damage;
-        // Œ»İ‚Ì‘Ì—Í’l‚ª 0 ˆÈ‰º‚Ìê‡
+        // ç¾åœ¨ã®ä½“åŠ›å€¤ãŒ 0 ä»¥ä¸‹ã®å ´åˆ
         if (nCurrentHP <= 0)
         {
-            // Œ»İ‚Ì‘Ì—Í’l‚É 0 ‚ğ‘ã“ü
+            // ç¾åœ¨ã®ä½“åŠ›å€¤ã« 0 ã‚’ä»£å…¥
             nCurrentHP = 0;
-            // ƒRƒ“ƒ\[ƒ‹‚É"Dead!"‚ğ•\¦‚·‚é
+            // ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã«"Dead!"ã‚’è¡¨ç¤ºã™ã‚‹
             Debug.Log("Dead!");
         }
     }
-    // ‰ñ•œˆ—
+    // å›å¾©å‡¦ç†
     public void AddLife(int heal)
     {
-        // Œ»İ‚Ì‘Ì—Í’l‚©‚ç ˆø” heal ‚Ì’l‚ğ‘«‚·
+        // ç¾åœ¨ã®ä½“åŠ›å€¤ã‹ã‚‰ å¼•æ•° heal ã®å€¤ã‚’è¶³ã™
         nCurrentHP += heal;
-        // Œ»İ‚Ì‘Ì—Í’l‚ª maxHealth ˆÈã‚Ìê‡
+        // ç¾åœ¨ã®ä½“åŠ›å€¤ãŒ maxHealth ä»¥ä¸Šã®å ´åˆ
         if (nCurrentHP >= nMaxHP)
         {
-            // Œ»İ‚Ì‘Ì—Í’l‚É Å‘å’l ‚ğ‘ã“ü
+            // ç¾åœ¨ã®ä½“åŠ›å€¤ã« æœ€å¤§å€¤ ã‚’ä»£å…¥
             nCurrentHP = nMaxHP;
-            // ƒRƒ“ƒ\[ƒ‹‚É"HPBarHPMax!"‚ğ•\¦‚·‚é
+            // ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã«"HPBarHPMax!"ã‚’è¡¨ç¤ºã™ã‚‹
             Debug.Log("HPBarHPMax!");
         }
     }

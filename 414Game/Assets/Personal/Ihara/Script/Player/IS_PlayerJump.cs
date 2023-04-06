@@ -1,10 +1,10 @@
-/**
+ï»¿/**
  * @file   IS_PlayerJump.cs
- * @brief  Player‚Ì’µ–ôƒNƒ‰ƒX
+ * @brief  Playerã®è·³èºã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/03
- * @Update 2023/03/03 ì¬
- * @Update 2023/03/12 ƒAƒjƒ[ƒVƒ‡ƒ“ˆ—’Ç‰Á
+ * @Update 2023/03/03 ä½œæˆ
+ * @Update 2023/03/12 ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†è¿½åŠ 
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -12,32 +12,50 @@ using UnityEngine;
 
 public class IS_PlayerJump : IS_PlayerStrategy
 {
-    [SerializeField] IS_Player m_Player;      // IS_Player‚ğƒAƒ^ƒbƒ`‚·‚é
-    [SerializeField] private float m_fJumpPow;// ’µ–ô—Í
-    [SerializeField] private float m_fMovePow;// ˆÚ“®‚·‚é—Í
+    [SerializeField] IS_Player m_Player;      // IS_Playerã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹
+    [SerializeField] private float m_fJumpPow;// è·³èºåŠ›
+    [SerializeField] private float m_fMovePow;// ç§»å‹•ã™ã‚‹åŠ›
+
+    private void Update()
+    {
+        if (m_Player.GetSetPlayerState == PlayerState.PlayerJump)
+        {
+            // è·³èºé–‹å§‹æ™‚ã«è·³èºåŠ›ã‚’åˆè¨ˆç§»å‹•é‡ã«åŠ ç®—
+            if (m_Player.GetSetJumpFlg)
+            {
+                m_Player.GetSetMoveAmount = new Vector3(0f, m_fJumpPow, 0f);
+                m_Player.GetSetJumpFlg = false;
+            }
+
+            // =========
+            // çŠ¶æ…‹é·ç§»
+            // =========
+            // ã€Œè·³èº â†’ è½ä¸‹ã€
+            if (m_Player.GetSetMoveAmount.y <= 0.0f)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
+                m_Player.GetAnimator().SetBool("isDrop", true);
+                m_Player.GetAnimator().SetBool("isJump", false);
+                return;
+            }
+        }
+    }
     /**
      * @fn
-     * XVˆ—
-     * @brief  Player‚Ì’µ–ôXVˆ—
-     * @detail Œp³Œ³‚©‚çoverride‚µ‚Ä‚¢‚Ü‚·
+     * æ›´æ–°å‡¦ç†
+     * @brief  Playerã®è·³èºæ›´æ–°å‡¦ç†
+     * @detail ç¶™æ‰¿å…ƒã‹ã‚‰overrideã—ã¦ã„ã¾ã™
      */
     public override void UpdateStrategy()
     {
-        // ‚±‚±‚ÉState‚²‚Æ‚Éˆ—‚ğ‰Á‚¦‚é
+        // ã“ã“ã«Stateã”ã¨ã«å‡¦ç†ã‚’åŠ ãˆã‚‹
         //Debug.Log("PlayerJump");
 
-        // ’µ–ôŠJn‚É’µ–ô—Í‚ğ‡ŒvˆÚ“®—Ê‚É‰ÁZ
-        if(m_Player.GetSetJumpFlg)
-        {
-            m_Player.GetSetMoveAmount = new Vector3(0f, m_fJumpPow, 0f);
-            m_Player.GetSetJumpFlg = false;
-        }
-
-        // ‡ŒvˆÚ“®—Ê‚ğƒŠƒZƒbƒg(y¬•ª‚ÍƒŠƒZƒbƒg‚µ‚È‚¢)
+        // åˆè¨ˆç§»å‹•é‡ã‚’ãƒªã‚»ãƒƒãƒˆ(yæˆåˆ†ã¯ãƒªã‚»ãƒƒãƒˆã—ãªã„)
         m_Player.GetSetMoveAmount = 
             new Vector3(0f, m_Player.GetSetMoveAmount.y, 0f);
 
-        // DAƒL[‚ÅˆÚ“®‚·‚é
+        // DAã‚­ãƒ¼ã§ç§»å‹•ã™ã‚‹
         if (m_Player.bInputRight)
         {
             m_Player.m_vMoveAmount.x += m_fMovePow;
@@ -49,19 +67,7 @@ public class IS_PlayerJump : IS_PlayerStrategy
             m_Player.GetSetPlayerDir = PlayerDir.Left;
         }
 
-        // d—Í‚ğ‡ŒvˆÚ“®—Ê‚É‰ÁZ
+        // é‡åŠ›ã‚’åˆè¨ˆç§»å‹•é‡ã«åŠ ç®—
         m_Player.m_vMoveAmount.y += m_Player.GetSetGravity;
-
-        // =========
-        // ó‘Ô‘JˆÚ
-        // =========
-        // u’µ–ô ¨ —‰ºv
-        if (m_Player.GetSetMoveAmount.y <= 0.0f)
-        {
-            m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
-            m_Player.GetAnimator().SetBool("isDrop", true);
-            m_Player.GetAnimator().SetBool("isJump", false);
-            return;
-        }
     }
 }

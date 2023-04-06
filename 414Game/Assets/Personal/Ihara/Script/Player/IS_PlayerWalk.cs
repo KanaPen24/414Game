@@ -1,10 +1,10 @@
-/**
+ï»¿/**
  * @file   IS_PlayerWalk.cs
- * @brief  Player‚ÌˆÚ“®ƒNƒ‰ƒX
+ * @brief  Playerã®ç§»å‹•ã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/03
- * @Update 2023/03/03 ì¬
- * @Update 2023/03/12 ƒAƒjƒ[ƒVƒ‡ƒ“ˆ—’Ç‰Á
+ * @Update 2023/03/03 ä½œæˆ
+ * @Update 2023/03/12 ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†è¿½åŠ 
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -12,24 +12,68 @@ using UnityEngine;
 
 public class IS_PlayerWalk : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player;                          // IS_Player‚ğƒAƒ^ƒbƒ`‚·‚é
-    [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Player‚Ì’n–Ê”»’è
-    [SerializeField] private float m_fMovePow;                            // ˆÚ“®‚·‚é—Í
+    [SerializeField] private IS_Player m_Player;                          // IS_Playerã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹
+    [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerã®åœ°é¢åˆ¤å®š
+    [SerializeField] private float m_fMovePow;                            // ç§»å‹•ã™ã‚‹åŠ›
+
+    private void Update()
+    {
+        if (m_Player.GetSetPlayerState == PlayerState.PlayerWalk)
+        {
+            // =========
+            // çŠ¶æ…‹é·ç§»
+            // =========
+            //ã€Œç§»å‹• â†’ è½ä¸‹ã€
+            if (!m_PlayerGroundColl.IsGroundCollision())
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
+                m_Player.GetAnimator().SetBool("isDrop", true);
+                m_Player.GetAnimator().SetBool("isWalk", false);
+                return;
+            }
+            // ã€Œç§»å‹• â†’ è·³èºã€
+            if (m_Player.bInputUp)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerJump;
+                m_Player.GetAnimator().SetBool("isJump", true);
+                m_Player.GetAnimator().SetBool("isWalk", false);
+                m_Player.GetSetJumpFlg = true;
+                return;
+            }
+            // ã€Œç§»å‹• â†’ å¾…æ©Ÿã€
+            if (!m_Player.bInputRight && !m_Player.bInputLeft)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                m_Player.GetAnimator().SetBool("isWait", true);
+                m_Player.GetAnimator().SetBool("isWalk", false);
+                return;
+            }
+            // ã€Œç§»å‹• â†’ æ”»æ’ƒã€
+            if (m_Player.bInputSpace && m_Player.GetSetEquip)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerAttack;
+                m_Player.GetSetAttackFlg = true;
+                m_Player.GetAnimator().SetBool("isAttack", true);
+                m_Player.GetAnimator().SetBool("isWalk", false);
+                return;
+            }
+        }
+    }
     /**
      * @fn
-     * XVˆ—
-     * @brief  Player‚ÌˆÚ“®XVˆ—
-     * @detail Œp³Œ³‚©‚çoverride‚µ‚Ä‚¢‚Ü‚·
+     * æ›´æ–°å‡¦ç†
+     * @brief  Playerã®ç§»å‹•æ›´æ–°å‡¦ç†
+     * @detail ç¶™æ‰¿å…ƒã‹ã‚‰overrideã—ã¦ã„ã¾ã™
      */
     public override void UpdateStrategy()
     {
-        // ‚±‚±‚ÉState‚²‚Æ‚Éˆ—‚ğ‰Á‚¦‚é
+        // ã“ã“ã«Stateã”ã¨ã«å‡¦ç†ã‚’åŠ ãˆã‚‹
         //Debug.Log("PlayerMove");
 
-        // ‡ŒvˆÚ“®—Ê‚ğƒŠƒZƒbƒg
+        // åˆè¨ˆç§»å‹•é‡ã‚’ãƒªã‚»ãƒƒãƒˆ
         m_Player.GetSetMoveAmount = new Vector3(0f, 0f, 0f);
 
-        // DAƒL[‚ÅˆÚ“®‚·‚é
+        // DAã‚­ãƒ¼ã§ç§»å‹•ã™ã‚‹
         if (m_Player.bInputRight)
         {
             m_Player.m_vMoveAmount.x += m_fMovePow;
@@ -39,36 +83,6 @@ public class IS_PlayerWalk : IS_PlayerStrategy
         {
             m_Player.m_vMoveAmount.x -= m_fMovePow;
             m_Player.GetSetPlayerDir = PlayerDir.Left;
-        }
-
-        // =========
-        // ó‘Ô‘JˆÚ
-        // =========
-        //uˆÚ“® ¨ —‰ºv
-        if (!m_PlayerGroundColl.IsGroundCollision())
-        {
-            m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
-            m_Player.GetAnimator().SetBool("isDrop", true);
-            m_Player.GetAnimator().SetBool("isWalk", false);
-            return;
-        }
-        // uˆÚ“® ¨ ’µ–ôv
-        //  WƒL[‚Å’µ–ô‚·‚é
-        if (m_Player.bInputUp)
-        {
-            m_Player.GetSetPlayerState = PlayerState.PlayerJump;
-            m_Player.GetAnimator().SetBool("isJump", true);
-            m_Player.GetAnimator().SetBool("isWalk", false);
-            m_Player.GetSetJumpFlg = true;
-            return;
-        }
-        // uˆÚ“® ¨ ‘Ò‹@v
-        if (!m_Player.bInputRight && !m_Player.bInputLeft)
-        {
-            m_Player.GetSetPlayerState = PlayerState.PlayerWait;
-            m_Player.GetAnimator().SetBool("isWait", true);
-            m_Player.GetAnimator().SetBool("isWalk", false);
-            return;
         }
     }
 }

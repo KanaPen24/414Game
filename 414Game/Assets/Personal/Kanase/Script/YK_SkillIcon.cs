@@ -3,52 +3,46 @@
  * @brief スキルのアイコン処理
  * @author 吉田叶聖
  * @date 2023/03/16
+ * @Update 2023/04/03 フェード処理実装(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
-public class YK_SkillIcon : MonoBehaviour
+public class YK_SkillIcon : YK_UI
 {
-    private int m_SkillPoint;  //現在のスキル数
-    public GameObject[] SkillArray;
-    public int m_nMaxSkill; //最高スキル数
+    public Image SkillIcon;
 
     private void Start()
     {
-        GameObject[] SkillArray = new GameObject[m_SkillPoint];
-        m_SkillPoint = m_nMaxSkill;
+        m_eUIType = UIType.SkillIcon;
+        m_eFadeState = FadeState.FadeNone;
+        GetSetPos = SkillIcon.GetComponent<RectTransform>().position;
+
     }
 
-    void Update()
+    public override void UIFadeIN()
     {
-        if (Input.GetMouseButtonDown(0))
+        // 1秒で後X,Y方向を元の大きさに変更
+        SkillIcon.transform.DOScale(new Vector3(1f, 1f, 0f), 0f);
+        // 1秒でテクスチャをフェードイン
+        SkillIcon.DOFade(1f, 0f).OnComplete(() =>
         {
-            AddSkill(1);
-        }
+            GetSetFadeState = FadeState.FadeNone;
+        });
+    }
 
-        else if (Input.GetMouseButtonDown(1))
-        {
-            DelSkill(1); 
-        }
-    }
-    //スキル数増やす
-    public void AddSkill(int Heal)
+    public override void UIFadeOUT()
     {
-        if (m_SkillPoint < m_nMaxSkill)
+        // 1秒で後X,Y方向を0.5倍に変更
+        SkillIcon.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 1f);
+        // 1秒でテクスチャをフェードアウト
+        SkillIcon.DOFade(0f, 1f).OnComplete(() =>
         {
-            m_SkillPoint+=Heal;
-            SkillArray[m_SkillPoint - 1].SetActive(true);
-        }
-    }
-    //スキル数減らす
-    public void DelSkill(int Use)
-    {
-        if(m_SkillPoint > 0)
-        {
-            SkillArray[m_SkillPoint - 1].SetActive(false);
-            m_SkillPoint-=Use;
-        }
+            GetSetFadeState = FadeState.FadeNone;
+        });
     }
 
 }

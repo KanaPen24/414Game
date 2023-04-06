@@ -1,10 +1,10 @@
-/**
+ï»¿/**
  * @file   IS_PlayerAttack.cs
- * @brief  Player‚ÌUŒ‚ƒNƒ‰ƒX
+ * @brief  Playerã®æ”»æ’ƒã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/10
- * @Update 2023/03/10 ì¬
- * @Update 2023/03/12 ƒAƒjƒ[ƒVƒ‡ƒ“ˆ—’Ç‰Á
+ * @Update 2023/03/10 ä½œæˆ
+ * @Update 2023/03/12 ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†è¿½åŠ 
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -12,51 +12,56 @@ using UnityEngine;
 
 public class IS_PlayerAttack : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player; // IS_Player‚ğƒAƒ^ƒbƒ`‚·‚é
+    [SerializeField] private IS_Player m_Player; // IS_Playerã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹
 
+    private void Update()
+    {
+        if (m_Player.GetSetPlayerState == PlayerState.PlayerAttack)
+        {
+            // æ”»æ’ƒé–‹å§‹æ™‚ã®å‡¦ç†
+            if (m_Player.GetSetAttackFlg)
+            {
+                m_Player.GetSetAttackFlg = false;
+                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartAttack();
+            }
+
+            // =========
+            // çŠ¶æ…‹é·ç§»
+            // =========
+            // ã€Œæ”»æ’ƒ â†’ å¾…æ©Ÿã€
+            if (!m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                m_Player.GetAnimator().SetBool("isWait", true);
+                m_Player.GetAnimator().SetBool("isAttack", false);
+                return;
+            }
+        }
+    }
     /**
      * @fn
-     * XVˆ—
-     * @brief  Player‚ÌUŒ‚XVˆ—
-     * @detail Œp³Œ³‚©‚çoverride‚µ‚Ä‚¢‚Ü‚·
+     * æ›´æ–°å‡¦ç†
+     * @brief  Playerã®æ”»æ’ƒæ›´æ–°å‡¦ç†
+     * @detail ç¶™æ‰¿å…ƒã‹ã‚‰overrideã—ã¦ã„ã¾ã™
      */
     public override void UpdateStrategy()
     {
-        // ‚±‚±‚ÉState‚²‚Æ‚Éˆ—‚ğ‰Á‚¦‚é
+        // ã“ã“ã«Stateã”ã¨ã«å‡¦ç†ã‚’åŠ ãˆã‚‹
         //Debug.Log("PlayerAttack");
 
-        // UŒ‚ŠJn‚Ìˆ—
-        if (m_Player.GetSetAttackFlg)
-        {
-            m_Player.GetSetAttackFlg = false;
-            m_Player.GetWeapons((int)m_Player.GetSetPlayerWeaponState).GetSetAttack = true;
-        }
-
-        // ‡ŒvˆÚ“®—Ê‚ğƒŠƒZƒbƒg
+        // åˆè¨ˆç§»å‹•é‡ã‚’ãƒªã‚»ãƒƒãƒˆ
         m_Player.GetSetMoveAmount =
             new Vector3(0f, 0f, 0f);
 
-        // w’è‚µ‚½•Ší‚ÅUŒ‚ˆ—
-        m_Player.GetWeapons((int)m_Player.GetSetPlayerWeaponState).Attack();
-
-        // =========
-        // ó‘Ô‘JˆÚ
-        // =========
-        // uUŒ‚ ¨ ‘Ò‹@v
-        if (!m_Player.GetWeapons(m_Player.nWeaponState).GetSetAttack)
-        {
-            m_Player.GetSetPlayerState = PlayerState.PlayerWait;
-            m_Player.GetAnimator().SetBool("isWait", true);
-            m_Player.GetAnimator().SetBool("isAttack", false);
-            return;
-        }
+        // æŒ‡å®šã—ãŸæ­¦å™¨ã§æ”»æ’ƒå‡¦ç†
+        m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).UpdateAttack();
     }
 
     /**
      * @fn
-     * Player‚ÌUŒ‚ˆ—
-     * @brief  •û–@‚Í‚Ü‚¾l‚¦’†
-     * @detail §ì’†
+     * Playerã®æ”»æ’ƒå‡¦ç†
+     * @brief  æ–¹æ³•ã¯ã¾ã è€ƒãˆä¸­
+     * @detail åˆ¶ä½œä¸­
      */
     private void Attack()
     {
