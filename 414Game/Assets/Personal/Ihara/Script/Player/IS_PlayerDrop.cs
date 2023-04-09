@@ -1,10 +1,10 @@
-/**
+ï»¿/**
  * @file   IS_PlayerDrop.cs
- * @brief  Player‚Ì—‰ºƒNƒ‰ƒX
+ * @brief  Playerã®è½ä¸‹ã‚¯ãƒ©ã‚¹
  * @author IharaShota
  * @date   2023/03/03
- * @Update 2023/03/03 ì¬
- * @Update 2023/03/12 ƒAƒjƒ[ƒVƒ‡ƒ“ˆ—’Ç‰Á
+ * @Update 2023/03/03 ä½œæˆ
+ * @Update 2023/03/12 ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†è¿½åŠ 
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -12,26 +12,51 @@ using UnityEngine;
 
 public class IS_PlayerDrop : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player;                          // IS_Player‚ğƒAƒ^ƒbƒ`‚·‚é
-    [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Player‚Ì’n–Ê”»’è
-    [SerializeField] private float m_fMovePow;                            // ˆÚ“®‚·‚é—Í
+    [SerializeField] private IS_Player m_Player;                          // IS_Playerã‚’ã‚¢ã‚¿ãƒƒãƒã™ã‚‹
+    [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerã®åœ°é¢åˆ¤å®š
+    [SerializeField] private float m_fMovePow;                            // ç§»å‹•ã™ã‚‹åŠ›
 
+    private void Update()
+    {
+        if (m_Player.GetSetPlayerState == PlayerState.PlayerDrop)
+        {
+            // =========
+            // çŠ¶æ…‹é·ç§»
+            // =========
+            // ã€Œè½ä¸‹ â†’ å¾…æ©Ÿ or ç§»å‹•ã€
+            if (m_PlayerGroundColl.IsGroundCollision())
+            {
+                if (m_Player.bInputLeft || m_Player.bInputRight)
+                {
+                    m_Player.GetSetPlayerState = PlayerState.PlayerWalk;
+                    m_Player.GetAnimator().SetBool("isWalk", true);
+                    m_Player.GetAnimator().SetBool("isDrop", false);
+                    return;
+                }
+
+                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                m_Player.GetAnimator().SetBool("isWait", true);
+                m_Player.GetAnimator().SetBool("isDrop", false);
+                return;
+            }
+        }
+    }
     /**
      * @fn
-     * XVˆ—
-     * @brief  Player‚Ì—‰ºXVˆ—
-     * @detail Œp³Œ³‚©‚çoverride‚µ‚Ä‚¢‚Ü‚·
+     * æ›´æ–°å‡¦ç†
+     * @brief  Playerã®è½ä¸‹æ›´æ–°å‡¦ç†
+     * @detail ç¶™æ‰¿å…ƒã‹ã‚‰overrideã—ã¦ã„ã¾ã™
      */
     public override void UpdateStrategy()
     {
-        // ‚±‚±‚ÉState‚²‚Æ‚Éˆ—‚ğ‰Á‚¦‚é
+        // ã“ã“ã«Stateã”ã¨ã«å‡¦ç†ã‚’åŠ ãˆã‚‹
         //Debug.Log("PlayerDrop");
 
-        // ‡ŒvˆÚ“®—Ê‚ğƒŠƒZƒbƒg(y¬•ª‚ÍƒŠƒZƒbƒg‚µ‚È‚¢)
+        // åˆè¨ˆç§»å‹•é‡ã‚’ãƒªã‚»ãƒƒãƒˆ(yæˆåˆ†ã¯ãƒªã‚»ãƒƒãƒˆã—ãªã„)
         m_Player.GetSetMoveAmount =
             new Vector3(0f, m_Player.GetSetMoveAmount.y, 0f);
 
-        // DAƒL[‚ÅˆÚ“®‚·‚é
+        // DAã‚­ãƒ¼ã§ç§»å‹•ã™ã‚‹
         if (m_Player.bInputRight)
         {
             m_Player.m_vMoveAmount.x += m_fMovePow;
@@ -43,27 +68,7 @@ public class IS_PlayerDrop : IS_PlayerStrategy
             m_Player.GetSetPlayerDir = PlayerDir.Left;
         }
 
-        // d—Í‚ğ‡ŒvˆÚ“®—Ê‚É‰ÁZ
+        // é‡åŠ›ã‚’åˆè¨ˆç§»å‹•é‡ã«åŠ ç®—
         m_Player.m_vMoveAmount.y += m_Player.GetSetGravity;
-
-        // =========
-        // ó‘Ô‘JˆÚ
-        // =========
-        // u—‰º ¨ ‘Ò‹@ or ˆÚ“®v
-        if (m_PlayerGroundColl.IsGroundCollision())
-        {
-            if(m_Player.bInputLeft || m_Player.bInputRight)
-            {
-                m_Player.GetSetPlayerState = PlayerState.PlayerWalk;
-                m_Player.GetAnimator().SetBool("isWalk", true);
-                m_Player.GetAnimator().SetBool("isDrop", false);
-                return;
-            }
-
-            m_Player.GetSetPlayerState = PlayerState.PlayerWait;
-            m_Player.GetAnimator().SetBool("isWait", true);
-            m_Player.GetAnimator().SetBool("isDrop", false);
-            return;
-        }
     }
 }

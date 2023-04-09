@@ -11,7 +11,6 @@ using UnityEngine.UI;
 using DG.Tweening;
 public class YK_HPBar : YK_UI
 {
-    [SerializeField] private int m_nMaxHP = 100;
     [SerializeField] Slider HP;
     [SerializeField] private Image FrontFill;    //バーの表面のテクスチャ
     [SerializeField] private Image BackFill;     //後ろのバーの表面のテクスチャ
@@ -24,26 +23,8 @@ public class YK_HPBar : YK_UI
         m_eUIType = UIType.HPBar;
         m_eFadeState = FadeState.FadeNone;
         GetSetVisible = false;
-        GetSetHP = m_nMaxHP;
         //UIが動くようならUpdateにかかなかん
         GetSetPos = HP.GetComponent<RectTransform>().position;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (GetSetHP <= 50)
-        {
-            //  武器の見た目変更処理
-        }
-        if (GetSetHP <= 25)
-        {
-            //  武器の見た目変更処理
-        }
-        if (GetSetHP <= 0)
-        {
-            //  ゲームオーバー処理
-        }
     }
 
     public override void UIFadeIN()

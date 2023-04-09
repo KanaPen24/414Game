@@ -4,6 +4,7 @@
  * @author 吉田叶聖
  * @date   2023/03/18
  * @Update 2023/04/03 UIを武器化する際のエフェクト処理修正(Ihara)
+ * @Update 2023/04/06 新規エフェクトによる調整(Yoshida)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -23,8 +24,10 @@ public class YK_UICatcher : MonoBehaviour
     [SerializeField] private List<YK_UI> m_Uis;
     [SerializeField] private ParticleSystem particleUI; //UI用エフェクトオブジェクト
     [SerializeField] private ParticleSystem particlePL; //プレイヤー用エフェクトオブジェクト
-    [SerializeField] private GameObject PortalObjUI;    //UIの歪みのオブジェクト
-    [SerializeField] private GameObject PortalObjPL;    //プレイヤーの歪みのオブジェクト
+    [SerializeField] private GameObject BlackHoleUI;    //UIの大元オブジェクト
+    [SerializeField] private GameObject BlackHolePL;    //プレイヤー大元オブジェクト
+    [SerializeField] private GameObject PortalObjUI;    //UIのポータルオブジェクト
+    [SerializeField] private GameObject PortalObjPL;    //プレイヤーのポータルオブジェクト
     [SerializeField] private GameObject Hand;           //手のオブジェクト
     [SerializeField] private IS_Player Player;          //プレイヤーの情報
     [SerializeField] private YK_CursolEvent CursolEvent;//カーソルイベント
@@ -36,7 +39,13 @@ public class YK_UICatcher : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //停止の処理を呼び出す
         ParticleStop();
+
+        //最初は消しておく
+        BlackHoleUI.SetActive(false);
+        BlackHolePL.SetActive(false);
+
         m_bParticleFlg = false;
         m_SelectUI = null;
     }
@@ -46,11 +55,11 @@ public class YK_UICatcher : MonoBehaviour
         //プレイヤーの向き比較
         if(Player.GetSetPlayerDir == PlayerDir.Left)
         {
-            particlePL.transform.position = Player.transform.position + new Vector3(-0.5f, 1.0f, 0.0f);
+            BlackHolePL.transform.position = Player.transform.position + new Vector3(-0.5f, 1.0f, 0.0f);
         }
         else if(Player.GetSetPlayerDir == PlayerDir.Right)
         {
-            particlePL.transform.position = Player.transform.position + new Vector3(0.5f, 1.0f, 0.0f);
+            BlackHolePL.transform.position = Player.transform.position + new Vector3(0.5f, 1.0f, 0.0f);
         }
     }
 
@@ -63,6 +72,8 @@ public class YK_UICatcher : MonoBehaviour
             Hand.GetComponent<Animator>().SetBool("Hand", true);
             particleUI.Play();
             particlePL.Play();
+            BlackHoleUI.SetActive(true);
+            BlackHolePL.SetActive(true);
             PortalObjUI.SetActive(true);
             PortalObjPL.SetActive(true);
             m_bParticleFlg = true;
@@ -118,16 +129,23 @@ public class YK_UICatcher : MonoBehaviour
         m_UICatcherState = UICatcherState.UI2Weapon; // UIから武器化するイベント状態にする
         ParticlePlay(); // エフェクト再生
 
-
         // 選択したUIを探す
         for(int i = 0,size = m_Uis.Count; i < size;++i)
         {
+            // 探し出せたら…
             if(CursolEvent.GetSetCurrentUI.gameObject == m_Uis[i].gameObject)
             {
+                // 予め格納する
                 m_SelectUI = m_Uis[i];
-                particleUI.GetComponent<Transform>().position = m_SelectUI.GetSetPos;
+
+                // エフェクトの位置を設定
+                BlackHoleUI.GetComponent<Transform>().position = m_SelectUI.GetSetPos;
                 Hand.transform.position = m_SelectUI.GetSetPos;
+
+                // 選択したUIのフェードアウト開始
                 m_SelectUI.UIFadeOUT();
+
+                // for文から抜ける
                 break;
             }
         }
@@ -135,12 +153,16 @@ public class YK_UICatcher : MonoBehaviour
         // 武器を装備する(武器チェンジ)
         for(int i = 0,size = (int)EquipWeaponState.MaxEquipWeaponState; i < size;++i)
         {
+            // 番号が一致したら…
             if((int)m_SelectUI.GetSetUIType == i)
             {
+                // その番号の武器を装備する
+                // ※ 装備武器の列挙数とUIの種類の列挙数は一致していることが条件
                 Player.GetSetEquipWeaponState = (EquipWeaponState)i;
+
+                // for文から抜ける
                 break;
             }
-
         }
     }
 
@@ -153,7 +175,11 @@ public class YK_UICatcher : MonoBehaviour
     public void StartWeapon2UIEvent()
     {
         //m_UICatcherState = UICatcherState.Weapon2UI;
+
+        // 選択したUIのフェードイン開始
         m_SelectUI.UIFadeIN();
+
+        // 選択したUIを空にする
         m_SelectUI = null;
     }
 }
