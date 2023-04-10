@@ -15,6 +15,7 @@ public class YK_HPBar : YK_UI
     [SerializeField] private Image FrontFill;    //バーの表面のテクスチャ
     [SerializeField] private Image BackFill;     //後ろのバーの表面のテクスチャ
     [SerializeField] private Image BackGround;   //バーの裏のテクスチャ
+    [SerializeField] private Image Frame;        //フレーム
     [SerializeField] private YK_Hand m_Hand;
 
     // Start is called before the first frame update
@@ -35,6 +36,7 @@ public class YK_HPBar : YK_UI
         // 1秒でテクスチャをフェードイン
         FrontFill.DOFade(1f, 0f);
         BackFill.DOFade(1f, 0f);
+        Frame.DOFade(1f, 0f);
         BackGround.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
@@ -51,6 +53,7 @@ public class YK_HPBar : YK_UI
         // 1秒でテクスチャをフェードアウト
         FrontFill.DOFade(0f, 1f);
         BackFill.DOFade(0f, 1f);
+        Frame.DOFade(0f, 1f);
         BackGround.DOFade(0f, 1f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
