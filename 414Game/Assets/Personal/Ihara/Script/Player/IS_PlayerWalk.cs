@@ -15,6 +15,50 @@ public class IS_PlayerWalk : IS_PlayerStrategy
     [SerializeField] private IS_Player m_Player;                          // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
     [SerializeField] private float m_fMovePow;                            // 移動する力
+
+    private void Update()
+    {
+        if (m_Player.GetSetPlayerState == PlayerState.PlayerWalk)
+        {
+            // =========
+            // 状態遷移
+            // =========
+            //「移動 → 落下」
+            if (!m_PlayerGroundColl.IsGroundCollision())
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
+                m_Player.GetAnimator().SetBool("isDrop", true);
+                m_Player.GetAnimator().SetBool("isWalk", false);
+                return;
+            }
+            // 「移動 → 跳躍」
+            if (m_Player.bInputUp)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerJump;
+                m_Player.GetAnimator().SetBool("isJump", true);
+                m_Player.GetAnimator().SetBool("isWalk", false);
+                m_Player.GetSetJumpFlg = true;
+                return;
+            }
+            // 「移動 → 待機」
+            if (!m_Player.bInputRight && !m_Player.bInputLeft)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                m_Player.GetAnimator().SetBool("isWait", true);
+                m_Player.GetAnimator().SetBool("isWalk", false);
+                return;
+            }
+            // 「移動 → 攻撃」
+            if (m_Player.bInputSpace && m_Player.GetSetEquip)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerAttack;
+                m_Player.GetSetAttackFlg = true;
+                m_Player.GetAnimator().SetBool("isAttack", true);
+                m_Player.GetAnimator().SetBool("isWalk", false);
+                return;
+            }
+        }
+    }
     /**
      * @fn
      * 更新処理
@@ -39,44 +83,6 @@ public class IS_PlayerWalk : IS_PlayerStrategy
         {
             m_Player.m_vMoveAmount.x -= m_fMovePow;
             m_Player.GetSetPlayerDir = PlayerDir.Left;
-        }
-
-        // =========
-        // 状態遷移
-        // =========
-        //「移動 → 落下」
-        if (!m_PlayerGroundColl.IsGroundCollision())
-        {
-            m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
-            m_Player.GetAnimator().SetBool("isDrop", true);
-            m_Player.GetAnimator().SetBool("isWalk", false);
-            return;
-        }
-        // 「移動 → 跳躍」
-        if (m_Player.bInputUp)
-        {
-            m_Player.GetSetPlayerState = PlayerState.PlayerJump;
-            m_Player.GetAnimator().SetBool("isJump", true);
-            m_Player.GetAnimator().SetBool("isWalk", false);
-            m_Player.GetSetJumpFlg = true;
-            return;
-        }
-        // 「移動 → 待機」
-        if (!m_Player.bInputRight && !m_Player.bInputLeft)
-        {
-            m_Player.GetSetPlayerState = PlayerState.PlayerWait;
-            m_Player.GetAnimator().SetBool("isWait", true);
-            m_Player.GetAnimator().SetBool("isWalk", false);
-            return;
-        }
-        // 「移動 → 攻撃」
-        if (m_Player.bInputSpace && m_Player.GetSetEquipFlg)
-        {
-            m_Player.GetSetPlayerState = PlayerState.PlayerAttack;
-            m_Player.GetSetAttackFlg = true;
-            m_Player.GetAnimator().SetBool("isAttack", true);
-            m_Player.GetAnimator().SetBool("isWalk", false);
-            return;
         }
     }
 }

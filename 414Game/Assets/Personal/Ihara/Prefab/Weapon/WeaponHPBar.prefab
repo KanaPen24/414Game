@@ -92,7 +92,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4046765456409590387}
-  - component: {fileID: 4046765456409590389}
   - component: {fileID: 4046765456409590388}
   - component: {fileID: 2525600869589869567}
   m_Layer: 0
@@ -118,19 +117,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4046765456409590389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4046765456409590386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d654e7a1be493ae44ac9e3bdacaf1a0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nCurrentHP: 100
 --- !u!136 &4046765456409590388
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -157,6 +143,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75099a64ee3d9714e8bc36b2278685bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_bVisible: 0
+  m_nHp: 0
+  m_nMaxHp: 0
+  m_Player: {fileID: 0}
+  m_CapsuleCollider: {fileID: 4046765456409590388}
+  m_MeshRender: {fileID: 4046765455223214263}
+  fAttackRate: 0.05
   vRotAmount: {x: 0, y: 0, z: -45}
   vRotOrigin: {x: 0, y: 0, z: 0}
-  fAttackRate: 0.05

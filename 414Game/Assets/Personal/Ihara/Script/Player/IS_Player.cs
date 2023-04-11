@@ -51,8 +51,9 @@ public enum PlayerDir
 // ================================================
 public enum EquipWeaponState
 {
-    PlayerHpBar, // HPバー
-    PlayerBall,  // Ball
+    PlayerHpBar,  // HPバー
+    PlayerBall,   // Ball
+    PlayerBossBar,// Bossバー
 
     MaxEquipWeaponState
 }
@@ -61,8 +62,9 @@ public class IS_Player : MonoBehaviour
 {
     [SerializeField] private Animator                m_animator;         // Playerのアニメーション
     [SerializeField] private Rigidbody               m_Rigidbody;        // PlayerのRigidBody
-    [SerializeField] private YK_HPBarVisible         m_HpVisible;        // PlayerのHp表示管理
+    [SerializeField] private YK_CursolEvent          m_CursolEvent;      // カーソルイベントの情報
     [SerializeField] private YK_PlayerHP             m_Hp;               // PlayerのHp
+    [SerializeField] private YK_UICatcher            m_UICatcher;        // UIキャッチャー
     [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // Player挙動クラスの動的配列
     [SerializeField] private List<IS_Weapon>         m_Weapons;          // 武器クラスの動的配列
     [SerializeField] private PlayerState             m_PlayerState;      // Playerの状態を管理する
@@ -78,7 +80,7 @@ public class IS_Player : MonoBehaviour
 
     private bool m_bJumpFlg;     // 跳躍開始フラグ
     private bool m_bAttackFlg;   // 攻撃開始フラグ
-    private bool m_bEquipFlg;    // 装備フラグ
+    private bool m_bEquip;       // 装備しているかどうか
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
 
     private void Start()
@@ -99,7 +101,7 @@ public class IS_Player : MonoBehaviour
         m_vMoveAmount = new Vector3(0.0f, 0.0f, 0.0f);
         m_bJumpFlg    = false;
         m_bAttackFlg  = false;
-        m_bEquipFlg   = false;
+        m_bEquip      = false;
         bInputUp      = false;
         bInputRight   = false;
         bInputLeft    = false;
@@ -108,7 +110,7 @@ public class IS_Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // 入力管理
         // Jump=Key.w,Joy.B
@@ -119,14 +121,14 @@ public class IS_Player : MonoBehaviour
         else bInputUp = false;
 
         // 右移動
-        if ((Input.GetAxis("Horizontal")) >= m_fDeadZone)
+        if ((Input.GetAxis("HorizontalL")) >= m_fDeadZone)
         {
             bInputRight = true;
         }
         else bInputRight = false;
 
         // 左移動
-        if ((Input.GetAxis("Horizontal")) <= -m_fDeadZone)
+        if ((Input.GetAxis("HorizontalL")) <= -m_fDeadZone)
         {
             bInputLeft = true;
         }
@@ -142,22 +144,31 @@ public class IS_Player : MonoBehaviour
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision"))
         {
-            m_HpVisible.GetSetVisible = !m_HpVisible.GetSetVisible;
-            m_bEquipFlg = !m_HpVisible.GetSetVisible;
-        }
-
-        // 武器チェンジ(仮)…関数化する予定
-        // ※装備している && Playerが攻撃状態以外 だったら可能
-        if(m_PlayerState != PlayerState.PlayerAttack && GetSetEquipFlg)
-        {
-            if (Input.GetKeyDown(KeyCode.X))
+            // UICatcherのイベント中は処理しない
+            if (m_UICatcher.GetSetUICatcherState == UICatcherState.None)
             {
-                int nEqipWeaponState = (int)GetSetEquipWeaponState + 1;
-                if (nEqipWeaponState >= (int)EquipWeaponState.MaxEquipWeaponState)
+                // 装備状態の場合
+                if (m_bEquip)
                 {
-                    GetSetEquipWeaponState = 0;
+                    // 武器をUIにするイベント開始
+                    m_UICatcher.StartWeapon2UIEvent();
+
+                    // 装備状態をfalseにする
+                    m_bEquip = false;
                 }
-                else m_EquipWeaponState = (EquipWeaponState)nEqipWeaponState;
+                // 装備状態ではない場合
+                else
+                {
+                    // UIを武器化する
+                    if (m_CursolEvent.GetSetUIExist)
+                    {
+                        // UIを武器にするイベント開始
+                        m_UICatcher.StartUI2WeaponEvent();
+
+                        // 装備状態をtrueにする
+                        m_bEquip = true;
+                    }
+                }
             }
         }
     }
@@ -179,6 +190,15 @@ public class IS_Player : MonoBehaviour
         else if (GetSetPlayerDir == PlayerDir.Left)
         {
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
+        }
+
+        for (int i = 0, size = m_Weapons.Count; i < size; ++i)
+        {
+            if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquip)
+            {
+                m_Weapons[i].GetSetVisible = true;
+            }
+            else m_Weapons[i].GetSetVisible = false;
         }
     }
 
@@ -202,17 +222,6 @@ public class IS_Player : MonoBehaviour
     public Rigidbody GetRigidbody()
     {
         return m_Rigidbody;
-    }
-
-    /**
-     * @fn
-     * PlayerのHp表示のgetter
-     * @return m_HpVisible(YK_HPBarVisible)
-     * @brief PlayerのYK_HPBarVisibleを返す
-     */
-    public YK_HPBarVisible GetHPVisible()
-    {
-        return m_HpVisible;
     }
 
     /**
@@ -323,13 +332,13 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * 装備フラグのgetter・setter
+     * 装備しているかのgetter・setter
      * @return m_bEquipFlg(bool)
-     * @brief 装備フラグを返す・セット
+     * @brief 装備しているかを返す・セット
      */
-    public bool GetSetEquipFlg
+    public bool GetSetEquip
     {
-        get { return m_bEquipFlg; }
-        set { m_bEquipFlg = value; }
+        get { return m_bEquip; }
+        set { m_bEquip = value; }
     }
 }

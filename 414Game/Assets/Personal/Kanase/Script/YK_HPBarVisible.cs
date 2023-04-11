@@ -16,7 +16,7 @@ public class YK_HPBarVisible : MonoBehaviour
 {
     [SerializeField] Slider HP;   
     [SerializeField] private IS_WeaponHPBar m_WeaponHpBar;
-    [SerializeField] private UnityEngine.UI.Image FrontFill;         //バーの表面のテクスチャ
+    [SerializeField] private UnityEngine.UI.Image FrontFill;    //バーの表面のテクスチャ
     [SerializeField] private UnityEngine.UI.Image BackFill;     //後ろのバーの表面のテクスチャ
     [SerializeField] private UnityEngine.UI.Image BackGround;   //バーの裏のテクスチャ
     private bool m_bVisible;

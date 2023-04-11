@@ -106,17 +106,17 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _Power: 51.7
+    - _Power: 45.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Scale: 2.21
+    - _Scale: 4.48
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.311
+    - _Speed: 0.462
     - _SrcBlend: 5
-    - _Strength: 1.45
+    - _Strength: 1.67
     - _Surface: 1
     - _WorkflowMode: 0
     - _ZTest: 4

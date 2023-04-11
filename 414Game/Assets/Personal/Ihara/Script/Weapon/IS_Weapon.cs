@@ -5,6 +5,7 @@
  * @date   2023/03/12
  * @Update 2023/03/12 作成
  * @Update 2023/03/16 武器種類を判別する列挙体追加
+ * @Update 2023/03/28 メンバ,仮想関数追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -16,8 +17,9 @@ using UnityEngine;
 // ================================================
 public enum WeaponType
 {
-    HPBar,// HPバー
-    Ball, // Ball
+    HPBar,     // HPバー
+    SkillIcon, // スキルアイコン
+    BossBar,   // Bossバー
 
     MaxWeaponType
 }
@@ -26,8 +28,33 @@ public class IS_Weapon : MonoBehaviour
 {
     protected WeaponType m_eWeaponType; // 武器の種類
     protected bool m_bAttack;           // 攻撃中かどうか
-    protected bool m_bVisible;          // 表示
+    [SerializeField]
+    protected bool m_bVisible;          // 表示するかどうか
+    protected bool m_bDestroy;          // 破壊されたかどうか
+    [SerializeField]
     protected int  m_nHp;               // 耐久値
+    [SerializeField]
+    protected int m_nMaxHp;             // 最大耐久値
+
+   /**
+    * @fn
+    * 初期化処理(override前提)
+    * @brief 初期化処理(外部参照は避けること)
+    */
+    protected virtual void Awake()
+    {
+
+    }
+
+   /**
+    * @fn
+    * 初期化処理(override前提)
+    * @brief 初期化処理(外部参照する場合)
+    */
+    protected virtual void Start()
+    {
+
+    }
 
     /**
      * @fn
@@ -52,11 +79,21 @@ public class IS_Weapon : MonoBehaviour
     /**
      * @fn
      * 攻撃更新処理(override前提)
-     * @brief 攻撃処理
+     * @brief 攻撃更新処理
      */
     public virtual void UpdateAttack()
     {
         // ここに処理を加える
+    }
+
+    /**
+     * @fn
+     * 表示更新処理(override前提)
+     * @brief 表示更新処理
+     */
+     public virtual void UpdateVisible()
+    {
+
     }
 
     /**
@@ -97,6 +134,18 @@ public class IS_Weapon : MonoBehaviour
 
     /**
      * @fn
+     * 破壊のgetter・setter
+     * @return m_bDestroy(bool)
+     * @brief 破壊を返す・セット
+     */
+    public bool GetSetDestroy
+    {
+        get { return m_bDestroy; }
+        set { m_bDestroy = value; }
+    }
+
+    /**
+     * @fn
      * 耐久値のgetter・setter
      * @return m_nHp(int)
      * @brief 耐久値を返す・セット
@@ -105,5 +154,43 @@ public class IS_Weapon : MonoBehaviour
     {
         get { return m_nHp; }
         set { m_nHp = value; }
+    }
+
+   /**
+    * @fn
+    * 最大耐久値のgetter・setter
+    * @return m_nMaxHp(int)
+    * @brief 最大耐久値を返す・セット
+    */
+    public int GetSetMaxHp
+    {
+        get { return m_nMaxHp; }
+        set { m_nMaxHp = value; }
+    }
+
+    public void AddLife(int heal)
+    {
+        // 現在の体力値から 引数 heal の値を足す
+        m_nHp += heal;
+        // 現在の体力値が m_nMaxHp 以上の場合
+        if (m_nHp >= m_nMaxHp)
+        {
+            // 現在の体力値に 最大値 を代入
+            m_nHp = m_nMaxHp;
+        }
+    }
+
+    public void DelLife(int damage)
+    {
+        // 現在の体力値から 引数 damage の値を引く
+        m_nHp -= damage;
+        // 現在の体力値が 0 以下の場合
+        if (m_nHp <= 0)
+        {
+            // 現在の体力値に 0 を代入
+            m_nMaxHp = 0;
+            // コンソールに"Dead!"を表示する
+            Debug.Log("Dead!");
+        }
     }
 }
