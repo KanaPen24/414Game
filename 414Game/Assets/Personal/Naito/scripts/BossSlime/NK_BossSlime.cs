@@ -15,11 +15,8 @@ using UnityEngine;
 // ===============================================
 public enum BossSlimeState
 {
-    //BossSlimeWait,   // 待ち状態
-    BossSlimeWalk,   // 移動状態
-    //BossSlimeJump,   // 跳躍状態
-    //BossSlimeDrop,   // 落下状態
-    BossSlimeAttack, // 攻撃状態
+    BossSlimeSummon,   //召喚攻撃状態
+    BossSlimeMartial,  //近接攻撃状態
 
     MaxBossSlimeState
 }
