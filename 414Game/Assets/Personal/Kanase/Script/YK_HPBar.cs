@@ -25,7 +25,7 @@ public class YK_HPBar : YK_UI
         m_eFadeState = FadeState.FadeNone;
         GetSetVisible = false;
         //UIが動くようならUpdateにかかなかん
-        GetSetPos = HP.GetComponent<RectTransform>().position;
+        GetSetPos = HP.GetComponent<RectTransform>().anchoredPosition;
     }
 
     public override void UIFadeIN()
