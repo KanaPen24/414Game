@@ -11,14 +11,21 @@ using DG.Tweening;
 using UnityEngine.UI;
 
 
-public class YK_Next : MonoBehaviour
+public class YK_Next : YK_UI
 {
     [SerializeField] private Image Next;
+    [SerializeField] private YK_Hand m_Hand;
     // Start is called before the first frame update
     void Start()
     {
-        //最初は消しとく
-        Next.DOFade(0f, 0f);
+        m_eUIType = UIType.Next; //UIのタイプ設定
+        m_eFadeState = FadeState.FadeNone;
+        //UIが動くようならUpdateにかかなかん
+        GetSetPos = Next.GetComponent<RectTransform>().anchoredPosition;
+        //スケール取得
+        GetSetScale = Next.transform.localScale;
+
+        UIFadeOUT();
     }
 
     // Update is called once per frame
@@ -26,28 +33,39 @@ public class YK_Next : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            NextEnableFalse();
+            UIFadeOUT();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            NextEnableTrue();
+            UIFadeIN();
         }
     }
 
     //NextUIを表示
-    public void NextEnableTrue()
+    public override void UIFadeIN()
     {
-        // 1秒で後X,Y方向を0.5倍に変更
-        Next.transform.DOScale(new Vector3(0.5f, 0.3f, 0f), 1f);
-        // 1秒でテクスチャをフェードアウト
-        Next.DOFade(0f, 1f);
-    }
-    //NextUIを非表示
-    public void NextEnableFalse()
-    {
+        m_eFadeState = FadeState.FadeIN;
         // 1秒で後X,Y方向を元の大きさに変更
-        Next.transform.DOScale(new Vector3(1.5f, 0.7f, 0f), 1f);
+        Next.transform.DOScale(GetSetScale, 0f);
         // 1秒でテクスチャをフェードイン
-        Next.DOFade(1f, 0f);
+        Next.DOFade(1f, 0f).OnComplete(() =>
+        {
+            GetSetFadeState = FadeState.FadeNone;
+            m_Hand.HandPull();
+            Debug.Log("FadeIN終了");
+        });
+    }
+
+    public override void UIFadeOUT()
+    {
+        m_eFadeState = FadeState.FadeOUT;
+        // 1秒で後X,Y方向を0.5倍に変更
+        Next.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 1f);
+        // 1秒でテクスチャをフェードアウト
+        Next.DOFade(0f, 1f).OnComplete(() =>
+        {
+            GetSetFadeState = FadeState.FadeNone;
+            Debug.Log("FadeOUT終了");
+        });
     }
 }
