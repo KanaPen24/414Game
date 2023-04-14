@@ -113,7 +113,7 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
             m_Player.GetPlayerHp().DelLife(10);
         }
 
-        // 武器だったら
+        // 武器だったら(SkillIconのみ)
         if (collision.gameObject.tag == "Weapon")
         {
             Debug.Log("Enemy Damage!!");
@@ -122,31 +122,35 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
         }
 
         // HPが0になったら、紙吹雪エフェクト発生
-        if(m_nHP <= 0)
+        if (m_nHP <= 0)
         {
             goalEffect.StartEffect();
         }
     }
 
-    //private void OnTriggerEnter(Collider collision)
-    //{
-    //    // 武器だったら
-    //    if (collision.gameObject.tag == "Weapon")
-    //    {
-    //        if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
-    //        {
-    //            Debug.Log("Enemy Damage!!");
-    //            m_HpBarHP.DelLife(10);
-    //            m_nHP--;
+    private void OnTriggerEnter(Collider collision)
+    {
+        // 武器だったら(HPBarのみ)
+        if (collision.gameObject.tag == "Weapon")
+        {
+            if (collision.gameObject.GetComponent<IS_WeaponHPBar>() != null)
+            {
+                // 攻撃中だったら
+                if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+                {
+                    Debug.Log("Enemy Damage!!");
+                    //m_HpBarHP.DelLife(10);
+                    m_nHP -= 5;
+                }
+            }
+        }
 
-    //            // Hpバーが当たっていた時、ドレイン処理を行う
-    //            if (m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar)
-    //            {
-    //                m_Player.GetPlayerHp().AddLife(5);
-    //            }
-    //        }
-    //    }
-    //}
+        // HPが0になったら、紙吹雪エフェクト発生
+        if (m_nHP <= 0)
+        {
+            goalEffect.StartEffect();
+        }
+    }
 
 
     public int GetSetHp

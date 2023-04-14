@@ -41,6 +41,8 @@ public class IS_GoalEffect : MonoBehaviour
             effect.transform.rotation = Quaternion.Euler(m_effectParam[i].m_vLocalRot);
             effect.transform.localScale = m_effectParam[i].m_vLocalScale;
 
+            Debug.Log(m_Player.transform.position);
+
             Destroy(effect.gameObject, 5.0f); // 5秒後に消える
         }
     }
