@@ -1,6 +1,6 @@
 ﻿/**
- * @file   NK_Slime.cs
- * @brief  Slimeのクラス
+ * @file   NK_Bat.cs
+ * @brief  Batのクラス
  * @author NaitoKoki
  * @date   2023/04/17
  */
@@ -9,23 +9,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // ===============================================
-// BossSlimeState
-// … BossSlimeの状態を管理する列挙体
+// BossBatState
+// … BossBatの状態を管理する列挙体
 // ※m_PlayerStateはこの順番になるように入れること
 // ===============================================
-public enum SlimeState
+public enum BatState
 {
-    SlimeWait,     //待機状態
-    SlimeMove,     //移動状態
+    BatWait,     //待機状態
+    BatMove,     //移動状態
+    BatSonic,    //超音波攻撃状態
+    BatFall,     //急降下攻撃
 
-    MaxSlimeState
+    MaxBatState
 }
 
 // ===============================================
-// BossSlimeDir
-// … BossSlimeの向きを管理する列挙体
+// BossBatDir
+// … BossBatの向きを管理する列挙体
 // ===============================================
-public enum SlimeDir
+public enum BatDir
 {
     Left, // 左向き
     Right,// 右向き
@@ -33,35 +35,35 @@ public enum SlimeDir
     MaxDir
 }
 
-public class NK_Slime : MonoBehaviour
+public class NK_Bat : MonoBehaviour
 {
     //敵の体力
     [SerializeField] private int m_nHP;
     [SerializeField] private int m_nMaxHP;//敵の最大体力
     [SerializeField] private IS_Player m_Player;//プレイヤー
     //[SerializeField] private IS_GoalEffect goalEffect;//倒されたときに発生するエフェクト
-    [SerializeField] private List<NK_SlimeStrategy> m_SlimeStrategy; // BossSlime挙動クラスの動的配列
-    [SerializeField] private SlimeState m_SlimeState;      // BossSlimeの状態を管理する
-    [SerializeField] private SlimeDir m_SlimeDir;        // BossSlimeの向きを管理する
+    [SerializeField] private List<NK_BatStrategy> m_BatStrategy; // BossBat挙動クラスの動的配列
+    [SerializeField] private BatState m_BatState;      // BossBatの状態を管理する
+    [SerializeField] private BatDir m_BatDir;        // BossBatの向きを管理する
 
     private void Update()
     {
-        if(GetSetSlimeState == SlimeState.SlimeMove)
+        if (GetSetBatState == BatState.BatMove)
         {
-            if(m_Player.transform.position.x > this.gameObject.transform.position.x)
+            if (m_Player.transform.position.x > this.gameObject.transform.position.x)
             {
-                GetSetSlimeDir = SlimeDir.Right;
+                GetSetBatDir = BatDir.Right;
             }
             else
             {
-                GetSetSlimeDir = SlimeDir.Left;
+                GetSetBatDir = BatDir.Left;
             }
         }
     }
 
     private void FixedUpdate()
     {
-        m_SlimeStrategy[(int)m_SlimeState].UpdateStrategy();
+        m_BatStrategy[(int)m_BatState].UpdateStrategy();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -91,26 +93,26 @@ public class NK_Slime : MonoBehaviour
 
     /**
  * @fn
- * BossSlimeの状態のgetter・setter
- * @return m_BossSlimeState
- * @brief BossSlimeの状態を返す・セット
+ * BossBatの状態のgetter・setter
+ * @return m_BossBatState
+ * @brief BossBatの状態を返す・セット
  */
-    public SlimeState GetSetSlimeState
+    public BatState GetSetBatState
     {
-        get { return m_SlimeState; }
-        set { m_SlimeState = value; }
+        get { return m_BatState; }
+        set { m_BatState = value; }
     }
 
     /**
      * @fn
-     * BossSlimeの向きのgetter・setter
-     * @return m_BossSlimeDir
-     * @brief BossSlimeの向きを返す・セット
+     * BossBatの向きのgetter・setter
+     * @return m_BossBatDir
+     * @brief BossBatの向きを返す・セット
      */
-    public SlimeDir GetSetSlimeDir
+    public BatDir GetSetBatDir
     {
-        get { return m_SlimeDir; }
-        set { m_SlimeDir = value; }
+        get { return m_BatDir; }
+        set { m_BatDir = value; }
     }
 
     public int GetSetHp

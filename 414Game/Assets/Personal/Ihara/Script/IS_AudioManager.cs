@@ -23,6 +23,7 @@ public enum SEType
     SE_HitHPBar,     // HPBarのヒットSE
     SE_HitSkillIcon, // SkillIconのヒットSE
     SE_GameClear,    // ゲームクリアSE
+    SE_SlimeCreate,  //すらいむを作り出す音
 
     MAX_SE
 }
