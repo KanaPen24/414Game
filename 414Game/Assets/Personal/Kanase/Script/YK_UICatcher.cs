@@ -31,6 +31,7 @@ public class YK_UICatcher : MonoBehaviour
     [SerializeField] private GameObject Hand;           //手のオブジェクト
     [SerializeField] private IS_Player Player;          //プレイヤーの情報
     [SerializeField] private YK_CursolEvent CursolEvent;//カーソルイベント
+    AudioSource audioSource;
 
     private bool m_bParticleFlg;                        //パーティクルエフェクト用のフラグ
     private UICatcherState m_UICatcherState;            // UICatcherの状態
@@ -48,6 +49,7 @@ public class YK_UICatcher : MonoBehaviour
 
         m_bParticleFlg = false;
         m_SelectUI = null;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -69,6 +71,8 @@ public class YK_UICatcher : MonoBehaviour
         // プレイしてなかったら再生する
         if (!m_bParticleFlg)
         {
+            //音(sound1)を鳴らす
+            audioSource.Play();
             Hand.GetComponent<Animator>().SetBool("Hand", true);
             particleUI.Play();
             particlePL.Play();
@@ -139,8 +143,8 @@ public class YK_UICatcher : MonoBehaviour
                 m_SelectUI = m_Uis[i];
 
                 // エフェクトの位置を設定
-                BlackHoleUI.GetComponent<Transform>().position = m_SelectUI.GetSetPos;
-                Hand.transform.position = m_SelectUI.GetSetPos;
+                BlackHoleUI.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetPos;
+                Hand.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetPos;
                 
                 // 選択したUIのフェードアウト開始
                 m_SelectUI.UIFadeOUT();
