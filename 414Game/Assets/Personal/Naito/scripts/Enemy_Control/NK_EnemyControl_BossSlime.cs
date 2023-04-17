@@ -1,5 +1,5 @@
 ﻿/*
- * @Update 2023/04/06 紙吹雪エフェクト実装
+ * @Update 2023/04/06 紙吹雪エフェクト実装(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
     [SerializeField] private int m_nHP;
     [SerializeField] private int m_nMaxHP;
     [SerializeField] private IS_Player m_Player;
-    [SerializeField] private ParticleSystem confettiEffect; // 紙吹雪エフェクト(倒されたとき発生)
+    [SerializeField] private IS_GoalEffect goalEffect;
     //敵の攻撃範囲
     //[SerializeField] private float m_fAttackRange;
     //フラグ管理
@@ -113,7 +113,7 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
             m_Player.GetPlayerHp().DelLife(10);
         }
 
-        // 武器だったら
+        // 武器だったら(SkillIconのみ)
         if (collision.gameObject.tag == "Weapon")
         {
             Debug.Log("Enemy Damage!!");
@@ -122,36 +122,35 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
         }
 
         // HPが0になったら、紙吹雪エフェクト発生
-        if(m_nHP <= 0)
+        if (m_nHP <= 0)
         {
-            ParticleSystem effect = Instantiate(confettiEffect);
-            effect.Play();
-            effect.transform.position =  
-                new Vector3(m_Player.transform.position.x,0f,m_Player.transform.position.z);
-            effect.transform.localScale = new Vector3(10f, 10f, 10f);
-            Destroy(effect.gameObject, 5.0f); // 5秒後に消える
+            goalEffect.StartEffect();
         }
     }
 
-    //private void OnTriggerEnter(Collider collision)
-    //{
-    //    // 武器だったら
-    //    if (collision.gameObject.tag == "Weapon")
-    //    {
-    //        if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
-    //        {
-    //            Debug.Log("Enemy Damage!!");
-    //            m_HpBarHP.DelLife(10);
-    //            m_nHP--;
+    private void OnTriggerEnter(Collider collision)
+    {
+        // 武器だったら(HPBarのみ)
+        if (collision.gameObject.tag == "Weapon")
+        {
+            if (collision.gameObject.GetComponent<IS_WeaponHPBar>() != null)
+            {
+                // 攻撃中だったら
+                if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+                {
+                    Debug.Log("Enemy Damage!!");
+                    //m_HpBarHP.DelLife(10);
+                    m_nHP -= 5;
+                }
+            }
+        }
 
-    //            // Hpバーが当たっていた時、ドレイン処理を行う
-    //            if (m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar)
-    //            {
-    //                m_Player.GetPlayerHp().AddLife(5);
-    //            }
-    //        }
-    //    }
-    //}
+        // HPが0になったら、紙吹雪エフェクト発生
+        if (m_nHP <= 0)
+        {
+            goalEffect.StartEffect();
+        }
+    }
 
 
     public int GetSetHp

@@ -139,8 +139,8 @@ public class YK_UICatcher : MonoBehaviour
                 m_SelectUI = m_Uis[i];
 
                 // エフェクトの位置を設定
-                BlackHoleUI.GetComponent<Transform>().position = m_SelectUI.GetSetPos;
-                Hand.transform.position = m_SelectUI.GetSetPos;
+                BlackHoleUI.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetPos;
+                Hand.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetPos;
                 
                 // 選択したUIのフェードアウト開始
                 m_SelectUI.UIFadeOUT();

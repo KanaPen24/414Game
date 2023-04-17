@@ -8,9 +8,10 @@
  * @Update 2023/03/12 Animator追加
  * @Update 2023/03/12 向きを追加
  * @Update 2023/03/12 武器を追加
- * @date   2023/03/13 コントローラー対応(YK)
- * @date   2023/03/19 武器種類追加(Ball),装備フラグのbool型追加
- * @date   2023/03/20 武器チェンジ処理(仮)追加
+ * @Update 2023/03/13 コントローラー対応(YK)
+ * @Update 2023/03/19 武器種類追加(Ball),装備フラグのbool型追加
+ * @Update 2023/03/20 武器チェンジ処理(仮)追加
+ * @Update 2023/04/12 向き更新関数を追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -78,6 +79,7 @@ public class IS_Player : MonoBehaviour
     public bool bInputLeft;
     public bool bInputSpace;
 
+    private bool m_bWalkFlg;     // 歩行開始フラグ
     private bool m_bJumpFlg;     // 跳躍開始フラグ
     private bool m_bAttackFlg;   // 攻撃開始フラグ
     private bool m_bEquip;       // 装備しているかどうか
@@ -99,6 +101,7 @@ public class IS_Player : MonoBehaviour
 
         // メンバの初期化
         m_vMoveAmount = new Vector3(0.0f, 0.0f, 0.0f);
+        m_bWalkFlg    = false;
         m_bJumpFlg    = false;
         m_bAttackFlg  = false;
         m_bEquip      = false;
@@ -160,6 +163,7 @@ public class IS_Player : MonoBehaviour
                 else
                 {
                     // UIを武器化する
+                    // カーソルがUIに当たっていたら
                     if (m_CursolEvent.GetSetUIExist)
                     {
                         // UIを武器にするイベント開始
@@ -180,17 +184,8 @@ public class IS_Player : MonoBehaviour
         // 合計移動量をvelocityに加算
         m_Rigidbody.velocity = m_vMoveAmount;
 
-        // 向きによってモデルの角度変更
-        // 右向き
-        if(GetSetPlayerDir == PlayerDir.Right)
-        {
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90.0f, 0f));
-        }
-        // 左向き
-        else if (GetSetPlayerDir == PlayerDir.Left)
-        {
-            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
-        }
+        // 向き更新
+        UpdatePlayerDir();
 
         for (int i = 0, size = m_Weapons.Count; i < size; ++i)
         {
@@ -199,6 +194,27 @@ public class IS_Player : MonoBehaviour
                 m_Weapons[i].GetSetVisible = true;
             }
             else m_Weapons[i].GetSetVisible = false;
+        }
+    }
+
+    /**
+     * @fn
+     * Playerの向き更新
+     * @return なし
+     * @brief Playerの向き更新
+     */
+     private void UpdatePlayerDir()
+    {
+        // 向きによってモデルの角度変更
+        // 右向き
+        if (GetSetPlayerDir == PlayerDir.Right)
+        {
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90.0f, 0f));
+        }
+        // 左向き
+        else if (GetSetPlayerDir == PlayerDir.Left)
+        {
+            this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
         }
     }
 
@@ -304,6 +320,18 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_vMoveAmount; }
         set { m_vMoveAmount = value; }
+    }
+
+    /**
+     * @fn
+     * 歩行開始フラグのgetter・setter
+     * @return m_bWalkFlg(bool)
+     * @brief 歩行開始フラグを返す・セット
+     */
+    public bool GetSetWalkFlg
+    {
+        get { return m_bWalkFlg; }
+        set { m_bWalkFlg = value; }
     }
 
     /**
