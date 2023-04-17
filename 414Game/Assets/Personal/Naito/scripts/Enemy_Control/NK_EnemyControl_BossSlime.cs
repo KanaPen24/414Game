@@ -1,5 +1,6 @@
 ﻿/*
  * @Update 2023/04/06 紙吹雪エフェクト実装(Ihara)
+ * @Update 2023/04/17 SE実装(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -116,6 +117,7 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
         // 武器だったら(SkillIconのみ)
         if (collision.gameObject.tag == "Weapon")
         {
+            IS_AudioManager.instance.PlaySE(SEType.SE_HitSkillIcon);
             Debug.Log("Enemy Damage!!");
             //m_HpBarHP.DelLife(10);
             m_nHP -= 5;
@@ -125,6 +127,7 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
         if (m_nHP <= 0)
         {
             goalEffect.StartEffect();
+            IS_AudioManager.instance.PlaySE(SEType.SE_GameClear);
         }
     }
 
@@ -138,6 +141,7 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
                 // 攻撃中だったら
                 if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
                 {
+                    IS_AudioManager.instance.PlaySE(SEType.SE_FireHPBar);
                     Debug.Log("Enemy Damage!!");
                     //m_HpBarHP.DelLife(10);
                     m_nHP -= 5;
@@ -149,6 +153,7 @@ public class NK_EnemyControl_BossSlime : MonoBehaviour
         if (m_nHP <= 0)
         {
             goalEffect.StartEffect();
+            IS_AudioManager.instance.PlaySE(SEType.SE_GameClear);
         }
     }
 

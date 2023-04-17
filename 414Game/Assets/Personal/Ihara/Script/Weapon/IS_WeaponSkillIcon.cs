@@ -68,6 +68,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
     */
     public override void StartAttack()
     {
+        IS_AudioManager.instance.PlaySE(SEType.SE_FireSkillIcon);
         GetSetAttack = true; // 攻撃ON
         GameObject shot = Instantiate(m_Ball.gameObject, this.transform.position, this.transform.rotation); // Ball生成
         IS_Ball Shot = shot.GetComponent<IS_Ball>();   // コンポーネントの取得
