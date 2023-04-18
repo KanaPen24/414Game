@@ -2946,8 +2946,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_fIconSpeed: 288
-  m_fCircle_Radius: 1
-  m_fCircle_Speed: 1
+  m_fCircle_Radius: 20
+  m_fCircle_Speed: 0.1
+  m_bDirection: 0
 --- !u!224 &1530038784027976778 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3969343778407786963, guid: 0c17e358f4cfc3644b303d6063006c82,
