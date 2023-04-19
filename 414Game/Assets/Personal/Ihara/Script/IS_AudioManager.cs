@@ -23,7 +23,7 @@ public enum SEType
     SE_HitHPBar,     // HPBarのヒットSE
     SE_HitSkillIcon, // SkillIconのヒットSE
     SE_GameClear,    // ゲームクリアSE
-    SE_SlimeCreate,  //すらいむを作り出す音
+    SE_SlimeCreate,  // スライムを作り出す音
 
     MAX_SE
 }
@@ -42,11 +42,22 @@ public enum BGMType
 }
 public class IS_AudioManager : MonoBehaviour
 {
-    [SerializeField] private List<AudioSource> SESources; // SEのデータ
-    [SerializeField] private List<AudioSource> BGMSources;// BGMのデータ
-    [SerializeField] private SEType m_eSeType;            // SEのタイプ
-    [SerializeField] private BGMType m_eBGMType;          // BGMのタイプ
-    public static IS_AudioManager instance;               // IS_AudioManagerのインスタンス
+    [System.Serializable]
+    private class C_SE
+    {
+        public AudioSource m_SEData;
+        public SEType m_SEType;
+    }
+    [System.Serializable]
+    private class C_BGM
+    {
+        public AudioSource m_BGMData;
+        public BGMType m_BGMType;
+    }
+
+    [SerializeField] private List<C_SE>  SESources; // SEのデータ
+    [SerializeField] private List<C_BGM> BGMSources;// BGMのデータ
+    public static IS_AudioManager instance;         // IS_AudioManagerのインスタンス
 
     /**
      * @fn
@@ -98,11 +109,11 @@ public class IS_AudioManager : MonoBehaviour
      */
     public void PlaySE(SEType seType)
     {
-        for (int i = 0, size = (int)SEType.MAX_SE; i < size; ++i)
+        for (int i = 0, size = SESources.Count; i < size; ++i)
         {
-            if (i == (int)seType)
+            if (SESources[i].m_SEType == seType)
             {
-                SESources[i].Play();
+                SESources[i].m_SEData.Play();
                 return;
             }
         }
@@ -117,11 +128,11 @@ public class IS_AudioManager : MonoBehaviour
      */
     public void PlayBGM(BGMType bgmType)
     {
-        for (int i = 0, size = (int)BGMType.MAX_BGM; i < size; ++i)
+        for (int i = 0, size = BGMSources.Count; i < size; ++i)
         {
-            if (i == (int)bgmType)
+            if (BGMSources[i].m_BGMType == bgmType)
             {
-                BGMSources[i].Play();
+                BGMSources[i].m_BGMData.Play();
                 return;
             }
         }
@@ -136,11 +147,11 @@ public class IS_AudioManager : MonoBehaviour
      */
     public void StopBGM(BGMType bgmType)
     {
-        for (int i = 0, size = (int)BGMType.MAX_BGM; i < size; ++i)
+        for (int i = 0, size = BGMSources.Count; i < size; ++i)
         {
-            if (i == (int)bgmType)
+            if (BGMSources[i].m_BGMType == bgmType)
             {
-                BGMSources[i].Stop();
+                BGMSources[i].m_BGMData.Stop();
                 return;
             }
         }
@@ -155,9 +166,9 @@ public class IS_AudioManager : MonoBehaviour
      */
     public void AllStopBGM()
     {
-        for (int i = 0, size = (int)BGMType.MAX_BGM; i < size; ++i)
+        for (int i = 0, size = BGMSources.Count; i < size; ++i)
         {
-            BGMSources[i].Stop();
+            BGMSources[i].m_BGMData.Stop();
         }
     }
 }
