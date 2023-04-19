@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        IS_AudioManager.instance.PlayBGM(BGMType.BGM_Game);
     }
     private void Update()
     {
