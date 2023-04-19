@@ -34,6 +34,7 @@ public class YK_Goal : MonoBehaviour
             //トランジションを掛けてシーン遷移する
             fade.FadeIn(1f, () =>
             {
+                IS_AudioManager.instance.StopBGM(BGMType.BGM_Game);
                 SceneManager.LoadScene("TitleScene");
             });
         }

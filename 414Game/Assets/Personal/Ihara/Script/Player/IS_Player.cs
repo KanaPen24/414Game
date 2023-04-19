@@ -83,6 +83,7 @@ public class IS_Player : MonoBehaviour
     private bool m_bJumpFlg;     // 跳躍開始フラグ
     private bool m_bAttackFlg;   // 攻撃開始フラグ
     private bool m_bEquip;       // 装備しているかどうか
+    private bool m_bInvincible;  // 無敵フラグ
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
 
     private void Start()
@@ -368,5 +369,17 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_bEquip; }
         set { m_bEquip = value; }
+    }
+
+    /**
+     * @fn
+     * 無敵フラグのgetter・setter
+     * @return m_bInvincible(bool)
+     * @brief 無敵フラグを返す・セット
+     */
+    public bool GetSetInvincible
+    {
+        get { return m_bInvincible; }
+        set { m_bInvincible = value; }
     }
 }
