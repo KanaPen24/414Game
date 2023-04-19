@@ -43,6 +43,8 @@ public class NK_Slime : MonoBehaviour
     [SerializeField] private List<NK_SlimeStrategy> m_SlimeStrategy; // BossSlime挙動クラスの動的配列
     [SerializeField] private SlimeState m_SlimeState;      // BossSlimeの状態を管理する
     [SerializeField] private SlimeDir m_SlimeDir;        // BossSlimeの向きを管理する
+    //死亡時エフェクト
+    [SerializeField] private GameObject m_DieEffect;
 
     private void Update()
     {
@@ -85,6 +87,7 @@ public class NK_Slime : MonoBehaviour
         if (m_nHP <= 0)
         {
             Destroy(this.gameObject);
+            Instantiate(m_DieEffect, this.transform.position, Quaternion.identity);
         }
     }
 
