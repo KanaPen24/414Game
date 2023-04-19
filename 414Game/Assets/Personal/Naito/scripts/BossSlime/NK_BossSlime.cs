@@ -71,6 +71,7 @@ public class NK_BossSlime : MonoBehaviour
         if (m_nHP <= 0)
         {
             goalEffect.StartEffect();
+            Destroy(this.gameObject);
         }
     }
 
