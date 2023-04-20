@@ -64,14 +64,15 @@ public class IS_Player : MonoBehaviour
     [SerializeField] private Animator                m_animator;         // Playerのアニメーション
     [SerializeField] private Rigidbody               m_Rigidbody;        // PlayerのRigidBody
     [SerializeField] private YK_CursolEvent          m_CursolEvent;      // カーソルイベントの情報
-    [SerializeField] private YK_PlayerHP             m_Hp;               // PlayerのHp
     [SerializeField] private YK_UICatcher            m_UICatcher;        // UIキャッチャー
     [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // Player挙動クラスの動的配列
     [SerializeField] private List<IS_Weapon>         m_Weapons;          // 武器クラスの動的配列
+    [SerializeField] private int                     m_nHp;              // PlayerのHP
+    [SerializeField] private int                     m_nMaxHp;           // Playerの最大HP
+    [SerializeField] private float                   m_fGravity;         // 重力
     [SerializeField] private PlayerState             m_PlayerState;      // Playerの状態を管理する
     [SerializeField] private PlayerDir               m_PlayerDir;        // Playerの向きを管理する
     [SerializeField] private EquipWeaponState        m_EquipWeaponState; // 装備武器を管理する
-    [SerializeField] private float                   m_fGravity;         // 重力
 
     public Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したものをvelocityに代入する)
     public bool bInputUp;
@@ -148,33 +149,8 @@ public class IS_Player : MonoBehaviour
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision"))
         {
-            // UICatcherのイベント中は処理しない
-            if (m_UICatcher.GetSetUICatcherState == UICatcherState.None)
-            {
-                // 装備状態の場合
-                if (m_bEquip)
-                {
-                    // 武器をUIにするイベント開始
-                    m_UICatcher.StartWeapon2UIEvent();
-
-                    // 装備状態をfalseにする
-                    m_bEquip = false;
-                }
-                // 装備状態ではない場合
-                else
-                {
-                    // UIを武器化する
-                    // カーソルがUIに当たっていたら
-                    if (m_CursolEvent.GetSetUIExist)
-                    {
-                        // UIを武器にするイベント開始
-                        m_UICatcher.StartUI2WeaponEvent();
-
-                        // 装備状態をtrueにする
-                        m_bEquip = true;
-                    }
-                }
-            }
+            // Playerの武器装備
+            EquipWeapon();
         }
     }
     private void FixedUpdate()
@@ -188,14 +164,17 @@ public class IS_Player : MonoBehaviour
         // 向き更新
         UpdatePlayerDir();
 
-        for (int i = 0, size = m_Weapons.Count; i < size; ++i)
-        {
-            if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquip)
-            {
-                m_Weapons[i].GetSetVisible = true;
-            }
-            else m_Weapons[i].GetSetVisible = false;
-        }
+        // HPチェック
+        CheckHP();
+
+        //for (int i = 0, size = m_Weapons.Count; i < size; ++i)
+        //{
+        //    if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquip)
+        //    {
+        //        m_Weapons[i].GetSetVisible = true;
+        //    }
+        //    else m_Weapons[i].GetSetVisible = false;
+        //}
     }
 
     /**
@@ -204,7 +183,7 @@ public class IS_Player : MonoBehaviour
      * @return なし
      * @brief Playerの向き更新
      */
-     private void UpdatePlayerDir()
+    private void UpdatePlayerDir()
     {
         // 向きによってモデルの角度変更
         // 右向き
@@ -217,6 +196,81 @@ public class IS_Player : MonoBehaviour
         {
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
         }
+    }
+
+    /**
+     * @fn
+     * Playerの武器装備
+     * @return なし
+     * @brief UICatcherに参照している
+     */
+     private void EquipWeapon()
+    {
+        // UICatcherのイベント中は処理しない
+        if (m_UICatcher.GetSetUICatcherState == UICatcherState.None)
+        {
+            // 装備状態の場合
+            if (m_bEquip)
+            {
+                // 武器をUIにするイベント開始
+                m_UICatcher.StartWeapon2UIEvent();
+
+                // 装備状態をfalseにする
+                m_bEquip = false;
+            }
+            // 装備状態ではない場合
+            else
+            {
+                // UIを武器化する
+                // カーソルがUIに当たっていたら
+                if (m_CursolEvent.GetSetUIExist)
+                {
+                    // UIを武器にするイベント開始
+                    m_UICatcher.StartUI2WeaponEvent();
+
+                    // 装備状態をtrueにする
+                    m_bEquip = true;
+                }
+            }
+        }
+    }
+
+    /**
+     * @fn
+     * PlayerのHPのチェック(最大HP以上になっていないかなど)
+     * @return なし
+     * @brief なし
+     */
+    private void CheckHP()
+    {
+        // 最大HPより大きかったら、最大HPにセットする
+        if (m_nHp > m_nMaxHp)
+        {
+            m_nHp = m_nMaxHp;
+        }
+
+        // HPが0以下になったら、GameOverに移行
+        if (m_nHp <= 0)
+        {
+            GameManager.instance.GetSetGameState = GameState.GameOver;
+        }
+    }
+
+    /**
+     * @fn
+     * Playerのダメージ処理
+     * @return なし
+     * @brief Playerのダメージ処理
+     */
+    public void Damage(int damage)
+    {
+        // 無敵状態ならダメージを受けない
+        if (!GetSetInvincible)
+        {
+            GetSetHp = GetSetHp - damage;
+        }
+        else Debug.Log("NoDamage!!");
+
     }
 
     /**
@@ -239,17 +293,6 @@ public class IS_Player : MonoBehaviour
     public Rigidbody GetRigidbody()
     {
         return m_Rigidbody;
-    }
-
-    /**
-     * @fn
-     * PlayerのHp管理のgetter
-     * @return m_Hp(YK_PlayerHP)
-     * @brief PlayerのYK_PlayerHPを返す
-     */
-    public YK_PlayerHP GetPlayerHp()
-    {
-        return m_Hp;
     }
 
     /**
@@ -297,6 +340,30 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_EquipWeaponState; }
         set { m_EquipWeaponState = value; }
+    }
+
+    /**
+     * @fn
+     * HPのgetter・setter
+     * @return m_nHp(int)
+     * @brief HPを返す・セット
+     */
+    public int GetSetHp
+    {
+        get { return m_nHp; }
+        set { m_nHp = value; }
+    }
+
+    /**
+     * @fn
+     * 最大HPのgetter・setter
+     * @return m_nMaxHp(int)
+     * @brief 最大HPを返す・セット
+     */
+    public int GetSetMaxHp
+    {
+        get { return m_nMaxHp; }
+        set { m_nMaxHp = value; }
     }
 
     /**

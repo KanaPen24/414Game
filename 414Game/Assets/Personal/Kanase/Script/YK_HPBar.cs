@@ -17,6 +17,7 @@ public class YK_HPBar : YK_UI
     [SerializeField] private Image BackGround;   //バーの裏のテクスチャ
     [SerializeField] private Image Frame;        //フレーム
     [SerializeField] private YK_Hand m_Hand;
+    [SerializeField] private IS_WeaponHPBar weaponHpBar;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,23 @@ public class YK_HPBar : YK_UI
         GetSetPos = HP.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
         GetSetScale = HP.transform.localScale;
+    }
+
+    private void Update()
+    {
+        // ※ここで画像の切替を行う
+        if(weaponHpBar.GetSetHp <= 25)
+        {
+
+        }
+        else if (weaponHpBar.GetSetHp <= 50)
+        {
+
+        }
+        else if(weaponHpBar.GetSetHp <= 75)
+        {
+
+        }
     }
 
     public override void UIFadeIN()
