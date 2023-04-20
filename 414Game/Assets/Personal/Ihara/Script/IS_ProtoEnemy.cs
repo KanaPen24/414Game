@@ -23,7 +23,7 @@ public class IS_ProtoEnemy : MonoBehaviour
             {
                 Debug.Log("Enemy Damage!!");
                 m_HpBarHP.DelLife(10);
-                m_Player.GetPlayerHp().AddLife(5);
+                //m_Player.GetPlayerHp().AddLife(5);
             }
         }
     }
@@ -34,7 +34,7 @@ public class IS_ProtoEnemy : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Debug.Log("Player Damage!!");
-            m_Player.GetPlayerHp().DelLife(10);
+            //m_Player.GetPlayerHp().DelLife(10);
         }
 
         // 武器だったら

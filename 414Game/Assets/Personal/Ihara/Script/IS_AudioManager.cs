@@ -171,4 +171,32 @@ public class IS_AudioManager : MonoBehaviour
             BGMSources[i].m_BGMData.Stop();
         }
     }
+
+    public AudioSource GetSE(SEType seType)
+    {
+        for (int i = 0, size = SESources.Count; i < size; ++i)
+        {
+            if (SESources[i].m_SEType == seType)
+            {
+                return SESources[i].m_SEData;
+            }
+        }
+
+        // 無かった場合…
+        return null;
+    }
+
+    public AudioSource GetBGM(BGMType bgmType)
+    {
+        for (int i = 0, size = BGMSources.Count; i < size; ++i)
+        {
+            if (BGMSources[i].m_BGMType == bgmType)
+            {
+                return BGMSources[i].m_BGMData;
+            }
+        }
+
+        // 無かった場合…
+        return null;
+    }
 }

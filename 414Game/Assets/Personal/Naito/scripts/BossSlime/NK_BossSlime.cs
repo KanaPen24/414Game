@@ -56,11 +56,15 @@ public class NK_BossSlime : MonoBehaviour
         if (collision.gameObject == m_Player.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_Player.GetPlayerHp().DelLife(10);
+            //m_Player.GetPlayerHp().DelLife(10);
+            m_Player.Damage(10);
         }
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
         // 武器だったら
-        if (collision.gameObject.tag == "Weapon")
+        if (other.gameObject.tag == "Weapon")
         {
             Debug.Log("Enemy Damage!!");
             //m_HpBarHP.DelLife(10);
@@ -70,11 +74,11 @@ public class NK_BossSlime : MonoBehaviour
         // HPが0になったら、紙吹雪エフェクト発生
         if (m_nHP <= 0)
         {
+            IS_AudioManager.instance.PlaySE(SEType.SE_GameClear);
             goalEffect.StartEffect();
             Destroy(this.gameObject);
         }
     }
-
 
     /**
  * @fn

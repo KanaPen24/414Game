@@ -72,7 +72,7 @@ public class NK_Bat : MonoBehaviour
         if (collision.gameObject == m_Player.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_Player.GetPlayerHp().DelLife(10);
+            //m_Player.GetPlayerHp().DelLife(10);
         }
 
         // 武器だったら
