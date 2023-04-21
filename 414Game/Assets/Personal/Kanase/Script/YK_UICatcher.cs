@@ -72,7 +72,7 @@ public class YK_UICatcher : MonoBehaviour
         if (!m_bParticleFlg)
         {
             //音(sound1)を鳴らす
-            audioSource.Play();
+            //audioSource.Play();
             Hand.GetComponent<Animator>().SetBool("Hand", true);
             particleUI.Play();
             particlePL.Play();
