@@ -72,7 +72,7 @@ public class NK_Slime : MonoBehaviour
         if (collision.gameObject == m_Player.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_Player.Damage(10);
+            m_Player.Damage(10,5.0f);
         }
 
         // 武器だったら

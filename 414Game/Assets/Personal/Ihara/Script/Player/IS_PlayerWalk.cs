@@ -115,7 +115,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             m_fDustCnt = 0f;
             StartDust();
         }
-        else m_fDustCnt += 1f / (1f / Time.deltaTime);
+        else m_fDustCnt += Time.deltaTime;
     }
 
     /**

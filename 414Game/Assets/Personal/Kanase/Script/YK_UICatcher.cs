@@ -180,6 +180,9 @@ public class YK_UICatcher : MonoBehaviour
     {
         //m_UICatcherState = UICatcherState.Weapon2UI;
 
+        // 武器を非表示にする
+        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = false;
+
         // 選択したUIのフェードイン開始
         m_SelectUI.UIFadeIN();
 

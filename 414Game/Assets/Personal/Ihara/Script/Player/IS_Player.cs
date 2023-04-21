@@ -12,6 +12,7 @@
  * @Update 2023/03/19 武器種類追加(Ball),装備フラグのbool型追加
  * @Update 2023/03/20 武器チェンジ処理(仮)追加
  * @Update 2023/04/12 向き更新関数を追加
+ * @Update 2023/04/21 無敵処理追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -59,6 +60,27 @@ public enum EquipWeaponState
     MaxEquipWeaponState
 }
 
+// ================================================
+// C_Invincible
+// … 無敵を管理するクラス
+// ================================================
+public class C_Invincible
+{
+    private bool m_bInvincible;     // 無敵フラグ
+    private float m_fInvincibleCnt; // 無敵時間
+
+    public bool GetSetInvincible
+    {
+        get { return m_bInvincible; }
+        set { m_bInvincible = value; }
+    }
+    public float GetSetInvincibleCnt
+    {
+        get { return m_fInvincibleCnt; }
+        set { m_fInvincibleCnt = value; }
+    }
+}
+
 public class IS_Player : MonoBehaviour
 {
     [SerializeField] private Animator                m_animator;         // Playerのアニメーション
@@ -80,11 +102,11 @@ public class IS_Player : MonoBehaviour
     public bool bInputLeft;
     public bool bInputSpace;
 
-    private bool m_bWalkFlg;     // 歩行開始フラグ
-    private bool m_bJumpFlg;     // 跳躍開始フラグ
-    private bool m_bAttackFlg;   // 攻撃開始フラグ
-    private bool m_bEquip;       // 装備しているかどうか
-    private bool m_bInvincible;  // 無敵フラグ
+    private C_Invincible m_Invincible; // 無敵かどうか管理する
+    private bool m_bWalkFlg;           // 歩行開始フラグ
+    private bool m_bJumpFlg;           // 跳躍開始フラグ
+    private bool m_bAttackFlg;         // 攻撃開始フラグ
+    private bool m_bEquip;             // 装備しているかどうか
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
 
     private void Start()
@@ -112,6 +134,10 @@ public class IS_Player : MonoBehaviour
         bInputLeft    = false;
         bInputSpace   = false;
         m_fDeadZone = 0.2f;
+
+        m_Invincible = new C_Invincible();
+        m_Invincible.GetSetInvincible = false;
+        m_Invincible.GetSetInvincibleCnt = 0f;
     }
 
     // Update is called once per frame
@@ -167,14 +193,8 @@ public class IS_Player : MonoBehaviour
         // HPチェック
         CheckHP();
 
-        //for (int i = 0, size = m_Weapons.Count; i < size; ++i)
-        //{
-        //    if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquip)
-        //    {
-        //        m_Weapons[i].GetSetVisible = true;
-        //    }
-        //    else m_Weapons[i].GetSetVisible = false;
-        //}
+        // 無敵チェック
+        CheckInvincible();
     }
 
     /**
@@ -237,40 +257,70 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
-     * PlayerのHPのチェック(最大HP以上になっていないかなど)
+     * PlayerのHPチェック(最大HP以上になっていないかなど)
      * @return なし
      * @brief なし
      */
     private void CheckHP()
     {
-        // 最大HPより大きかったら、最大HPにセットする
+        // 最大HPより大きかったら…
         if (m_nHp > m_nMaxHp)
         {
+            // HPを最大HPにセットする
             m_nHp = m_nMaxHp;
         }
 
-        // HPが0以下になったら、GameOverに移行
+        // HPが0以下になったら…
         if (m_nHp <= 0)
         {
+            // GameOverに移行
             GameManager.instance.GetSetGameState = GameState.GameOver;
         }
     }
 
     /**
      * @fn
+     * Playerの無敵チェック
+     * @return なし
+     * @brief なし
+     */
+    private void CheckInvincible()
+    {
+        // 無敵カウントが0以下だった場合…
+        if(m_Invincible.GetSetInvincibleCnt <= 0f)
+        {
+            // 無敵状態を解除,無敵カウントを0にする
+            m_Invincible.GetSetInvincible = false;
+            m_Invincible.GetSetInvincibleCnt = 0f;
+        }
+        // 無敵カウントが0以上だった場合…
+        else
+        {
+            // 無敵状態になる,無敵カウントを減らす
+            m_Invincible.GetSetInvincible = true;
+            m_Invincible.GetSetInvincibleCnt 
+                = m_Invincible.GetSetInvincibleCnt - Time.deltaTime;
+        }
+    }
+
+    /**
+     * @fn
      * Playerのダメージ処理
+     * @param int damage       … ダメージ量
+     * @param float invincible … Playerの無敵時間
      * @return なし
      * @brief Playerのダメージ処理
      */
-    public void Damage(int damage)
+    public void Damage(int damage,float invincibleCnt)
     {
         // 無敵状態ならダメージを受けない
-        if (!GetSetInvincible)
+        if (!m_Invincible.GetSetInvincible)
         {
-            GetSetHp = GetSetHp - damage;
+            // ダメージを受ける,無敵カウントをセット
+            GetSetHp -= damage;
+            m_Invincible.GetSetInvincibleCnt = invincibleCnt;
         }
         else Debug.Log("NoDamage!!");
-
     }
 
     /**
@@ -390,6 +440,19 @@ public class IS_Player : MonoBehaviour
         set { m_vMoveAmount = value; }
     }
 
+
+    /**
+     * @fn
+     * Playerの無敵クラスのgetter・setter
+     * @return m_bWalkFlg(C_PlayerInvincible)
+     * @brief Playerの無敵クラスを返す・セット
+     */
+    public C_Invincible GetSetPlayerInvincible
+    {
+        get { return m_Invincible; }
+        set { m_Invincible = value; }
+    }
+
     /**
      * @fn
      * 歩行開始フラグのgetter・setter
@@ -436,17 +499,5 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_bEquip; }
         set { m_bEquip = value; }
-    }
-
-    /**
-     * @fn
-     * 無敵フラグのgetter・setter
-     * @return m_bInvincible(bool)
-     * @brief 無敵フラグを返す・セット
-     */
-    public bool GetSetInvincible
-    {
-        get { return m_bInvincible; }
-        set { m_bInvincible = value; }
     }
 }
