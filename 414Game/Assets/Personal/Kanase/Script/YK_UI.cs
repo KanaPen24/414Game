@@ -18,6 +18,7 @@ public enum UIType
     SkillIcon,  // スキルアイコン
     BossBar,    // Bossバー
     Next,       // Next
+    Clock,      // 時計
 
     MaxUIType
 }
