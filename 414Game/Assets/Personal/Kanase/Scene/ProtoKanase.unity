@@ -165,7 +165,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CursolEvent
       value: 
-      objectReference: {fileID: 1382376791}
+      objectReference: {fileID: 0}
     - target: {fileID: 3817798357992317334, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
         type: 3}
       propertyPath: m_Enabled
@@ -249,6 +249,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6584b65f3f9a9cb4fa8ae89db10b57db, type: 3}
+--- !u!114 &114697012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2532925282676772383, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
+    type: 3}
+  m_PrefabInstance: {fileID: 114697011}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75099a64ee3d9714e8bc36b2278685bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &114697013 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4035930320828808530, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
@@ -2115,18 +2127,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d9e74ca64c77b1459817e3b17cab041, type: 3}
---- !u!114 &1382376791 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3204214471401393466, guid: 7e9ed24051ee45f4496066d407091c07,
-    type: 3}
-  m_PrefabInstance: {fileID: 1729952735}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f3f84493d32da441bbc42012d8b07e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1469046037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2442,7 +2442,7 @@ PrefabInstance:
         type: 3}
       propertyPath: CursolEvent
       value: 
-      objectReference: {fileID: 1382376791}
+      objectReference: {fileID: 0}
     - target: {fileID: 5093716729924618390, guid: 7e9ed24051ee45f4496066d407091c07,
         type: 3}
       propertyPath: m_Layer
@@ -2458,6 +2458,11 @@ PrefabInstance:
       propertyPath: m_fCircle_Radius
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 6875326740060869930, guid: 7e9ed24051ee45f4496066d407091c07,
+        type: 3}
+      propertyPath: weaponHpBar
+      value: 
+      objectReference: {fileID: 114697012}
     - target: {fileID: 7137963314977108702, guid: 7e9ed24051ee45f4496066d407091c07,
         type: 3}
       propertyPath: m_AnchorMax.x
