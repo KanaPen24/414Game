@@ -17,6 +17,7 @@ public enum UIType
     HPBar,      // HPバー
     SkillIcon,  // スキルアイコン
     BossBar,    // Bossバー
+    Next,       // Next
 
     MaxUIType
 }
@@ -40,6 +41,7 @@ public class YK_UI : MonoBehaviour
     protected FadeState m_eFadeState;// フェードの状態
     protected bool m_bVisible;       // 表示非表示フラグ
     protected Vector3 m_Pos;         // UIの座標
+    protected Vector2 m_Scale;       // スケール
 
     /**
      * @fn
@@ -87,6 +89,18 @@ public class YK_UI : MonoBehaviour
     {
         get { return m_Pos; }
         set { m_Pos = value; }
+    }
+
+    /**
+* @fn
+* 表示非表示のgetter・setter
+* @return m_Scale(Vector3)
+* @brief 表示中を返す・セット
+*/
+    public Vector2 GetSetScale
+    {
+        get { return m_Scale; }
+        set { m_Scale = value; }
     }
 
     public virtual void UIFadeIN()

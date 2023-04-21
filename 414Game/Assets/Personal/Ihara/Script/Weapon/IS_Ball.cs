@@ -5,6 +5,7 @@
  * @date   2023/03/19
  * @Update 2023/03/19 作成
  * @Update 2023/04/06 着弾エフェクト実装 
+ * @Update 2023/04/17 SE実装
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -36,8 +37,10 @@ public class IS_Ball : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
+        // SE再生
+        IS_AudioManager.instance.PlaySE(SEType.SE_HitSkillIcon);
         // エフェクト再生
         ParticleSystem Effect = Instantiate(hitEffect);
         Effect.Play();

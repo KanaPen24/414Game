@@ -8,9 +8,10 @@
  * @Update 2023/03/12 Animator追加
  * @Update 2023/03/12 向きを追加
  * @Update 2023/03/12 武器を追加
- * @date   2023/03/13 コントローラー対応(YK)
- * @date   2023/03/19 武器種類追加(Ball),装備フラグのbool型追加
- * @date   2023/03/20 武器チェンジ処理(仮)追加
+ * @Update 2023/03/13 コントローラー対応(YK)
+ * @Update 2023/03/19 武器種類追加(Ball),装備フラグのbool型追加
+ * @Update 2023/03/20 武器チェンジ処理(仮)追加
+ * @Update 2023/04/12 向き更新関数を追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -63,14 +64,15 @@ public class IS_Player : MonoBehaviour
     [SerializeField] private Animator                m_animator;         // Playerのアニメーション
     [SerializeField] private Rigidbody               m_Rigidbody;        // PlayerのRigidBody
     [SerializeField] private YK_CursolEvent          m_CursolEvent;      // カーソルイベントの情報
-    [SerializeField] private YK_PlayerHP             m_Hp;               // PlayerのHp
     [SerializeField] private YK_UICatcher            m_UICatcher;        // UIキャッチャー
     [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // Player挙動クラスの動的配列
     [SerializeField] private List<IS_Weapon>         m_Weapons;          // 武器クラスの動的配列
+    [SerializeField] private int                     m_nHp;              // PlayerのHP
+    [SerializeField] private int                     m_nMaxHp;           // Playerの最大HP
+    [SerializeField] private float                   m_fGravity;         // 重力
     [SerializeField] private PlayerState             m_PlayerState;      // Playerの状態を管理する
     [SerializeField] private PlayerDir               m_PlayerDir;        // Playerの向きを管理する
     [SerializeField] private EquipWeaponState        m_EquipWeaponState; // 装備武器を管理する
-    [SerializeField] private float                   m_fGravity;         // 重力
 
     public Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したものをvelocityに代入する)
     public bool bInputUp;
@@ -78,9 +80,11 @@ public class IS_Player : MonoBehaviour
     public bool bInputLeft;
     public bool bInputSpace;
 
+    private bool m_bWalkFlg;     // 歩行開始フラグ
     private bool m_bJumpFlg;     // 跳躍開始フラグ
     private bool m_bAttackFlg;   // 攻撃開始フラグ
     private bool m_bEquip;       // 装備しているかどうか
+    private bool m_bInvincible;  // 無敵フラグ
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
 
     private void Start()
@@ -99,6 +103,7 @@ public class IS_Player : MonoBehaviour
 
         // メンバの初期化
         m_vMoveAmount = new Vector3(0.0f, 0.0f, 0.0f);
+        m_bWalkFlg    = false;
         m_bJumpFlg    = false;
         m_bAttackFlg  = false;
         m_bEquip      = false;
@@ -144,32 +149,8 @@ public class IS_Player : MonoBehaviour
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision"))
         {
-            // UICatcherのイベント中は処理しない
-            if (m_UICatcher.GetSetUICatcherState == UICatcherState.None)
-            {
-                // 装備状態の場合
-                if (m_bEquip)
-                {
-                    // 武器をUIにするイベント開始
-                    m_UICatcher.StartWeapon2UIEvent();
-
-                    // 装備状態をfalseにする
-                    m_bEquip = false;
-                }
-                // 装備状態ではない場合
-                else
-                {
-                    // UIを武器化する
-                    if (m_CursolEvent.GetSetUIExist)
-                    {
-                        // UIを武器にするイベント開始
-                        m_UICatcher.StartUI2WeaponEvent();
-
-                        // 装備状態をtrueにする
-                        m_bEquip = true;
-                    }
-                }
-            }
+            // Playerの武器装備
+            EquipWeapon();
         }
     }
     private void FixedUpdate()
@@ -180,9 +161,33 @@ public class IS_Player : MonoBehaviour
         // 合計移動量をvelocityに加算
         m_Rigidbody.velocity = m_vMoveAmount;
 
+        // 向き更新
+        UpdatePlayerDir();
+
+        // HPチェック
+        CheckHP();
+
+        //for (int i = 0, size = m_Weapons.Count; i < size; ++i)
+        //{
+        //    if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquip)
+        //    {
+        //        m_Weapons[i].GetSetVisible = true;
+        //    }
+        //    else m_Weapons[i].GetSetVisible = false;
+        //}
+    }
+
+    /**
+     * @fn
+     * Playerの向き更新
+     * @return なし
+     * @brief Playerの向き更新
+     */
+    private void UpdatePlayerDir()
+    {
         // 向きによってモデルの角度変更
         // 右向き
-        if(GetSetPlayerDir == PlayerDir.Right)
+        if (GetSetPlayerDir == PlayerDir.Right)
         {
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, 90.0f, 0f));
         }
@@ -191,15 +196,81 @@ public class IS_Player : MonoBehaviour
         {
             this.transform.rotation = Quaternion.Euler(new Vector3(0f, -90.0f, 0f));
         }
+    }
 
-        for (int i = 0, size = m_Weapons.Count; i < size; ++i)
+    /**
+     * @fn
+     * Playerの武器装備
+     * @return なし
+     * @brief UICatcherに参照している
+     */
+     private void EquipWeapon()
+    {
+        // UICatcherのイベント中は処理しない
+        if (m_UICatcher.GetSetUICatcherState == UICatcherState.None)
         {
-            if (GetSetEquipWeaponState == (EquipWeaponState)i && GetSetEquip)
+            // 装備状態の場合
+            if (m_bEquip)
             {
-                m_Weapons[i].GetSetVisible = true;
+                // 武器をUIにするイベント開始
+                m_UICatcher.StartWeapon2UIEvent();
+
+                // 装備状態をfalseにする
+                m_bEquip = false;
             }
-            else m_Weapons[i].GetSetVisible = false;
+            // 装備状態ではない場合
+            else
+            {
+                // UIを武器化する
+                // カーソルがUIに当たっていたら
+                if (m_CursolEvent.GetSetUIExist)
+                {
+                    // UIを武器にするイベント開始
+                    m_UICatcher.StartUI2WeaponEvent();
+
+                    // 装備状態をtrueにする
+                    m_bEquip = true;
+                }
+            }
         }
+    }
+
+    /**
+     * @fn
+     * PlayerのHPのチェック(最大HP以上になっていないかなど)
+     * @return なし
+     * @brief なし
+     */
+    private void CheckHP()
+    {
+        // 最大HPより大きかったら、最大HPにセットする
+        if (m_nHp > m_nMaxHp)
+        {
+            m_nHp = m_nMaxHp;
+        }
+
+        // HPが0以下になったら、GameOverに移行
+        if (m_nHp <= 0)
+        {
+            GameManager.instance.GetSetGameState = GameState.GameOver;
+        }
+    }
+
+    /**
+     * @fn
+     * Playerのダメージ処理
+     * @return なし
+     * @brief Playerのダメージ処理
+     */
+    public void Damage(int damage)
+    {
+        // 無敵状態ならダメージを受けない
+        if (!GetSetInvincible)
+        {
+            GetSetHp = GetSetHp - damage;
+        }
+        else Debug.Log("NoDamage!!");
+
     }
 
     /**
@@ -222,17 +293,6 @@ public class IS_Player : MonoBehaviour
     public Rigidbody GetRigidbody()
     {
         return m_Rigidbody;
-    }
-
-    /**
-     * @fn
-     * PlayerのHp管理のgetter
-     * @return m_Hp(YK_PlayerHP)
-     * @brief PlayerのYK_PlayerHPを返す
-     */
-    public YK_PlayerHP GetPlayerHp()
-    {
-        return m_Hp;
     }
 
     /**
@@ -284,6 +344,30 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
+     * HPのgetter・setter
+     * @return m_nHp(int)
+     * @brief HPを返す・セット
+     */
+    public int GetSetHp
+    {
+        get { return m_nHp; }
+        set { m_nHp = value; }
+    }
+
+    /**
+     * @fn
+     * 最大HPのgetter・setter
+     * @return m_nMaxHp(int)
+     * @brief 最大HPを返す・セット
+     */
+    public int GetSetMaxHp
+    {
+        get { return m_nMaxHp; }
+        set { m_nMaxHp = value; }
+    }
+
+    /**
+     * @fn
      * 重力のgetter・setter
      * @return m_fGravity(float)
      * @brief 重力を返す・セット
@@ -304,6 +388,18 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_vMoveAmount; }
         set { m_vMoveAmount = value; }
+    }
+
+    /**
+     * @fn
+     * 歩行開始フラグのgetter・setter
+     * @return m_bWalkFlg(bool)
+     * @brief 歩行開始フラグを返す・セット
+     */
+    public bool GetSetWalkFlg
+    {
+        get { return m_bWalkFlg; }
+        set { m_bWalkFlg = value; }
     }
 
     /**
@@ -340,5 +436,17 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_bEquip; }
         set { m_bEquip = value; }
+    }
+
+    /**
+     * @fn
+     * 無敵フラグのgetter・setter
+     * @return m_bInvincible(bool)
+     * @brief 無敵フラグを返す・セット
+     */
+    public bool GetSetInvincible
+    {
+        get { return m_bInvincible; }
+        set { m_bInvincible = value; }
     }
 }

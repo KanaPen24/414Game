@@ -5,6 +5,7 @@
  * @date   2023/03/03
  * @Update 2023/03/03 作成
  * @Update 2023/03/12 アニメーション処理追加
+ * @Update 2023/04/17 SE実装
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ public class IS_PlayerJump : IS_PlayerStrategy
             // 跳躍開始時に跳躍力を合計移動量に加算
             if (m_Player.GetSetJumpFlg)
             {
+                IS_AudioManager.instance.PlaySE(SEType.SE_PlayerJump);
                 m_Player.GetSetMoveAmount = new Vector3(0f, m_fJumpPow, 0f);
                 m_Player.GetSetJumpFlg = false;
             }

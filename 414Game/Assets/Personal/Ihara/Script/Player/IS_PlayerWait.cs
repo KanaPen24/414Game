@@ -46,6 +46,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
                 m_Player.GetSetPlayerState = PlayerState.PlayerWalk;
                 m_Player.GetAnimator().SetBool("isWalk", true);
                 m_Player.GetAnimator().SetBool("isWait", false);
+                m_Player.GetSetWalkFlg = true;
                 return;
             }
             // 「待機 → 攻撃」

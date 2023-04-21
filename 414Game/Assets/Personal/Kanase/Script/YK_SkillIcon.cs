@@ -17,16 +17,20 @@ public class YK_SkillIcon : YK_UI
 
     private void Start()
     {
-        m_eUIType = UIType.SkillIcon;
+        m_eUIType = UIType.SkillIcon;   //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
-        GetSetPos = SkillIcon.GetComponent<RectTransform>().position;
+
+        //座標取得
+        GetSetPos = SkillIcon.GetComponent<RectTransform>().anchoredPosition;
+        //スケール取得
+        GetSetScale = SkillIcon.transform.localScale;
 
     }
 
     public override void UIFadeIN()
     {
         // 1秒で後X,Y方向を元の大きさに変更
-        SkillIcon.transform.DOScale(new Vector3(1f, 1f, 0f), 0f);
+        SkillIcon.transform.DOScale(GetSetScale, 0f);
         // 1秒でテクスチャをフェードイン
         SkillIcon.DOFade(1f, 0f).OnComplete(() =>
         {

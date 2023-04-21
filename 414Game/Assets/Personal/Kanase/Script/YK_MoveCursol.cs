@@ -17,29 +17,59 @@ public class YK_MoveCursol : MonoBehaviour
     private RectTransform rect;
     //　アイコンが画面内に収まる為のオフセット値
     private Vector2 offset;
+    //円運動の半径
+    [SerializeField]
+    private float m_fCircle_Radius = 20.0f;
+    //円運動の半径
+    [SerializeField]
+    private float m_fCircle_Speed = 0.1f;
+    //現時点の座標を保存する
+    private Vector2 m_fPos;
+    //回転方向の正負
+    [SerializeField]
+    private bool m_bDirection = false;
 
     void Start()
     {
         rect = GetComponent<RectTransform>();
         //　オフセット値をアイコンのサイズの半分で設定
         offset = new Vector2(rect.sizeDelta.x / 2f, rect.sizeDelta.y / 2f);
+        // 初期値を設定
+        m_fPos = rect.anchoredPosition;
     }
 
     void Update()
     {
-        //　移動キーを押していなければ何もしない
+        //　移動キーを押していなければ円運動
         if (Mathf.Approximately(Input.GetAxis("HorizontalR"), 0f) && Mathf.Approximately(Input.GetAxis("VerticalR"), 0f))
-        {   
+        {
+            Circle();
             return;
         }
         //　移動先を計算
         var pos = rect.anchoredPosition + new Vector2(Input.GetAxis("HorizontalR") * m_fIconSpeed, Input.GetAxis("VerticalR") * -m_fIconSpeed) * Time.deltaTime;
 
-        //　アイコンが画面外に出ないようにする
+        //　カーソルが画面外に出ないようにする
         pos.x = Mathf.Clamp(pos.x, -Screen.width * 0.5f + offset.x, Screen.width * 0.5f - offset.x);
         pos.y = Mathf.Clamp(pos.y, -Screen.height * 0.5f + offset.y, Screen.height * 0.5f - offset.y);
-        //　アイコン位置を設定
+        //　位置を設定
         rect.anchoredPosition = pos;
+        m_fPos = pos;
+    }
+
+    //円運動
+    void Circle()
+    {
+        Vector2 pos = rect.anchoredPosition;
+
+        float rad = m_fCircle_Speed * Mathf.Rad2Deg * Time.time;
+
+        if (m_bDirection)
+            rad *= -1.0f;   //時計回りにする
+        pos.x = Mathf.Cos(rad) * m_fCircle_Radius;
+        pos.y = Mathf.Sin(rad) * m_fCircle_Radius;
+
+        rect.anchoredPosition = pos + m_fPos;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
