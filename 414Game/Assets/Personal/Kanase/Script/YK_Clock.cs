@@ -37,7 +37,16 @@ public class YK_Clock : YK_UI
             Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360));
         else
             Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360 + (float)dt.Millisecond / 60 / 1000 * -360) * 10);
+        if(m_bStopTime)
+            //StopTimeFalseを5秒後に呼び出す
+            Invoke(nameof(StopTimeFalse), 5.0f);
     }
+
+    private void StopTimeFalse()
+    {
+        m_bStopTime = false;
+    }
+
     public override void UIFadeIN()
     {
         m_eFadeState = FadeState.FadeIN;
@@ -49,7 +58,6 @@ public class YK_Clock : YK_UI
             m_Hand.HandPull();
             Debug.Log("FadeIN終了");
         });
-        m_bStopTime = false;
     }
 
     public override void UIFadeOUT()
