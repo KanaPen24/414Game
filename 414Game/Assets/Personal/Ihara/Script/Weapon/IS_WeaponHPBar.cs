@@ -54,7 +54,11 @@ public class IS_WeaponHPBar : IS_Weapon
 
     private void Update()
     {
-        UpdateVisible();
+        // 前回と状態が違ったら
+        if (m_nCnt != Convert.ToInt32(m_bVisible))
+        {
+            UpdateVisible();
+        }
 
         // 現在の状態に更新
         m_nCnt = Convert.ToInt32(m_bVisible);

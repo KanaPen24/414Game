@@ -14,6 +14,7 @@ public class YK_Hand : MonoBehaviour
     [SerializeField] private YK_UICatcher UICatcher;
     [SerializeField] private CubismRenderController renderController;
     [SerializeField] private YK_CursolEvent CursolEvent;          //カーソルイベント
+    [SerializeField] private IS_Player Player;
     private void Start()
     {
         //レイヤーをUIの後ろにする
@@ -33,6 +34,9 @@ public class YK_Hand : MonoBehaviour
     {
         //掴む瞬間にUIの前に持ってくる
         renderController.SortingOrder = 10;
+
+        // 武器を装備する(武器を表示する)
+        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = true;
     }
 
     //引っ込む時
@@ -40,7 +44,7 @@ public class YK_Hand : MonoBehaviour
     {
         renderController.Opacity = 0f;
         //レイヤーをUIの後ろにする
-        renderController.SortingOrder = -1;
+        renderController.SortingOrder = -1;        
 
         // 本来はここでUIを消したい(by:kanase)
     }

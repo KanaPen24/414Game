@@ -57,7 +57,7 @@ public class NK_BossSlime : MonoBehaviour
         {
             Debug.Log("Player Damage!!");
             //m_Player.GetPlayerHp().DelLife(10);
-            m_Player.Damage(10);
+            m_Player.Damage(10,2.0f);
         }
     }
 

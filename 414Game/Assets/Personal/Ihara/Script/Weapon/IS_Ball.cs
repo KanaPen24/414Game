@@ -13,8 +13,10 @@ using UnityEngine;
 
 public class IS_Ball : MonoBehaviour
 {
-    [SerializeField] private Rigidbody m_Rigidbody; //RigidBody
+    [SerializeField] private Rigidbody m_Rigidbody;    //RigidBody
     [SerializeField] private ParticleSystem hitEffect; // 着弾エフェクト
+    [SerializeField] private float fGravity;           // 重力
+    [SerializeField] private float fUpPow;             // 上への力
 
     /**
      * @fn
@@ -28,13 +30,19 @@ public class IS_Ball : MonoBehaviour
         // 右向きなら
         if(Dir == PlayerDir.Right)
         {
-            m_Rigidbody.velocity = new Vector3(InitVel, 0f, 0f);
+            m_Rigidbody.velocity = new Vector3(InitVel, fUpPow, 0f);
         }
         // 左向きなら
         else if (Dir == PlayerDir.Left)
         {
-            m_Rigidbody.velocity = new Vector3(-InitVel, 0f, 0f);
+            m_Rigidbody.velocity = new Vector3(-InitVel, fUpPow, 0f);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        // 生成された後、重力をかけ続ける
+        m_Rigidbody.velocity = m_Rigidbody.velocity + new Vector3(0f,fGravity,0f);
     }
 
     private void OnTriggerEnter(Collider other)
