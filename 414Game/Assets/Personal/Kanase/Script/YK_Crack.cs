@@ -50,6 +50,5 @@ public class YK_Crack : MonoBehaviour
             color.a = 0.0f;
         }
         this.GetComponent<Image>().color = color;
-        Debug.Log(weaponHpBar.GetSetHp);
     }
 }
