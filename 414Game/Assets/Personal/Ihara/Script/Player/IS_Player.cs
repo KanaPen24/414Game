@@ -54,7 +54,7 @@ public enum PlayerDir
 public enum EquipWeaponState
 {
     PlayerHpBar,  // HPバー
-    PlayerBall,   // Ball
+    PlayerSkillIcon,   // Ball
     PlayerBossBar,// Bossバー
 
     MaxEquipWeaponState
