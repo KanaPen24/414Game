@@ -17,6 +17,7 @@ public class YK_Clock : YK_UI
     [SerializeField] private Image Clock;
     [SerializeField] private Image Second_Image;
     [SerializeField] private YK_Hand m_Hand;
+    private int m_nTimeCount = 3;
     private bool m_bStopTime = false;   //時止め時間かどうか
 
     void Start()
@@ -39,16 +40,12 @@ public class YK_Clock : YK_UI
             Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360 + (float)dt.Millisecond / 60 / 1000 * -360) * 10);
         if(m_bStopTime)
             //StopTimeFalseを5秒後に呼び出す
-            Invoke(nameof(StopTimeFalse), 5.0f);
+            Invoke(nameof(UIFadeIN), 5.0f);
     }
-
-    private void StopTimeFalse()
-    {
-        m_bStopTime = false;
-    }
-
     public override void UIFadeIN()
     {
+        m_bStopTime = false;
+        m_nTimeCount--;
         m_eFadeState = FadeState.FadeIN;
         // 1秒でテクスチャをフェードイン
         Clock.DOFade(1f, 0f);
@@ -70,6 +67,14 @@ public class YK_Clock : YK_UI
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");
         });
+        m_bStopTime = true;
+    }
+
+    //使用回数を回復する
+    public void HealTimeCount(int Heal)
+    {
+        if (m_nTimeCount > 3) 
+        m_nTimeCount += Heal;
     }
 
     /**
@@ -82,5 +87,16 @@ public class YK_Clock : YK_UI
     {
         get { return m_bStopTime; }
         set { m_bStopTime = value; }
+    }
+    /**
+ * @fn
+ * 表示非表示のgetter・setter
+ * @return m_bTimeCount(int)
+ * @brief 時止めフラグを返す・セット
+ */
+    public int GetSetTimeCount
+    {
+        get { return m_nTimeCount; }
+        set { m_nTimeCount = value; }
     }
 }
