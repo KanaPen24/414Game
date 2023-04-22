@@ -6,6 +6,7 @@
  * @Update 2023/03/03 作成
  * @Update 2023/03/12 アニメーション処理追加
  * @Update 2023/04/12 歩行エフェクト追加
+ * @Update 2023/04/17 歩行SE追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -114,7 +115,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             m_fDustCnt = 0f;
             StartDust();
         }
-        else m_fDustCnt += 1f / (1f / Time.deltaTime);
+        else m_fDustCnt += Time.deltaTime;
     }
 
     /**
@@ -129,6 +130,9 @@ public class IS_PlayerWalk : IS_PlayerStrategy
         ParticleSystem Effect = Instantiate(walkEffect);
         Effect.Play();
         Effect.transform.localScale = new Vector3(1f, 1f, 1f);
+
+        // SE再生
+        IS_AudioManager.instance.PlaySE(SEType.SE_PlayerWalk);
 
         // Playerの向きによってエフェクト位置修正
         if (m_Player.GetSetPlayerDir == PlayerDir.Right)

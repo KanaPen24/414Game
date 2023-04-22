@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &856765115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 856765116}
+  m_Layer: 0
+  m_Name: ASPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &856765116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856765115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.652, y: -0.364, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 612761244463411177}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &358600704524963374
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +219,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &8939123574345221030
 MonoBehaviour:
@@ -210,7 +241,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: ed7c4ffdb634cbd408abeb82686b8a29, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 10
   _renderOrder: 0
   _depthOffset: 0.00001
   _opacity: 1
@@ -404,7 +435,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3964560798913361077
 MonoBehaviour:
@@ -426,7 +457,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: ed7c4ffdb634cbd408abeb82686b8a29, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 10
   _renderOrder: 1
   _depthOffset: 0.00001
   _opacity: 0.5019608
@@ -484,9 +515,11 @@ GameObject:
   - component: {fileID: 2779526007365186178}
   - component: {fileID: 2649526777965228147}
   - component: {fileID: 2649526777965228146}
-  - component: {fileID: 2649526777965228145}
-  - component: {fileID: 2649526777965228144}
   - component: {fileID: 5579063421521300113}
+  - component: {fileID: 1217551706}
+  - component: {fileID: 1217551707}
+  - component: {fileID: 1217551708}
+  - component: {fileID: 1217551724}
   m_Layer: 0
   m_Name: NK_BossSlime
   m_TagString: Untagged
@@ -509,6 +542,7 @@ Transform:
   - {fileID: 2042137081070520465}
   - {fileID: 2236507394378775910}
   - {fileID: 8473240789893551907}
+  - {fileID: 856765116}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -569,7 +603,7 @@ MonoBehaviour:
   _modelScreenColor: {r: 0, g: 0, b: 0, a: 0}
   _sortingLayerId: 0
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 10
   CameraToFace: {fileID: 0}
   _drawOrderHandler: {fileID: 0}
   _opacityHandler: {fileID: 0}
@@ -675,7 +709,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!65 &2649526777965228146
 BoxCollider:
@@ -690,38 +724,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 0.5, z: 1}
   m_Center: {x: 0, y: -0.3, z: 0}
---- !u!114 &2649526777965228145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8427985959625675572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e810172a66cc904499c52de6b6e9180, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_fMovePower: 3
-  m_fJumpPower: 12
---- !u!114 &2649526777965228144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8427985959625675572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c526ef8b3ca8f5c4a94c6f997a31760f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_nHP: 5
-  m_nMaxHP: 0
-  m_Player: {fileID: 2602812492749303807, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
-    type: 3}
-  goalEffect: {fileID: 5579063421521300113}
-  m_nMoveTime: 5
 --- !u!114 &5579063421521300113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,3 +747,72 @@ MonoBehaviour:
   - m_vLocalPos: {x: -6, y: 0, z: 0}
     m_vLocalRot: {x: 0, y: 0, z: -45}
     m_vLocalScale: {x: 20, y: 20, z: 20}
+--- !u!114 &1217551706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427985959625675572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff21d7238791d24faf305cce1f8c8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BossSlime: {fileID: 1217551708}
+  m_MartialArts: {fileID: 697981501627492809, guid: c3a79ee587059ea42bc1f9ce0a4abd29,
+    type: 3}
+  m_MartialArtsPos: {fileID: 856765115}
+--- !u!114 &1217551707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427985959625675572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c691aaf2393f4b741ad8ce72e0fac95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BossSlime: {fileID: 1217551708}
+  m_KidsSlime: {fileID: 0}
+  m_SummonPos: {fileID: 856765115}
+--- !u!114 &1217551708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427985959625675572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a4e796450953c44ad3b29ed447b383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nHP: 10
+  m_nMaxHP: 10
+  m_Player: {fileID: 0}
+  goalEffect: {fileID: 5579063421521300113}
+  m_BossSlimeStrategy:
+  - {fileID: 1217551724}
+  - {fileID: 1217551707}
+  - {fileID: 1217551706}
+  m_BossSlimeState: 0
+  m_BossSlimeDir: 0
+--- !u!114 &1217551724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427985959625675572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0a5dc203a8f98b4ab047707e5f45c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BossSlime: {fileID: 1217551708}
+  m_fAttackTime: 5
+  m_fAttackRange: 5
+  m_Player: {fileID: 0}

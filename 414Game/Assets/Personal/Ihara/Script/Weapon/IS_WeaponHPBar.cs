@@ -4,6 +4,7 @@
  * @author IharaShota
  * @date   2023/03/12
  * @Update 2023/03/12 作成
+ * @Update 2023/04/17 SE実装
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -53,7 +54,11 @@ public class IS_WeaponHPBar : IS_Weapon
 
     private void Update()
     {
-        UpdateVisible();
+        // 前回と状態が違ったら
+        if (m_nCnt != Convert.ToInt32(m_bVisible))
+        {
+            UpdateVisible();
+        }
 
         // 現在の状態に更新
         m_nCnt = Convert.ToInt32(m_bVisible);
@@ -66,7 +71,11 @@ public class IS_WeaponHPBar : IS_Weapon
     */
     public override void StartAttack()
     {
-        GetSetAttack = true; // 攻撃ON
+        // SE再生
+        IS_AudioManager.instance.PlaySE(SEType.SE_FireHPBar);
+
+        // 攻撃ON
+        GetSetAttack = true;
     }
 
     /**

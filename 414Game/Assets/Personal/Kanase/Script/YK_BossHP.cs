@@ -14,7 +14,7 @@ public class YK_BossHP : YK_UI
 {
     [SerializeField] private Slider BossSlider;     // シーンに配置したSlider格納用
     [SerializeField] private GameObject BossBar;    // ボスのバーの大元
-    [SerializeField] private NK_EnemyControl_BossSlime Boss;
+    [SerializeField] private NK_BossSlime Boss;
     [SerializeField] private Image FrontFill;    //バーの表面のテクスチャ
     [SerializeField] private Image BackFill;     //後ろのバーの表面のテクスチャ
     [SerializeField] private Image BackGround;   //バーの裏のテクスチャ

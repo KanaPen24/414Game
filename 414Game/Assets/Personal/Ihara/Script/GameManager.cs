@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        IS_AudioManager.instance.PlayBGM(BGMType.BGM_Game);
     }
     private void Update()
     {
@@ -47,6 +49,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("GameQuit!!");
             Application.Quit();             //ゲーム終了処理
         }
+
+        if(IS_AudioManager.instance.GetSE(SEType.SE_GameClear).isPlaying)
+        {
+            IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).mute = true;
+        }
+        else IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).mute = false;
     }
 
     /**

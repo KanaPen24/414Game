@@ -5,6 +5,7 @@
  * @date   2023/03/03
  * @Update 2023/03/03 作成
  * @Update 2023/03/12 アニメーション処理追加
+ * @Update 2023/04/17 SE実装
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +27,9 @@ public class IS_PlayerDrop : IS_PlayerStrategy
             // 「落下 → 待機 or 移動」
             if (m_PlayerGroundColl.IsGroundCollision())
             {
+                // SE再生
+                IS_AudioManager.instance.PlaySE(SEType.SE_PlayerLanding);
+
                 if (m_Player.bInputLeft || m_Player.bInputRight)
                 {
                     m_Player.GetSetPlayerState = PlayerState.PlayerWalk;
