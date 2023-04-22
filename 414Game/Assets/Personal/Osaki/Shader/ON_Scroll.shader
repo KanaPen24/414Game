@@ -80,9 +80,6 @@ Shader "Custom/ON_Scroll"
 
 					half4 UnlitFragment(Varyings i) : SV_Target
 					{
-						float4 uvOffset = _Offset;
-						uvOffset.x = frac(uvOffset.x);
-						uvOffset.y = frac(uvOffset.y);
 						float4 mainTex = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
 
 						#if defined(DEBUG_DISPLAY)
