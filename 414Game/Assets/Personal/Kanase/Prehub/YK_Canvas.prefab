@@ -1713,7 +1713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbec5237f1d4d9e4f9195e15b2f4acc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fTimeLimit: 200
+  m_nTimeLimit: 0
   timerText: {fileID: 4843499608263077420}
   Clock: {fileID: 8823388500288985867}
 --- !u!1 &7585921151530874857
@@ -3168,6 +3168,11 @@ PrefabInstance:
       propertyPath: m_Hand
       value: 
       objectReference: {fileID: 1202220674682552803}
+    - target: {fileID: 379265747223908872, guid: 8db151b0d2efe264f9ac5cb812a6e465,
+        type: 3}
+      propertyPath: m_Time
+      value: 
+      objectReference: {fileID: 5460154008040524519}
     - target: {fileID: 379265747223908872, guid: 8db151b0d2efe264f9ac5cb812a6e465,
         type: 3}
       propertyPath: Second_Image
