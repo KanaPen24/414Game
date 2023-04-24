@@ -28,6 +28,21 @@ public class YK_SkillIcon : YK_UI
 
     }
 
+    private void Update()
+    {
+        // ストック数が0になったら非表示,当たり判定なし
+        if(m_nStuck <= 0)
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<Image>().enabled = false;
+        }
+        else
+        {
+            GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<Image>().enabled = true;
+        }
+    }
+
     public override void UIFadeIN()
     {
         // 1秒で後X,Y方向を元の大きさに変更
@@ -48,6 +63,12 @@ public class YK_SkillIcon : YK_UI
         {
             GetSetFadeState = FadeState.FadeNone;
         });
+    }
+
+    public int GetSetStuck
+    {
+        get { return m_nStuck; }
+        set { m_nStuck = value; }
     }
 
 }
