@@ -27,6 +27,7 @@ public enum SEType
     SE_ChargeLevel_3,// 溜め段階3のSE
     SE_GameClear,    // ゲームクリアSE
     SE_SlimeCreate,  // スライムを作り出す音
+    SE_UICatcher,    // UICatcherのSE
 
     MAX_SE
 }
