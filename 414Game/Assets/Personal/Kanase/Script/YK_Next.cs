@@ -73,7 +73,7 @@ public class YK_Next : YK_UI
  * @return m_bVisible(bool)
  * @brief 表示非表示処理
  */
-    public bool GetSetVisible
+    public bool GetSetVisibleFlg
     {
         get { return m_bVisible; }
         set { m_bVisible = value; }
