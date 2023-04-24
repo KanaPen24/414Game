@@ -100,9 +100,21 @@ public class IS_WeaponSkillIcon : IS_Weapon
      * 初期化処理(override前提)
      * @brief 初期化処理
      */
-    protected override void Init()
+    public override void Init()
     {
-
+        // 選択したUIからYK_SkillIconがあったら…
+        if (m_UICatcher.GetSetSelectUI.GetComponent<YK_SkillIcon>() != null)
+        {
+            // 予めそのUIを保存しておき,弾数をセットする
+            m_YKSkillIcon = m_UICatcher.GetSetSelectUI.GetComponent<YK_SkillIcon>();
+            m_nHp = m_YKSkillIcon.GetSetStuck;
+        }
+        else
+        {
+            // 装備解除
+            Player.RemovedWeapon();
+            return;
+        }
     }
 
     /**
@@ -110,9 +122,15 @@ public class IS_WeaponSkillIcon : IS_Weapon
      * 終了処理(override前提)
      * @brief 終了処理
      */
-    protected override void Uninit()
+    public override void Uninit()
     {
+        GetSetAttack = false; // 攻撃OFF
+        m_ChargeLevel = ChargeLevel.ChargeLevel_0; // 溜め段階を0にする
+        m_fCurrentPow = 0f;
+        m_fCurrentChargeTime = 0f;
 
+        // ストック数をUIの方にも反映させる
+        IS_UIManager.instance.FindUI(m_YKSkillIcon).GetComponent<YK_SkillIcon>().GetSetStuck = m_nHp;
     }
 
     /**
@@ -123,19 +141,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
     public override void StartAttack()
     {
         GetSetAttack = true; // 攻撃ON
-
-        // 選択したUIからYK_SkillIconがあったら…
-        if(m_UICatcher.GetSetSelectUI.GetComponent<YK_SkillIcon>() != null)
-        {
-            // 予めそのUIを保存しておき,弾数をセットする
-            m_YKSkillIcon = m_UICatcher.GetSetSelectUI.GetComponent<YK_SkillIcon>();
-            m_nHp = m_YKSkillIcon.GetSetStuck;
-        }
-        else
-        {
-            FinAttack();
-            return;
-        }
     }
 
     /**
@@ -150,15 +155,11 @@ public class IS_WeaponSkillIcon : IS_Weapon
         m_fCurrentPow = 0f;
         m_fCurrentChargeTime = 0f;
 
-        // ストック数をUIの方にも反映させる
-        IS_UIManager.instance.FindUI(m_YKSkillIcon).GetComponent<YK_SkillIcon>().GetSetStuck = m_nHp;
-
         // 攻撃終了時に弾数が0だったら
         if(m_nHp <= 0)
         {
             // 装備解除する
-            m_UICatcher.StartWeapon2UIEvent();
-            Player.GetSetEquip = false;
+            Player.RemovedWeapon();
         }
     }
 

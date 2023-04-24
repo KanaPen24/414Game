@@ -17,6 +17,7 @@ public class IS_Ball : MonoBehaviour
     [SerializeField] private ParticleSystem hitEffect; // 着弾エフェクト
     [SerializeField] private float fGravity;           // 重力
     [SerializeField] private float fUpPow;             // 上への力
+    [SerializeField] private NK_BossSlime bossSlime;
 
     /**
      * @fn
@@ -53,8 +54,21 @@ public class IS_Ball : MonoBehaviour
         ParticleSystem Effect = Instantiate(hitEffect);
         Effect.Play();
         Effect.transform.position = this.transform.position;
-        Effect.transform.localScale = new Vector3(2f, 2f, 2f);
+        Effect.transform.localScale = new Vector3(20f, 20f, 10f);
         Destroy(Effect.gameObject, 1.0f); // 1秒後に消える
+
+        RaycastHit[] hits = Physics.SphereCastAll(
+    transform.position,
+    2.0f,
+    Vector3.forward);
+
+        foreach (var hit in hits)
+        {
+            if(hit.collider.gameObject.GetComponent<NK_BossSlime>() != null)
+            {
+                hit.collider.gameObject.GetComponent<NK_BossSlime>().GetSetHp -= 5;
+            }
+        }
 
         // 自身のオブジェクトを削除
         Destroy(this.gameObject);
