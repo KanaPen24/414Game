@@ -69,7 +69,7 @@ public class IS_WeaponHPBar : IS_Weapon
      * 初期化処理(override前提)
      * @brief 初期化処理
      */
-    protected override void Init()
+    public override void Init()
     {
 
     }
@@ -79,7 +79,7 @@ public class IS_WeaponHPBar : IS_Weapon
      * 終了処理(override前提)
      * @brief 終了処理
      */
-    protected override void Uninit()
+    public override void Uninit()
     {
 
     }

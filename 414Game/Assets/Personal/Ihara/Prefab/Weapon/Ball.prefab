@@ -132,3 +132,4 @@ MonoBehaviour:
     type: 3}
   fGravity: -0.5
   fUpPow: 10
+  bossSlime: {fileID: 1217551708, guid: 278e900c7ee88af42b5237b7a26a694f, type: 3}
