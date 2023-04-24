@@ -40,7 +40,7 @@ public class YK_Hand : MonoBehaviour
         {
             if (renderController.Opacity <= 1.0f)
             {
-                renderController.Opacity += 0.02f;
+                renderController.Opacity += 0.04f;
                 if (this.transform.localScale.x <= MAX_SCALE)
                 this.transform.localScale += new Vector3(1.0f, 1.0f);
             }
