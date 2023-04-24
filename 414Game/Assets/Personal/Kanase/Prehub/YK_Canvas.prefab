@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 7096374214332199848}
-  m_nStuck: 0
+  m_nStuck: 3
 --- !u!1 &487744446128831260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,7 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 2863066942283563853}
-  m_nStuck: 0
+  m_nStuck: 3
 --- !u!1 &5534130238547335811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1505,7 +1505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 1871805836552840424}
-  m_nStuck: 0
+  m_nStuck: 3
 --- !u!1 &6616016699473613740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,7 +1593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 1345458143150749385}
-  m_nStuck: 0
+  m_nStuck: 3
 --- !u!114 &1345458143150749385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2063,7 +2063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 5357815216530760049}
-  m_nStuck: 0
+  m_nStuck: 3
 --- !u!1 &8319772697034533400
 GameObject:
   m_ObjectHideFlags: 0
