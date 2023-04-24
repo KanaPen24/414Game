@@ -2593,7 +2593,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f17eae74872557f4bb10e9a66656b4c7, type: 3}
   m_Name: 
@@ -4222,7 +4222,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CursolEvent
       value: 
-      objectReference: {fileID: 1304507807}
+      objectReference: {fileID: 0}
     - target: {fileID: 3327335840334610119, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
         type: 3}
       propertyPath: m_Player
@@ -4332,7 +4332,7 @@ PrefabInstance:
     - target: {fileID: 7160487676030067711, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6584b65f3f9a9cb4fa8ae89db10b57db, type: 3}
@@ -5005,7 +5005,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Boss
       value: 
-      objectReference: {fileID: 956229377}
+      objectReference: {fileID: 0}
     - target: {fileID: 1985264117707769158, guid: 7e9ed24051ee45f4496066d407091c07,
         type: 3}
       propertyPath: BossSlider
@@ -5145,7 +5145,7 @@ PrefabInstance:
         type: 3}
       propertyPath: BackGround
       value: 
-      objectReference: {fileID: 1229838304}
+      objectReference: {fileID: 0}
     - target: {fileID: 7067708799436863942, guid: 7e9ed24051ee45f4496066d407091c07,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -5269,16 +5269,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5703077842606915443, guid: 0d306e8fce0b7824ca07f7166d94b5a8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5703077842901639607, guid: 0d306e8fce0b7824ca07f7166d94b5a8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6193986448570897717, guid: 0d306e8fce0b7824ca07f7166d94b5a8,
         type: 3}
@@ -6025,18 +6015,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e3b17692d847614899b35422993f665, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &956229377 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2649526777965228144, guid: 278e900c7ee88af42b5237b7a26a694f,
-    type: 3}
-  m_PrefabInstance: {fileID: 385915440}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c526ef8b3ca8f5c4a94c6f997a31760f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &989963078 stripped
@@ -7444,18 +7422,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1229838304 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1622296871220671274, guid: 7e9ed24051ee45f4496066d407091c07,
-    type: 3}
-  m_PrefabInstance: {fileID: 663312483}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1244973723 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9124122075695678880, guid: 7e9ed24051ee45f4496066d407091c07,
@@ -7547,18 +7513,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc6c0eed1201cba448c98a7658e8ae6c, type: 3}
---- !u!114 &1304507807 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2393806690329829352, guid: 7e9ed24051ee45f4496066d407091c07,
-    type: 3}
-  m_PrefabInstance: {fileID: 663312483}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f3f84493d32da441bbc42012d8b07e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &1317006431
 Mesh:
   m_ObjectHideFlags: 0
