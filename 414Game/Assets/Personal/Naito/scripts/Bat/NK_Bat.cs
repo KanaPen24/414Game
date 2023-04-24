@@ -15,7 +15,7 @@ using UnityEngine;
 // ===============================================
 public enum BatState
 {
-    BatWait,     //待機状態
+    //BatWait,     //待機状態
     BatMove,     //移動状態
     BatSonic,    //超音波攻撃状態
     BatFall,     //急降下攻撃
@@ -45,6 +45,16 @@ public class NK_Bat : MonoBehaviour
     [SerializeField] private List<NK_BatStrategy> m_BatStrategy; // BossBat挙動クラスの動的配列
     [SerializeField] private BatState m_BatState;      // BossBatの状態を管理する
     [SerializeField] private BatDir m_BatDir;        // BossBatの向きを管理する
+    //時を止めるUIをアタッチ
+    [SerializeField] private YK_Clock m_Clock;
+    private Rigidbody m_Rbody;
+    public Vector3 m_MoveValue;
+
+    private void Start()
+    {
+        m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
+        m_Rbody = GetComponent<Rigidbody>();
+    }
 
     private void Update()
     {
@@ -64,6 +74,8 @@ public class NK_Bat : MonoBehaviour
     private void FixedUpdate()
     {
         m_BatStrategy[(int)m_BatState].UpdateStrategy();
+
+        m_Rbody.velocity = m_MoveValue;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -124,5 +136,11 @@ public class NK_Bat : MonoBehaviour
     {
         get { return m_nMaxHP; }
         set { m_nMaxHP = value; }
+    }
+
+    public Vector3 GetSetMoveValue
+    {
+        get { return m_MoveValue; }
+        set { m_MoveValue = value; }
     }
 }
