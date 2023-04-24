@@ -68,9 +68,6 @@ public class YK_Hand : MonoBehaviour
     {
         //掴む瞬間にUIの前に持ってくる
         renderController.SortingOrder = 10;
-
-        // 武器を装備する(武器を表示する)
-        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = true;
     }
 
     //引っ込む時
@@ -78,7 +75,10 @@ public class YK_Hand : MonoBehaviour
     {
         m_bOpacity = false;
         //レイヤーをUIの後ろにする
-        renderController.SortingOrder = -1;        
+        renderController.SortingOrder = -1;
+
+        // 武器を装備する(武器を表示する)
+        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = true;
 
         // 本来はここでUIを消したい(by:kanase)
     }
