@@ -15,7 +15,7 @@ public class YK_Next : YK_UI
 {
     [SerializeField] private Image Next;
     [SerializeField] private YK_Hand m_Hand;
-    private bool m_bVisible = false;
+    private bool m_bVisibleNext = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +30,7 @@ public class YK_Next : YK_UI
     // Update is called once per frame
     void Update()
     {
-        if (m_bVisible)
+        if (m_bVisibleNext)
         {
             UIFadeIN();
         }
@@ -70,12 +70,12 @@ public class YK_Next : YK_UI
     /**
  * @fn
  * 表示非表示のgetter・setter
- * @return m_bVisible(bool)
+ * @return m_bVisibleNext(bool)
  * @brief 表示非表示処理
  */
     public bool GetSetVisibleFlg
     {
-        get { return m_bVisible; }
-        set { m_bVisible = value; }
+        get { return m_bVisibleNext; }
+        set { m_bVisibleNext = value; }
     }
 }

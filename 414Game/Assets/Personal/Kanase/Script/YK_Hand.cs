@@ -12,7 +12,7 @@ using Live2D.Cubism.Rendering;
 public class YK_Hand : MonoBehaviour
 {
     [SerializeField] private YK_UICatcher UICatcher;
-    [SerializeField] private CubismRenderController renderController;
+    private CubismRenderController renderController;
     [SerializeField] private YK_CursolEvent CursolEvent;          //カーソルイベント
     [SerializeField] private IS_Player Player;
     private bool m_bOpacity = false;
@@ -24,6 +24,7 @@ public class YK_Hand : MonoBehaviour
 
     private void Start()
     {
+        renderController = this.GetComponent<CubismRenderController>();
         //レイヤーをUIの後ろにする
         renderController.SortingOrder = -1;
         //透明にする
