@@ -13,6 +13,7 @@ using UnityEngine;
 public class IS_PlayerAttack : IS_PlayerStrategy
 {
     [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
+    [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
 
     private void Update()
     {
@@ -36,6 +37,15 @@ public class IS_PlayerAttack : IS_PlayerStrategy
                 m_Player.GetAnimator().SetBool("isAttack", false);
                 return;
             }
+            // 「攻撃 → 落下」
+            if (!m_PlayerGroundColl.IsGroundCollision())
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
+                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack = false;
+                m_Player.GetAnimator().SetBool("isDrop", true);
+                m_Player.GetAnimator().SetBool("isAttack", false);
+                return;
+            }
         }
     }
     /**
@@ -55,16 +65,5 @@ public class IS_PlayerAttack : IS_PlayerStrategy
 
         // 指定した武器で攻撃処理
         m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).UpdateAttack();
-    }
-
-    /**
-     * @fn
-     * Playerの攻撃処理
-     * @brief  方法はまだ考え中
-     * @detail 制作中
-     */
-    private void Attack()
-    {
-
     }
 }

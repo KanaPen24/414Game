@@ -377,6 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Player: {fileID: 2602812492749303807}
+  m_PlayerGroundColl: {fileID: 1434260197630297037}
 --- !u!114 &1434260197630297037
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -45,13 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8485a6031c3e06849ae3cf6957582b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_bVisible: 0
   m_nHp: 0
   m_nMaxHp: 0
-  m_Player: {fileID: 0}
+  Player: {fileID: 0}
   m_Ball: {fileID: 8053497306155941698, guid: 4f88f1417a2c2ed44800e0da5f936284, type: 3}
   m_MeshRender: {fileID: 1130777034989187898}
-  fInitVel: 7
-  m_fAttackRate: 0.05
+  m_fMaxPow: 10
+  m_fMinPow: 3
+  m_fMaxChargeTime: 5
+  m_fPlayerMovePow: 3
+  m_ChargeLevel: 0
 --- !u!1 &6774856577874567479
 GameObject:
   m_ObjectHideFlags: 0

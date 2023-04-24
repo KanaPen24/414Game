@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 7096374214332199848}
+  m_nStuck: 0
 --- !u!1 &487744446128831260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 2863066942283563853}
+  m_nStuck: 0
 --- !u!1 &5534130238547335811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,6 +1505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 1871805836552840424}
+  m_nStuck: 0
 --- !u!1 &6616016699473613740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,6 +1593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 1345458143150749385}
+  m_nStuck: 0
 --- !u!114 &1345458143150749385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1713,7 +1717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbec5237f1d4d9e4f9195e15b2f4acc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nTimeLimit: 0
+  m_nTimeLimit: 200
   timerText: {fileID: 4843499608263077420}
   Clock: {fileID: 8823388500288985867}
 --- !u!1 &7585921151530874857
@@ -2059,6 +2063,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 5357815216530760049}
+  m_nStuck: 0
 --- !u!1 &8319772697034533400
 GameObject:
   m_ObjectHideFlags: 0

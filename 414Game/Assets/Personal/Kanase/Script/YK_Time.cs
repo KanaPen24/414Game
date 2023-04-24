@@ -13,12 +13,13 @@ public class YK_Time : MonoBehaviour
 {
     [SerializeField] private int m_nTimeLimit = 200;    //タイムリミット
     [SerializeField] private Text timerText;            //表示するテキスト
-    [SerializeField] private YK_Clock Clock;
+    [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
     private float m_fTime;
     private int  m_nNowTime;       //現在時間
 
     void Update()
     {
+        //時止め中
         if (Clock.GetSetStopTime)
         {
             return;

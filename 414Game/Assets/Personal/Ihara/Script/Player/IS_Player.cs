@@ -54,7 +54,7 @@ public enum PlayerDir
 public enum EquipWeaponState
 {
     PlayerHpBar,  // HPバー
-    PlayerBall,   // Ball
+    PlayerSkillIcon,   // Ball
     PlayerBossBar,// Bossバー
 
     MaxEquipWeaponState
@@ -224,7 +224,7 @@ public class IS_Player : MonoBehaviour
      * @return なし
      * @brief UICatcherに参照している
      */
-     private void EquipWeapon()
+    public void EquipWeapon()
     {
         // UICatcherのイベント中は処理しない
         if (m_UICatcher.GetSetUICatcherState == UICatcherState.None)

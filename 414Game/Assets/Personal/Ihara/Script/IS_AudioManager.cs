@@ -22,6 +22,9 @@ public enum SEType
     SE_FireSkillIcon,// SkillIconの攻撃SE
     SE_HitHPBar,     // HPBarのヒットSE
     SE_HitSkillIcon, // SkillIconのヒットSE
+    SE_ChargeLevel_1,// 溜め段階1のSE
+    SE_ChargeLevel_2,// 溜め段階2のSE
+    SE_ChargeLevel_3,// 溜め段階3のSE
     SE_GameClear,    // ゲームクリアSE
     SE_SlimeCreate,  // スライムを作り出す音
 

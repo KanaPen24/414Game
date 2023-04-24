@@ -12,14 +12,31 @@ using System;
 
 public class IS_WeaponSkillIcon : IS_Weapon
 {
-    [SerializeField] private IS_Player m_Player;        // Player    
-    [SerializeField] private IS_Ball m_Ball;            // 生成Ball
-    [SerializeField] private MeshRenderer m_MeshRender; // メッシュ
-    [SerializeField] private float fInitVel;            // 初期速度
-    [SerializeField] private float m_fAttackRate;       // 攻撃速度
+    private enum ChargeLevel
+    {
+        ChargeLevel_0,
+        ChargeLevel_1,
+        ChargeLevel_2,
+        ChargeLevel_3,
 
-    private float m_fRateAmount;                        // 割合の合計
-    private int m_nCnt;
+        MaxChargeLevel
+    }
+
+    [SerializeField] private IS_Player Player;          // Player    
+    [SerializeField] private IS_Ball m_Ball;            // 生成Ball
+    [SerializeField] private YK_UICatcher m_UICatcher;  // UIキャッチャー
+    [SerializeField] private MeshRenderer m_MeshRender; // メッシュ
+    [SerializeField] private float m_fMaxPow;           // 最大攻撃速度
+    [SerializeField] private float m_fMinPow;           // 最小攻撃速度
+    [SerializeField] private float m_fMaxChargeTime;    // 最大溜め時間
+    [SerializeField] private float m_fPlayerMovePow;    // プレイヤーの移動量
+    [SerializeField] private ChargeLevel m_ChargeLevel; // 溜め段階を管理する
+
+    private int   m_nCnt;               // 表示確認用
+    private bool  m_bChargeFlg;         // 溜めフラグ
+    private float m_fCurrentChargeTime; // 現在の溜め時間
+    private float m_fCurrentPow;        // 現在の力
+    private YK_SkillIcon m_YKSkillIcon;
 
     /**
      * @fn
@@ -29,10 +46,19 @@ public class IS_WeaponSkillIcon : IS_Weapon
     protected override void Awake()
     {
         // メンバの初期化
+        m_ChargeLevel = ChargeLevel.ChargeLevel_0;
+
         m_eWeaponType = WeaponType.SkillIcon; // 武器種類はBall
         m_bAttack = false;
         m_bVisible = false;
         m_bDestroy = false;
+
+        m_nCnt = 0;
+        m_bChargeFlg = false;
+        m_fCurrentChargeTime = 0f;
+        m_fCurrentPow = 0f;
+
+        m_YKSkillIcon = null;
     }
 
     /**
@@ -51,6 +77,14 @@ public class IS_WeaponSkillIcon : IS_Weapon
 
     private void Update()
     {
+        if(Player.GetSetEquipWeaponState == EquipWeaponState.PlayerSkillIcon)
+        {
+            if (Input.GetButton("Atk"))
+            {
+                m_bChargeFlg = true;
+            }
+            else m_bChargeFlg = false;
+        }
         // 前回と状態が違ったら
         if (m_nCnt != Convert.ToInt32(m_bVisible))
         {
@@ -62,17 +96,46 @@ public class IS_WeaponSkillIcon : IS_Weapon
     }
 
     /**
+     * @fn
+     * 初期化処理(override前提)
+     * @brief 初期化処理
+     */
+    protected override void Init()
+    {
+
+    }
+
+    /**
+     * @fn
+     * 終了処理(override前提)
+     * @brief 終了処理
+     */
+    protected override void Uninit()
+    {
+
+    }
+
+    /**
     * @fn
     * 攻撃初期化処理(override)
     * @brief 攻撃初期化処理
     */
     public override void StartAttack()
     {
-        IS_AudioManager.instance.PlaySE(SEType.SE_FireSkillIcon);
         GetSetAttack = true; // 攻撃ON
-        GameObject shot = Instantiate(m_Ball.gameObject, this.transform.position, this.transform.rotation); // Ball生成
-        IS_Ball Shot = shot.GetComponent<IS_Ball>();   // コンポーネントの取得
-        Shot.Fire(fInitVel, m_Player.GetSetPlayerDir); // 弾発射
+
+        // 選択したUIからYK_SkillIconがあったら…
+        if(m_UICatcher.GetSetSelectUI.GetComponent<YK_SkillIcon>() != null)
+        {
+            // 予めそのUIを保存しておき,弾数をセットする
+            m_YKSkillIcon = m_UICatcher.GetSetSelectUI.GetComponent<YK_SkillIcon>();
+            m_nHp = m_YKSkillIcon.GetSetStuck;
+        }
+        else
+        {
+            FinAttack();
+            return;
+        }
     }
 
     /**
@@ -83,7 +146,20 @@ public class IS_WeaponSkillIcon : IS_Weapon
     public override void FinAttack()
     {
         GetSetAttack = false; // 攻撃OFF
-        m_fRateAmount = 0.0f;
+        m_ChargeLevel = ChargeLevel.ChargeLevel_0; // 溜め段階を0にする
+        m_fCurrentPow = 0f;
+        m_fCurrentChargeTime = 0f;
+
+        // ストック数をUIの方にも反映させる
+        IS_UIManager.instance.FindUI(m_YKSkillIcon).GetComponent<YK_SkillIcon>().GetSetStuck = m_nHp;
+
+        // 攻撃終了時に弾数が0だったら
+        if(m_nHp <= 0)
+        {
+            // 装備解除する
+            m_UICatcher.StartWeapon2UIEvent();
+            Player.GetSetEquip = false;
+        }
     }
 
     /**
@@ -93,14 +169,28 @@ public class IS_WeaponSkillIcon : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        // ここに処理を加える
+        // 溜め
+        ChargePow();
 
-        // 攻撃仕切ったら終了する
-        if (m_fRateAmount >= 1.0f)
+        // 溜め段階チェック
+        CheckChargeLevel();
+
+        // 攻撃チェック
+        CheckAttack();
+
+        //溜め中は移動できる!!
+        // 右向き
+        if (Player.bInputRight)
         {
-            FinAttack();
+            Player.m_vMoveAmount.x += m_fPlayerMovePow;
+            Player.GetSetPlayerDir = PlayerDir.Right;
         }
-        else m_fRateAmount += m_fAttackRate;
+        // 左向き
+        if (Player.bInputLeft)
+        {
+            Player.m_vMoveAmount.x -= m_fPlayerMovePow;
+            Player.GetSetPlayerDir = PlayerDir.Left;
+        }
     }
 
     /**
@@ -119,6 +209,96 @@ public class IS_WeaponSkillIcon : IS_Weapon
         else
         {
             m_MeshRender.enabled = false;
+        }
+    }
+
+    /**
+     * @fn
+     * 攻撃溜め処理
+     * @brief 攻撃溜め処理
+     */
+    private void ChargePow()
+    {
+        // 溜めフラグが立っていたら…
+        if (m_bChargeFlg)
+        {
+            // 力を溜める
+            m_fCurrentPow = m_fMinPow + (m_fMaxPow - m_fMinPow) * (m_fCurrentChargeTime / m_fMaxChargeTime);
+
+            // 最大溜め時間を超えていたら…
+            if (m_fCurrentChargeTime >= m_fMaxChargeTime)
+            {
+                m_fCurrentChargeTime = m_fMaxChargeTime;
+            }
+            else m_fCurrentChargeTime += Time.deltaTime;
+        }
+    }
+
+    /**
+     * @fn
+     * 攻撃溜め処理
+     * @brief 攻撃溜め処理
+     */
+    private void CheckChargeLevel()
+    {
+        // 3段階目チェック
+        if(m_fCurrentChargeTime >= m_fMaxChargeTime)
+        {
+            if(m_ChargeLevel != ChargeLevel.ChargeLevel_3)
+            {
+                m_ChargeLevel = ChargeLevel.ChargeLevel_3;
+                IS_AudioManager.instance.PlaySE(SEType.SE_ChargeLevel_3);
+            }
+
+            return;
+        }
+
+        // 2段階目チェック
+        if (m_fCurrentChargeTime >= m_fMaxChargeTime / 2.0f)
+        {
+            if (m_ChargeLevel != ChargeLevel.ChargeLevel_2)
+            {
+                m_ChargeLevel = ChargeLevel.ChargeLevel_2;
+                IS_AudioManager.instance.PlaySE(SEType.SE_ChargeLevel_2);
+            }
+
+            return;
+        }
+
+        // 1段階目チェック
+        if (m_fCurrentChargeTime >= m_fMaxChargeTime / 4.0f)
+        {
+            if (m_ChargeLevel != ChargeLevel.ChargeLevel_1)
+            {
+                m_ChargeLevel = ChargeLevel.ChargeLevel_1;
+                IS_AudioManager.instance.PlaySE(SEType.SE_ChargeLevel_1);
+            }
+
+            return;
+        }
+    }
+
+    /**
+     * @fn
+     * 攻撃チェック処理
+     * @brief 攻撃チェック処理 … 溜めフラグが立っていなかったら攻撃開始
+     */
+    private void CheckAttack()
+    {
+        // 溜めフラグが立っていなかったら…
+        if (!m_bChargeFlg)
+        {
+            // 弾を生成し攻撃開始!!
+            IS_AudioManager.instance.PlaySE(SEType.SE_FireSkillIcon);
+            GameObject shot = Instantiate(m_Ball.gameObject, this.transform.position, this.transform.rotation); // Ball生成
+            IS_Ball Shot = shot.GetComponent<IS_Ball>();   // コンポーネントの取得
+            Shot.Fire(m_fCurrentPow, Player.GetSetPlayerDir); // 弾発射
+
+            // 弾数を減らす
+            m_nHp--;
+
+            // 攻撃終了
+            FinAttack();
         }
     }
 }
