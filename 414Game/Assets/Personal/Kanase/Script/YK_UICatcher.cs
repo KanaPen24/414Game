@@ -133,8 +133,11 @@ public class YK_UICatcher : MonoBehaviour
         m_UICatcherState = UICatcherState.UI2Weapon; // UIから武器化するイベント状態にする
         ParticlePlay(); // エフェクト再生
 
+        // SE発生
+        IS_AudioManager.instance.PlaySE(SEType.SE_UICatcher);
+
         // 選択したUIを探す
-        for(int i = 0,size = m_Uis.Count; i < size;++i)
+        for (int i = 0,size = m_Uis.Count; i < size;++i)
         {
             // 探し出せたら…
             if(CursolEvent.GetSetCurrentUI.gameObject == m_Uis[i].gameObject)
@@ -179,8 +182,6 @@ public class YK_UICatcher : MonoBehaviour
      */
     public void StartWeapon2UIEvent()
     {
-        //m_UICatcherState = UICatcherState.Weapon2UI;
-
         // 武器を非表示にする
         Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = false;
 

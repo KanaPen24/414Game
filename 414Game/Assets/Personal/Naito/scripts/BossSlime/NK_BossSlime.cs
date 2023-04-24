@@ -64,11 +64,20 @@ public class NK_BossSlime : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 武器だったら
-        if (other.gameObject.tag == "Weapon")
+        //if (other.gameObject.tag == "Weapon")
+        //{
+        //    Debug.Log("Enemy Damage!!");
+        //    //m_HpBarHP.DelLife(10);
+        //    m_nHP -= 5;
+        //}
+
+        if(other.gameObject.GetComponent<IS_WeaponHPBar>() != null)
         {
-            Debug.Log("Enemy Damage!!");
-            //m_HpBarHP.DelLife(10);
-            m_nHP -= 5;
+            if(m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+            {
+                m_nHP -= 5;
+                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetHp -= 10;
+            }
         }
 
         // HPが0になったら、紙吹雪エフェクト発生
