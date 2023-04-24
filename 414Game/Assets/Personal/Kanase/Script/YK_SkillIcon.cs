@@ -14,6 +14,7 @@ using DG.Tweening;
 public class YK_SkillIcon : YK_UI
 {
     public Image SkillIcon;
+    [SerializeField] private int m_nStuck; // 弾数ストック
 
     private void Start()
     {

@@ -280,7 +280,6 @@ MonoBehaviour:
   m_animator: {fileID: 2448400158043699479}
   m_Rigidbody: {fileID: 7160487676030067650}
   m_CursolEvent: {fileID: 0}
-  m_Hp: {fileID: 0}
   m_UICatcher: {fileID: 0}
   m_PlayerStrategys:
   - {fileID: 8900614492408564906}
@@ -292,16 +291,17 @@ MonoBehaviour:
   - {fileID: 2532925282676772383}
   - {fileID: 4064215181992105257}
   - {fileID: 3327335840334610119}
+  m_nHp: 100
+  m_nMaxHp: 100
+  m_fGravity: -0.7
   m_PlayerState: 0
   m_PlayerDir: 0
   m_EquipWeaponState: 0
-  m_fGravity: -0.7
   m_vMoveAmount: {x: 0, y: 0, z: 0}
   bInputUp: 0
   bInputRight: 0
   bInputLeft: 0
   bInputSpace: 0
-  m_bEquip: 0
 --- !u!114 &8900614492408564906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,7 +330,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 2602812492749303807}
   m_PlayerGroundColl: {fileID: 1434260197630297037}
+  walkEffect: {fileID: 0}
   m_fMovePow: 5
+  m_fMaxDustCnt: 0.4
+  m_vEffectLocalPos: {x: -0.5, y: -0.2, z: 0}
 --- !u!114 &270613656269132271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,6 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Player: {fileID: 2602812492749303807}
+  m_PlayerGroundColl: {fileID: 1434260197630297037}
 --- !u!114 &1434260197630297037
 MonoBehaviour:
   m_ObjectHideFlags: 0

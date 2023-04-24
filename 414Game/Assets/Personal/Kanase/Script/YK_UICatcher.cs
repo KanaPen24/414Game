@@ -72,7 +72,7 @@ public class YK_UICatcher : MonoBehaviour
         if (!m_bParticleFlg)
         {
             //音(sound1)を鳴らす
-            audioSource.Play();
+            //audioSource.Play();
             Hand.GetComponent<Animator>().SetBool("Hand", true);
             particleUI.Play();
             particlePL.Play();
@@ -179,6 +179,9 @@ public class YK_UICatcher : MonoBehaviour
     public void StartWeapon2UIEvent()
     {
         //m_UICatcherState = UICatcherState.Weapon2UI;
+
+        // 武器を非表示にする
+        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = false;
 
         // 選択したUIのフェードイン開始
         m_SelectUI.UIFadeIN();
