@@ -61,7 +61,7 @@ public class IS_Weapon : MonoBehaviour
      * 初期化処理(override前提)
      * @brief 初期化処理
      */
-    protected virtual void Init()
+    public virtual void Init()
     {
 
     }
@@ -71,7 +71,7 @@ public class IS_Weapon : MonoBehaviour
      * 終了処理(override前提)
      * @brief 終了処理
      */
-    protected virtual void Uninit()
+    public virtual void Uninit()
     {
 
     }
