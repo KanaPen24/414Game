@@ -43,7 +43,7 @@ public class YK_Hand : MonoBehaviour
             {
                 renderController.Opacity += 0.04f;
                 if (this.transform.localScale.x <= MAX_SCALE)
-                this.transform.localScale += new Vector3(1.0f, 1.0f);
+                this.transform.localScale += new Vector3(2.0f, 2.0f);
             }
         }
         //α値を増やす場合のフラグが偽なら
@@ -51,7 +51,7 @@ public class YK_Hand : MonoBehaviour
         {
             if (renderController.Opacity > 0.0f)
             {
-                renderController.Opacity -= 0.02f;
+                renderController.Opacity -= 0.04f;
                 if (this.transform.localScale.x > MIN_SCALE)
                     this.transform.localScale -= new Vector3(2.0f, 2.0f);
             }
@@ -78,15 +78,15 @@ public class YK_Hand : MonoBehaviour
         //レイヤーをUIの後ろにする
         renderController.SortingOrder = -1;
 
-        // 武器を装備する(武器を表示する)
-        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = true;
-
         // 本来はここでUIを消したい(by:kanase)
     }
 
     //アニメーションの終わり
     void AnimationEnd()
     {
+        // 武器を装備する(武器を表示する)
+        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = true;
+
         UICatcher.ParticleStop();
     }
 

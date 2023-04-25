@@ -12,11 +12,12 @@ using UnityEngine.UI;
 
 public class YK_Clock : YK_UI
 {
-    public bool m_bSecTick;   // 秒針を秒ごとに動かすか
-    public GameObject Second;
     [SerializeField] private Image Clock;
     [SerializeField] private Image Second_Image;
     [SerializeField] private YK_Hand m_Hand;
+    [SerializeField] private YK_Time m_Time;
+    [SerializeField] float timerLimit=5;
+    float seconds = 0f;
     private int m_nTimeCount = 3;
     private bool m_bStopTime = false;   //時止め時間かどうか
 
@@ -28,17 +29,19 @@ public class YK_Clock : YK_UI
         GetSetPos = Clock.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
         GetSetScale = Clock.transform.localScale;
+        
     }
 
 
     void Update()
     {
         DateTime dt = DateTime.Now;
-        if (m_bSecTick)
-            Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360));
-        else
-            Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360 + (float)dt.Millisecond / 60 / 1000 * -360) * 10);
-        if(m_bStopTime)
+
+        //変更　ClockのUpdateClock関数を呼び出す
+        //　　　引数は_updateTimer()のtimerの値
+        UpdateClock(_updateTimer());
+        //Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360 + (float)dt.Millisecond / 60 / 1000 * -360) * 10);
+        if (m_bStopTime)
             //StopTimeFalseを5秒後に呼び出す
             Invoke(nameof(UIFadeIN), 5.0f);
     }
@@ -75,6 +78,22 @@ public class YK_Clock : YK_UI
     {
         if (m_nTimeCount > 3) 
         m_nTimeCount += Heal;
+    }
+
+    //fillAmountの値を変更する関数（ClockTimerから呼ばれる）
+    public void UpdateClock(float second)
+    {
+        //受け取ったfloat型の値を代入する
+        Clock.fillAmount = second;
+    }
+
+    float _updateTimer()
+    {
+        seconds += Time.deltaTime;
+        float timer = seconds / timerLimit;
+
+        //追加　float型のtimerを返す
+        return timer;
     }
 
     /**
