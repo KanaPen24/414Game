@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Live2D.Cubism.Rendering;
 
 // ===============================================
 // BossBatState
@@ -50,15 +51,25 @@ public class NK_Bat : MonoBehaviour
     [SerializeField] private YK_Clock m_Clock;
     private Rigidbody m_Rbody;
     public Vector3 m_MoveValue;
+    private bool m_DamageFlag;
+    private CubismRenderController renderController;
+    [SerializeField] private float m_InvincibleTime;
 
     private void Start()
     {
         m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
         m_Rbody = GetComponent<Rigidbody>();
+        m_DamageFlag = false;
     }
 
     private void Update()
     {
+        if(m_DamageFlag)
+        {
+            //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
+            float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
+            renderController.Opacity = level;
+        }
         if (GetSetBatState == BatState.BatMove)
         {
             if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
@@ -93,11 +104,13 @@ public class NK_Bat : MonoBehaviour
         }
 
         // 武器だったら
-        if (collision.gameObject.tag == "Weapon")
+        if (collision.gameObject.tag == "Weapon" && !m_DamageFlag)
         {
             Debug.Log("Enemy Damage!!");
             //m_HpBarHP.DelLife(10);
             m_nHP -= 5;
+            m_DamageFlag = true;
+            Invoke("InvincibleEnd", m_InvincibleTime);
         }
 
         // HPが0になったら、このオブジェクトを破壊
@@ -147,5 +160,10 @@ public class NK_Bat : MonoBehaviour
     {
         get { return m_MoveValue; }
         set { m_MoveValue = value; }
+    }
+
+    private void InvisbleEnd()
+    {
+        m_DamageFlag = false;
     }
 }

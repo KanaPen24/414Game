@@ -3216,7 +3216,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1699356676891749584, guid: 278e900c7ee88af42b5237b7a26a694f,
         type: 3}
+      propertyPath: Opacity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699356676891749584, guid: 278e900c7ee88af42b5237b7a26a694f,
+        type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699356676891749584, guid: 278e900c7ee88af42b5237b7a26a694f,
+        type: 3}
+      propertyPath: _lastOpacity
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4666687219459340598, guid: 278e900c7ee88af42b5237b7a26a694f,
@@ -5086,6 +5096,7 @@ MonoBehaviour:
   m_BatDir: 0
   m_Clock: {fileID: 343399487}
   m_MoveValue: {x: 0, y: 0, z: 0}
+  m_InvincibleTime: 0
 --- !u!212 &750881990
 SpriteRenderer:
   m_ObjectHideFlags: 0
