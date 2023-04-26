@@ -55,13 +55,13 @@ public class YK_HPBar : YK_UI
     {
         m_eFadeState = FadeState.FadeOUT;
         // 1秒で後X,Y方向を0.5倍に変更
-        HP.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 1f);
+        HP.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 0.5f);
         // 1秒でテクスチャをフェードアウト
-        FrontFill.DOFade(0f, 0.7f);
-        BackFill.DOFade(0f, 0.7f);
-        Crack.DOFade(0f, 0.7f);
-        Refraction.DOFade(0f, 0.7f);
-        Frame.DOFade(0f, 0.7f).OnComplete(() =>
+        FrontFill.DOFade(0f, 0.5f);
+        BackFill.DOFade(0f, 0.5f);
+        Crack.DOFade(0f, 0.5f);
+        Refraction.DOFade(0f, 0.5f);
+        Frame.DOFade(0f, 0.5f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");
