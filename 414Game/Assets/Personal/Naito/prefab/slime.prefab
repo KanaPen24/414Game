@@ -716,6 +716,7 @@ MonoBehaviour:
   m_Clock: {fileID: 0}
   renderController: {fileID: 2458192959598078437}
   m_InvincibleTime: 2
+  Shadow: {fileID: 1583492506907936919}
 --- !u!114 &80574029
 MonoBehaviour:
   m_ObjectHideFlags: 0

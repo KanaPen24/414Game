@@ -149,6 +149,11 @@ public class NK_BossSlime : MonoBehaviour
     {
         m_DamageFlag = false;
     }
+    public bool GetSetDamageFlag
+    {
+        get { return m_DamageFlag; }
+        set { m_DamageFlag = value; }
+    }
 
     public void BossSlimeDamage(int Damage)
     {
