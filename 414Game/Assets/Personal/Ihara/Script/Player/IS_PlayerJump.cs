@@ -16,6 +16,7 @@ public class IS_PlayerJump : IS_PlayerStrategy
     [SerializeField] IS_Player m_Player;      // IS_Playerをアタッチする
     [SerializeField] private float m_fJumpPow;// 跳躍力
     [SerializeField] private float m_fMovePow;// 移動する力
+    [SerializeField] ParticleSystem jumpEffect;
 
     private void Update()
     {
@@ -24,6 +25,13 @@ public class IS_PlayerJump : IS_PlayerStrategy
             // 跳躍開始時に跳躍力を合計移動量に加算
             if (m_Player.GetSetJumpFlg)
             {
+                // エフェクト再生
+                ParticleSystem Effect = Instantiate(jumpEffect);
+                Effect.Play();
+                Effect.transform.position = this.transform.position;
+                Effect.transform.localScale = new Vector3(2f, 2f, 2f);
+                Destroy(Effect.gameObject, 1.0f); // 1秒後に消える
+
                 IS_AudioManager.instance.PlaySE(SEType.SE_PlayerJump);
                 m_Player.GetSetMoveAmount = new Vector3(0f, m_fJumpPow, 0f);
                 m_Player.GetSetJumpFlg = false;
@@ -36,8 +44,8 @@ public class IS_PlayerJump : IS_PlayerStrategy
             if (m_Player.GetSetMoveAmount.y <= 0.0f)
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
-                m_Player.GetAnimator().SetBool("isDrop", true);
-                m_Player.GetAnimator().SetBool("isJump", false);
+                //m_Player.GetAnimator().SetBool("isDrop", true);
+                //m_Player.GetAnimator().SetBool("isJump", false);
                 return;
             }
         }

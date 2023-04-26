@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 // ===============================================
 // BossSlimeState
 // … BossSlimeの状態を管理する列挙体
@@ -44,21 +45,27 @@ public class NK_BossSlime : MonoBehaviour
     [SerializeField] private List<NK_BossSlimeStrategy> m_BossSlimeStrategy; // BossSlime挙動クラスの動的配列
     [SerializeField] private BossSlimeState m_BossSlimeState;      // BossSlimeの状態を管理する
     [SerializeField] private BossSlimeDir m_BossSlimeDir;        // BossSlimeの向きを管理する
+    //時を止めるUIをアタッチ
+    [SerializeField] private YK_Clock m_Clock;
 
     private void FixedUpdate()
     {
+        if (m_Clock.GetSetStopTime)
+        {
+            return;
+        }
         m_BossSlimeStrategy[(int)m_BossSlimeState].UpdateStrategy();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // プレイヤーだったら
-        if (collision.gameObject == m_Player.gameObject)
-        {
-            Debug.Log("Player Damage!!");
-            //m_Player.GetPlayerHp().DelLife(10);
-            m_Player.Damage(10,2.0f);
-        }
+        //// プレイヤーだったら
+        //if (collision.gameObject == m_Player.gameObject)
+        //{
+        //    Debug.Log("Player Damage!!");
+        //    //m_Player.GetPlayerHp().DelLife(10);
+        //    m_Player.Damage(10,2.0f);
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -71,7 +78,15 @@ public class NK_BossSlime : MonoBehaviour
         //    m_nHP -= 5;
         //}
 
-        if(other.gameObject.GetComponent<IS_WeaponHPBar>() != null)
+        // プレイヤーだったら
+        if (other.gameObject == m_Player.gameObject)
+        {
+            Debug.Log("Player Damage!!");
+            //m_Player.GetPlayerHp().DelLife(10);
+            m_Player.Damage(10, 2.0f);
+        }
+
+        if (other.gameObject.GetComponent<IS_WeaponHPBar>() != null)
         {
             if(m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
             {

@@ -133,9 +133,6 @@ public class YK_UICatcher : MonoBehaviour
         m_UICatcherState = UICatcherState.UI2Weapon; // UIから武器化するイベント状態にする
         ParticlePlay(); // エフェクト再生
 
-        // SE発生
-        IS_AudioManager.instance.PlaySE(SEType.SE_UICatcher);
-
         // 選択したUIを探す
         for (int i = 0,size = m_Uis.Count; i < size;++i)
         {
@@ -149,10 +146,6 @@ public class YK_UICatcher : MonoBehaviour
                 BlackHoleUI.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetPos;
                 Hand.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetPos;
                 
-                // UIの種類によって
-                // 選択したUIのフェードアウト開始
-                m_SelectUI.UIFadeOUT();
-
                 // for文から抜ける
                 break;
             }

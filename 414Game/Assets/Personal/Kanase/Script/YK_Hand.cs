@@ -19,7 +19,7 @@ public class YK_Hand : MonoBehaviour
     private Vector2 Scale;
 
     //定数定義
-    const float MAX_SCALE = 120.0f;
+    const float MAX_SCALE = 140.0f;
     const float MIN_SCALE = 70.0f;
 
     private void Start()
@@ -43,7 +43,7 @@ public class YK_Hand : MonoBehaviour
             {
                 renderController.Opacity += 0.04f;
                 if (this.transform.localScale.x <= MAX_SCALE)
-                this.transform.localScale += new Vector3(2.0f, 2.0f);
+                this.transform.localScale += new Vector3(2.5f, 2.5f);
             }
         }
         //α値を増やす場合のフラグが偽なら
@@ -51,9 +51,9 @@ public class YK_Hand : MonoBehaviour
         {
             if (renderController.Opacity > 0.0f)
             {
-                renderController.Opacity -= 0.04f;
+                renderController.Opacity -= 0.02f;
                 if (this.transform.localScale.x > MIN_SCALE)
-                    this.transform.localScale -= new Vector3(2.0f, 2.0f);
+                    this.transform.localScale -= new Vector3(1.1f, 1.1f);
             }
         }
     }
@@ -79,6 +79,9 @@ public class YK_Hand : MonoBehaviour
         renderController.SortingOrder = -1;
 
         // 本来はここでUIを消したい(by:kanase)
+        // UIの種類によって
+        // 選択したUIのフェードアウト開始
+        UICatcher.GetSetSelectUI.UIFadeOUT();
     }
 
     //アニメーションの終わり

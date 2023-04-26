@@ -12,6 +12,7 @@ using UnityEngine.UI;
 
 public class YK_Clock : YK_UI
 {
+    public GameObject Second;
     [SerializeField] private Image Clock;
     [SerializeField] private Image Second_Image;
     [SerializeField] private YK_Hand m_Hand;
@@ -39,8 +40,8 @@ public class YK_Clock : YK_UI
 
         //変更　ClockのUpdateClock関数を呼び出す
         //　　　引数は_updateTimer()のtimerの値
-        UpdateClock(_updateTimer());
-        //Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360 + (float)dt.Millisecond / 60 / 1000 * -360) * 10);
+       // UpdateClock(_updateTimer());
+        Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360 + (float)dt.Millisecond / 60 / 1000 * -360) * 10);
         if (m_bStopTime)
             //StopTimeFalseを5秒後に呼び出す
             Invoke(nameof(UIFadeIN), 5.0f);
