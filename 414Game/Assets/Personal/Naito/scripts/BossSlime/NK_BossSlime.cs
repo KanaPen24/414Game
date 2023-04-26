@@ -52,6 +52,7 @@ public class NK_BossSlime : MonoBehaviour
     [SerializeField] private CubismRenderController renderController;
     [SerializeField] private float m_InvincibleTime;
     private float m_fViewX;
+    [SerializeField] private YK_Goal goal;
 
     private void Update()
     {
@@ -74,42 +75,14 @@ public class NK_BossSlime : MonoBehaviour
         m_BossSlimeStrategy[(int)m_BossSlimeState].UpdateStrategy();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        //// プレイヤーだったら
-        //if (collision.gameObject == m_Player.gameObject)
-        //{
-        //    Debug.Log("Player Damage!!");
-        //    //m_Player.GetPlayerHp().DelLife(10);
-        //    m_Player.Damage(10,2.0f);
-        //}
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        // 武器だったら
-        //if (other.gameObject.tag == "Weapon")
-        //{
-        //    Debug.Log("Enemy Damage!!");
-        //    //m_HpBarHP.DelLife(10);
-        //    m_nHP -= 5;
-        //}
-
         // プレイヤーだったら
         if (other.gameObject == m_Player.gameObject)
         {
             Debug.Log("Player Damage!!");
             //m_Player.GetPlayerHp().DelLife(10);
             m_Player.Damage(10, 2.0f);
-        }
-
-        if (other.gameObject.GetComponent<IS_WeaponHPBar>() != null)
-        {
-            if(m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
-            {
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetHp -= 10;
-                BossSlimeDamage(5);
-            }
         }
     }
 
@@ -169,6 +142,7 @@ public class NK_BossSlime : MonoBehaviour
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_GameClear);
                 goalEffect.StartEffect();
+                goal.gameObject.SetActive(true);
                 Destroy(this.gameObject);
             }
         }

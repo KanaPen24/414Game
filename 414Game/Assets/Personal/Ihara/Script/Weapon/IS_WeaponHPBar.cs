@@ -166,4 +166,25 @@ public class IS_WeaponHPBar : IS_Weapon
             m_MeshRender.enabled = false;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<NK_BossSlime>() != null)
+        {
+            if (GetSetAttack && !other.GetComponent<NK_BossSlime>().GetSetDamageFlag)
+            {
+                GetSetHp -= 7;
+                other.GetComponent<NK_BossSlime>().BossSlimeDamage(5);
+            }
+        }
+
+        if (other.gameObject.GetComponent<NK_Slime>() != null)
+        {
+            if (GetSetAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)
+            {
+                GetSetHp -= 5;
+                other.GetComponent<NK_Slime>().SlimeDamage(5);
+            }
+        }
+    }
 }
