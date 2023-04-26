@@ -24,17 +24,28 @@ public enum WeaponType
     MaxWeaponType
 }
 
+// ================================================
+// WeaponAttackType
+// … 攻撃方法の種類の列挙体
+// ================================================
+public enum WeaponAttackType
+{
+    WeaponAttack,     // 通常攻撃
+    WeaponAttackJump, // ジャンプ攻撃
+    WeaponAttackDrop, // 落下攻撃
+
+    MaxWeaponAttackType
+}
+
 public class IS_Weapon : MonoBehaviour
 {
-    protected WeaponType m_eWeaponType; // 武器の種類
-    protected bool m_bAttack;           // 攻撃中かどうか
-    [SerializeField]
-    protected bool m_bVisible;          // 表示するかどうか
-    protected bool m_bDestroy;          // 破壊されたかどうか
-    [SerializeField]
-    protected int  m_nHp;               // 耐久値
-    [SerializeField]
-    protected int m_nMaxHp;             // 最大耐久値
+    [SerializeField] protected WeaponType m_eWeaponType;             // 武器の種類
+    [SerializeField] protected WeaponAttackType m_eWeaponAttackType; // 武器の攻撃方法
+    [SerializeField] protected bool m_bAttack;                       // 攻撃中かどうか
+    [SerializeField] protected bool m_bVisible;                      // 表示するかどうか
+    [SerializeField] protected bool m_bDestroy;                      // 破壊されたかどうか
+    [SerializeField] protected int  m_nHp;                           // 耐久値
+    [SerializeField] protected int  m_nMaxHp;                        // 最大耐久値
 
     /**
      * @fn
@@ -125,6 +136,18 @@ public class IS_Weapon : MonoBehaviour
     {
         get { return m_eWeaponType; }
         set { m_eWeaponType = value; }
+    }
+
+    /**
+     * @fn
+     * 武器種類のgetter・setter
+     * @return m_eWeaponType(WeaponType)
+     * @brief 武器の攻撃方法を返す・セット
+     */
+    public WeaponAttackType GetSetWeaponAttackType
+    {
+        get { return m_eWeaponAttackType; }
+        set { m_eWeaponAttackType = value; }
     }
 
     /**
