@@ -44,9 +44,15 @@ public class NK_BossSlime : MonoBehaviour
     [SerializeField] private List<NK_BossSlimeStrategy> m_BossSlimeStrategy; // BossSlime挙動クラスの動的配列
     [SerializeField] private BossSlimeState m_BossSlimeState;      // BossSlimeの状態を管理する
     [SerializeField] private BossSlimeDir m_BossSlimeDir;        // BossSlimeの向きを管理する
+    //時を止めるUIをアタッチ
+    [SerializeField] private YK_Clock m_Clock;
 
     private void FixedUpdate()
     {
+        if (m_Clock.GetSetStopTime)
+        {
+            return;
+        }
         m_BossSlimeStrategy[(int)m_BossSlimeState].UpdateStrategy();
     }
 

@@ -19,6 +19,7 @@ public enum BatState
     BatMove,     //移動状態
     BatSonic,    //超音波攻撃状態
     BatFall,     //急降下攻撃
+    BatUp,       //上昇状態
 
     MaxBatState
 }
@@ -40,7 +41,7 @@ public class NK_Bat : MonoBehaviour
     //敵の体力
     [SerializeField] private int m_nHP;
     [SerializeField] private int m_nMaxHP;//敵の最大体力
-    [SerializeField] private IS_Player m_Player;//プレイヤー
+    [SerializeField] public IS_Player m_BPlayer;//プレイヤー
     //[SerializeField] private IS_GoalEffect goalEffect;//倒されたときに発生するエフェクト
     [SerializeField] private List<NK_BatStrategy> m_BatStrategy; // BossBat挙動クラスの動的配列
     [SerializeField] private BatState m_BatState;      // BossBatの状態を管理する
@@ -60,7 +61,7 @@ public class NK_Bat : MonoBehaviour
     {
         if (GetSetBatState == BatState.BatMove)
         {
-            if (m_Player.transform.position.x > this.gameObject.transform.position.x)
+            if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
             {
                 GetSetBatDir = BatDir.Right;
             }
@@ -73,6 +74,10 @@ public class NK_Bat : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(m_Clock.GetSetStopTime)
+        {
+            return;
+        }
         m_BatStrategy[(int)m_BatState].UpdateStrategy();
 
         m_Rbody.velocity = m_MoveValue;
@@ -81,7 +86,7 @@ public class NK_Bat : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // プレイヤーだったら
-        if (collision.gameObject == m_Player.gameObject)
+        if (collision.gameObject == m_BPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
             //m_Player.GetPlayerHp().DelLife(10);
