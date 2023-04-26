@@ -49,7 +49,7 @@ public class NK_BossSlime : MonoBehaviour
     //時を止めるUIをアタッチ
     [SerializeField] private YK_Clock m_Clock;
     private bool m_DamageFlag;
-    private CubismRenderController renderController;
+    [SerializeField] private CubismRenderController renderController;
     [SerializeField] private float m_InvincibleTime;
 
     private void Update()
@@ -60,6 +60,7 @@ public class NK_BossSlime : MonoBehaviour
             float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
             renderController.Opacity = level;
         }
+        else renderController.Opacity = 1f;
     }
 
     private void FixedUpdate()
@@ -157,7 +158,7 @@ public class NK_BossSlime : MonoBehaviour
         get { return m_nMaxHP; }
         set { m_nMaxHP = value; }
     }
-    private void InvisbleEnd()
+    private void InvincibleEnd()
     {
         m_DamageFlag = false;
     }
