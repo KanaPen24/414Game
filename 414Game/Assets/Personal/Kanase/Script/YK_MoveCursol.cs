@@ -28,6 +28,10 @@ public class YK_MoveCursol : MonoBehaviour
     //回転方向の正負
     [SerializeField]
     private bool m_bDirection = false;
+    //エフェクト用のオブジェクト
+    [SerializeField]
+    private GameObject Effect;
+
 
     void Start()
     {
@@ -68,8 +72,8 @@ public class YK_MoveCursol : MonoBehaviour
             rad *= -1.0f;   //時計回りにする
         pos.x = Mathf.Cos(rad) * m_fCircle_Radius;
         pos.y = Mathf.Sin(rad) * m_fCircle_Radius;
-
-        rect.anchoredPosition = pos + m_fPos;
+        
+        Effect.GetComponent<RectTransform>().anchoredPosition = pos;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
