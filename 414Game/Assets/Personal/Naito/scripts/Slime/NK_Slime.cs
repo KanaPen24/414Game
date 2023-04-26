@@ -51,10 +51,12 @@ public class NK_Slime : MonoBehaviour
     private bool m_DamageFlag;
     private CubismRenderController renderController;
     [SerializeField] private float m_InvincibleTime;
+    private float m_fViewX;
 
 
     private void Update()
     {
+        m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
         if (m_DamageFlag)
         {
             //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
@@ -77,7 +79,7 @@ public class NK_Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_Clock.GetSetStopTime)
+        if (m_Clock.GetSetStopTime || m_fViewX >= 1)
         {
             return;
         }
