@@ -10,12 +10,12 @@ using UnityEngine;
 
 public class YK_GameOver : MonoBehaviour
 {
-    [SerializeField] private GameObject GOpanel;
+    [SerializeField] private GameObject GameOver;
 
     // Start is called before the first frame update
     void Start()
     {
-        GOpanel.SetActive(false);
+        GameOver.SetActive(false);
     }
 
     // Update is called once per frame
@@ -23,8 +23,9 @@ public class YK_GameOver : MonoBehaviour
     {
         if (GameManager.instance.GetSetGameState == GameState.GameOver)
         {
-            Time.timeScale = 0.0f;
-            GOpanel.SetActive(true);
+            Debug.Log("Gameover");
+            //Time.timeScale = 0.0f;
+            //GameOver.SetActive(true);
         }
     }
 }
