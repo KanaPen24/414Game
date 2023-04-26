@@ -10,7 +10,7 @@ public class NK_BossSlime_Martial : NK_BossSlimeStrategy
 
     public override void UpdateStrategy()
     {
-        //Instantiate(m_MartialArts, m_MartialArtsPos.transform.position, Quaternion.identity);
+        m_MartialArts.SetActive(true);
         // =========
         // 状態遷移
         // =========

@@ -52,7 +52,8 @@ public class NK_Slime : MonoBehaviour
     [SerializeField] private CubismRenderController renderController;
     [SerializeField] private float m_InvincibleTime;
     private float m_fViewX;
-
+    //影をアタッチする
+    [SerializeField] private GameObject Shadow;
 
     private void Update()
     {
@@ -78,6 +79,14 @@ public class NK_Slime : MonoBehaviour
             {
                 GetSetSlimeDir = SlimeDir.Left;
             }
+        }
+        if (m_SlimeState == SlimeState.SlimeMove)
+        {
+            Shadow.SetActive(false);
+        }
+        else
+        {
+            Shadow.SetActive(true);
         }
     }
 
@@ -147,6 +156,12 @@ public class NK_Slime : MonoBehaviour
     private void InvisbleEnd()
     {
         m_DamageFlag = false;
+    }
+
+    public bool GetSetDamageFlag
+    {
+        get { return m_DamageFlag; }
+        set { m_DamageFlag = value; }
     }
 
     public void SlimeDamage(int Damage)

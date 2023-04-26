@@ -10,11 +10,11 @@ public class NK_SlimeShadow : MonoBehaviour
     {
         if(m_Slime.GetSetSlimeState == SlimeState.SlimeMove)
         {
-
+            this.gameObject.SetActive(false);
         }
         else
         {
-
+            this.gameObject.SetActive(true);
         }
     }
 }
