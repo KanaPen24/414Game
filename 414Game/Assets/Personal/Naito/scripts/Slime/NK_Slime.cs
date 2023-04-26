@@ -92,7 +92,7 @@ public class NK_Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_Clock.GetSetStopTime || m_fViewX >= 1)
+        if (m_Clock.GetSetStopTime || m_fViewX >= 3)
         {
             return;
         }

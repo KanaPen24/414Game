@@ -51,9 +51,11 @@ public class NK_BossSlime : MonoBehaviour
     private bool m_DamageFlag;
     [SerializeField] private CubismRenderController renderController;
     [SerializeField] private float m_InvincibleTime;
+    private float m_fViewX;
 
     private void Update()
     {
+        m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
         if (m_DamageFlag)
         {
             //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
@@ -65,7 +67,7 @@ public class NK_BossSlime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_Clock.GetSetStopTime)
+        if (m_Clock.GetSetStopTime || m_fViewX >= 3)
         {
             return;
         }
