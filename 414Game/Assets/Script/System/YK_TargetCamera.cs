@@ -21,6 +21,7 @@ public class YK_TargetCamera : MonoBehaviour
     void FixedUpdate()
     {
         // カメラの位置をターゲットの位置にオフセットを足した場所にする。
-        gameObject.transform.position = target.transform.position + offset;
+        gameObject.transform.position = new Vector3(target.transform.position.x,0f, target.transform.position.z) + 
+            offset;
     }
 }
