@@ -11,10 +11,17 @@ public class NK_BossAttackArea : MonoBehaviour
     {
         Invoke("AttackAreaDestroy", m_AttackTime);
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.gameObject==m_Player.gameObject)
+        {
+            Debug.Log("Player Damage!!");
+            m_Player.Damage(10, 5.0f);
+        }
+    }
+
+    private void AttackAreaDestroy()
+    {
+        this.gameObject.SetActive(false);
     }
 }
