@@ -714,6 +714,7 @@ MonoBehaviour:
   m_DieEffect: {fileID: 2081907635564936536, guid: 4424c2c298bfb2345bba73411e81288d,
     type: 3}
   m_Clock: {fileID: 0}
+  renderController: {fileID: 2458192959598078437}
   m_InvincibleTime: 2
 --- !u!114 &80574029
 MonoBehaviour:

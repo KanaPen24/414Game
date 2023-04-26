@@ -1034,6 +1034,7 @@ MonoBehaviour:
   m_BossSlimeState: 0
   m_BossSlimeDir: 0
   m_Clock: {fileID: 0}
+  renderController: {fileID: 1699356676891749584}
   m_InvincibleTime: 3
 --- !u!114 &1217551724
 MonoBehaviour:

@@ -1,0 +1,20 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NK_SlimeShadow : MonoBehaviour
+{
+    [SerializeField] private NK_Slime m_Slime;
+
+    private void Update()
+    {
+        if(m_Slime.GetSetSlimeState == SlimeState.SlimeMove)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+}

@@ -105,22 +105,9 @@ public class NK_BossSlime : MonoBehaviour
         {
             if(m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
             {
-                if (!m_DamageFlag)
-                {
-                    m_nHP -= 5;
-                    m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetHp -= 10;
-                    m_DamageFlag = true;
-                    Invoke("InvincibleEnd", m_InvincibleTime);
-                }
+                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetHp -= 10;
+                BossSlimeDamage(5);
             }
-        }
-
-        // HPが0になったら、紙吹雪エフェクト発生
-        if (m_nHP <= 0)
-        {
-            IS_AudioManager.instance.PlaySE(SEType.SE_GameClear);
-            goalEffect.StartEffect();
-            Destroy(this.gameObject);
         }
     }
 
@@ -161,5 +148,22 @@ public class NK_BossSlime : MonoBehaviour
     private void InvincibleEnd()
     {
         m_DamageFlag = false;
+    }
+
+    public void BossSlimeDamage(int Damage)
+    {
+        if (!m_DamageFlag)
+        {
+            m_nHP -= Damage;
+            m_DamageFlag = true;
+            Invoke("InvincibleEnd", m_InvincibleTime);
+            // HPが0になったら、紙吹雪エフェクト発生
+            if (m_nHP <= 0)
+            {
+                IS_AudioManager.instance.PlaySE(SEType.SE_GameClear);
+                goalEffect.StartEffect();
+                Destroy(this.gameObject);
+            }
+        }
     }
 }
