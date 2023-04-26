@@ -52,13 +52,13 @@ public class NK_BossSlime : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // プレイヤーだったら
-        if (collision.gameObject == m_Player.gameObject)
-        {
-            Debug.Log("Player Damage!!");
-            //m_Player.GetPlayerHp().DelLife(10);
-            m_Player.Damage(10,2.0f);
-        }
+        //// プレイヤーだったら
+        //if (collision.gameObject == m_Player.gameObject)
+        //{
+        //    Debug.Log("Player Damage!!");
+        //    //m_Player.GetPlayerHp().DelLife(10);
+        //    m_Player.Damage(10,2.0f);
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -71,7 +71,15 @@ public class NK_BossSlime : MonoBehaviour
         //    m_nHP -= 5;
         //}
 
-        if(other.gameObject.GetComponent<IS_WeaponHPBar>() != null)
+        // プレイヤーだったら
+        if (other.gameObject == m_Player.gameObject)
+        {
+            Debug.Log("Player Damage!!");
+            //m_Player.GetPlayerHp().DelLife(10);
+            m_Player.Damage(10, 2.0f);
+        }
+
+        if (other.gameObject.GetComponent<IS_WeaponHPBar>() != null)
         {
             if(m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
             {

@@ -6,13 +6,13 @@ public class YK_TargetCamera : MonoBehaviour
     [Tooltip("追従させたいターゲット")]
     private GameObject target;
 
-    private Vector3 offset;
+    [SerializeField ]private Vector3 offset;
 
     // Start is called before the first frame update
     void Start()
     {
         // ゲーム開始時点のカメラとターゲットの距離（オフセット）を取得
-        offset = gameObject.transform.position - target.transform.position;
+        //offset = gameObject.transform.position - target.transform.position;
     }
 
     /// <summary>
