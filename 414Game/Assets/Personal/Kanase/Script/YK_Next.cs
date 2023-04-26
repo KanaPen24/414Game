@@ -15,6 +15,7 @@ public class YK_Next : YK_UI
 {
     [SerializeField] private Image Next;
     [SerializeField] private YK_Hand m_Hand;
+    private bool m_bVisibleNext = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,20 +25,18 @@ public class YK_Next : YK_UI
         GetSetPos = Next.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
         GetSetScale = Next.transform.localScale;
-
-        UIFadeOUT();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            UIFadeOUT();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (m_bVisibleNext)
         {
             UIFadeIN();
+        }
+        else
+        {
+            UIFadeOUT();
         }
     }
 
@@ -67,5 +66,16 @@ public class YK_Next : YK_UI
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");
         });
+    }
+    /**
+ * @fn
+ * 表示非表示のgetter・setter
+ * @return m_bVisibleNext(bool)
+ * @brief 表示非表示処理
+ */
+    public bool GetSetVisibleFlg
+    {
+        get { return m_bVisibleNext; }
+        set { m_bVisibleNext = value; }
     }
 }

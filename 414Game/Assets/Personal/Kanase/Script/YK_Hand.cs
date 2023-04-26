@@ -12,21 +12,56 @@ using Live2D.Cubism.Rendering;
 public class YK_Hand : MonoBehaviour
 {
     [SerializeField] private YK_UICatcher UICatcher;
-    [SerializeField] private CubismRenderController renderController;
+    private CubismRenderController renderController;
     [SerializeField] private YK_CursolEvent CursolEvent;          //カーソルイベント
     [SerializeField] private IS_Player Player;
+    private bool m_bOpacity = false;
+    private Vector2 Scale;
+
+    //定数定義
+    const float MAX_SCALE = 120.0f;
+    const float MIN_SCALE = 70.0f;
+
     private void Start()
     {
+        renderController = this.GetComponent<CubismRenderController>();
         //レイヤーをUIの後ろにする
         renderController.SortingOrder = -1;
         //透明にする
         renderController.Opacity = 0.0f;
+        //現在のサイズ取得
+        Scale = this.transform.localScale;
+        this.transform.localScale= new Vector3(MIN_SCALE, MIN_SCALE);
+    }
+
+    private void Update()
+    {
+        //α値を増やす場合のフラグが真なら
+        if (m_bOpacity)
+        {
+            if (renderController.Opacity <= 1.0f)
+            {
+                renderController.Opacity += 0.04f;
+                if (this.transform.localScale.x <= MAX_SCALE)
+                this.transform.localScale += new Vector3(2.0f, 2.0f);
+            }
+        }
+        //α値を増やす場合のフラグが偽なら
+        if (!m_bOpacity)
+        {
+            if (renderController.Opacity > 0.0f)
+            {
+                renderController.Opacity -= 0.04f;
+                if (this.transform.localScale.x > MIN_SCALE)
+                    this.transform.localScale -= new Vector3(2.0f, 2.0f);
+            }
+        }
     }
 
     //アニメーションの開始
     void AnimationStart()
     {
-        renderController.Opacity = 1.0f;
+        m_bOpacity = true;
     }
 
     //掴む瞬間
@@ -34,17 +69,14 @@ public class YK_Hand : MonoBehaviour
     {
         //掴む瞬間にUIの前に持ってくる
         renderController.SortingOrder = 10;
-
-        // 武器を装備する(武器を表示する)
-        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = true;
     }
 
     //引っ込む時
     public void HandPull()
     {
-        renderController.Opacity = 0f;
+        m_bOpacity = false;
         //レイヤーをUIの後ろにする
-        renderController.SortingOrder = -1;        
+        renderController.SortingOrder = -1;
 
         // 本来はここでUIを消したい(by:kanase)
     }
@@ -52,6 +84,9 @@ public class YK_Hand : MonoBehaviour
     //アニメーションの終わり
     void AnimationEnd()
     {
+        // 武器を装備する(武器を表示する)
+        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = true;
+
         UICatcher.ParticleStop();
     }
 

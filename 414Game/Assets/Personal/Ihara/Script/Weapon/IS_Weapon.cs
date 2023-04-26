@@ -36,26 +36,45 @@ public class IS_Weapon : MonoBehaviour
     [SerializeField]
     protected int m_nMaxHp;             // 最大耐久値
 
-   /**
-    * @fn
-    * 初期化処理(override前提)
-    * @brief 初期化処理(外部参照は避けること)
-    */
+    /**
+     * @fn
+     * ゲーム起動時処理(override前提)
+     * @brief ゲーム起動時処理(外部参照は避けること)
+     */
     protected virtual void Awake()
     {
 
     }
 
-   /**
-    * @fn
-    * 初期化処理(override前提)
-    * @brief 初期化処理(外部参照する場合)
-    */
+    /**
+     * @fn
+     * ゲーム起動時処理(override前提)
+     * @brief ゲーム起動時処理(外部参照する場合)
+     */
     protected virtual void Start()
     {
 
     }
 
+    /**
+     * @fn
+     * 初期化処理(override前提)
+     * @brief 初期化処理
+     */
+    public virtual void Init()
+    {
+
+    }
+
+    /**
+     * @fn
+     * 終了処理(override前提)
+     * @brief 終了処理
+     */
+    public virtual void Uninit()
+    {
+
+    }
     /**
      * @fn
      * 攻撃初期化処理(override前提)

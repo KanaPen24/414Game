@@ -61,6 +61,18 @@ public enum EquipWeaponState
 }
 
 // ================================================
+// PlayerEquipState
+// … プレイヤーの装備状態を管理する列挙体
+// ================================================
+public enum PlayerEquipState
+{
+    NoneEquip, // 装備を外している状態
+    Equip,     // 装備している状態
+
+    MaxPlayerEquipState
+}
+
+// ================================================
 // C_Invincible
 // … 無敵を管理するクラス
 // ================================================
@@ -95,6 +107,7 @@ public class IS_Player : MonoBehaviour
     [SerializeField] private PlayerState             m_PlayerState;      // Playerの状態を管理する
     [SerializeField] private PlayerDir               m_PlayerDir;        // Playerの向きを管理する
     [SerializeField] private EquipWeaponState        m_EquipWeaponState; // 装備武器を管理する
+    [SerializeField] private PlayerEquipState        m_PlayerEquipState; // 装備状態を管理する
 
     public Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したものをvelocityに代入する)
     public bool bInputUp;
@@ -106,7 +119,6 @@ public class IS_Player : MonoBehaviour
     private bool m_bWalkFlg;           // 歩行開始フラグ
     private bool m_bJumpFlg;           // 跳躍開始フラグ
     private bool m_bAttackFlg;         // 攻撃開始フラグ
-    private bool m_bEquip;             // 装備しているかどうか
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
 
     private void Start()
@@ -128,7 +140,6 @@ public class IS_Player : MonoBehaviour
         m_bWalkFlg    = false;
         m_bJumpFlg    = false;
         m_bAttackFlg  = false;
-        m_bEquip      = false;
         bInputUp      = false;
         bInputRight   = false;
         bInputLeft    = false;
@@ -175,8 +186,16 @@ public class IS_Player : MonoBehaviour
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision"))
         {
-            // Playerの武器装備
-            EquipWeapon();
+            if(GetSetPlayerEquipState == PlayerEquipState.Equip)
+            {
+                // 装備解除
+                RemovedWeapon();
+            }
+            else if(GetSetPlayerEquipState == PlayerEquipState.NoneEquip)
+            {
+                // 武器装備
+                EquipWeapon();
+            }
         }
     }
     private void FixedUpdate()
@@ -224,33 +243,56 @@ public class IS_Player : MonoBehaviour
      * @return なし
      * @brief UICatcherに参照している
      */
-     private void EquipWeapon()
+    public void EquipWeapon()
     {
         // UICatcherのイベント中は処理しない
         if (m_UICatcher.GetSetUICatcherState == UICatcherState.None)
         {
             // 装備状態の場合
-            if (m_bEquip)
-            {
-                // 武器をUIにするイベント開始
-                m_UICatcher.StartWeapon2UIEvent();
-
-                // 装備状態をfalseにする
-                m_bEquip = false;
-            }
-            // 装備状態ではない場合
-            else
+            if (GetSetPlayerEquipState == PlayerEquipState.NoneEquip)
             {
                 // UIを武器化する
                 // カーソルがUIに当たっていたら
-                if (m_CursolEvent.GetSetUIExist)
+                if (m_CursolEvent.GetSetCurrentUI != null)
                 {
                     // UIを武器にするイベント開始
                     m_UICatcher.StartUI2WeaponEvent();
 
-                    // 装備状態をtrueにする
-                    m_bEquip = true;
+                    // 装備武器の初期化処理
+                    m_Weapons[(int)GetSetEquipWeaponState].Init();
+
+                    // 装備状態にする
+                    GetSetPlayerEquipState = PlayerEquipState.Equip;
+
+                    Debug.Log("武器装備");
                 }
+            }
+        }
+    }
+    /**
+     * @fn
+     * Playerの武器解除
+     * @return なし
+     * @brief UICatcherに参照している
+     */
+    public void RemovedWeapon()
+    {
+        // UICatcherのイベント中は処理しない
+        if (m_UICatcher.GetSetUICatcherState == UICatcherState.None)
+        {
+            // 装備状態の場合
+            if (GetSetPlayerEquipState == PlayerEquipState.Equip)
+            {
+                // 装備武器の終了処理
+                m_Weapons[(int)GetSetEquipWeaponState].Uninit();
+
+                // 武器をUIにするイベント開始
+                m_UICatcher.StartWeapon2UIEvent();
+
+                // 装備を外す
+                GetSetPlayerEquipState = PlayerEquipState.NoneEquip;
+
+                Debug.Log("武器解除");
             }
         }
     }
@@ -393,6 +435,18 @@ public class IS_Player : MonoBehaviour
     }
 
     /**
+ * @fn
+ * 装備状態のgetter・setter
+ * @return m_PlayerEquipState(PlayerEquipState)
+ * @brief 装備状態を返す・セット
+ */
+    public PlayerEquipState GetSetPlayerEquipState
+    {
+        get { return m_PlayerEquipState; }
+        set { m_PlayerEquipState = value; }
+    }
+
+    /**
      * @fn
      * HPのgetter・setter
      * @return m_nHp(int)
@@ -487,17 +541,5 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_bAttackFlg; }
         set { m_bAttackFlg = value; }
-    }
-
-    /**
-     * @fn
-     * 装備しているかのgetter・setter
-     * @return m_bEquipFlg(bool)
-     * @brief 装備しているかを返す・セット
-     */
-    public bool GetSetEquip
-    {
-        get { return m_bEquip; }
-        set { m_bEquip = value; }
     }
 }

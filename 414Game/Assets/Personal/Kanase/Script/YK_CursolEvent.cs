@@ -16,7 +16,6 @@ public class YK_CursolEvent : MonoBehaviour
     [SerializeField] private IS_Player m_Player; // Player
     [SerializeField] private List<YK_UI> m_Uis;  // ゲーム上にあるUIをすべて格納する
     private YK_UI m_CurrentUI;                   // 現在選択中のUI(カーソルが選択しているUI)
-    private bool m_bUIExist;                     // UIが存在するかどうか
 
     /**
      * @fn
@@ -28,22 +27,6 @@ public class YK_CursolEvent : MonoBehaviour
     {
         // メンバの初期化
         m_CurrentUI = null;
-        m_bUIExist = false;
-    }
-
-    /**
-     * @fn
-     * 更新関数(bool型を返す処理のみ)
-     * @return なし
-     * @brief 更新関数(UIを選択しているかどうかを判別している)
-     */
-    private void Update()
-    {
-        if (m_CurrentUI != null)
-        {
-            m_bUIExist = true;
-        }
-        else m_bUIExist = false;
     }
 
     //　マウスアイコンが自分のアイコン上に入った時
@@ -56,7 +39,7 @@ public class YK_CursolEvent : MonoBehaviour
             {
                 // 予め格納しておく
                 m_CurrentUI = m_Uis[i];
-                Debug.Log(m_CurrentUI.GetSetUIType);
+                //Debug.Log(m_CurrentUI.GetSetUIType);
                 return;
             }
         }
@@ -65,7 +48,7 @@ public class YK_CursolEvent : MonoBehaviour
     void OnTriggerExit2D(Collider2D col)
     {
         m_CurrentUI = null;
-        Debug.Log("UI無");
+        //Debug.Log("UI無");
     }
 
     /**
@@ -78,17 +61,5 @@ public class YK_CursolEvent : MonoBehaviour
     {
         get { return m_CurrentUI; }
         set { m_CurrentUI = value; }
-    }
-
-    /**
-     * @fn
-     * UIが存在するかどうかのgetter・setter
-     * @return m_UIExist(bool)
-     * @brief UIが存在するかどうかを返す・セット
-     */
-    public bool GetSetUIExist
-    {
-        get { return m_bUIExist; }
-        set { m_bUIExist = value; }
     }
 }

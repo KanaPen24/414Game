@@ -65,6 +65,26 @@ public class IS_WeaponHPBar : IS_Weapon
     }
 
     /**
+     * @fn
+     * 初期化処理(override前提)
+     * @brief 初期化処理
+     */
+    public override void Init()
+    {
+
+    }
+
+    /**
+     * @fn
+     * 終了処理(override前提)
+     * @brief 終了処理
+     */
+    public override void Uninit()
+    {
+
+    }
+
+    /**
     * @fn
     * 攻撃初期化処理(override)
     * @brief 攻撃初期化処理

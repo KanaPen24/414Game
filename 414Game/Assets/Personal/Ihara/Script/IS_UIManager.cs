@@ -1,6 +1,6 @@
 ﻿/**
- * @file   IS_WeaponManager.cs
- * @brief  武器とUIの管理クラス
+ * @file   IS_UIManager.cs
+ * @brief  UIの管理クラス
  * @author IharaShota
  * @date   2023/03/17
  * @Update 2023/03/17 作成
@@ -9,16 +9,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IS_WeaponManager : MonoBehaviour
+public class IS_UIManager : MonoBehaviour
 {
-    static public IS_WeaponManager instance;            // インスタンス
-    [SerializeField] private List<IS_Weapon> m_Weapons; // 武器クラスの動的配列 
+    static public IS_UIManager instance;            // インスタンス
+    [SerializeField] private List<YK_UI> m_UIs; // UIクラスの動的配列 
 
     private void Start()
     {
         // インスタンス化する
         //(他のスクリプトから呼び出すためだが、他のシーンには残さない)
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -28,13 +28,13 @@ public class IS_WeaponManager : MonoBehaviour
         }
     }
 
-    public IS_Weapon FindWeapon(IS_Weapon weapon)
+    public YK_UI FindUI(YK_UI ui)
     {
-        for(int i = 0,size = m_Weapons.Count; i < size; ++i)
+        for (int i = 0, size = m_UIs.Count; i < size; ++i)
         {
-            if(weapon == m_Weapons[i])
+            if (ui == m_UIs[i])
             {
-                return m_Weapons[i];
+                return m_UIs[i];
             }
         }
 
