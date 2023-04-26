@@ -50,7 +50,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
-                m_Player.GetAnimator().SetBool("isDrop", true);
+                //m_Player.GetAnimator().SetBool("isDrop", true);
                 m_Player.GetAnimator().SetBool("isWalk", false);
                 return;
             }
@@ -58,7 +58,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             if (m_Player.bInputUp)
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerJump;
-                m_Player.GetAnimator().SetBool("isJump", true);
+                //m_Player.GetAnimator().SetBool("isJump", true);
                 m_Player.GetAnimator().SetBool("isWalk", false);
                 m_Player.GetSetJumpFlg = true;
                 return;
@@ -77,7 +77,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerAttack;
                 m_Player.GetSetAttackFlg = true;
-                m_Player.GetAnimator().SetBool("isAttack", true);
+                //m_Player.GetAnimator().SetBool("isAttack", true);
                 m_Player.GetAnimator().SetBool("isWalk", false);
                 return;
             }
