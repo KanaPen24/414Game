@@ -47,6 +47,7 @@ public class IS_PlayerGroundCollision : MonoBehaviour
         {
             if (Physics.Raycast(ray[i], out hit, m_fRayLength))
             {
+                if(hit.collider.gameObject.tag == "Floor")
                 return true;
             }
         }
