@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Live2D.Cubism.Rendering;
 
 
 // ===============================================
@@ -47,6 +48,19 @@ public class NK_BossSlime : MonoBehaviour
     [SerializeField] private BossSlimeDir m_BossSlimeDir;        // BossSlimeの向きを管理する
     //時を止めるUIをアタッチ
     [SerializeField] private YK_Clock m_Clock;
+    private bool m_DamageFlag;
+    private CubismRenderController renderController;
+    [SerializeField] private float m_InvincibleTime;
+
+    private void Update()
+    {
+        if (m_DamageFlag)
+        {
+            //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
+            float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
+            renderController.Opacity = level;
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -90,8 +104,13 @@ public class NK_BossSlime : MonoBehaviour
         {
             if(m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
             {
-                m_nHP -= 5;
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetHp -= 10;
+                if (!m_DamageFlag)
+                {
+                    m_nHP -= 5;
+                    m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetHp -= 10;
+                    m_DamageFlag = true;
+                    Invoke("InvincibleEnd", m_InvincibleTime);
+                }
             }
         }
 
@@ -137,5 +156,9 @@ public class NK_BossSlime : MonoBehaviour
     {
         get { return m_nMaxHP; }
         set { m_nMaxHP = value; }
+    }
+    private void InvisbleEnd()
+    {
+        m_DamageFlag = false;
     }
 }

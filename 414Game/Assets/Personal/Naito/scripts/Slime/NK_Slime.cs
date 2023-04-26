@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Live2D.Cubism.Rendering;
 
 // ===============================================
 // BossSlimeState
@@ -47,10 +48,21 @@ public class NK_Slime : MonoBehaviour
     [SerializeField] private GameObject m_DieEffect;
     //時を止めるUIをアタッチ
     [SerializeField] private YK_Clock m_Clock;
+    private bool m_DamageFlag;
+    private CubismRenderController renderController;
+    [SerializeField] private float m_InvincibleTime;
+
 
     private void Update()
     {
-        if(GetSetSlimeState == SlimeState.SlimeMove)
+        if (m_DamageFlag)
+        {
+            //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
+            float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
+            renderController.Opacity = level;
+        }
+
+        if (GetSetSlimeState == SlimeState.SlimeMove)
         {
             if(m_Player.transform.position.x > this.gameObject.transform.position.x)
             {
@@ -83,11 +95,13 @@ public class NK_Slime : MonoBehaviour
         }
 
         // 武器だったら
-        if (collision.gameObject.tag == "Weapon")
+        if (collision.gameObject.tag == "Weapon" && !m_DamageFlag)
         {
             Debug.Log("Enemy Damage!!");
             //m_HpBarHP.DelLife(10);
             m_nHP -= 5;
+            m_DamageFlag = true;
+            Invoke("InvincibleEnd", m_InvincibleTime);
         }
 
         // HPが0になったら、このオブジェクトを破壊
@@ -132,5 +146,9 @@ public class NK_Slime : MonoBehaviour
     {
         get { return m_nMaxHP; }
         set { m_nMaxHP = value; }
+    }
+    private void InvisbleEnd()
+    {
+        m_DamageFlag = false;
     }
 }
