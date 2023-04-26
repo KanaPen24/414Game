@@ -57,11 +57,11 @@ public class YK_HPBar : YK_UI
         // 1秒で後X,Y方向を0.5倍に変更
         HP.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 1f);
         // 1秒でテクスチャをフェードアウト
-        FrontFill.DOFade(0f, 1f);
-        BackFill.DOFade(0f, 1f);
-        Crack.DOFade(0f, 1f);
-        Refraction.DOFade(0f, 1f);
-        Frame.DOFade(0f, 1f).OnComplete(() =>
+        FrontFill.DOFade(0f, 0.7f);
+        BackFill.DOFade(0f, 0.7f);
+        Crack.DOFade(0f, 0.7f);
+        Refraction.DOFade(0f, 0.7f);
+        Frame.DOFade(0f, 0.7f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");
