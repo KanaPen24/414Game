@@ -34,7 +34,7 @@ public class IS_PlayerAttack : IS_PlayerStrategy
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
                 m_Player.GetAnimator().SetBool("isWait", true);
-                m_Player.GetAnimator().SetBool("isAttack", false);
+                //m_Player.GetAnimator().SetBool("isAttack", false);
                 return;
             }
             // 「攻撃 → 落下」
@@ -42,8 +42,8 @@ public class IS_PlayerAttack : IS_PlayerStrategy
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
                 m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack = false;
-                m_Player.GetAnimator().SetBool("isDrop", true);
-                m_Player.GetAnimator().SetBool("isAttack", false);
+                ///m_Player.GetAnimator().SetBool("isDrop", true);
+                //m_Player.GetAnimator().SetBool("isAttack", false);
                 return;
             }
         }

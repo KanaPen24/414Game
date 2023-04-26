@@ -16,6 +16,7 @@ public class IS_PlayerDrop : IS_PlayerStrategy
     [SerializeField] private IS_Player m_Player;                          // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
     [SerializeField] private float m_fMovePow;                            // 移動する力
+    [SerializeField] ParticleSystem landingEffect;
 
     private void Update()
     {
@@ -30,17 +31,24 @@ public class IS_PlayerDrop : IS_PlayerStrategy
                 // SE再生
                 IS_AudioManager.instance.PlaySE(SEType.SE_PlayerLanding);
 
+                // エフェクト再生
+                ParticleSystem Effect = Instantiate(landingEffect);
+                Effect.Play();
+                Effect.transform.position = this.transform.position;
+                Effect.transform.localScale = new Vector3(1f, 1f, 1f);
+                Destroy(Effect.gameObject, 1.0f); // 1秒後に消える
+
                 if (m_Player.bInputLeft || m_Player.bInputRight)
                 {
                     m_Player.GetSetPlayerState = PlayerState.PlayerWalk;
                     m_Player.GetAnimator().SetBool("isWalk", true);
-                    m_Player.GetAnimator().SetBool("isDrop", false);
+                    //m_Player.GetAnimator().SetBool("isDrop", false);
                     return;
                 }
 
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
                 m_Player.GetAnimator().SetBool("isWait", true);
-                m_Player.GetAnimator().SetBool("isDrop", false);
+                //m_Player.GetAnimator().SetBool("isDrop", false);
                 return;
             }
         }

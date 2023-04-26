@@ -233,7 +233,6 @@ GameObject:
   - component: {fileID: 2023682396026632277}
   - component: {fileID: 7554499552077215936}
   - component: {fileID: 1376639894546397111}
-  - component: {fileID: 1246670318162235626}
   - component: {fileID: 80574011}
   - component: {fileID: 80574012}
   - component: {fileID: 80574027}
@@ -413,20 +412,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CubismFadeMotionList: {fileID: 11400000, guid: e8f6d2eccce8b2140aa5bd650bb422f9,
     type: 2}
---- !u!114 &1246670318162235626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4719255700450072065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41eb4c5d006b59c4496708c2334088a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_gAttack: {fileID: 697981501627492809, guid: 08c1504dea1c4394c9e346c923159728,
-    type: 3}
 --- !u!54 &80574011
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -490,6 +475,9 @@ MonoBehaviour:
   - {fileID: 80574029}
   m_SlimeState: 0
   m_SlimeDir: 0
+  m_DieEffect: {fileID: 2081907635564936536, guid: 4424c2c298bfb2345bba73411e81288d,
+    type: 3}
+  m_Clock: {fileID: 0}
 --- !u!114 &80574029
 MonoBehaviour:
   m_ObjectHideFlags: 0

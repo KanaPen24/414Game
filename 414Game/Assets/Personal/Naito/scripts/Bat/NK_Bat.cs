@@ -7,6 +7,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Live2D.Cubism.Rendering;
 
 // ===============================================
 // BossBatState
@@ -15,10 +16,11 @@ using UnityEngine;
 // ===============================================
 public enum BatState
 {
-    BatWait,     //待機状態
+    //BatWait,     //待機状態
     BatMove,     //移動状態
     BatSonic,    //超音波攻撃状態
     BatFall,     //急降下攻撃
+    BatUp,       //上昇状態
 
     MaxBatState
 }
@@ -40,17 +42,37 @@ public class NK_Bat : MonoBehaviour
     //敵の体力
     [SerializeField] private int m_nHP;
     [SerializeField] private int m_nMaxHP;//敵の最大体力
-    [SerializeField] private IS_Player m_Player;//プレイヤー
+    [SerializeField] public IS_Player m_BPlayer;//プレイヤー
     //[SerializeField] private IS_GoalEffect goalEffect;//倒されたときに発生するエフェクト
     [SerializeField] private List<NK_BatStrategy> m_BatStrategy; // BossBat挙動クラスの動的配列
     [SerializeField] private BatState m_BatState;      // BossBatの状態を管理する
     [SerializeField] private BatDir m_BatDir;        // BossBatの向きを管理する
+    //時を止めるUIをアタッチ
+    [SerializeField] private YK_Clock m_Clock;
+    private Rigidbody m_Rbody;
+    public Vector3 m_MoveValue;
+    private bool m_DamageFlag;
+    private CubismRenderController renderController;
+    [SerializeField] private float m_InvincibleTime;
+
+    private void Start()
+    {
+        m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
+        m_Rbody = GetComponent<Rigidbody>();
+        m_DamageFlag = false;
+    }
 
     private void Update()
     {
+        if(m_DamageFlag)
+        {
+            //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
+            float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
+            renderController.Opacity = level;
+        }
         if (GetSetBatState == BatState.BatMove)
         {
-            if (m_Player.transform.position.x > this.gameObject.transform.position.x)
+            if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
             {
                 GetSetBatDir = BatDir.Right;
             }
@@ -63,24 +85,32 @@ public class NK_Bat : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(m_Clock.GetSetStopTime)
+        {
+            return;
+        }
         m_BatStrategy[(int)m_BatState].UpdateStrategy();
+
+        m_Rbody.velocity = m_MoveValue;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         // プレイヤーだったら
-        if (collision.gameObject == m_Player.gameObject)
+        if (collision.gameObject == m_BPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
             //m_Player.GetPlayerHp().DelLife(10);
         }
 
         // 武器だったら
-        if (collision.gameObject.tag == "Weapon")
+        if (collision.gameObject.tag == "Weapon" && !m_DamageFlag)
         {
             Debug.Log("Enemy Damage!!");
             //m_HpBarHP.DelLife(10);
             m_nHP -= 5;
+            m_DamageFlag = true;
+            Invoke("InvincibleEnd", m_InvincibleTime);
         }
 
         // HPが0になったら、このオブジェクトを破壊
@@ -124,5 +154,16 @@ public class NK_Bat : MonoBehaviour
     {
         get { return m_nMaxHP; }
         set { m_nMaxHP = value; }
+    }
+
+    public Vector3 GetSetMoveValue
+    {
+        get { return m_MoveValue; }
+        set { m_MoveValue = value; }
+    }
+
+    private void InvisbleEnd()
+    {
+        m_DamageFlag = false;
     }
 }

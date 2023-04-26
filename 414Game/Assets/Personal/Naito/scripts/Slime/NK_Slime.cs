@@ -45,6 +45,8 @@ public class NK_Slime : MonoBehaviour
     [SerializeField] private SlimeDir m_SlimeDir;        // BossSlimeの向きを管理する
     //死亡時エフェクト
     [SerializeField] private GameObject m_DieEffect;
+    //時を止めるUIをアタッチ
+    [SerializeField] private YK_Clock m_Clock;
 
     private void Update()
     {
@@ -63,6 +65,11 @@ public class NK_Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (m_Clock.GetSetStopTime)
+        {
+            return;
+        }
+
         m_SlimeStrategy[(int)m_SlimeState].UpdateStrategy();
     }
 
