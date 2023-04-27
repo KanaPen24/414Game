@@ -15,6 +15,8 @@ public class YK_SkillIcon : YK_UI
 {
     public Image SkillIcon;
     [SerializeField] private int m_nStuck; // 弾数ストック
+    [SerializeField] private Vector3 m_MinScale=new  Vector3(0.5f,0.5f,0.0f); // 最小サイズ
+    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
 
     private void Start()
     {
@@ -57,9 +59,9 @@ public class YK_SkillIcon : YK_UI
     public override void UIFadeOUT()
     {
         // 1秒で後X,Y方向を0.5倍に変更
-        SkillIcon.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 0.5f);
+        SkillIcon.transform.DOScale(m_MinScale, m_fDelTime);
         // 1秒でテクスチャをフェードアウト
-        SkillIcon.DOFade(0f, 0.5f).OnComplete(() =>
+        SkillIcon.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
         });

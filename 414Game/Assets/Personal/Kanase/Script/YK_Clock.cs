@@ -13,11 +13,14 @@ using UnityEngine.UI;
 public class YK_Clock : YK_UI
 {
     public GameObject Second;
+    [SerializeField] private GameObject Object_Clock;
     [SerializeField] private Image Clock;
     [SerializeField] private Image Second_Image;
     [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private YK_Time m_Time;
     [SerializeField] float timerLimit=5;
+    [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
+    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
     float seconds = 0f;
     private int m_nTimeCount = 3;
     private bool m_bStopTime = false;   //時止め時間かどうか
@@ -51,6 +54,9 @@ public class YK_Clock : YK_UI
         m_bStopTime = false;
         m_nTimeCount--;
         m_eFadeState = FadeState.FadeIN;
+        // 1秒で後X,Y方向を元の大きさに変更
+        Object_Clock.transform.DOScale(GetSetScale, 0f);
+        Second.transform.DOScale(GetSetScale, 0f);
         // 1秒でテクスチャをフェードイン
         Clock.DOFade(1f, 0f);
         Second_Image.DOFade(1f, 0f).OnComplete(() =>
@@ -64,9 +70,12 @@ public class YK_Clock : YK_UI
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
+        // 1秒で後X,Y方向を0.5倍に変更
+        Object_Clock.transform.DOScale(m_MinScale, m_fDelTime);
+        Second.transform.DOScale(m_MinScale, m_fDelTime);
         // 1秒でテクスチャをフェードアウト
-        Clock.DOFade(0f, 1f);
-        Second_Image.DOFade(0f, 1f).OnComplete(() =>
+        Clock.DOFade(0f, m_fDelTime);
+        Second_Image.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");

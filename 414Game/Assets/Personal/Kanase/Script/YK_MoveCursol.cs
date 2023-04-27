@@ -86,6 +86,7 @@ public class YK_MoveCursol : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         //Rigidbodyを停止
+        //やらないと離れても磁力が発生し続ける
         rb.velocity = Vector3.zero;
     }
 

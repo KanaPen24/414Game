@@ -15,6 +15,8 @@ public class YK_Next : YK_UI
 {
     [SerializeField] private Image Next;
     [SerializeField] private YK_Hand m_Hand;
+    [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.5f); // 最小サイズ
+    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
     private bool m_bVisibleNext = false;
     // Start is called before the first frame update
     void Start()
@@ -59,9 +61,9 @@ public class YK_Next : YK_UI
     {
         m_eFadeState = FadeState.FadeOUT;
         // 1秒で後X,Y方向を0.5倍に変更
-        Next.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 1f);
+        Next.transform.DOScale(m_MinScale, m_fDelTime);
         // 1秒でテクスチャをフェードアウト
-        Next.DOFade(0f, 1f).OnComplete(() =>
+        Next.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");

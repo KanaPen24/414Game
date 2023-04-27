@@ -20,6 +20,8 @@ public class YK_BossHP : YK_UI
     [SerializeField] private Image BackGround;   //バーの裏のテクスチャ
     [SerializeField] private Image Frame;        //フレーム
     [SerializeField] private YK_Hand m_Hand;
+    [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
+    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
 
     // Use this for initialization
     void Start()
@@ -69,12 +71,12 @@ public class YK_BossHP : YK_UI
     {
         m_eFadeState = FadeState.FadeOUT;
         // 1秒で後X,Y方向を0.5倍に変更
-        BossSlider.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 1f);
+        BossSlider.transform.DOScale(m_MinScale, m_fDelTime);
         // 1秒でテクスチャをフェードアウト
-        FrontFill.DOFade(0f, 1f);
-        Frame.DOFade(0f, 1f);
-        BackFill.DOFade(0f, 1f);
-        BackGround.DOFade(0f, 1f).OnComplete(() =>
+        FrontFill.DOFade(0f, m_fDelTime);
+        Frame.DOFade(0f, m_fDelTime);
+        BackFill.DOFade(0f, m_fDelTime);
+        BackGround.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");
