@@ -16,7 +16,9 @@ public class NK_BossSlime_Summon : NK_BossSlimeStrategy
 
     public override void UpdateStrategy()
     {
+        GameObject childSlimeObj = 
         Instantiate(m_KidsSlime, m_SummonPos.transform.position, Quaternion.identity);
+        childSlimeObj.SetActive(true);
         IS_AudioManager.instance.PlaySE(SEType.SE_SlimeCreate);
         // =========
         // 状態遷移

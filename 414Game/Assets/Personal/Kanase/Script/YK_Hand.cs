@@ -51,7 +51,7 @@ public class YK_Hand : MonoBehaviour
         {
             if (renderController.Opacity > 0.0f)
             {
-                renderController.Opacity -= 0.02f;
+                renderController.Opacity -= 0.05f;
                 if (this.transform.localScale.x > MIN_SCALE)
                     this.transform.localScale -= new Vector3(1.5f, 1.5f);
             }
@@ -62,6 +62,8 @@ public class YK_Hand : MonoBehaviour
     void AnimationStart()
     {
         m_bOpacity = true;
+        //レイヤーをUIの後ろにする
+        renderController.SortingOrder = -1;
     }
 
     //掴む瞬間
@@ -75,9 +77,6 @@ public class YK_Hand : MonoBehaviour
     public void HandPull()
     {
         m_bOpacity = false;
-        //レイヤーをUIの後ろにする
-        renderController.SortingOrder = -1;
-
         // 本来はここでUIを消したい(by:kanase)
         // UIの種類によって
         // 選択したUIのフェードアウト開始

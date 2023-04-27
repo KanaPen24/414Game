@@ -64,9 +64,18 @@ public class IS_Ball : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            if(hit.collider.gameObject.GetComponent<NK_BossSlime>() != null)
+            if(hit.collider.gameObject.GetComponent<NK_BossSlime>() != null &&
+                !hit.collider.gameObject.GetComponent<NK_BossSlime>().GetSetDamageFlag)
             {
-                hit.collider.gameObject.GetComponent<NK_BossSlime>().GetSetHp -= 5;
+                hit.collider.gameObject.GetComponent<NK_BossSlime>().BossSlimeDamage(5);
+                continue;
+            }
+
+            if (hit.collider.gameObject.GetComponent<NK_Slime>() != null &&
+                !hit.collider.gameObject.GetComponent<NK_Slime>().GetSetDamageFlag)
+            {
+                hit.collider.gameObject.GetComponent<NK_Slime>().SlimeDamage(5);
+                continue;
             }
         }
 

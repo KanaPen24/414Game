@@ -28,6 +28,7 @@ public enum SEType
     SE_GameClear,    // ゲームクリアSE
     SE_SlimeCreate,  // スライムを作り出す音
     SE_UICatcher,    // UICatcherのSE
+    SE_DeathSlime,   // Slimeの破壊SE
 
     MAX_SE
 }
