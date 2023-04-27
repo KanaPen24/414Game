@@ -41,7 +41,7 @@ public class NK_BossSlime : MonoBehaviour
     //敵の体力
     [SerializeField] private int m_nHP;
     [SerializeField] private int m_nMaxHP;//敵の最大体力
-    [SerializeField] private IS_Player m_Player;//プレイヤー
+    public IS_Player m_BSPlayer;//プレイヤー
     [SerializeField] private IS_GoalEffect goalEffect;//倒されたときに発生するエフェクト
     [SerializeField] private List<NK_BossSlimeStrategy> m_BossSlimeStrategy; // BossSlime挙動クラスの動的配列
     [SerializeField] private BossSlimeState m_BossSlimeState;      // BossSlimeの状態を管理する
@@ -96,18 +96,18 @@ public class NK_BossSlime : MonoBehaviour
         //}
 
         // プレイヤーだったら
-        if (other.gameObject == m_Player.gameObject)
+        if (other.gameObject == m_BSPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
             //m_Player.GetPlayerHp().DelLife(10);
-            m_Player.Damage(10, 2.0f);
+            m_BSPlayer.Damage(10, 2.0f);
         }
 
         if (other.gameObject.GetComponent<IS_WeaponHPBar>() != null)
         {
-            if(m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+            if(m_BSPlayer.GetWeapons((int)m_BSPlayer.GetSetEquipWeaponState).GetSetAttack)
             {
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetHp -= 10;
+                m_BSPlayer.GetWeapons((int)m_BSPlayer.GetSetEquipWeaponState).GetSetHp -= 10;
                 BossSlimeDamage(5);
             }
         }
