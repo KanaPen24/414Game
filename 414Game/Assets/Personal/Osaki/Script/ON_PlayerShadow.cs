@@ -13,6 +13,7 @@ public class ON_PlayerShadow : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private IS_Player target;  // プレイヤー
     [SerializeField] private GameObject ground; // 地面
+    [SerializeField] private float distance = 0.8f;    // プレイヤーが地面の上に立っているときのプレイヤーと地面との差
     void Start()
     {
         
@@ -22,11 +23,18 @@ public class ON_PlayerShadow : MonoBehaviour
     void Update()
     {
         var state = target.GetSetPlayerState;
-        if (state != PlayerState.PlayerJump && state != PlayerState.PlayerDrop)
+        var pos = target.gameObject.transform.position;
+        switch (state)
         {
-            var pos = target.gameObject.transform.position;
-            pos.z = transform.position.z;
-            transform.position = pos;
+            case PlayerState.PlayerDrop:
+                break;
+            case PlayerState.PlayerJump:
+                break;
+            default:
+                // 地面に立っているとき
+                pos.z = transform.position.z;
+                transform.position = pos;
+                break;
         }
     }
 }
