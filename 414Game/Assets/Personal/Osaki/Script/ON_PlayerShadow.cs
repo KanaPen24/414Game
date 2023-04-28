@@ -13,10 +13,12 @@ public class ON_PlayerShadow : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private IS_Player target;  // プレイヤー
     [SerializeField] private GameObject ground; // 地面
-    [SerializeField] private float distance = 0.8f;    // プレイヤーが地面の上に立っているときのプレイヤーと地面との差
+    [SerializeField] private float onGrounPosY = 0.4f;    // プレイヤーが地面の上に立っているときのY座標
+    [SerializeField] private float radius = 45.0f;  // 影の移動する角度(ディグリース角
+    private Vector3 defaultScale;
     void Start()
     {
-        
+        defaultScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -24,17 +26,23 @@ public class ON_PlayerShadow : MonoBehaviour
     {
         var state = target.GetSetPlayerState;
         var pos = target.gameObject.transform.position;
+        var distance = Mathf.Abs(transform.position.y - onGrounPosY);
         switch (state)
         {
             case PlayerState.PlayerDrop:
+                pos.x += Mathf.Cos(radius * Mathf.Deg2Rad);
+                pos.y =  Mathf.Sin(radius * Mathf.Deg2Rad);
                 break;
             case PlayerState.PlayerJump:
+                pos.y = Mathf.Sin(radius * Mathf.Deg2Rad);
+                pos.x += Mathf.Cos(radius * Mathf.Deg2Rad);
                 break;
             default:
                 // 地面に立っているとき
                 pos.z = transform.position.z;
-                transform.position = pos;
                 break;
         }
+        transform.position = pos;
+        //transform.localScale = defaultScale * Mathf.Lerp(1.0f, 0.5f, distance);
     }
 }
