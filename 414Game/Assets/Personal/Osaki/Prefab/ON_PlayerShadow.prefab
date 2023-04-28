@@ -273,4 +273,4 @@ MonoBehaviour:
   target: {fileID: 0}
   ground: {fileID: 0}
   onGrounPosY: 0.4
-  radius: 45
+  radius: 60

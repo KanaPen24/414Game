@@ -12,10 +12,10 @@ public class ON_PlayerShadow : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private IS_Player target;  // プレイヤー
-    [SerializeField] private GameObject ground; // 地面
     [SerializeField] private float onGrounPosY = 0.4f;    // プレイヤーが地面の上に立っているときのY座標
-    [SerializeField] private float radius = 45.0f;  // 影の移動する角度(ディグリース角
+    [SerializeField] private float degree = 45.0f;  // 影の移動する角度(ディグリース角
     private Vector3 defaultScale;
+    private float maxPosy = 1.0f;   // 最高到達点のy座標
     void Start()
     {
         defaultScale = transform.localScale;
@@ -30,12 +30,12 @@ public class ON_PlayerShadow : MonoBehaviour
         switch (state)
         {
             case PlayerState.PlayerDrop:
-                pos.x += Mathf.Cos(radius * Mathf.Deg2Rad);
-                pos.y =  Mathf.Sin(radius * Mathf.Deg2Rad);
+                pos.x += pos.y * Mathf.Cos(degree * Mathf.Deg2Rad);
+                pos.y *=  Mathf.Sin(degree * Mathf.Deg2Rad);
                 break;
             case PlayerState.PlayerJump:
-                pos.y = Mathf.Sin(radius * Mathf.Deg2Rad);
-                pos.x += Mathf.Cos(radius * Mathf.Deg2Rad);
+                pos.x += pos.y * Mathf.Cos(degree * Mathf.Deg2Rad);
+                pos.y *= Mathf.Sin(degree * Mathf.Deg2Rad);
                 break;
             default:
                 // 地面に立っているとき
@@ -43,6 +43,7 @@ public class ON_PlayerShadow : MonoBehaviour
                 break;
         }
         transform.position = pos;
-        //transform.localScale = defaultScale * Mathf.Lerp(1.0f, 0.5f, distance);
+        var t = Mathf.InverseLerp(onGrounPosY, maxPosy, pos.y);
+        transform.localScale = defaultScale * Mathf.Lerp(1.0f, 0.5f, t);
     }
 }
