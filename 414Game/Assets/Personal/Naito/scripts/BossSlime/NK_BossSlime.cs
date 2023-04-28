@@ -49,77 +49,40 @@ public class NK_BossSlime : MonoBehaviour
     //時を止めるUIをアタッチ
     [SerializeField] private YK_Clock m_Clock;
     private bool m_DamageFlag;
-    private CubismRenderController renderController;
+    [SerializeField] private CubismRenderController renderController;
     [SerializeField] private float m_InvincibleTime;
+    private float m_fViewX;
+    [SerializeField] private YK_Goal goal;
 
     private void Update()
     {
+        m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
         if (m_DamageFlag)
         {
             //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
             float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
             renderController.Opacity = level;
         }
+        else renderController.Opacity = 1f;
     }
 
     private void FixedUpdate()
     {
-        if (m_Clock.GetSetStopTime)
+        if (m_Clock.GetSetStopTime || m_fViewX >= 3)
         {
             return;
         }
         m_BossSlimeStrategy[(int)m_BossSlimeState].UpdateStrategy();
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        //// プレイヤーだったら
-        //if (collision.gameObject == m_Player.gameObject)
-        //{
-        //    Debug.Log("Player Damage!!");
-        //    //m_Player.GetPlayerHp().DelLife(10);
-        //    m_Player.Damage(10,2.0f);
-        //}
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        // 武器だったら
-        //if (other.gameObject.tag == "Weapon")
-        //{
-        //    Debug.Log("Enemy Damage!!");
-        //    //m_HpBarHP.DelLife(10);
-        //    m_nHP -= 5;
-        //}
-
         // プレイヤーだったら
         if (other.gameObject == m_Player.gameObject)
         {
             Debug.Log("Player Damage!!");
             //m_Player.GetPlayerHp().DelLife(10);
             m_Player.Damage(10, 2.0f);
-        }
-
-        if (other.gameObject.GetComponent<IS_WeaponHPBar>() != null)
-        {
-            if(m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
-            {
-                if (!m_DamageFlag)
-                {
-                    m_nHP -= 5;
-                    m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetHp -= 10;
-                    m_DamageFlag = true;
-                    Invoke("InvincibleEnd", m_InvincibleTime);
-                }
-            }
-        }
-
-        // HPが0になったら、紙吹雪エフェクト発生
-        if (m_nHP <= 0)
-        {
-            IS_AudioManager.instance.PlaySE(SEType.SE_GameClear);
-            goalEffect.StartEffect();
-            Destroy(this.gameObject);
         }
     }
 
@@ -157,8 +120,31 @@ public class NK_BossSlime : MonoBehaviour
         get { return m_nMaxHP; }
         set { m_nMaxHP = value; }
     }
-    private void InvisbleEnd()
+    private void InvincibleEnd()
     {
         m_DamageFlag = false;
+    }
+    public bool GetSetDamageFlag
+    {
+        get { return m_DamageFlag; }
+        set { m_DamageFlag = value; }
+    }
+
+    public void BossSlimeDamage(int Damage)
+    {
+        if (!m_DamageFlag)
+        {
+            m_nHP -= Damage;
+            m_DamageFlag = true;
+            Invoke("InvincibleEnd", m_InvincibleTime);
+            // HPが0になったら、紙吹雪エフェクト発生
+            if (m_nHP <= 0)
+            {
+                IS_AudioManager.instance.PlaySE(SEType.SE_GameClear);
+                goalEffect.StartEffect();
+                goal.gameObject.SetActive(true);
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

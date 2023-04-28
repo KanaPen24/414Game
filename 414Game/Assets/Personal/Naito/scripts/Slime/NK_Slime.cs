@@ -45,21 +45,28 @@ public class NK_Slime : MonoBehaviour
     [SerializeField] private SlimeState m_SlimeState;      // BossSlimeの状態を管理する
     [SerializeField] private SlimeDir m_SlimeDir;        // BossSlimeの向きを管理する
     //死亡時エフェクト
-    [SerializeField] private GameObject m_DieEffect;
+    [SerializeField] private ParticleSystem m_DieEffect;
     //時を止めるUIをアタッチ
     [SerializeField] private YK_Clock m_Clock;
     private bool m_DamageFlag;
-    private CubismRenderController renderController;
+    [SerializeField] private CubismRenderController renderController;
     [SerializeField] private float m_InvincibleTime;
-
+    private float m_fViewX;
+    //影をアタッチする
+    [SerializeField] private GameObject Shadow;
 
     private void Update()
     {
+        m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
         if (m_DamageFlag)
         {
             //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
             float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
             renderController.Opacity = level;
+        }
+        else
+        {
+            renderController.Opacity = 1f;
         }
 
         if (GetSetSlimeState == SlimeState.SlimeMove)
@@ -73,11 +80,19 @@ public class NK_Slime : MonoBehaviour
                 GetSetSlimeDir = SlimeDir.Left;
             }
         }
+        if (m_SlimeState == SlimeState.SlimeMove)
+        {
+            Shadow.SetActive(false);
+        }
+        else
+        {
+            Shadow.SetActive(true);
+        }
     }
 
     private void FixedUpdate()
     {
-        if (m_Clock.GetSetStopTime)
+        if (m_Clock.GetSetStopTime || m_fViewX >= 3)
         {
             return;
         }
@@ -85,30 +100,13 @@ public class NK_Slime : MonoBehaviour
         m_SlimeStrategy[(int)m_SlimeState].UpdateStrategy();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         // プレイヤーだったら
-        if (collision.gameObject == m_Player.gameObject)
+        if (other.gameObject == m_Player.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_Player.Damage(10,5.0f);
-        }
-
-        // 武器だったら
-        if (collision.gameObject.tag == "Weapon" && !m_DamageFlag)
-        {
-            Debug.Log("Enemy Damage!!");
-            //m_HpBarHP.DelLife(10);
-            m_nHP -= 5;
-            m_DamageFlag = true;
-            Invoke("InvincibleEnd", m_InvincibleTime);
-        }
-
-        // HPが0になったら、このオブジェクトを破壊
-        if (m_nHP <= 0)
-        {
-            Destroy(this.gameObject);
-            Instantiate(m_DieEffect, this.transform.position, Quaternion.identity);
+            m_Player.Damage(10, 5.0f);
         }
     }
 
@@ -150,5 +148,34 @@ public class NK_Slime : MonoBehaviour
     private void InvisbleEnd()
     {
         m_DamageFlag = false;
+    }
+
+    public bool GetSetDamageFlag
+    {
+        get { return m_DamageFlag; }
+        set { m_DamageFlag = value; }
+    }
+
+    public void SlimeDamage(int Damage)
+    {
+        if (!m_DamageFlag)
+        {
+            m_nHP -= Damage;
+            m_DamageFlag = true;
+            Invoke("InvisbleEnd", m_InvincibleTime);
+            // HPが0になったら、このオブジェクトを破壊
+            if (m_nHP <= 0)
+            {
+                // SE再生
+                IS_AudioManager.instance.PlaySE(SEType.SE_DeathSlime);
+                // エフェクト再生
+                ParticleSystem Effect = Instantiate(m_DieEffect);
+                Effect.Play();
+                Effect.transform.position = this.transform.position;
+                Destroy(Effect.gameObject, 2.0f);
+
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

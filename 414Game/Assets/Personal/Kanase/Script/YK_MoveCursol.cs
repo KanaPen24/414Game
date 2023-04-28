@@ -31,7 +31,8 @@ public class YK_MoveCursol : MonoBehaviour
     //エフェクト用のオブジェクト
     [SerializeField]
     private GameObject Effect;
-
+    //リジットボディ
+    Rigidbody2D rb;
 
     void Start()
     {
@@ -40,6 +41,8 @@ public class YK_MoveCursol : MonoBehaviour
         offset = new Vector2(rect.sizeDelta.x / 2f, rect.sizeDelta.y / 2f);
         // 初期値を設定
         m_fPos = rect.anchoredPosition;
+        //Rigidbodyを取得
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -78,7 +81,13 @@ public class YK_MoveCursol : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        this.transform.position = collision.transform.position;
+      //  this.transform.position = collision.transform.position;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //Rigidbodyを停止
+        //やらないと離れても磁力が発生し続ける
+        rb.velocity = Vector3.zero;
     }
 
 }
