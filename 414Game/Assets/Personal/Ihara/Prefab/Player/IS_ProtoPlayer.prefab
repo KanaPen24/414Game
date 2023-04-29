@@ -216,6 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_animator: {fileID: 8065445533399838127}
   m_Rigidbody: {fileID: 7160487676030067650}
+  m_PlayerMesh: {fileID: 0}
   m_CursolEvent: {fileID: 0}
   m_UICatcher: {fileID: 0}
   m_PlayerStrategys:
@@ -336,7 +337,7 @@ MonoBehaviour:
   m_RayPoints:
   - {fileID: 7160487674152967977}
   - {fileID: 4464189845088996141}
-  m_fRayLength: 0.5
+  m_fRayLength: 0.6
 --- !u!1001 &11961054168640992
 PrefabInstance:
   m_ObjectHideFlags: 0

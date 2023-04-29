@@ -25,11 +25,12 @@ using UnityEngine;
 // ===============================================
 public enum PlayerState
 {
-    PlayerWait,   // 待ち状態
-    PlayerWalk,   // 移動状態
-    PlayerJump,   // 跳躍状態
-    PlayerDrop,   // 落下状態
-    PlayerAttack, // 攻撃状態
+    PlayerWait,       // 待ち状態
+    PlayerWalk,       // 移動状態
+    PlayerJump,       // 跳躍状態
+    PlayerDrop,       // 落下状態
+    PlayerAttack,     // 攻撃状態
+    PlayerJumpAttack, // 跳躍攻撃状態
 
     MaxPlayerState
 }
@@ -80,6 +81,8 @@ public class C_Invincible
 {
     private bool m_bInvincible;     // 無敵フラグ
     private float m_fInvincibleCnt; // 無敵時間
+    public float m_fmeshCnt;
+    public float m_fMaxMeshCnt;
 
     public bool GetSetInvincible
     {
@@ -97,6 +100,7 @@ public class IS_Player : MonoBehaviour
 {
     [SerializeField] private Animator                m_animator;         // Playerのアニメーション
     [SerializeField] private Rigidbody               m_Rigidbody;        // PlayerのRigidBody
+    [SerializeField] private SkinnedMeshRenderer     m_PlayerMesh;       // Playerのメッシュ
     [SerializeField] private YK_CursolEvent          m_CursolEvent;      // カーソルイベントの情報
     [SerializeField] private YK_UICatcher            m_UICatcher;        // UIキャッチャー
     [SerializeField] private List<IS_PlayerStrategy> m_PlayerStrategys;  // Player挙動クラスの動的配列
@@ -149,6 +153,8 @@ public class IS_Player : MonoBehaviour
         m_Invincible = new C_Invincible();
         m_Invincible.GetSetInvincible = false;
         m_Invincible.GetSetInvincibleCnt = 0f;
+        m_Invincible.m_fMaxMeshCnt = 0.05f;
+        m_Invincible.m_fmeshCnt = 0f;
     }
 
     // Update is called once per frame
@@ -186,11 +192,13 @@ public class IS_Player : MonoBehaviour
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision"))
         {
+            // 装備していたら…
             if(GetSetPlayerEquipState == PlayerEquipState.Equip)
             {
                 // 装備解除
                 RemovedWeapon();
             }
+            // 装備していなかったら…
             else if(GetSetPlayerEquipState == PlayerEquipState.NoneEquip)
             {
                 // 武器装備
@@ -200,6 +208,10 @@ public class IS_Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        //// ゲームがプレイ中以外は更新しない
+        //if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+        //    return;
+
         // Playerの状態によって更新処理
         m_PlayerStrategys[(int)GetSetPlayerState].UpdateStrategy();
 
@@ -331,6 +343,9 @@ public class IS_Player : MonoBehaviour
         // 無敵カウントが0以下だった場合…
         if(m_Invincible.GetSetInvincibleCnt <= 0f)
         {
+            // メッシュを表示
+            m_PlayerMesh.enabled = true;
+
             // 無敵状態を解除,無敵カウントを0にする
             m_Invincible.GetSetInvincible = false;
             m_Invincible.GetSetInvincibleCnt = 0f;
@@ -342,6 +357,17 @@ public class IS_Player : MonoBehaviour
             m_Invincible.GetSetInvincible = true;
             m_Invincible.GetSetInvincibleCnt 
                 = m_Invincible.GetSetInvincibleCnt - Time.deltaTime;
+
+            // メッシュカウントを秒数加算
+            m_Invincible.m_fmeshCnt += Time.deltaTime;
+
+            // メッシュカウントが最大値を超えたら…
+            if (m_Invincible.m_fmeshCnt >= m_Invincible.m_fMaxMeshCnt)
+            {
+                // メッシュ表示の切り替え,メッシュカウントをリセット
+                m_PlayerMesh.enabled = !m_PlayerMesh.enabled;
+                m_Invincible.m_fmeshCnt = 0f;
+            }
         }
     }
 

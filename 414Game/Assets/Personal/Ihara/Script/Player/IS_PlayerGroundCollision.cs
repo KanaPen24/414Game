@@ -14,6 +14,15 @@ public class IS_PlayerGroundCollision : MonoBehaviour
 {
     [SerializeField] private GameObject[] m_RayPoints; // Rayを飛ばす始点(4つ)
     [SerializeField] private float m_fRayLength;       // Rayの長さ
+                                                       // Rayの初期化
+    private Ray[] ray;
+    //Rayが当たったオブジェクトの情報を入れる箱
+    private RaycastHit hit;
+
+    private void Awake()
+    {
+        ray = new Ray[m_RayPoints.Length];
+    }
 
     /**
      * @fn
@@ -23,32 +32,19 @@ public class IS_PlayerGroundCollision : MonoBehaviour
      */
     public bool IsGroundCollision()
     {
-        // =========================================== 
-        // 変数宣言 
-        // ===========================================
-
-        // Rayの初期化
-        Ray[] ray = new Ray[m_RayPoints.Length];
-        //Rayが当たったオブジェクトの情報を入れる箱
-        RaycastHit hit;
-
-        // ===========================================
-
         // Rayの数だけ生成する
         for (int i = 0; i < m_RayPoints.Length; ++i)
         {
             //Rayの作成　　　　　　　↓Rayを飛ばす原点　　　↓Rayを飛ばす方向
             ray[i] = new Ray(m_RayPoints[i].transform.position, Vector3.down);
             Debug.DrawRay(m_RayPoints[i].transform.position, Vector3.down, Color.red, m_fRayLength);
-        }
 
-        // 地面との当たり判定(一回でも通ればtrue)
-        for (int i = 0; i < m_RayPoints.Length; i++)
-        {
+            // 地面との当たり判定(一回でも通ればtrue)
             if (Physics.Raycast(ray[i], out hit, m_fRayLength))
             {
-                if(hit.collider.gameObject.tag == "Floor")
-                return true;
+           
+                if (hit.collider.gameObject.tag == "Floor")
+                    return true;
             }
         }
         return false;
