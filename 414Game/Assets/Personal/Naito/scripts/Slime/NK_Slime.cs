@@ -106,7 +106,7 @@ public class NK_Slime : MonoBehaviour
         if (other.gameObject == m_Player.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_Player.Damage(10, 5.0f);
+            m_Player.Damage(10, 1.5f);
         }
     }
 
