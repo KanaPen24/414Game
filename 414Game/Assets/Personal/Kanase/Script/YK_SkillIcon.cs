@@ -13,7 +13,8 @@ using DG.Tweening;
 
 public class YK_SkillIcon : YK_UI
 {
-    public Image SkillIcon;
+    [SerializeField] private Image SkillIcon;
+    [SerializeField] private Image OutLine;      //アウトライン
     [SerializeField] private int m_nStuck; // 弾数ストック
     [SerializeField] private Vector3 m_MinScale=new  Vector3(0.5f,0.5f,0.0f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
@@ -22,7 +23,7 @@ public class YK_SkillIcon : YK_UI
     {
         m_eUIType = UIType.SkillIcon;   //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
-
+        OutLine.enabled = false;
         //座標取得
         GetSetPos = SkillIcon.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
@@ -71,6 +72,17 @@ public class YK_SkillIcon : YK_UI
     {
         get { return m_nStuck; }
         set { m_nStuck = value; }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Cursol")
+        {
+            OutLine.enabled = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        OutLine.enabled = false;
     }
 
 }

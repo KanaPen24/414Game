@@ -17,7 +17,8 @@ public class YK_HPBar : YK_UI
     [SerializeField] private Image BackFill;     //後ろのバーの表面のテクスチャ
     [SerializeField] private Image Frame;        //フレーム
     [SerializeField] private Image Crack;        //ヒビの画像
-    [SerializeField] private Image Refraction;        //反射光
+    [SerializeField] private Image Refraction;   //反射光
+    [SerializeField] private Image OutLine;      //アウトライン
     [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
@@ -28,6 +29,7 @@ public class YK_HPBar : YK_UI
         m_eUIType = UIType.HPBar;   //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
         GetSetVisible = false;
+        OutLine.enabled = false;
         //UIが動くようならUpdateにかかなかん
         GetSetPos = HP.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
@@ -68,5 +70,16 @@ public class YK_HPBar : YK_UI
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");
         });
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Cursol")
+        {
+            OutLine.enabled = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+            OutLine.enabled = false;   
     }
 }
