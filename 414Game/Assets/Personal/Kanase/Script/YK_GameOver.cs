@@ -25,7 +25,7 @@ public class YK_GameOver : MonoBehaviour
         {
             Debug.Log("Gameover");
             //Time.timeScale = 0.0f;
-            //GameOver.SetActive(true);
+            GameOver.SetActive(true);
         }
     }
 }
