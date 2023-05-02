@@ -47,6 +47,7 @@ public class YK_HPBar : YK_UI
         BackFill.DOFade(1f, 0f);
         Crack.DOFade(1f, 0f);
         Refraction.DOFade(1f, 0f);
+        OutLine.DOFade(1f, 0f);
         Frame.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
@@ -65,6 +66,7 @@ public class YK_HPBar : YK_UI
         BackFill.DOFade(0f, m_fDelTime);
         Crack.DOFade(0f, m_fDelTime);
         Refraction.DOFade(0f, m_fDelTime);
+        OutLine.DOFade(0f, m_fDelTime);
         Frame.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;

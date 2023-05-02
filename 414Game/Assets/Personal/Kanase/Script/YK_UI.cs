@@ -19,6 +19,8 @@ public enum UIType
     BossBar,    // Bossバー
     Next,       // Next
     Clock,      // 時計
+    Retry,      // リトライ
+    TitleBack,  // タイトルへ戻る
 
     MaxUIType
 }
