@@ -51,6 +51,7 @@ public class YK_SkillIcon : YK_UI
         // 0秒で後X,Y方向を元の大きさに変更
         SkillIcon.transform.DOScale(GetSetScale, 0f);
         // 0秒でテクスチャをフェードイン
+        OutLine.DOFade(1f, 0f);
         SkillIcon.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
@@ -62,6 +63,7 @@ public class YK_SkillIcon : YK_UI
         // 1秒で後X,Y方向を0.5倍に変更
         SkillIcon.transform.DOScale(m_MinScale, m_fDelTime);
         // 1秒でテクスチャをフェードアウト
+        OutLine.DOFade(0f, m_fDelTime);
         SkillIcon.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
