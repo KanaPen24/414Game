@@ -64,7 +64,6 @@ public class YK_UICatcher : MonoBehaviour
         {
             BlackHolePL.transform.position = Player.transform.position + new Vector3(0.5f, 1.0f, 0.0f);
         }
-        if (CursolEvent.GetSetCurrentUI.GetSetUIType == UIType.Retry || CursolEvent.GetSetCurrentUI.GetSetUIType == UIType.TitleBack) BlackHolePL.SetActive(false);
     }
 
     // 1. 再生
@@ -79,7 +78,10 @@ public class YK_UICatcher : MonoBehaviour
             particleUI.Play();
             particlePL.Play();
             BlackHoleUI.SetActive(true);
-            BlackHolePL.SetActive(true);
+            //プレイヤー側に表示するUIを設定
+            if (CursolEvent.GetSetCurrentUI.GetSetUIType == UIType.Retry || CursolEvent.GetSetCurrentUI.GetSetUIType == UIType.TitleBack)
+                BlackHolePL.SetActive(false);
+            else BlackHolePL.SetActive(true);
             PortalObjUI.SetActive(true);
             PortalObjPL.SetActive(true);
             m_bParticleFlg = true;
