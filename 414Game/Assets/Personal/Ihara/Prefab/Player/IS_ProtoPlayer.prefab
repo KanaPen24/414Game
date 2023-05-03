@@ -216,7 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_animator: {fileID: 8065445533399838127}
   m_Rigidbody: {fileID: 7160487676030067650}
-  m_PlayerMesh: {fileID: 0}
+  m_PlayerMesh: {fileID: 5815112870425348705}
   m_CursolEvent: {fileID: 0}
   m_UICatcher: {fileID: 0}
   m_PlayerStrategys:
@@ -841,6 +841,12 @@ Animator:
 --- !u!4 &4069430245913048819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: aac8117cdbc32d04f92a4c00fad6e688,
+    type: 3}
+  m_PrefabInstance: {fileID: 4608093098086355224}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5815112870425348705 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1206874426333947015, guid: aac8117cdbc32d04f92a4c00fad6e688,
     type: 3}
   m_PrefabInstance: {fileID: 4608093098086355224}
   m_PrefabAsset: {fileID: 0}

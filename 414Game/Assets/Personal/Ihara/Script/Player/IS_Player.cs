@@ -208,9 +208,11 @@ public class IS_Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //// ゲームがプレイ中以外は更新しない
-        //if (GameManager.instance.GetSetGameState != GameState.GamePlay)
-        //    return;
+        m_Rigidbody.velocity = new Vector3(0f, 0f, 0f);
+
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
 
         // Playerの状態によって更新処理
         m_PlayerStrategys[(int)GetSetPlayerState].UpdateStrategy();

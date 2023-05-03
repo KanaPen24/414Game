@@ -41,8 +41,7 @@ public class IS_PlayerGroundCollision : MonoBehaviour
 
             // 地面との当たり判定(一回でも通ればtrue)
             if (Physics.Raycast(ray[i], out hit, m_fRayLength))
-            {
-           
+            {          
                 if (hit.collider.gameObject.tag == "Floor")
                     return true;
             }
