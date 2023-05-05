@@ -17,30 +17,58 @@ public class YK_Crack : MonoBehaviour
     [SerializeField] private Sprite Crack_Nor;
     [SerializeField] private Sprite Crack_Max;
     [SerializeField] private IS_WeaponHPBar weaponHpBar;
+
+    private bool m_bCrackMinFlag;
+    private bool m_bCrackNorFlag;
+    private bool m_bCrackMaxFlag;
     // Start is called before the first frame update
     void Start()
     {
         image = this.GetComponent<Image>();
         color = this.GetComponent<Image>().color;
         color.a = 0.0f;
+
+        m_bCrackMinFlag = false;
+        m_bCrackNorFlag = false;
+        m_bCrackMaxFlag = false;
     }
 
     // Update is called once per frame
     private void Update()
     {
+        CheckHP();
+    }
+
+    private void CheckHP()
+    {
         // ※ここで画像の切替を行う
         if (weaponHpBar.GetSetHp <= 25)
         {
+            if(!m_bCrackMaxFlag)
+            {
+                IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_2);
+                m_bCrackMaxFlag = true;
+            }
             image.sprite = Crack_Max;
             return;
         }
         else if (weaponHpBar.GetSetHp <= 50)
         {
+            if (!m_bCrackNorFlag)
+            {
+                IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_1);
+                m_bCrackNorFlag = true;
+            }
             image.sprite = Crack_Nor;
             return;
         }
         else if (weaponHpBar.GetSetHp <= 75)
         {
+            if (!m_bCrackMinFlag)
+            {
+                IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_1);
+                m_bCrackMinFlag = true;
+            }
             image.sprite = Crack_Min;
             color.a = 1.0f;
             return;

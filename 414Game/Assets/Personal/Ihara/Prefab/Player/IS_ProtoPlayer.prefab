@@ -235,7 +235,7 @@ MonoBehaviour:
   m_nMaxHp: 100
   m_fGravity: -0.7
   m_PlayerState: 0
-  m_PlayerDir: 0
+  m_PlayerDir: 1
   m_EquipWeaponState: 0
   m_PlayerEquipState: 0
   m_vMoveAmount: {x: 0, y: 0, z: 0}
