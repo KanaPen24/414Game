@@ -30,7 +30,7 @@ public enum PlayerState
     PlayerJump,       // 跳躍状態
     PlayerDrop,       // 落下状態
     PlayerAttack,     // 攻撃状態
-    PlayerJumpAttack, // 跳躍攻撃状態
+    //PlayerJumpAttack, // 跳躍攻撃状態
 
     MaxPlayerState
 }
@@ -54,9 +54,10 @@ public enum PlayerDir
 // ================================================
 public enum EquipWeaponState
 {
-    PlayerHpBar,  // HPバー
-    PlayerSkillIcon,   // Ball
-    PlayerBossBar,// Bossバー
+    PlayerHpBar,     // HPバー
+    PlayerSkillIcon, // Ball
+    PlayerBossBar,   // Bossバー
+    PlayerClock,     // 時計
 
     MaxEquipWeaponState
 }

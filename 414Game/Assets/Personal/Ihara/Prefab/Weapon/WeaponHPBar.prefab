@@ -143,12 +143,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75099a64ee3d9714e8bc36b2278685bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_eWeaponType: 0
+  m_eWeaponAttackType: 0
+  m_bAttack: 0
   m_bVisible: 0
+  m_bDestroy: 0
   m_nHp: 0
   m_nMaxHp: 0
   m_Player: {fileID: 0}
   m_CapsuleCollider: {fileID: 4046765456409590388}
   m_MeshRender: {fileID: 4046765455223214263}
   fAttackRate: 0.05
-  vRotAmount: {x: 0, y: 0, z: -45}
+  vRotAmount: {x: 0, y: 0, z: 75}
   vRotOrigin: {x: 0, y: 0, z: 0}

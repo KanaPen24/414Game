@@ -21,7 +21,7 @@ public class YK_HPBar : YK_UI
     [SerializeField] private Image OutLine;      //アウトライン
     [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
+    [SerializeField] private float m_fDelTime = 0.4f; // 減算していく時間
 
     // Start is called before the first frame update
     void Start()
@@ -51,7 +51,7 @@ public class YK_HPBar : YK_UI
         Frame.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
-            m_Hand.HandPull();
+            //m_Hand.HandPull();
             Debug.Log("FadeIN終了");
         });
     }

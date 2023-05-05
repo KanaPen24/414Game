@@ -749,7 +749,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.15
+      value: 0.05
       mode: 0
       spread: 0
       speed:
@@ -1089,7 +1089,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 1
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1104,8 +1104,8 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.13688019
-          value: 0.6631592
+          time: 0.13214234
+          value: 0.95789415
           inSlope: 0.05087788
           outSlope: 0.05087788
           tangentMode: 0
@@ -1391,7 +1391,7 @@ ParticleSystem:
         ctime7: 0
         atime0: 0
         atime1: 3277
-        atime2: 38743
+        atime2: 24672
         atime3: 65535
         atime4: 0
         atime5: 0
@@ -3872,7 +3872,7 @@ ParticleSystem:
     primitives: []
   SubModule:
     serializedVersion: 2
-    enabled: 1
+    enabled: 0
     subEmitters:
     - serializedVersion: 3
       emitter: {fileID: 0}

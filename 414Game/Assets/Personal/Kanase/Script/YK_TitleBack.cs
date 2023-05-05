@@ -46,7 +46,6 @@ public class YK_TitleBack : YK_UI
         TitleBack.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
-            m_Hand.HandPull();
             Debug.Log("FadeIN終了");
         });
     }
@@ -80,6 +79,7 @@ public class YK_TitleBack : YK_UI
         //トランジションを掛けてシーン遷移する
         fade.FadeIn(1f, () =>
         {
+            IS_AudioManager.instance.StopBGM(BGMType.BGM_GAMEOVER);
             SceneManager.LoadScene("TitleScene");
         });
     }
