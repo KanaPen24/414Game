@@ -42,6 +42,7 @@ public enum BGMType
     BGM_Title, // タイトルBGM
     BGM_Game,  // ゲームBGM
     BGM_END,   // エンドBGM
+    BGM_GAMEOVER,// ゲームオーバーBGM
 
     MAX_BGM
 }
