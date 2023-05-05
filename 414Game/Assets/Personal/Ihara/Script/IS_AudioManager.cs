@@ -32,6 +32,8 @@ public enum SEType
     SE_DeathSlime,   // Slimeの破壊SE
     SE_HPBarCrack_1, // HPBarのヒビ1SE
     SE_HPBarCrack_2, // HPBarのヒビ2SE
+    SE_StopTime,     // 時止め中の音
+    SE_StopTime_Return, // 時止め中の解除音
 
     MAX_SE
 }
