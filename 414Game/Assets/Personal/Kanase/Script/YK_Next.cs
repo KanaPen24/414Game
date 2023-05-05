@@ -52,8 +52,7 @@ public class YK_Next : YK_UI
         Next.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
-            m_Hand.HandPull();
-            Debug.Log("FadeIN終了");
+            m_Hand.HandPull();        
         });
     }
 
@@ -66,7 +65,6 @@ public class YK_Next : YK_UI
         Next.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
-            Debug.Log("FadeOUT終了");
         });
     }
     /**
