@@ -19,11 +19,12 @@ public class YK_Clock : YK_UI
     [SerializeField] private YK_Time m_Time;
     [SerializeField] float timerLimit=5;
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
+    [SerializeField] private float m_fDelTime = 0.3f; // 減算していく時間
     private Vector3 Second_Scale;
     float seconds = 0f;
     private int m_nTimeCount = 3;
     private bool m_bStopTime = false;   //時止め時間かどうか
+    private bool m_bOnce = true;
 
     void Start()
     {
@@ -46,15 +47,20 @@ public class YK_Clock : YK_UI
         //　　　引数は_updateTimer()のtimerの値
        // UpdateClock(_updateTimer());
         Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360 + (float)dt.Millisecond / 60 / 1000 * -360) * 10);
-        if (m_bStopTime)
+        if (m_bStopTime && m_bOnce)
+        {
+            m_bOnce = false;
             //StopTimeReleaseを5秒後に呼び出す
             Invoke(nameof(StopTimeRelease), 5.0f);
+        }
     }
 
     public void StopTimeRelease()
     {
         m_bStopTime = false;
+        m_bOnce = true;
         m_nTimeCount--;
+        UIFadeIN();
         Debug.Log("元戻る");
     }
     public override void UIFadeIN()
@@ -68,7 +74,6 @@ public class YK_Clock : YK_UI
         Second_Image.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
-            m_Hand.HandPull();
             Debug.Log("FadeIN終了");
         });
     }
@@ -78,7 +83,7 @@ public class YK_Clock : YK_UI
         m_eFadeState = FadeState.FadeOUT;
         // 1秒で後X,Y方向を0.5倍に変更
         this.gameObject.transform.DOScale(m_MinScale, m_fDelTime);
-        Second.transform.DOScale(m_MinScale, m_fDelTime);
+        Second.transform.DOScale(Second_Scale-m_MinScale, m_fDelTime);
         // 1秒でテクスチャをフェードアウト
         Clock.DOFade(0f, m_fDelTime);
         Second_Image.DOFade(0f, m_fDelTime).OnComplete(() =>
