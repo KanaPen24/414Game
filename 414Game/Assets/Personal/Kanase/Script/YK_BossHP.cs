@@ -61,8 +61,7 @@ public class YK_BossHP : YK_UI
         BackFill.DOFade(1f, 0f);
         BackGround.DOFade(1f, 0f).OnComplete(() =>
         {
-            GetSetFadeState = FadeState.FadeNone;
-            m_Hand.HandPull();
+            GetSetFadeState = FadeState.FadeNone;            
             Debug.Log("FadeIN終了");
         });
     }
