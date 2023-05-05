@@ -29,6 +29,8 @@ public enum SEType
     SE_SlimeCreate,  // スライムを作り出す音
     SE_UICatcher,    // UICatcherのSE
     SE_DeathSlime,   // Slimeの破壊SE
+    SE_HPBarCrack_1, // HPBarのヒビ1SE
+    SE_HPBarCrack_2, // HPBarのヒビ2SE
 
     MAX_SE
 }
