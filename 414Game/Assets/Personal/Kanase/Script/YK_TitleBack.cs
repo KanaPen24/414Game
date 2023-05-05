@@ -79,6 +79,7 @@ public class YK_TitleBack : YK_UI
         //トランジションを掛けてシーン遷移する
         fade.FadeIn(1f, () =>
         {
+            IS_AudioManager.instance.StopBGM(BGMType.BGM_GAMEOVER);
             SceneManager.LoadScene("TitleScene");
         });
     }
