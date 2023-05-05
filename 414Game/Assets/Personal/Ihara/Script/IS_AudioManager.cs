@@ -22,6 +22,7 @@ public enum SEType
     SE_FireSkillIcon,// SkillIconの攻撃SE
     SE_HitHPBar,     // HPBarのヒットSE
     SE_HitSkillIcon, // SkillIconのヒットSE
+    SE_Charge,       // 溜めSE
     SE_ChargeLevel_1,// 溜め段階1のSE
     SE_ChargeLevel_2,// 溜め段階2のSE
     SE_ChargeLevel_3,// 溜め段階3のSE
@@ -141,6 +142,25 @@ public class IS_AudioManager : MonoBehaviour
             if (BGMSources[i].m_BGMType == bgmType)
             {
                 BGMSources[i].m_BGMData.Play();
+                return;
+            }
+        }
+    }
+
+    /**
+     * @fn
+     * SEストップ
+     * @param seType … SEの種類
+     * @brief  SEの種類を指定してストップ
+     * @detail SEとseTypeの数があっていることが前提
+     */
+    public void StopSE(SEType seType)
+    {
+        for (int i = 0, size = SESources.Count; i < size; ++i)
+        {
+            if (SESources[i].m_SEType == seType)
+            {
+                SESources[i].m_SEData.Stop();
                 return;
             }
         }
