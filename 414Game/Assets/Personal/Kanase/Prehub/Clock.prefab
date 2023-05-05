@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 1151276593295795304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.66412, y: 0.66412, z: 0.66412}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1539096692395765557}
@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Hand: {fileID: 0}
   m_Time: {fileID: 0}
   timerLimit: 5
+  m_MinScale: {x: 0.5, y: 0.5, z: 0}
+  m_fDelTime: 0.5
 --- !u!1 &9196277598209261415
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +125,7 @@ RectTransform:
   m_GameObject: {fileID: 9196277598209261415}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03656201, y: 0.41625, z: 1}
+  m_LocalScale: {x: 0.04, y: 0.45, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6875857647874545202}

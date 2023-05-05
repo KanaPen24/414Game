@@ -20,6 +20,7 @@ public class YK_Clock : YK_UI
     [SerializeField] float timerLimit=5;
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
+    private Vector3 Second_Scale;
     float seconds = 0f;
     private int m_nTimeCount = 3;
     private bool m_bStopTime = false;   //時止め時間かどうか
@@ -32,6 +33,7 @@ public class YK_Clock : YK_UI
         GetSetPos = Clock.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
         GetSetScale = Clock.transform.localScale;
+        Second_Scale = Second.transform.localScale;
         
     }
 
@@ -45,17 +47,22 @@ public class YK_Clock : YK_UI
        // UpdateClock(_updateTimer());
         Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360 + (float)dt.Millisecond / 60 / 1000 * -360) * 10);
         if (m_bStopTime)
-            //StopTimeFalseを5秒後に呼び出す
-            Invoke(nameof(UIFadeIN), 5.0f);
+            //StopTimeReleaseを5秒後に呼び出す
+            Invoke(nameof(StopTimeRelease), 5.0f);
     }
-    public override void UIFadeIN()
+
+    public void StopTimeRelease()
     {
         m_bStopTime = false;
         m_nTimeCount--;
+        Debug.Log("元戻る");
+    }
+    public override void UIFadeIN()
+    {
         m_eFadeState = FadeState.FadeIN;
         // 1秒で後X,Y方向を元の大きさに変更
         this.gameObject.transform.DOScale(GetSetScale, 0f);
-        Second.transform.DOScale(GetSetScale, 0f);
+        Second.transform.DOScale(Second_Scale, 0f);
         // 1秒でテクスチャをフェードイン
         Clock.DOFade(1f, 0f);
         Second_Image.DOFade(1f, 0f).OnComplete(() =>
