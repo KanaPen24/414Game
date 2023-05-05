@@ -16,7 +16,7 @@ public class IS_PlayerJumpAttack : IS_PlayerStrategy
 
     private void Update()
     {
-        if (m_Player.GetSetPlayerState == PlayerState.PlayerJumpAttack)
+        //if (m_Player.GetSetPlayerState == PlayerState.PlayerJumpAttack)
         {
             // 攻撃開始時の処理
             if (m_Player.GetSetAttackFlg)

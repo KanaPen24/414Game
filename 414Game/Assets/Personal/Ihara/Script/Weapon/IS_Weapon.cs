@@ -20,6 +20,7 @@ public enum WeaponType
     HPBar,     // HPバー
     SkillIcon, // スキルアイコン
     BossBar,   // Bossバー
+    Clock,     // 時計
 
     MaxWeaponType
 }

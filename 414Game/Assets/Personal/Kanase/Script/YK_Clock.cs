@@ -13,7 +13,6 @@ using UnityEngine.UI;
 public class YK_Clock : YK_UI
 {
     public GameObject Second;
-    [SerializeField] private GameObject Object_Clock;
     [SerializeField] private Image Clock;
     [SerializeField] private Image Second_Image;
     [SerializeField] private YK_Hand m_Hand;
@@ -55,7 +54,7 @@ public class YK_Clock : YK_UI
         m_nTimeCount--;
         m_eFadeState = FadeState.FadeIN;
         // 1秒で後X,Y方向を元の大きさに変更
-        Object_Clock.transform.DOScale(GetSetScale, 0f);
+        this.gameObject.transform.DOScale(GetSetScale, 0f);
         Second.transform.DOScale(GetSetScale, 0f);
         // 1秒でテクスチャをフェードイン
         Clock.DOFade(1f, 0f);
@@ -71,7 +70,7 @@ public class YK_Clock : YK_UI
     {
         m_eFadeState = FadeState.FadeOUT;
         // 1秒で後X,Y方向を0.5倍に変更
-        Object_Clock.transform.DOScale(m_MinScale, m_fDelTime);
+        this.gameObject.transform.DOScale(m_MinScale, m_fDelTime);
         Second.transform.DOScale(m_MinScale, m_fDelTime);
         // 1秒でテクスチャをフェードアウト
         Clock.DOFade(0f, m_fDelTime);
@@ -80,7 +79,6 @@ public class YK_Clock : YK_UI
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");
         });
-        m_bStopTime = true;
     }
 
     //使用回数を回復する
