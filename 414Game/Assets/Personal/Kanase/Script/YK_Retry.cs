@@ -46,7 +46,6 @@ public class YK_Retry : YK_UI
         Retry.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
-            m_Hand.HandPull();
             Debug.Log("FadeIN終了");
         });
     }

@@ -51,8 +51,7 @@ public class YK_Next : YK_UI
         // 1秒でテクスチャをフェードイン
         Next.DOFade(1f, 0f).OnComplete(() =>
         {
-            GetSetFadeState = FadeState.FadeNone;
-            m_Hand.HandPull();        
+            GetSetFadeState = FadeState.FadeNone;     
         });
     }
 
