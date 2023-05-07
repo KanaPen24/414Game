@@ -13,9 +13,10 @@ using UnityEngine.UI;
 public class YK_Clock : YK_UI
 {
     public GameObject Second;
-    [SerializeField] private Image Clock;
-    [SerializeField] private Image Clock_Inner;
-    [SerializeField] private Image Second_Image;
+    [SerializeField] private Image Clock;           //時計本体
+    [SerializeField] private Image Clock_Inner;     //時計の赤い部分
+    [SerializeField] private Image Second_Image;    //時計の針
+    [SerializeField] private Image OutLine;         //アウトライン
     [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private YK_Time m_Time;
     [SerializeField] private IS_Player Player;
@@ -33,6 +34,7 @@ public class YK_Clock : YK_UI
     {
         m_eUIType = UIType. Clock; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
+        OutLine.enabled = false;
         //UIが動くようならUpdateにかかなかん
         GetSetPos = Clock.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
@@ -82,6 +84,7 @@ public class YK_Clock : YK_UI
         // 1秒でテクスチャをフェードイン
         Clock.DOFade(1f, 0f);
         Clock_Inner.DOFade(1f, 0f);
+        OutLine.DOFade(1f, 0f);
         Second_Image.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
@@ -98,6 +101,7 @@ public class YK_Clock : YK_UI
         // 1秒でテクスチャをフェードアウト
         Clock.DOFade(0f, m_fDelTime);
         Clock_Inner.DOFade(0f, m_fDelTime);
+        OutLine.DOFade(0f, m_fDelTime);
         Second_Image.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
@@ -134,4 +138,16 @@ public class YK_Clock : YK_UI
         get { return m_nTimeCount; }
         set { m_nTimeCount = value; }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Cursol")
+        {
+            OutLine.enabled = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        OutLine.enabled = false;
+    }
+
 }
