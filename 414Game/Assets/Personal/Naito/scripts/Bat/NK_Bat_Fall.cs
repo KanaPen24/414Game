@@ -23,7 +23,7 @@ public class NK_Bat_Fall : NK_BatStrategy
     {
         if(this.gameObject.transform.position.y>m_FloorPos.y)
         {
-            m_Rbody.AddForce(transform.up * m_FoolPow);
+            m_Rbody.AddForce(transform.up * -m_FoolPow);
         }
         else
         {
