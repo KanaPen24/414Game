@@ -20,6 +20,10 @@ public class IS_PlayerWait : IS_PlayerStrategy
     {
         if(m_Player.GetSetPlayerState == PlayerState.PlayerWait)
         {
+            // 反動があれば
+            if (m_Player.GetSetReactionFlg)
+                return;
+
             // =========
             // 状態遷移
             // =========

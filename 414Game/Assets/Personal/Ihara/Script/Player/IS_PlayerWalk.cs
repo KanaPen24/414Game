@@ -54,6 +54,22 @@ public class IS_PlayerWalk : IS_PlayerStrategy
                 m_Player.GetAnimator().SetBool("isWalk", false);
                 return;
             }
+            // 「移動 → 待機」①
+            if (m_Player.GetSetReactionFlg)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                m_Player.GetAnimator().SetBool("isWait", true);
+                m_Player.GetAnimator().SetBool("isWalk", false);
+                return;
+            }
+            // 「移動 → 待機」②
+            if (!m_Player.bInputRight && !m_Player.bInputLeft)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                m_Player.GetAnimator().SetBool("isWait", true);
+                m_Player.GetAnimator().SetBool("isWalk", false);
+                return;
+            }
             // 「移動 → 跳躍」
             if (m_Player.bInputUp)
             {
@@ -61,14 +77,6 @@ public class IS_PlayerWalk : IS_PlayerStrategy
                 //m_Player.GetAnimator().SetBool("isJump", true);
                 m_Player.GetAnimator().SetBool("isWalk", false);
                 m_Player.GetSetJumpFlg = true;
-                return;
-            }
-            // 「移動 → 待機」
-            if (!m_Player.bInputRight && !m_Player.bInputLeft)
-            {
-                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
-                m_Player.GetAnimator().SetBool("isWait", true);
-                m_Player.GetAnimator().SetBool("isWalk", false);
                 return;
             }
             // 「移動 → 攻撃」
