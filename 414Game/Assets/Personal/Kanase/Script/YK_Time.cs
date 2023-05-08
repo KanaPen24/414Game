@@ -56,7 +56,7 @@ public class YK_Time : MonoBehaviour
     /**
   * @fn
   * 表示非表示のgetter・setter
-  * @return m_nTimeLimit(int)
+  * @return m_nNowTime(int)
   * @brief 制限時間を返す・セット
   */
     public int GetSetNowTime

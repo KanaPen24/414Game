@@ -48,6 +48,10 @@ public class IS_Ball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Playerと武器だったらスルーする
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Weapon")
+            return;
+
         // SE再生
         IS_AudioManager.instance.PlaySE(SEType.SE_HitSkillIcon);
         // エフェクト再生

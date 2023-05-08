@@ -56,9 +56,17 @@ public class YK_MoveCursol : MonoBehaviour
         //　移動先を計算
         var pos = rect.anchoredPosition + new Vector2(Input.GetAxis("HorizontalR") * m_fIconSpeed, Input.GetAxis("VerticalR") * -m_fIconSpeed) * Time.deltaTime;
 
-        //　カーソルが画面外に出ないようにする
-        pos.x = Mathf.Clamp(pos.x, -Screen.width * 0.5f + offset.x, Screen.width * 0.5f - offset.x);
-        pos.y = Mathf.Clamp(pos.y, -Screen.height * 0.5f + offset.y, Screen.height * 0.5f - offset.y);
+        //　カーソルが画面内でループ
+        //X座標
+        if (pos.x >= Screen.width / 2)
+            pos.x = -Screen.width / 2;
+       else if (pos.x <= -Screen.width / 2)
+            pos.x = Screen.width / 2;
+        //Y座標
+        if (pos.y >= Screen.height / 2)
+            pos.y = -Screen.height / 2;
+        else if (pos.y <= -Screen.height / 2)
+            pos.y = Screen.height / 2;
         //　位置を設定
         rect.anchoredPosition = pos;
         m_fPos = pos;
@@ -78,14 +86,9 @@ public class YK_MoveCursol : MonoBehaviour
         
         Effect.GetComponent<RectTransform>().anchoredPosition = pos;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-      //  this.transform.position = collision.transform.position;
-    }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //Rigidbodyを停止
+        //Rigidbodyを0にする
         //やらないと離れても磁力が発生し続ける
         rb.velocity = Vector3.zero;
     }

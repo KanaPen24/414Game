@@ -36,6 +36,7 @@ public class YK_UICatcher : MonoBehaviour
     private bool m_bParticleFlg;                        //パーティクルエフェクト用のフラグ
     private UICatcherState m_UICatcherState;            // UICatcherの状態
     private YK_UI m_SelectUI;                           // 選択中のUI(現在武器化しているUI)
+    
 
     // Start is called before the first frame update
     void Start()
@@ -77,7 +78,10 @@ public class YK_UICatcher : MonoBehaviour
             particleUI.Play();
             particlePL.Play();
             BlackHoleUI.SetActive(true);
-            BlackHolePL.SetActive(true);
+            //プレイヤー側に表示するUIを設定
+            if (CursolEvent.GetSetCurrentUI.GetSetUIType == UIType.Retry || CursolEvent.GetSetCurrentUI.GetSetUIType == UIType.TitleBack)
+                BlackHolePL.SetActive(false);
+            else BlackHolePL.SetActive(true);
             PortalObjUI.SetActive(true);
             PortalObjPL.SetActive(true);
             m_bParticleFlg = true;

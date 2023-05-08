@@ -864,9 +864,9 @@ GameObject:
   - component: {fileID: 1217551707}
   - component: {fileID: 1217551708}
   - component: {fileID: 1217551724}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NK_BossSlime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_nHP: 10
   m_nMaxHP: 10
-  m_BSPlayer: {fileID: 0}
+  m_Player: {fileID: 0}
   goalEffect: {fileID: 5579063421521300113}
   m_BossSlimeStrategy:
   - {fileID: 1217551724}
@@ -1149,6 +1149,7 @@ MonoBehaviour:
   m_Clock: {fileID: 0}
   renderController: {fileID: 1699356676891749584}
   m_InvincibleTime: 3
+  goal: {fileID: 0}
 --- !u!114 &1217551724
 MonoBehaviour:
   m_ObjectHideFlags: 0

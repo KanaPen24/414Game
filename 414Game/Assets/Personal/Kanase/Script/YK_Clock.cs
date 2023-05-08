@@ -13,56 +13,81 @@ using UnityEngine.UI;
 public class YK_Clock : YK_UI
 {
     public GameObject Second;
-    [SerializeField] private GameObject Object_Clock;
-    [SerializeField] private Image Clock;
-    [SerializeField] private Image Second_Image;
+    [SerializeField] private Image Clock;           //時計本体
+    [SerializeField] private Image Clock_Inner;     //時計の赤い部分
+    [SerializeField] private Image Second_Image;    //時計の針
+    [SerializeField] private Image OutLine;         //アウトライン
     [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private YK_Time m_Time;
+    [SerializeField] private IS_Player Player;
     [SerializeField] float timerLimit=5;
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
+    [SerializeField] private float m_fDelTime = 0.3f; // 減算していく時間
+    [SerializeField] YK_Time Time; // 時間
+    private Vector3 Second_Scale;
     float seconds = 0f;
     private int m_nTimeCount = 3;
     private bool m_bStopTime = false;   //時止め時間かどうか
+    private bool m_bOnce = true;
 
     void Start()
     {
         m_eUIType = UIType. Clock; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
+        OutLine.enabled = false;
         //UIが動くようならUpdateにかかなかん
         GetSetPos = Clock.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
         GetSetScale = Clock.transform.localScale;
+        Second_Scale = Second.transform.localScale;
         
     }
 
 
     void Update()
-    {
-        DateTime dt = DateTime.Now;
+    {        
+        Second.transform.eulerAngles = new Vector3(0, 0, (Time.GetSetNowTime/200.0f)*360.0f);
+        if (m_bStopTime && m_bOnce)
+        {
+            m_bOnce = false;
+            Invoke(nameof(StopTimeSE), 3.0f);
+            //StopTimeReleaseを5秒後に呼び出す
+            Invoke(nameof(StopTimeRelease), 5.0f);
+        }
+    }
 
-        //変更　ClockのUpdateClock関数を呼び出す
-        //　　　引数は_updateTimer()のtimerの値
-       // UpdateClock(_updateTimer());
-        Second.transform.eulerAngles = new Vector3(0, 0, ((float)dt.Second / 60 * -360 + (float)dt.Millisecond / 60 / 1000 * -360) * 10);
-        if (m_bStopTime)
-            //StopTimeFalseを5秒後に呼び出す
-            Invoke(nameof(UIFadeIN), 5.0f);
+    public void StopTimeSE()
+    {
+        // SE再生
+        IS_AudioManager.instance.PlaySE(SEType.SE_StopTime_Return);
+    }
+
+    public void StopTimeRelease()
+    {
+        // SE停止
+        IS_AudioManager.instance.StopSE(SEType.SE_StopTime);
+        m_bStopTime = false;
+        m_bOnce = true;
+        m_nTimeCount--;
+        UIFadeIN();
+        // BGM再生
+        IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).UnPause();
+        Player.RemovedWeapon();
+        Debug.Log("元戻る");
     }
     public override void UIFadeIN()
     {
-        m_bStopTime = false;
-        m_nTimeCount--;
         m_eFadeState = FadeState.FadeIN;
         // 1秒で後X,Y方向を元の大きさに変更
-        Object_Clock.transform.DOScale(GetSetScale, 0f);
-        Second.transform.DOScale(GetSetScale, 0f);
+        this.gameObject.transform.DOScale(GetSetScale, 0f);
+        Second.transform.DOScale(Second_Scale, 0f);
         // 1秒でテクスチャをフェードイン
         Clock.DOFade(1f, 0f);
+        Clock_Inner.DOFade(1f, 0f);
+        OutLine.DOFade(1f, 0f);
         Second_Image.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
-            m_Hand.HandPull();
             Debug.Log("FadeIN終了");
         });
     }
@@ -71,16 +96,17 @@ public class YK_Clock : YK_UI
     {
         m_eFadeState = FadeState.FadeOUT;
         // 1秒で後X,Y方向を0.5倍に変更
-        Object_Clock.transform.DOScale(m_MinScale, m_fDelTime);
-        Second.transform.DOScale(m_MinScale, m_fDelTime);
+        this.gameObject.transform.DOScale(m_MinScale, m_fDelTime);
+        Second.transform.DOScale(Second_Scale-m_MinScale, m_fDelTime);
         // 1秒でテクスチャをフェードアウト
         Clock.DOFade(0f, m_fDelTime);
+        Clock_Inner.DOFade(0f, m_fDelTime);
+        OutLine.DOFade(0f, m_fDelTime);
         Second_Image.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");
         });
-        m_bStopTime = true;
     }
 
     //使用回数を回復する
@@ -88,22 +114,6 @@ public class YK_Clock : YK_UI
     {
         if (m_nTimeCount > 3) 
         m_nTimeCount += Heal;
-    }
-
-    //fillAmountの値を変更する関数（ClockTimerから呼ばれる）
-    public void UpdateClock(float second)
-    {
-        //受け取ったfloat型の値を代入する
-        Clock.fillAmount = second;
-    }
-
-    float _updateTimer()
-    {
-        seconds += Time.deltaTime;
-        float timer = seconds / timerLimit;
-
-        //追加　float型のtimerを返す
-        return timer;
     }
 
     /**
@@ -128,4 +138,16 @@ public class YK_Clock : YK_UI
         get { return m_nTimeCount; }
         set { m_nTimeCount = value; }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Cursol")
+        {
+            OutLine.enabled = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        OutLine.enabled = false;
+    }
+
 }

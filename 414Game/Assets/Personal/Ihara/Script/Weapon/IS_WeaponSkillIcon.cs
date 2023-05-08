@@ -4,6 +4,7 @@
  * @author IharaShota
  * @date   2023/03/18
  * @Update 2023/03/18 作成
+ * @Update 2023/05/05 エフェクト実装
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
 
     [SerializeField] private IS_Player Player;          // Player    
     [SerializeField] private IS_Ball m_Ball;            // 生成Ball
+    [SerializeField] private ParticleSystem m_ChargeEffect; // 溜めエフェクト
     [SerializeField] private YK_UICatcher m_UICatcher;  // UIキャッチャー
     [SerializeField] private MeshRenderer m_MeshRender; // メッシュ
     [SerializeField] private float m_fMaxPow;           // 最大攻撃速度
@@ -68,6 +70,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
      */
     protected override void Start()
     {
+        m_ChargeEffect.Stop();
         // 現在の状態に更新
         m_nCnt = Convert.ToInt32(m_bVisible);
 
@@ -141,6 +144,9 @@ public class IS_WeaponSkillIcon : IS_Weapon
     public override void StartAttack()
     {
         GetSetAttack = true; // 攻撃ON
+        IS_AudioManager.instance.PlaySE(SEType.SE_Charge);
+        m_ChargeEffect.Play();
+        m_ChargeEffect.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     /**
@@ -154,9 +160,11 @@ public class IS_WeaponSkillIcon : IS_Weapon
         m_ChargeLevel = ChargeLevel.ChargeLevel_0; // 溜め段階を0にする
         m_fCurrentPow = 0f;
         m_fCurrentChargeTime = 0f;
+        m_ChargeEffect.Stop();
+        IS_AudioManager.instance.StopSE(SEType.SE_Charge);
 
         // 攻撃終了時に弾数が0だったら
-        if(m_nHp <= 0)
+        if (m_nHp <= 0)
         {
             // 装備解除する
             Player.RemovedWeapon();
@@ -191,6 +199,15 @@ public class IS_WeaponSkillIcon : IS_Weapon
         {
             Player.m_vMoveAmount.x -= m_fPlayerMovePow;
             Player.GetSetPlayerDir = PlayerDir.Left;
+        }
+
+        if(Player.GetSetPlayerDir == PlayerDir.Right)
+        {
+            m_ChargeEffect.transform.position = Player.transform.position + new Vector3(0.5f, 1.1f, 0f);
+        }
+        else if (Player.GetSetPlayerDir == PlayerDir.Left)
+        {
+            m_ChargeEffect.transform.position = Player.transform.position + new Vector3(-0.5f, 1.1f, 0f);
         }
     }
 
@@ -249,6 +266,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
             {
                 m_ChargeLevel = ChargeLevel.ChargeLevel_3;
                 IS_AudioManager.instance.PlaySE(SEType.SE_ChargeLevel_3);
+                IS_AudioManager.instance.StopSE(SEType.SE_Charge);
             }
 
             return;

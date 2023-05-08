@@ -17,8 +17,10 @@ public enum UIType
     HPBar,      // HPバー
     SkillIcon,  // スキルアイコン
     BossBar,    // Bossバー
-    Next,       // Next
     Clock,      // 時計
+    Next,       // Next
+    Retry,      // リトライ
+    TitleBack,  // タイトルへ戻る
 
     MaxUIType
 }
