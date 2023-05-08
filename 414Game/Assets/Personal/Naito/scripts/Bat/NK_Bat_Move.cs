@@ -9,6 +9,7 @@ public class NK_Bat_Move : NK_BatStrategy
     private float m_fCnt;
     //動き出すまでの時間
     [SerializeField] private float m_fMoveCnt;
+    private int m_Rand;
 
     public void Update()
     {
@@ -16,7 +17,15 @@ public class NK_Bat_Move : NK_BatStrategy
         if(m_fCnt > m_fMoveCnt)
         {
             m_fCnt = 0.0f;
-            
+            m_Rand = Random.Range(1, 4);
+            if(m_Rand <= 1)
+            {
+                m_Bat.GetSetBatState = BatState.BatFall;
+            }
+            else
+            {
+                m_Bat.GetSetBatState = BatState.BatSonic;
+            }
         }
     }
     public override void UpdateStrategy()
