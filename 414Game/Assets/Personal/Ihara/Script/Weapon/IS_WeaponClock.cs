@@ -15,7 +15,6 @@ public class IS_WeaponClock : IS_Weapon
     [SerializeField] private IS_Player Player;
     [SerializeField] private MeshRenderer m_MeshRender;        // メッシュ
     [SerializeField] private YK_Clock clock;
-    [SerializeField] private float m_fPlayerMovePow;
     private int m_nCnt;
 
     /**
@@ -104,23 +103,7 @@ public class IS_WeaponClock : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        // 右向き
-        if (Player.bInputRight)
-        {
-            Player.m_vMoveAmount.x += m_fPlayerMovePow;
-            Player.GetSetPlayerDir = PlayerDir.Right;
-        }
-        // 左向き
-        if (Player.bInputLeft)
-        {
-            Player.m_vMoveAmount.x -= m_fPlayerMovePow;
-            Player.GetSetPlayerDir = PlayerDir.Left;
-        }
-
-        if (!clock.GetSetStopTime)
-        {
-            FinAttack();
-        }
+        FinAttack();
     }
 
     /**

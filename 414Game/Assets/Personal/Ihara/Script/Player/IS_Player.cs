@@ -13,6 +13,7 @@
  * @Update 2023/03/20 武器チェンジ処理(仮)追加
  * @Update 2023/04/12 向き更新関数を追加
  * @Update 2023/04/21 無敵処理追加
+ * @Update 2023/05/08 反動フラグ追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -124,6 +125,7 @@ public class IS_Player : MonoBehaviour
     private bool m_bWalkFlg;           // 歩行開始フラグ
     private bool m_bJumpFlg;           // 跳躍開始フラグ
     private bool m_bAttackFlg;         // 攻撃開始フラグ
+    private bool m_bReactionFlg;       // 反動フラグ
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
 
     private void Start()
@@ -145,6 +147,7 @@ public class IS_Player : MonoBehaviour
         m_bWalkFlg    = false;
         m_bJumpFlg    = false;
         m_bAttackFlg  = false;
+        m_bReactionFlg = false;
         bInputUp      = false;
         bInputRight   = false;
         bInputLeft    = false;
@@ -570,5 +573,17 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_bAttackFlg; }
         set { m_bAttackFlg = value; }
+    }
+
+    /**
+     * @fn
+     * 反動フラグのgetter・setter
+     * @return m_bReactionFlg(bool)
+     * @brief 反動フラグを返す・セット
+     */
+    public bool GetSetReactionFlg
+    {
+        get { return m_bReactionFlg; }
+        set { m_bReactionFlg = value; }
     }
 }
