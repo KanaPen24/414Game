@@ -268,7 +268,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
                 IS_AudioManager.instance.PlaySE(SEType.SE_ChargeLevel_3);
                 IS_AudioManager.instance.StopSE(SEType.SE_Charge);
             }
-
             return;
         }
 
