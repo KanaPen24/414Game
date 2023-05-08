@@ -16,7 +16,7 @@ using Live2D.Cubism.Rendering;
 // ===============================================
 public enum BatState
 {
-    //BatWait,     //待機状態
+    BatWait,     //待機状態
     BatMove,     //移動状態
     BatSonic,    //超音波攻撃状態
     BatFall,     //急降下攻撃
