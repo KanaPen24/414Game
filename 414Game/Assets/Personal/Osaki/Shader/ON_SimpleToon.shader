@@ -2,7 +2,8 @@ Shader "Custom/ON_SimpleToon"
 {
 	Properties
 	{
-		_MainTex("Texture", 2D) = "white" {}
+		[HideInInspector] _MainTex("Texture", 2D) = "white" {}
+		_BaseColor("BaseColor", Color) = (1.0, 1.0, 1.0, 0)
 		_ShadowColor("Shadow Color", Color) = (.5, .5, .5, 0)
 		_LightColor("Light Color", Color) = (1.0, 1.0, 1.0, 0)
 		_ShadeToony("ShadeToony", Range(.0, 1.0)) = 0.9
@@ -50,6 +51,7 @@ Shader "Custom/ON_SimpleToon"
 
 		CBUFFER_START(UnityPerMaterial)
 		float4 _MainTex_ST;
+		float4 _BaseColor;
 		half4 _ShadowColor;
 		half4 _LightColor;
 		half _ShadeToony;
@@ -71,7 +73,8 @@ Shader "Custom/ON_SimpleToon"
 		{
 			// sample the texture
 			float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
-			
+			col = _BaseColor;
+
 			//diff
 			Light light = GetMainLight();
 			float t = dot(normalize(i.normal), normalize(light.direction));
