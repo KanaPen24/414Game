@@ -5,6 +5,7 @@
  * @date   2023/03/18
  * @Update 2023/03/18 作成
  * @Update 2023/05/05 エフェクト実装
+ * @Update 2023/05/08 反動時間実装
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -32,12 +33,14 @@ public class IS_WeaponSkillIcon : IS_Weapon
     [SerializeField] private float m_fMinPow;           // 最小攻撃速度
     [SerializeField] private float m_fMaxChargeTime;    // 最大溜め時間
     [SerializeField] private float m_fPlayerMovePow;    // プレイヤーの移動量
+    [SerializeField] private float m_fMaxReactionTime;  // 最大反動時間
     [SerializeField] private ChargeLevel m_ChargeLevel; // 溜め段階を管理する
 
     private int   m_nCnt;               // 表示確認用
     private bool  m_bChargeFlg;         // 溜めフラグ
     private float m_fCurrentChargeTime; // 現在の溜め時間
     private float m_fCurrentPow;        // 現在の力
+    private float m_fReactionTime;      // 反動時間         
     private YK_SkillIcon m_YKSkillIcon;
 
     /**
@@ -96,6 +99,18 @@ public class IS_WeaponSkillIcon : IS_Weapon
 
         // 現在の状態に更新
         m_nCnt = Convert.ToInt32(m_bVisible);
+
+        // 反動時間があれば
+        if (m_fReactionTime > 0f)
+        {
+            m_fReactionTime -= Time.deltaTime;
+            Player.GetSetReactionFlg = true;
+        }
+        else
+        {
+            m_fReactionTime = 0f;
+            Player.GetSetReactionFlg = false;
+        }
     }
 
     /**
@@ -201,6 +216,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
             Player.GetSetPlayerDir = PlayerDir.Left;
         }
 
+        // 溜めエフェクトの位置更新
         if(Player.GetSetPlayerDir == PlayerDir.Right)
         {
             m_ChargeEffect.transform.position = Player.transform.position + new Vector3(0.5f, 1.1f, 0f);
@@ -314,6 +330,9 @@ public class IS_WeaponSkillIcon : IS_Weapon
 
             // 弾数を減らす
             m_nHp--;
+
+            // 反動時間付与
+            m_fReactionTime = m_fMaxReactionTime;
 
             // 攻撃終了
             FinAttack();
