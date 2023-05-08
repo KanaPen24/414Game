@@ -8,12 +8,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class IS_WeaponClock : IS_Weapon
 {
     [SerializeField] private IS_Player Player;
+    [SerializeField] private MeshRenderer m_MeshRender;        // メッシュ
     [SerializeField] private YK_Clock clock;
     [SerializeField] private float m_fPlayerMovePow;
+    private int m_nCnt;
+
     /**
      * @fn
      * 初期化処理(override前提)
@@ -35,8 +39,19 @@ public class IS_WeaponClock : IS_Weapon
      */
     protected override void Start()
     {
-    }
+        // 現在の状態に更新
+        m_nCnt = Convert.ToInt32(m_bVisible);
 
+        // 表示更新
+        UpdateVisible();
+    }
+    private void Update()
+    {
+        UpdateVisible();
+
+        // 現在の状態に更新
+        m_nCnt = Convert.ToInt32(m_bVisible);
+    }
     /**
      * @fn
      * 初期化処理(override前提)
@@ -44,7 +59,7 @@ public class IS_WeaponClock : IS_Weapon
      */
     public override void Init()
     {
-
+       
     }
 
     /**
@@ -64,6 +79,9 @@ public class IS_WeaponClock : IS_Weapon
     */
     public override void StartAttack()
     {
+        // SE再生
+        IS_AudioManager.instance.PlaySE(SEType.SE_StopTime);
+        IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).Pause();
         // 攻撃ON
         GetSetAttack = true;
         clock.GetSetStopTime = true;
@@ -112,5 +130,15 @@ public class IS_WeaponClock : IS_Weapon
      */
     public override void UpdateVisible()
     {
+        // 表示状態だったら
+        if (m_bVisible)
+        {
+            m_MeshRender.enabled = true;
+        }
+        // 非表示状態だったら
+        else
+        {
+            m_MeshRender.enabled = false;
+        }
     }
 }
