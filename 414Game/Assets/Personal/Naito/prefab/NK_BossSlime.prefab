@@ -864,6 +864,7 @@ GameObject:
   - component: {fileID: 1217551707}
   - component: {fileID: 1217551708}
   - component: {fileID: 1217551724}
+  - component: {fileID: -6233271288789688086}
   m_Layer: 7
   m_Name: NK_BossSlime
   m_TagString: Enemy
@@ -1166,3 +1167,17 @@ MonoBehaviour:
   m_fAttackTime: 5
   m_fAttackRange: 5
   m_Player: {fileID: 0}
+--- !u!114 &-6233271288789688086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427985959625675572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef51d0405fdafc478096ffc22c9c5e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageUI: {fileID: 1589118213952898113, guid: b685cb64ab74a4947b9fdcbcf93524f1,
+    type: 3}
