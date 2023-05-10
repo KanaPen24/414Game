@@ -2589,6 +2589,7 @@ GameObject:
   - component: {fileID: 8723935414491051533}
   - component: {fileID: 4843499608263077420}
   - component: {fileID: 5460154008040524519}
+  - component: {fileID: 5594442932299360017}
   m_Layer: 5
   m_Name: TImer
   m_TagString: Untagged
@@ -2673,6 +2674,21 @@ MonoBehaviour:
   m_nTimeLimit: 200
   timerText: {fileID: 4843499608263077420}
   Clock: {fileID: 8823388500288985867}
+--- !u!114 &5594442932299360017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7437500975867974754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7585921151530874857
 GameObject:
   m_ObjectHideFlags: 0
@@ -4077,6 +4093,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1760798992062702860}
     m_Modifications:
+    - target: {fileID: 2929193501686533518, guid: c0035f25da450fe46b1471d5853bf0db,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929193501686533518, guid: c0035f25da450fe46b1471d5853bf0db,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.12652367
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929193501686533518, guid: c0035f25da450fe46b1471d5853bf0db,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.31476152
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929193501686533518, guid: c0035f25da450fe46b1471d5853bf0db,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929193501686533518, guid: c0035f25da450fe46b1471d5853bf0db,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -8.7732
+      objectReference: {fileID: 0}
     - target: {fileID: 3604931699140249299, guid: c0035f25da450fe46b1471d5853bf0db,
         type: 3}
       propertyPath: m_Name
