@@ -14,19 +14,7 @@ public class ON_TimePostEffect : MonoBehaviour
         _volume = GetComponent<Volume>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.X))
-        {
-            ChangeTimePostEffect(true);
-        }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            ChangeTimePostEffect(false);
-        }
-    }
-
+  
     public void ChangeTimePostEffect(bool flg)
     {
         if(_volume.profile.TryGet<ON_TimeEffectVolume>(out timeeffect))
