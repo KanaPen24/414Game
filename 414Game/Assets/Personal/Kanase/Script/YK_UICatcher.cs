@@ -138,7 +138,8 @@ public class YK_UICatcher : MonoBehaviour
         ParticlePlay(); // エフェクト再生
 
         IS_AudioManager.instance.PlaySE(SEType.SE_UICatcher);
-
+        if (GameObject.Find("DamageCanvas(Clone)"))
+            m_Uis[11] = GameObject.Find("DamageCanvas(Clone)").GetComponent<YK_DamageUI>();
         // 選択したUIを探す
         for (int i = 0,size = m_Uis.Count; i < size;++i)
         {
