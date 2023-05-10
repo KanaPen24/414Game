@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/**
+ * @file YK_DamageUI.cs
+ * @brief 敵のダメージを表記
+ * @author 吉田叶聖
+ * @date 2023/05/02
+ */
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using DG.Tweening;

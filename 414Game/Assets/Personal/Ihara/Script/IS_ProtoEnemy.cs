@@ -12,7 +12,7 @@ using UnityEngine;
 public class IS_ProtoEnemy : MonoBehaviour
 {
     [SerializeField] private IS_Player m_Player;  // Player
-    [SerializeField] private YK_HPBerHP m_HpBarHP;// HPBarのHP
+    //[SerializeField] private YK_HPBerHP m_HpBarHP;// HPBarのHP
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -22,7 +22,7 @@ public class IS_ProtoEnemy : MonoBehaviour
             if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
             {
                 Debug.Log("Enemy Damage!!");
-                m_HpBarHP.DelLife(10);
+                //m_HpBarHP.DelLife(10);
                 //m_Player.GetPlayerHp().AddLife(5);
             }
         }
@@ -41,7 +41,7 @@ public class IS_ProtoEnemy : MonoBehaviour
         if (collision.gameObject.tag == "Weapon")
         {
             Debug.Log("Enemy Damage!!");
-            m_HpBarHP.DelLife(10);
+         //   m_HpBarHP.DelLife(10);
         }
     }
 }
