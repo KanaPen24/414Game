@@ -24,6 +24,7 @@ public class YK_Clock : YK_UI
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.3f; // 減算していく時間
     [SerializeField] YK_Time Time; // 時間
+    [SerializeField] ON_TimePostEffect PostEffect; // 時間
     private Vector3 Second_Scale;
     float seconds = 0f;
     private int m_nTimeCount = 3;
@@ -40,7 +41,7 @@ public class YK_Clock : YK_UI
         //スケール取得
         GetSetScale = Clock.transform.localScale;
         Second_Scale = Second.transform.localScale;
-        
+       
     }
 
 
@@ -50,6 +51,7 @@ public class YK_Clock : YK_UI
         if (m_bStopTime && m_bOnce)
         {
             m_bOnce = false;
+            PostEffect.ChangeTimePostEffect(true);
             Invoke(nameof(StopTimeSE), 3.0f);
             //StopTimeReleaseを5秒後に呼び出す
             Invoke(nameof(StopTimeRelease), 5.0f);
@@ -64,6 +66,7 @@ public class YK_Clock : YK_UI
 
     public void StopTimeRelease()
     {
+        PostEffect.ChangeTimePostEffect(false);
         // SE停止
         IS_AudioManager.instance.StopSE(SEType.SE_StopTime);
         m_bStopTime = false;
