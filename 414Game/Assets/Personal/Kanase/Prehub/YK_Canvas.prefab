@@ -150,7 +150,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 20}
+  m_Size: {x: 22, y: 22}
   m_EdgeRadius: 0
 --- !u!114 &7096374214332199848
 MonoBehaviour:
@@ -999,6 +999,7 @@ MonoBehaviour:
   - {fileID: 8823388500288985867}
   - {fileID: 1944106076683542139}
   - {fileID: 1493998724894669398}
+  - {fileID: 0}
 --- !u!1 &3133148299695287853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,7 +1585,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1.41}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1595,7 +1596,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 160, y: 9.11}
+  m_Size: {x: 160, y: 15}
   m_EdgeRadius: 0
 --- !u!114 &7025658565330855289
 MonoBehaviour:
@@ -1919,7 +1920,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 20}
+  m_Size: {x: 22, y: 22}
   m_EdgeRadius: 0
 --- !u!114 &2863066942283563853
 MonoBehaviour:
@@ -2288,7 +2289,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 20}
+  m_Size: {x: 22, y: 22}
   m_EdgeRadius: 0
 --- !u!114 &1871805836552840424
 MonoBehaviour:
@@ -2431,7 +2432,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 20}
+  m_Size: {x: 22, y: 22}
   m_EdgeRadius: 0
 --- !u!114 &7111819576557512756
 MonoBehaviour:
@@ -2974,7 +2975,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 20}
+  m_Size: {x: 22, y: 22}
   m_EdgeRadius: 0
 --- !u!114 &5357815216530760049
 MonoBehaviour:
@@ -4705,6 +4706,7 @@ MonoBehaviour:
   - {fileID: 8823388500288985867}
   - {fileID: 1944106076683542139}
   - {fileID: 1493998724894669398}
+  - {fileID: 0}
   particleUI: {fileID: 972375644942067735}
   particlePL: {fileID: 489221037991370908}
   BlackHoleUI: {fileID: 972375644114493540}
