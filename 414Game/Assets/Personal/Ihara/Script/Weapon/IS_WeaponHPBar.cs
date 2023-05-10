@@ -175,6 +175,7 @@ public class IS_WeaponHPBar : IS_Weapon
             {
                 GetSetHp -= 7;
                 other.GetComponent<NK_BossSlime>().BossSlimeDamage(5);
+                other.transform.GetComponent<YK_TakeDamage>().Damage(other, 5);
             }
         }
 
@@ -184,6 +185,7 @@ public class IS_WeaponHPBar : IS_Weapon
             {
                 GetSetHp -= 5;
                 other.GetComponent<NK_Slime>().SlimeDamage(5);
+                other.transform.GetComponent<YK_TakeDamage>().Damage(other, 5);
             }
         }
     }
