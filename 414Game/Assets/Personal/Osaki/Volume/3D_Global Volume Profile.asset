@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ON_BraunTubeVolume
   m_EditorClassIdentifier: 
   active: 0
-  check:
+  useEffect:
     m_OverrideState: 1
     m_Value: 1
 --- !u!114 &-4424258675505937243

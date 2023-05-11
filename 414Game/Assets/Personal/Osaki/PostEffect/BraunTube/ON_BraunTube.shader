@@ -71,7 +71,7 @@ Shader "Hidden/ON_BraunTube"
 				return x < .5 ? 4 * x * x * x : 1 - pow(-2 * x + 2, 3) / 2;
 			}
 
-			// 1‰æ‘f‚Ìã‰º’[‚ªˆÃ‚­‚È‚éŒ¸­‚ğÄŒ»
+			// 1‰æ‘f‚Ìã‰º’[‚ªˆÃ‚­‚È‚éŒ»Û‚ğÄŒ»
 			float crt_ease(const float x, const float base, const float offset)
 			{
 				float tmp = fmod(x + offset, 1);

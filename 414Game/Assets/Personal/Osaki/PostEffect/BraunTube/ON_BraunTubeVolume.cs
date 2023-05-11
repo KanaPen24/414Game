@@ -6,7 +6,6 @@ using UnityEngine.Rendering;
 [VolumeComponentMenu("Braun Tube")]
 public class ON_BraunTubeVolume : VolumeComponent
 {
-    public bool isActive() => check != false;
-
-    public BoolParameter check = new BoolParameter(false);
+    public bool isActive() => useEffect != false;
+    public BoolParameter useEffect = new BoolParameter(false);
 }
