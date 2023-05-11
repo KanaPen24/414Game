@@ -14,15 +14,28 @@ public class YK_Time : MonoBehaviour
     [SerializeField] private int m_nTimeLimit = 200;    //タイムリミット
     [SerializeField] private Text timerText;            //表示するテキスト
     [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
+    private Outline outline;
     private float m_fTime;
     private int  m_nNowTime;       //現在時間
+
+    private void Start()
+    {
+        outline = this.GetComponent<Outline>();
+    }
 
     void Update()
     {
         //時止め中
         if (Clock.GetSetStopTime)
         {
+            timerText.color = Color.black;
+            outline.effectColor = Color.white;
             return;
+        }
+        else
+        {
+            timerText.color = Color.white;
+            outline.effectColor = Color.black;
         }
         //フレーム毎の経過時間をtime変数に追加
         m_fTime += Time.deltaTime;
