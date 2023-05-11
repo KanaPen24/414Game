@@ -16,6 +16,22 @@ MonoBehaviour:
   _shader: {fileID: 4800000, guid: 0da584ea253bddd4e95ed32d687579ab, type: 3}
   _timing: 1
   _applyToSceneView: 1
+--- !u!114 &-5116319562746937704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad5c751834d9fa449ebcba70ff2adeb, type: 3}
+  m_Name: ONBraunTubeRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  _shader: {fileID: 4800000, guid: 50a6b4402afb57f42a2a021a6d2cd3f6, type: 3}
+  _timing: 2
+  _applyToSceneView: 1
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,7 +74,8 @@ MonoBehaviour:
   - {fileID: -1878332245247344467}
   - {fileID: -8161945378629319419}
   - {fileID: 6367553616559306166}
-  m_RendererFeatureMap: adc0de57c6d2eee50585a806ecf1ba8eb675450b47185e58
+  - {fileID: -5116319562746937704}
+  m_RendererFeatureMap: adc0de57c6d2eee50585a806ecf1ba8eb675450b47185e58983e1611772effb8
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -113,7 +130,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: NoEffect
-    Event: 600
+    Event: 500
     filterSettings:
       RenderQueueType: 0
       LayerMask:

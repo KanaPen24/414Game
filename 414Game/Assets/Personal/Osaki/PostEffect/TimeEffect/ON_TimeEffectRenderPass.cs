@@ -111,7 +111,7 @@ public class ON_TimeEffectRenderPass : ScriptableRenderPass
         CommandBufferPool.Release(cmd);
     }
 
-    private static RenderPassEvent GetRenderPassEvent(PostprocessTiming postprocessTiming)
+    public static RenderPassEvent GetRenderPassEvent(PostprocessTiming postprocessTiming)
     {
         switch (postprocessTiming)
         {
