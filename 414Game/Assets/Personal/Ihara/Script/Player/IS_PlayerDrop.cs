@@ -42,13 +42,13 @@ public class IS_PlayerDrop : IS_PlayerStrategy
                 {
                     m_Player.GetSetPlayerState = PlayerState.PlayerWalk;
                     m_Player.GetAnimator().SetBool("isWalk", true);
-                    //m_Player.GetAnimator().SetBool("isDrop", false);
+                    m_Player.GetAnimator().SetBool("isJump", false);
                     return;
                 }
 
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
                 m_Player.GetAnimator().SetBool("isWait", true);
-                //m_Player.GetAnimator().SetBool("isDrop", false);
+                m_Player.GetAnimator().SetBool("isJump", false);
                 return;
             }
         }

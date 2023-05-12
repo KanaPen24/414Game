@@ -14,6 +14,7 @@
  * @Update 2023/04/12 向き更新関数を追加
  * @Update 2023/04/21 無敵処理追加
  * @Update 2023/05/08 反動フラグ追加
+ * @Update 2023/05/12 武器チェンジ処理追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -195,18 +196,20 @@ public class IS_Player : MonoBehaviour
 
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision"))
+        //if (Input.GetKeyDown(KeyCode.Q))
         {
-            // 装備していたら…
-            if(GetSetPlayerEquipState == PlayerEquipState.Equip)
-            {
-                // 装備解除
-                RemovedWeapon();
-            }
-            // 装備していなかったら…
-            else if(GetSetPlayerEquipState == PlayerEquipState.NoneEquip)
+            // 装備していないor選択しているUIがあったら…
+            if (GetSetPlayerEquipState == PlayerEquipState.NoneEquip ||
+                m_CursolEvent.GetSetCurrentUI != null)
             {
                 // 武器装備
                 EquipWeapon();
+            }
+            // 装備していたら…
+            else if (GetSetPlayerEquipState == PlayerEquipState.Equip)
+            {
+                // 装備解除
+                RemovedWeapon();
             }
         }
     }
@@ -266,24 +269,30 @@ public class IS_Player : MonoBehaviour
         // UICatcherのイベント中は処理しない
         if (m_UICatcher.GetSetUICatcherState == UICatcherState.None)
         {
-            // 装備状態の場合
-            if (GetSetPlayerEquipState == PlayerEquipState.NoneEquip)
+            // 現在装備している武器をUIに戻す
+            // ※最初の武器化では、選択しているUIがないため
+            //   ここで制限をかけておく
+            if(m_UICatcher.GetSetSelectUI != null)
             {
-                // UIを武器化する
-                // カーソルがUIに当たっていたら
-                if (m_CursolEvent.GetSetCurrentUI != null)
-                {
-                    // UIを武器にするイベント開始
-                    m_UICatcher.StartUI2WeaponEvent();
+                if (m_UICatcher.GetSetSelectUI.GetSetFadeState == FadeState.FadeNone)
+                    m_UICatcher.StartWeapon2UIEvent();
+                else return;
+            }
 
-                    // 装備武器の初期化処理
-                    m_Weapons[(int)GetSetEquipWeaponState].Init();
+            // UIを武器化する
+            // カーソルがUIに当たっていたら
+            if (m_CursolEvent.GetSetCurrentUI != null)
+            {
+                // UIを武器にするイベント開始
+                m_UICatcher.StartUI2WeaponEvent();
 
-                    // 装備状態にする
-                    GetSetPlayerEquipState = PlayerEquipState.Equip;
+                // 装備武器の初期化処理
+                m_Weapons[(int)GetSetEquipWeaponState].Init();
 
-                    Debug.Log("武器装備");
-                }
+                // 装備状態にする
+                GetSetPlayerEquipState = PlayerEquipState.Equip;
+
+                Debug.Log("武器装備");
             }
         }
     }
