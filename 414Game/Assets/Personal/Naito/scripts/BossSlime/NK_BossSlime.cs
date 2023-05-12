@@ -79,10 +79,12 @@ public class NK_BossSlime : MonoBehaviour
         if(m_BSPlayer.transform.position.x>this.gameObject.transform.position.x)
         {
             GetSetBossSlimeDir = BossSlimeDir.Right;
+            this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f));
         }
         else
         {
             GetSetBossSlimeDir = BossSlimeDir.Left;
+            this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -90.0f, 0.0f));
         }
     }
 

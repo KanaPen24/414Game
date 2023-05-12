@@ -884,7 +884,7 @@ Transform:
   m_GameObject: {fileID: 8427985959625675572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.55, y: -0.36, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2042137081070520465}
@@ -1056,10 +1056,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!65 &2649526777965228146
 BoxCollider:
@@ -1086,8 +1086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07eabdbd9dbf20545805e2387bef496e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Player: {fileID: 2602812492749303807, guid: 6584b65f3f9a9cb4fa8ae89db10b57db,
-    type: 3}
+  m_Player: {fileID: 0}
   confettiEffect: {fileID: 1766757351493414124, guid: e76bbb5382bf87e448072d3a1e4a2dfa,
     type: 3}
   m_effectParam:
@@ -1110,8 +1109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BossSlime: {fileID: 1217551708}
-  m_MartialArts: {fileID: 6864989160158271173, guid: a50bed09d7860bb4b97ab850534ef69c,
-    type: 3}
+  m_MartialArts: {fileID: 8098956214015859040}
   m_MartialArtsPos: {fileID: 856765115}
 --- !u!114 &1217551707
 MonoBehaviour:
@@ -1140,8 +1138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4e796450953c44ad3b29ed447b383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nHP: 10
-  m_nMaxHP: 10
+  m_nHP: 50
+  m_nMaxHP: 50
   m_BSPlayer: {fileID: 0}
   goalEffect: {fileID: 5579063421521300113}
   m_BossSlimeStrategy:
@@ -1200,9 +1198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb765f17a147af34ca342df8a5ffd831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UpPosY: 3
+  m_UpPosY: 30
   m_BossSlime: {fileID: 1217551708}
-  m_UpPow: 1
+  m_UpPow: 20
 --- !u!114 &5909952528335093873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1216,10 +1214,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BossSlime: {fileID: 1217551708}
-  m_fMovePow: 5
-  m_Reng: 0.3
+  m_fMovePow: 30
+  m_Reng: 1
   m_FallTime: 3
-  m_FlightTime: 0
+  m_FlightTime: 3
 --- !u!114 &-5590738290752166403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1233,4 +1231,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BossSlime: {fileID: 1217551708}
-  m_FallPow: 5
+  m_FallPow: 15
