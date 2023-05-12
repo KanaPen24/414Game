@@ -11,6 +11,7 @@ Shader "Hidden/ON_BraunTube"
 
 			TEXTURE2D(_MainTex);
 			SAMPLER(sampler_MainTex);
+			float _Rate;
 
 			struct Attributes
 			{
@@ -83,11 +84,14 @@ Shader "Hidden/ON_BraunTube"
 			half4 frag(Varyings IN) : SV_Target
 			{
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
-
+				
 				float2 uv = IN.uv;
+				half4 defColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
+				
 				
 				// uvを画面が出っ張っているように歪ませる
-				uv = distort(uv, .2);
+				float distort_rate = lerp(.0, .2, _Rate);
+				uv = distort(uv, distort_rate);
 
 				// uvが範囲内でなければ黒く塗りつぶす
 				if (uv.x < 0 || 1 < uv.x || uv.y < 0 || 1 < uv.y)
@@ -95,7 +99,7 @@ Shader "Hidden/ON_BraunTube"
 					return half4(0, 0, 0, 1);
 				}
 
-				// 縦宝庫にに同じ色の画素が並ぶ
+				// 縦方向に同じ色の画素が並ぶ
 				const float floor_x = fmod(IN.uv.x * _ScreenParams.x / 3, 1);
 				const float isR = floor_x <= 0.3;
 				const float isG = 0.3 < floor_x && floor_x <= 0.6;
@@ -113,6 +117,11 @@ Shader "Hidden/ON_BraunTube"
 				// ガウシアンフィルタによって、境界をぼかす
 				half4 col = sample_gaussian(uv, dx, dy);
 
+				// 暗くなりすぎたのでカラーグレーディング
+				col.rgb *= float3(1.25, 0.95, 0.7);
+				col.rgb = clamp(col.rgb, 0.0, 1.0);
+				col.rgb = col.rgb * col.rgb * (3.0 - 2.0 * col.rgb);
+
 				// 縦方向をNピクセルごとに分割して端を暗くする処理
 				const float floor_y = fmod(uv.y * _ScreenParams.y / 6, 1);
 				const float ease_r = crt_ease(floor_y, col.r, rand(uv)* 0.1);
@@ -123,6 +132,8 @@ Shader "Hidden/ON_BraunTube"
 				col.r = isR * ease_r;
 				col.g = isG * ease_g;
 				col.b = isB * ease_b;
+
+				col = lerp(defColor, col, _Rate);
 
 				return col;
 			}
