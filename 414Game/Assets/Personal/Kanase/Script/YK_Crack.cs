@@ -3,6 +3,7 @@
  * @brief ヒビを切り替える処理
  * @author 吉田叶聖
  * @date 2023/04/21
+ * @Update 2023/05/12 ヒビレベルの処理を反映(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -47,6 +48,7 @@ public class YK_Crack : MonoBehaviour
             if(!m_bCrackMaxFlag)
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_2);
+                weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level3);
                 m_bCrackMaxFlag = true;
             }
             image.sprite = Crack_Max;
@@ -57,6 +59,7 @@ public class YK_Crack : MonoBehaviour
             if (!m_bCrackNorFlag)
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_1);
+                weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level2);
                 m_bCrackNorFlag = true;
             }
             image.sprite = Crack_Nor;
@@ -67,6 +70,7 @@ public class YK_Crack : MonoBehaviour
             if (!m_bCrackMinFlag)
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_1);
+                weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level1);
                 m_bCrackMinFlag = true;
             }
             image.sprite = Crack_Min;
