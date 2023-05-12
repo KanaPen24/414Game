@@ -20,6 +20,9 @@ public enum BossSlimeState
     BossSlimeWait,     //待機状態
     BossSlimeSummon,   //召喚攻撃状態
     BossSlimeMartial,  //近接攻撃状態
+    BossSlimeUp,
+    BossSlimeFlight,
+    BossSlimeFall,
 
     MaxBossSlimeState
 }
@@ -41,7 +44,7 @@ public class NK_BossSlime : MonoBehaviour
     //敵の体力
     [SerializeField] private int m_nHP;
     [SerializeField] private int m_nMaxHP;//敵の最大体力
-    [SerializeField] private IS_Player m_Player;//プレイヤー
+    [SerializeField] public IS_Player m_BSPlayer;//プレイヤー
     [SerializeField] private IS_GoalEffect goalEffect;//倒されたときに発生するエフェクト
     [SerializeField] private List<NK_BossSlimeStrategy> m_BossSlimeStrategy; // BossSlime挙動クラスの動的配列
     [SerializeField] private BossSlimeState m_BossSlimeState;      // BossSlimeの状態を管理する
@@ -53,6 +56,14 @@ public class NK_BossSlime : MonoBehaviour
     [SerializeField] private float m_InvincibleTime;
     private float m_fViewX;
     [SerializeField] private YK_Goal goal;
+    private Rigidbody m_Rbody;
+    [HideInInspector] public Vector3 m_BSMoveValue;
+
+    private void Start()
+    {
+        m_BSMoveValue = new Vector3(0.0f, 0.0f, 0.0f);
+        m_Rbody = GetComponent<Rigidbody>();
+    }
 
     private void Update()
     {
@@ -64,6 +75,17 @@ public class NK_BossSlime : MonoBehaviour
             renderController.Opacity = level;
         }
         else renderController.Opacity = 1f;
+
+        if(m_BSPlayer.transform.position.x>this.gameObject.transform.position.x)
+        {
+            GetSetBossSlimeDir = BossSlimeDir.Right;
+            this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f));
+        }
+        else
+        {
+            GetSetBossSlimeDir = BossSlimeDir.Left;
+            this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -90.0f, 0.0f));
+        }
     }
 
     private void FixedUpdate()
@@ -73,16 +95,18 @@ public class NK_BossSlime : MonoBehaviour
             return;
         }
         m_BossSlimeStrategy[(int)m_BossSlimeState].UpdateStrategy();
+
+        m_Rbody.velocity = m_BSMoveValue;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         // プレイヤーだったら
-        if (other.gameObject == m_Player.gameObject)
+        if (other.gameObject == m_BSPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
             //m_Player.GetPlayerHp().DelLife(10);
-            m_Player.Damage(10, 2.0f);
+            m_BSPlayer.Damage(10, 2.0f);
         }
     }
 

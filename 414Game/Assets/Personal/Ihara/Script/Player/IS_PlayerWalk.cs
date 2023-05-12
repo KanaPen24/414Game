@@ -40,6 +40,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             // 歩行開始時に
             if (m_Player.GetSetWalkFlg)
             {
+                IS_AudioManager.instance.PlaySE(SEType.SE_PlayerWalk);
                 m_Player.GetSetWalkFlg = false;
             }
 
@@ -49,6 +50,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             //「移動 → 落下」
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
+                IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
                 //m_Player.GetAnimator().SetBool("isDrop", true);
                 m_Player.GetAnimator().SetBool("isWalk", false);
@@ -57,6 +59,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             // 「移動 → 待機」①
             if (m_Player.GetSetReactionFlg)
             {
+                IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
                 m_Player.GetAnimator().SetBool("isWait", true);
                 m_Player.GetAnimator().SetBool("isWalk", false);
@@ -65,6 +68,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             // 「移動 → 待機」②
             if (!m_Player.bInputRight && !m_Player.bInputLeft)
             {
+                IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
                 m_Player.GetAnimator().SetBool("isWait", true);
                 m_Player.GetAnimator().SetBool("isWalk", false);
@@ -73,8 +77,9 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             // 「移動 → 跳躍」
             if (m_Player.bInputUp)
             {
+                IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 m_Player.GetSetPlayerState = PlayerState.PlayerJump;
-                //m_Player.GetAnimator().SetBool("isJump", true);
+                m_Player.GetAnimator().SetBool("isJump", true);
                 m_Player.GetAnimator().SetBool("isWalk", false);
                 m_Player.GetSetJumpFlg = true;
                 return;
@@ -83,6 +88,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             if (m_Player.bInputSpace && 
                 m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
             {
+                IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 m_Player.GetSetPlayerState = PlayerState.PlayerAttack;
                 m_Player.GetSetAttackFlg = true;
                 //m_Player.GetAnimator().SetBool("isAttack", true);
@@ -141,7 +147,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
         Effect.transform.localScale = new Vector3(1f, 1f, 1f);
 
         // SE再生
-        IS_AudioManager.instance.PlaySE(SEType.SE_PlayerWalk);
+        //IS_AudioManager.instance.PlaySE(SEType.SE_PlayerWalk);
 
         // Playerの向きによってエフェクト位置修正
         if (m_Player.GetSetPlayerDir == PlayerDir.Right)

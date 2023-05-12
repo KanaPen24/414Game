@@ -20,7 +20,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
     {
         if(m_Player.GetSetPlayerState == PlayerState.PlayerWait)
         {
-            // 反動があれば
+            // 反動があれば状態遷移しない
             if (m_Player.GetSetReactionFlg)
                 return;
 
@@ -39,7 +39,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
             if (m_Player.bInputUp)
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerJump;
-                //m_Player.GetAnimator().SetBool("isJump", true);
+                m_Player.GetAnimator().SetBool("isJump", true);
                 m_Player.GetAnimator().SetBool("isWait", false);
                 m_Player.GetSetJumpFlg = true;
                 return;

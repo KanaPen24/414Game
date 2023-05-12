@@ -30,6 +30,7 @@ public class NK_Slime_Move : NK_SlimeStrategy
             m_rBody.AddForce(transform.up * m_fJumpPower, ForceMode.Impulse);
             m_rBody.AddForce(transform.right * m_fMovePower, ForceMode.Impulse);
         }
+        m_Slime.GetSetMoveAnimFlag = false;
         m_Slime.GetSetSlimeState = SlimeState.SlimeWait;
     }
 }
