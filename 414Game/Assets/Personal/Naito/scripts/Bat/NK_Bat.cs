@@ -54,12 +54,14 @@ public class NK_Bat : MonoBehaviour
     private bool m_DamageFlag;
     private CubismRenderController renderController;
     [SerializeField] private float m_InvincibleTime;
+    private float m_localScalex;
 
     private void Start()
     {
         m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
         m_Rbody = GetComponent<Rigidbody>();
         m_DamageFlag = false;
+        m_localScalex = this.transform.localScale.x;
     }
 
     private void Update()
@@ -75,12 +77,14 @@ public class NK_Bat : MonoBehaviour
             if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
             {
                 GetSetBatDir = BatDir.Right;
-                this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f));
+                this.transform.localScale =
+                    new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
             }
             else
             {
                 GetSetBatDir = BatDir.Left;
-                this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -90.0f, 0.0f));
+                this.transform.localScale =
+                    new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
             }
         }
     }
