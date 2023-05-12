@@ -75,10 +75,12 @@ public class NK_Bat : MonoBehaviour
             if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
             {
                 GetSetBatDir = BatDir.Right;
+                this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f));
             }
             else
             {
                 GetSetBatDir = BatDir.Left;
+                this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -90.0f, 0.0f));
             }
         }
     }

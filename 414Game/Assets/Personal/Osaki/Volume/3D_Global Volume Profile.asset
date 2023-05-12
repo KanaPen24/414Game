@@ -28,7 +28,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4707ba7a5d21aac4bb65fd9406d68741, type: 3}
   m_Name: ON_TimeEffectVolume
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   tintColor:
     m_OverrideState: 1
     m_Value: {r: 0.7075472, g: 0.40984336, b: 0.40984336, a: 1}
