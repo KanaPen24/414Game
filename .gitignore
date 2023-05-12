@@ -73,3 +73,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+414Game/Assets/Fade/Materials/UI-Fade-Cutout.mat
+414Game/Assets/Personal/Kanase/Coffee/UIExtensions/UIEffect/UIEffect_Demo.unitypackage.meta
+414Game/Assets/Personal/Kanase/Coffee/UIExtensions/UIEffect/UIEffect_Demo_2018.unitypackage.meta

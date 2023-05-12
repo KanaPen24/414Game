@@ -104,7 +104,6 @@ Shader "Custom/ON_Liquid"
 
 				half4 color = lerp(_LiquidColorBack, _LiquidColorForward, step(0.0h, NdotV));
 				color.rgb = MixFog(color.rgb, input.fogCoord);
-
 				return color;
 			}
             ENDHLSL

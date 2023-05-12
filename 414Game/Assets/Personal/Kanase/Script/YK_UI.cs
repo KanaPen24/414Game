@@ -21,6 +21,7 @@ public enum UIType
     Next,       // Next
     Retry,      // リトライ
     TitleBack,  // タイトルへ戻る
+    DamageNumber,  // ダメージ
 
     MaxUIType
 }

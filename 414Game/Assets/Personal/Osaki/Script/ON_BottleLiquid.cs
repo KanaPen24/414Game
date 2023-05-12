@@ -77,6 +77,12 @@ public class ON_BottleLiquid : MonoBehaviour
     // 波パラメータ算出
     private void CalculateWaveParams()
     {
+        // 満タンもしくは空のときは波を発生させない
+        if(fillingRate <= 0 || 1 <= fillingRate)
+        {
+            waveCurrentParams = Vector4.zero;
+            return;
+        }
         // waveParamsにそのままベクトル演算
         // x:振幅, y:周期
         Vector4 attenuationRateVec = new Vector4(sizeAttenuationRate, cycleAttenuationRate, 0.0f, 0.0f);
@@ -141,12 +147,19 @@ public class ON_BottleLiquid : MonoBehaviour
         (float min, float max) ret = (float.MaxValue, float.MinValue);
         for(int i = 0; i < bottleSizeOffsetPoints.Length; ++i)
         {
-            Vector3 localPoint = thisTransform.TransformPoint(bottleSizeOffsetPoints[i] - thisTransform.position);
+            Vector3 localPoint = thisTransform.TransformPoint(bottleSizeOffsetPoints[i]) - thisTransform.position;
             ret.min = Mathf.Min(ret.min, localPoint.y);
             ret.max = Mathf.Max(ret.max, localPoint.y);
         }
 
         return ret;
+    }
+
+    // 外部から液体の充填率を変更出来るように
+    public void ChangeFillingRate(float rate)
+    {
+        fillingRate = Mathf.Min(rate, 1.0f);
+        fillingRate = Mathf.Max(rate, 0.0f);
     }
 
 #if UNITY_EDITOR
