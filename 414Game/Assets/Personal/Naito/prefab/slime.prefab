@@ -716,8 +716,10 @@ MonoBehaviour:
     type: 3}
   m_Clock: {fileID: 0}
   renderController: {fileID: 2458192959598078437}
-  m_InvincibleTime: 2
+  m_InvincibleTime: 0
   Shadow: {fileID: 1583492506907936919}
+  m_fMovePower: 3
+  m_fJumpPower: 5
 --- !u!114 &80574029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,7 +749,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageUI: {fileID: 1589118213952898113, guid: b685cb64ab74a4947b9fdcbcf93524f1,
     type: 3}
-  Canvas: {fileID: 1760798992062702856, guid: 7e9ed24051ee45f4496066d407091c07, type: 3}
 --- !u!1 &6748625974661061672
 GameObject:
   m_ObjectHideFlags: 0
