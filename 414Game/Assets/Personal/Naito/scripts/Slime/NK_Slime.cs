@@ -90,13 +90,13 @@ public class NK_Slime : MonoBehaviour
             {
                 GetSetSlimeDir = SlimeDir.Right;
                 this.transform.localScale =
-                    new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+                    new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
             }
             else
             {
                 GetSetSlimeDir = SlimeDir.Left;
                 this.transform.localScale =
-                   new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+                   new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
             }
         }
         if (m_SlimeState == SlimeState.SlimeMove)

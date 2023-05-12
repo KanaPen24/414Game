@@ -12,6 +12,8 @@ public class NK_BossSlime_Flight : NK_BossSlimeStrategy
     private float m_FallCnt;
     [SerializeField] private float m_FallTime;
     [SerializeField] private float m_FlightTime;
+    [SerializeField] private GameObject m_Danger;
+
 
     public override void UpdateStrategy()
     {
@@ -45,8 +47,9 @@ public class NK_BossSlime_Flight : NK_BossSlimeStrategy
             {
                 m_FallCnt = 0;
                 m_FlightTime = 0;
-                m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeFall;
+                m_Danger.SetActive(false);
                 m_FallFlag = false;
+                m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeFall;
             }
         }
     }
