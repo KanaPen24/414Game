@@ -6,6 +6,6 @@ using UnityEngine.Rendering;
 [VolumeComponentMenu("Braun Tube")]
 public class ON_BraunTubeVolume : VolumeComponent
 {
-    public bool isActive() => useEffect != false;
-    public BoolParameter useEffect = new BoolParameter(false);
+    public bool isActive() => rate != 0.0f;
+    public ClampedFloatParameter rate = new ClampedFloatParameter(0.0f, 0.0f, 1.0f);
 }

@@ -84,6 +84,8 @@ public class ON_BraunTubeRenderPass : ScriptableRenderPass
 
         using (new ProfilingScope(cmd, _profilingSampler))
         {
+            // volumeからプロパティを反映
+            _material.SetFloat("_Rate", _volume.rate.value);
             cmd.SetGlobalTexture(_mainTexPropertyId, source);
 
             // 元のテクスチャから一時的なテクスチャへエフェクトを適応しつつ描画

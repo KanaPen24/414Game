@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce6eda42d9c24f14589bcab324142cb3, type: 3}
   m_Name: ON_BraunTubeVolume
   m_EditorClassIdentifier: 
-  active: 0
-  useEffect:
+  active: 1
+  rate:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
 --- !u!114 &-4424258675505937243
 MonoBehaviour:
   m_ObjectHideFlags: 3
