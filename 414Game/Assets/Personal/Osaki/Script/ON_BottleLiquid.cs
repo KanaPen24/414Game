@@ -155,6 +155,13 @@ public class ON_BottleLiquid : MonoBehaviour
         return ret;
     }
 
+    // 外部から液体の充填率を変更出来るように
+    public void ChangeFillingRate(float rate)
+    {
+        fillingRate = Mathf.Min(rate, 1.0f);
+        fillingRate = Mathf.Max(rate, 0.0f);
+    }
+
 #if UNITY_EDITOR
     // 選択時のギズモ表示
     private void OnDrawGizmosSelected()
