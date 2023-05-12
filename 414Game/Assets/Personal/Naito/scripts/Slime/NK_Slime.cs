@@ -54,6 +54,19 @@ public class NK_Slime : MonoBehaviour
     private float m_fViewX;
     //影をアタッチする
     [SerializeField] private GameObject Shadow;
+    private Animator anim;
+    private Rigidbody m_rBody;
+    private bool m_MoveAnimFlag;
+    //横移動
+    [SerializeField] private float m_fMovePower;
+    //ジャンプ力
+    [SerializeField] private float m_fJumpPower;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+        m_rBody = GetComponent<Rigidbody>();
+    }
 
     private void Update()
     {
@@ -74,10 +87,12 @@ public class NK_Slime : MonoBehaviour
             if(m_Player.transform.position.x > this.gameObject.transform.position.x)
             {
                 GetSetSlimeDir = SlimeDir.Right;
+                this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f));
             }
             else
             {
                 GetSetSlimeDir = SlimeDir.Left;
+                this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -90.0f, 0.0f));
             }
         }
         if (m_SlimeState == SlimeState.SlimeMove)
@@ -98,6 +113,7 @@ public class NK_Slime : MonoBehaviour
         }
 
         m_SlimeStrategy[(int)m_SlimeState].UpdateStrategy();
+        anim.SetBool("JumpFlag", m_MoveAnimFlag);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -156,12 +172,29 @@ public class NK_Slime : MonoBehaviour
         set { m_DamageFlag = value; }
     }
 
+    public bool GetSetMoveAnimFlag
+    {
+        get { return m_MoveAnimFlag;}
+        set { m_MoveAnimFlag = value; }
+    }
+
     public void SlimeDamage(int Damage)
     {
         if (!m_DamageFlag)
         {
             m_nHP -= Damage;
             m_DamageFlag = true;
+            m_rBody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            if (GetSetSlimeDir == SlimeDir.Left)
+            {
+                m_rBody.AddForce(transform.up * m_fJumpPower, ForceMode.Impulse);
+                m_rBody.AddForce(transform.right * m_fMovePower, ForceMode.Impulse);
+            }
+            else
+            {
+                m_rBody.AddForce(transform.up * m_fJumpPower, ForceMode.Impulse);
+                m_rBody.AddForce(transform.right * -m_fMovePower, ForceMode.Impulse);
+            }
             Invoke("InvisbleEnd", m_InvincibleTime);
             // HPが0になったら、このオブジェクトを破壊
             if (m_nHP <= 0)

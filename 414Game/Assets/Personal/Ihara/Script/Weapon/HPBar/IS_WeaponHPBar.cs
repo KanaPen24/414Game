@@ -5,6 +5,8 @@
  * @date   2023/03/12
  * @Update 2023/03/12 作成
  * @Update 2023/04/17 SE実装
+ * @Update 2023/05/11 当たり判定処理をIS_WeaponHPBarCollision.csに移動
+ * @Update 2023/05/11 マテリアル切替処理追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -13,13 +15,28 @@ using System;
 
 public class IS_WeaponHPBar : IS_Weapon
 {
+    public enum CrackLevel
+    {
+        Level0,
+        Level1,
+        Level2,
+        Level3,
+
+        MaxMaterialLevel
+    }
+    [System.Serializable]
+    private class C_MaterialMesh
+    {
+        public MeshRenderer m_MeshRender; // メッシュ
+        public List<Material> m_Material; // マテリアルのリスト
+    }
     [SerializeField] private IS_Player m_Player;               // Player
+    [SerializeField] private C_MaterialMesh m_MaterialMesh;    // メッシュとマテリアルのリスト
     [SerializeField] private CapsuleCollider m_CapsuleCollider;// 当たり判定
-    [SerializeField] private MeshRenderer m_MeshRender;        // メッシュ
     [SerializeField] private float fAttackRate;                // 攻撃の割合(スピード)
     [SerializeField] private Vector3 vRotAmount;               // 攻撃の回転量
     [SerializeField] private Vector3 vRotOrigin;               // 攻撃の初期角度
-
+    [SerializeField] private CrackLevel m_eCrackLevel;　　　   // ヒビレベル
     private float m_fRateAmount;// 割合の合計
     private Vector3 vRot;       // 回転する大きさ
     private int m_nCnt;         
@@ -35,7 +52,10 @@ public class IS_WeaponHPBar : IS_Weapon
         m_eWeaponType = WeaponType.HPBar; // 武器種類はHPバー
         m_bAttack  = false;
         m_bVisible = false;
-        m_bDestroy = false;       
+        m_bDestroy = false;
+
+        m_eCrackLevel = CrackLevel.Level1;
+
     }
 
    /**
@@ -107,7 +127,7 @@ public class IS_WeaponHPBar : IS_Weapon
     {
         GetSetAttack = false; // 攻撃OFF
         m_fRateAmount = 0.0f;
-        this.transform.rotation = Quaternion.Euler(vRotOrigin);
+        this.transform.localRotation = Quaternion.Euler(vRotOrigin);
     }
 
     /**
@@ -123,9 +143,13 @@ public class IS_WeaponHPBar : IS_Weapon
         // 右向きなら
         if (m_Player.GetSetPlayerDir == PlayerDir.Right)
         {
-            vRot = new Vector3(-vRotAmount.x * m_fRateAmount,
-            -vRotAmount.y * m_fRateAmount,
-            -vRotAmount.z * m_fRateAmount);
+            //vRot = new Vector3(-vRotAmount.x * m_fRateAmount,
+            //                    -vRotAmount.y * m_fRateAmount,
+            //                    -vRotAmount.z * m_fRateAmount);
+
+            vRot = new Vector3(vRotAmount.x * m_fRateAmount,
+            vRotAmount.y * m_fRateAmount,
+            vRotAmount.z * m_fRateAmount);
         }
         // 左向きなら
         else if (m_Player.GetSetPlayerDir == PlayerDir.Left)
@@ -135,8 +159,11 @@ public class IS_WeaponHPBar : IS_Weapon
                         vRotAmount.z * m_fRateAmount);
         }
 
+
+        vRot = vRot + vRotOrigin;
+
         // 武器を回転させる
-        this.transform.rotation = Quaternion.Euler(vRot);
+        this.transform.localRotation = Quaternion.Euler(vRot);
 
         // 攻撃仕切ったら終了する
         if (m_fRateAmount >= 1.0f)
@@ -157,36 +184,29 @@ public class IS_WeaponHPBar : IS_Weapon
         if (m_bVisible)
         {
             m_CapsuleCollider.enabled = true;
-            m_MeshRender.enabled = true;
+            m_MaterialMesh.m_MeshRender.enabled = true;
         }
         // 非表示状態だったら
         else
         {
             m_CapsuleCollider.enabled = false;
-            m_MeshRender.enabled = false;
+            m_MaterialMesh.m_MeshRender.enabled = false;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /**
+     * @fn
+     * ヒビレベルを変更
+     * @return なし
+     * @brief ヒビレベルを変更し、マテリアルを変える
+     */
+    public void ChangeCrackLevel(CrackLevel cracklevel)
     {
-        if (other.gameObject.GetComponent<NK_BossSlime>() != null)
-        {
-            if (GetSetAttack && !other.GetComponent<NK_BossSlime>().GetSetDamageFlag)
-            {
-                GetSetHp -= 7;
-                other.GetComponent<NK_BossSlime>().BossSlimeDamage(5);
-                other.transform.GetComponent<YK_TakeDamage>().Damage(other, 5);
-            }
-        }
+        m_eCrackLevel = cracklevel;
 
-        if (other.gameObject.GetComponent<NK_Slime>() != null)
-        {
-            if (GetSetAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)
-            {
-                GetSetHp -= 5;
-                other.GetComponent<NK_Slime>().SlimeDamage(5);
-                other.transform.GetComponent<YK_TakeDamage>().Damage(other, 5);
-            }
-        }
+        // マテリアル切替(耐久度によってHPBarにヒビが入る)
+        Material[] mats = m_MaterialMesh.m_MeshRender.materials;
+        mats[1] = m_MaterialMesh.m_Material[(int)m_eCrackLevel];
+        m_MaterialMesh.m_MeshRender.materials = mats;
     }
 }
