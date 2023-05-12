@@ -72,6 +72,7 @@ public class IS_Ball : MonoBehaviour
                 !hit.collider.gameObject.GetComponent<NK_BossSlime>().GetSetDamageFlag)
             {
                 hit.collider.gameObject.GetComponent<NK_BossSlime>().BossSlimeDamage(5);
+                hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, 5);
                 continue;
             }
 
@@ -79,6 +80,7 @@ public class IS_Ball : MonoBehaviour
                 !hit.collider.gameObject.GetComponent<NK_Slime>().GetSetDamageFlag)
             {
                 hit.collider.gameObject.GetComponent<NK_Slime>().SlimeDamage(5);
+                hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, 5);
                 continue;
             }
         }
