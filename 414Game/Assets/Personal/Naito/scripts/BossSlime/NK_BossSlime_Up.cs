@@ -8,6 +8,7 @@ public class NK_BossSlime_Up : NK_BossSlimeStrategy
     private Rigidbody m_Rbody;
     [SerializeField] private NK_BossSlime m_BossSlime;
     [SerializeField] private float m_UpPow;
+    [SerializeField] private GameObject m_Danger;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class NK_BossSlime_Up : NK_BossSlimeStrategy
         }
         else
         {
+            m_Danger.SetActive(true);
             m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeFlight;
         }
     }
