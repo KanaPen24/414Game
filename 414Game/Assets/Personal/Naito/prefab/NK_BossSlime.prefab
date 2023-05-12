@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 856765116}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ASPos
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 5498041118106029372}
   - component: {fileID: 4162730199757366343}
   - component: {fileID: 6871110098752688608}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Param
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2236507394378775910}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2289709737637247892}
   - component: {fileID: 7477133381929024156}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 6198970061440248040}
   - component: {fileID: 5674663877596888240}
   - component: {fileID: 8939123574345221030}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2042137081070520465}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Parameters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 7101291333606552535}
   - component: {fileID: 1110886342720286821}
   - component: {fileID: 549656591126005385}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Param2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ GameObject:
   - component: {fileID: 4666687219459340598}
   - component: {fileID: 5456532773880993186}
   - component: {fileID: 3964560798913361077}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,7 +702,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8473240789893551907}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Drawables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -739,7 +739,7 @@ GameObject:
   - component: {fileID: 6529525383398823673}
   - component: {fileID: 705637531390776144}
   - component: {fileID: 7203056572043628734}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -865,6 +865,9 @@ GameObject:
   - component: {fileID: 1217551708}
   - component: {fileID: 1217551724}
   - component: {fileID: -6233271288789688086}
+  - component: {fileID: 1001206047101261391}
+  - component: {fileID: 5909952528335093873}
+  - component: {fileID: -5590738290752166403}
   m_Layer: 7
   m_Name: NK_BossSlime
   m_TagString: Enemy
@@ -1139,18 +1142,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_nHP: 10
   m_nMaxHP: 10
-  m_Player: {fileID: 0}
+  m_BSPlayer: {fileID: 0}
   goalEffect: {fileID: 5579063421521300113}
   m_BossSlimeStrategy:
   - {fileID: 1217551724}
   - {fileID: 1217551707}
   - {fileID: 1217551706}
+  - {fileID: 1001206047101261391}
+  - {fileID: 5909952528335093873}
+  - {fileID: -5590738290752166403}
   m_BossSlimeState: 0
   m_BossSlimeDir: 0
   m_Clock: {fileID: 0}
   renderController: {fileID: 1699356676891749584}
   m_InvincibleTime: 3
   goal: {fileID: 0}
+  m_BSMoveValue: {x: 0, y: 0, z: 0}
 --- !u!114 &1217551724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1181,3 +1188,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageUI: {fileID: 1589118213952898113, guid: b685cb64ab74a4947b9fdcbcf93524f1,
     type: 3}
+--- !u!114 &1001206047101261391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427985959625675572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb765f17a147af34ca342df8a5ffd831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UpPosY: 3
+  m_BossSlime: {fileID: 1217551708}
+  m_UpPow: 1
+--- !u!114 &5909952528335093873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427985959625675572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894a71ef45eb9a5449576d67bff83461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BossSlime: {fileID: 1217551708}
+  m_fMovePow: 5
+  m_Reng: 0.3
+  m_FallTime: 3
+  m_FlightTime: 0
+--- !u!114 &-5590738290752166403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8427985959625675572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f382dbe5c6576341b4dc2008a9ad4dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BossSlime: {fileID: 1217551708}
+  m_FallPow: 5
