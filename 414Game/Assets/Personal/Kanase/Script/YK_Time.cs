@@ -25,6 +25,10 @@ public class YK_Time : MonoBehaviour
 
     void Update()
     {
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
+
         //時止め中
         if (Clock.GetSetStopTime)
         {
