@@ -9,6 +9,13 @@ public class NK_BossSlime_Wait : NK_BossSlimeStrategy
     [SerializeField] private float m_fAttackRange;//間合い
     [SerializeField] private IS_Player m_Player;//Player
     private float m_fCnt;
+    private bool m_SPAttackFlag;
+    private Animator anim;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     public override void UpdateStrategy()
     {
@@ -16,7 +23,13 @@ public class NK_BossSlime_Wait : NK_BossSlimeStrategy
         if (m_fCnt > m_fAttackTime)
         {
             m_fCnt = 0.0f;
-            if (this.transform.position.x - m_fAttackRange >= m_Player.transform.position.x)
+            if (m_BossSlime.GetSetHp <= 25 && !m_SPAttackFlag)
+            {
+                m_SPAttackFlag = true;
+                m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeUp;
+            }
+            else if ((this.transform.position.x - m_fAttackRange >= m_Player.transform.position.x)||
+                (this.transform.position.x + m_fAttackRange <= m_Player.transform.position.x))
             {
                 m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeSummon;
             }

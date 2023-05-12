@@ -6,10 +6,16 @@ public class NK_BossAttackArea : MonoBehaviour
 {
     [SerializeField] private float m_AttackTime;
     [SerializeField] private IS_Player m_Player;
+    private float m_Cnt;
     // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        Invoke("AttackAreaDestroy", m_AttackTime);
+        m_Cnt += Time.deltaTime;
+        if(m_Cnt > m_AttackTime)
+        {
+            m_Cnt = 0;
+            AttackAreaDestroy();
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
