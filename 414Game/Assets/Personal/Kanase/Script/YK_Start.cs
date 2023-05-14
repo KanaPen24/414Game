@@ -19,8 +19,8 @@ public class YK_Start : YK_UI
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
     private bool m_bVisibleStart = true;
-    private bool m_bVisibleStart1 = true;
     private float m_rate = 1.0f;
+    private float m_fTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,13 +33,14 @@ public class YK_Start : YK_UI
     }
     private void Update()
     {
-        if (!m_bVisibleStart1)
+        if (!m_bVisibleStart)
         {
-            m_rate = Mathf.Lerp(1.0f, 0.0f, Time.deltaTime * 1f);
+            m_fTime += Time.deltaTime;
+            m_rate = Mathf.Lerp(1.0f, 0.0f, m_fTime);
             PostEffect.SetBraunRate(m_rate);
             Debug.Log(m_rate);
         }
-        if (GameManager.instance.GetSetGameState != GameState.GameStart && !m_bVisibleStart) 
+        if (GameManager.instance.GetSetGameState != GameState.GameStart && m_rate <= 0) 
             GameStart.SetActive(false);
         else
             GameStart.SetActive(true);
@@ -61,7 +62,6 @@ public class YK_Start : YK_UI
     //StartUIを非表示
     public override void UIFadeOUT()
     {
-        m_bVisibleStart1 = false;
         m_eFadeState = FadeState.FadeOUT;
         // 1秒で後X,Y方向を0.5倍に変更
         StartUI.transform.DOScale(m_MinScale, m_fDelTime);
@@ -89,11 +89,9 @@ public class YK_Start : YK_UI
 
     public void StartPlay()
     {
-        m_bVisibleStart = false;        
+        m_bVisibleStart = false;
         //ゲームのステートをプレイ状態にする
         GameManager.instance.GetSetGameState = GameState.GamePlay;
-        //ここでポストエフェクトを解く
-
     }
 
 }

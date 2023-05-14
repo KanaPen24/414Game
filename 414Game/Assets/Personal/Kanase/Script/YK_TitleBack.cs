@@ -76,11 +76,13 @@ public class YK_TitleBack : YK_UI
     }
     public void TitleBackPlay()
     {
+        //ゲームのステートをスタート状態にする
+        GameManager.instance.GetSetGameState = GameState.GameStart;
         //トランジションを掛けてシーン遷移する
         fade.FadeIn(1f, () =>
         {
             IS_AudioManager.instance.StopBGM(BGMType.BGM_GAMEOVER);
-            SceneManager.LoadScene("TitleScene");
+            SceneManager.LoadScene("KanaseScene");
         });
     }
 }

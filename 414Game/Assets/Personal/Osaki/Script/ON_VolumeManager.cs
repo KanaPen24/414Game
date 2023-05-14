@@ -28,8 +28,8 @@ public class ON_VolumeManager : MonoBehaviour
     {
         if(_volume.profile.TryGet<ON_BraunTubeVolume>(out braunTube))
         {
-            rate = Mathf.Max(rate, 1);
-            rate = Mathf.Min(rate, 0);
+            //rate = Mathf.Max(rate, 1);
+            //rate = Mathf.Min(0, rate);
             braunTube.rate.value = rate;
         }
     }
