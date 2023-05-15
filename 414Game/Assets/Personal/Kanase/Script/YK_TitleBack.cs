@@ -82,7 +82,7 @@ public class YK_TitleBack : YK_UI
         fade.FadeIn(1f, () =>
         {
             IS_AudioManager.instance.StopBGM(BGMType.BGM_GAMEOVER);
-            SceneManager.LoadScene("KanaseScene");
+            SceneManager.LoadScene("GameScene");
         });
     }
 }
