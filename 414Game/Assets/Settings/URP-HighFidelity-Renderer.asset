@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   _shader: {fileID: 4800000, guid: 0da584ea253bddd4e95ed32d687579ab, type: 3}
-  _timing: 1
+  _timing: 0
   _applyToSceneView: 1
 --- !u!114 &-5116319562746937704
 MonoBehaviour:
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: NoEffect
-    Event: 500
+    Event: 450
     filterSettings:
       RenderQueueType: 0
       LayerMask:
