@@ -7,6 +7,7 @@
  * @Update 2023/04/17 SE実装
  * @Update 2023/05/11 当たり判定処理をIS_WeaponHPBarCollision.csに移動
  * @Update 2023/05/11 マテリアル切替処理追加
+ * @Update 2023/05/15 液体シェーダー実装
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -27,11 +28,12 @@ public class IS_WeaponHPBar : IS_Weapon
     [System.Serializable]
     private class C_MaterialMesh
     {
-        public MeshRenderer m_MeshRender; // メッシュ
+        public List<MeshRenderer> m_MeshRender; // メッシュのリスト
         public List<Material> m_Material; // マテリアルのリスト
     }
     [SerializeField] private IS_Player m_Player;               // Player
     [SerializeField] private C_MaterialMesh m_MaterialMesh;    // メッシュとマテリアルのリスト
+    [SerializeField] private ON_BottleLiquid m_BottleLiquid;   // 液体シェーダー
     [SerializeField] private CapsuleCollider m_CapsuleCollider;// 当たり判定
     [SerializeField] private float fAttackRate;                // 攻撃の割合(スピード)
     [SerializeField] private Vector3 vRotAmount;               // 攻撃の回転量
@@ -82,6 +84,9 @@ public class IS_WeaponHPBar : IS_Weapon
 
         // 現在の状態に更新
         m_nCnt = Convert.ToInt32(m_bVisible);
+
+        // 液体の量をPlayerのHPに依存させる
+        m_BottleLiquid.ChangeFillingRate((float)(m_Player.GetSetHp / 100.0f));
     }
 
     /**
@@ -184,13 +189,15 @@ public class IS_WeaponHPBar : IS_Weapon
         if (m_bVisible)
         {
             m_CapsuleCollider.enabled = true;
-            m_MaterialMesh.m_MeshRender.enabled = true;
+            m_MaterialMesh.m_MeshRender[0].enabled = true;
+            m_MaterialMesh.m_MeshRender[1].enabled = true;
         }
         // 非表示状態だったら
         else
         {
             m_CapsuleCollider.enabled = false;
-            m_MaterialMesh.m_MeshRender.enabled = false;
+            m_MaterialMesh.m_MeshRender[0].enabled = false;
+            m_MaterialMesh.m_MeshRender[1].enabled = false;
         }
     }
 
@@ -205,8 +212,8 @@ public class IS_WeaponHPBar : IS_Weapon
         m_eCrackLevel = cracklevel;
 
         // マテリアル切替(耐久度によってHPBarにヒビが入る)
-        Material[] mats = m_MaterialMesh.m_MeshRender.materials;
+        Material[] mats = m_MaterialMesh.m_MeshRender[0].materials;
         mats[1] = m_MaterialMesh.m_Material[(int)m_eCrackLevel];
-        m_MaterialMesh.m_MeshRender.materials = mats;
+        m_MaterialMesh.m_MeshRender[0].materials = mats;
     }
 }
