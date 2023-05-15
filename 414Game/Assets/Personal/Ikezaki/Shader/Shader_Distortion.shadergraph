@@ -336,8 +336,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 791.2000122070313,
-            "y": -62.399986267089847
+            "x": 1306.4000244140625,
+            "y": 171.2000274658203
         },
         "m_Blocks": [
             {
@@ -391,13 +391,13 @@
     },
     "m_PreviewData": {
         "serializedMesh": {
-            "m_SerializedMesh": "{\"mesh\":{\"instanceID\":0}}",
+            "m_SerializedMesh": "{\"mesh\":{\"fileID\":10210,\"guid\":\"0000000000000000e000000000000000\",\"type\":0}}",
             "m_Guid": ""
         },
         "preventRotation": false
     },
     "m_Path": "Shader Graphs",
-    "m_GraphPrecision": 2,
+    "m_GraphPrecision": 0,
     "m_PreviewMode": 2,
     "m_OutputNode": {
         "m_Id": ""
@@ -1097,7 +1097,7 @@
     "m_FloatType": 1,
     "m_RangeValues": {
         "x": 0.0,
-        "y": 10.0
+        "y": 1.0
     }
 }
 
