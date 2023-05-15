@@ -60,6 +60,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHPBar: {fileID: 2525600869589869567}
+  m_nDamage2Enemy: 10
+  m_nDamage2HPBar: 5
+  m_nDrainEnemyHp: 2
+  m_nDrainBossHp: 3
 --- !u!1 &4046765456409590386
 GameObject:
   m_ObjectHideFlags: 0

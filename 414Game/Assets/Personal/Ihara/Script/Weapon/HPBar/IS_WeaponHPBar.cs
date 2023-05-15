@@ -216,4 +216,9 @@ public class IS_WeaponHPBar : IS_Weapon
         mats[1] = m_MaterialMesh.m_Material[(int)m_eCrackLevel];
         m_MaterialMesh.m_MeshRender[0].materials = mats;
     }
+
+    public IS_Player GetPlayer()
+    {
+        return m_Player;
+    }
 }

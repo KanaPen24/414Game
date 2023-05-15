@@ -196,7 +196,7 @@ public class IS_Player : MonoBehaviour
 
         // Decision=Key.Z,Joy.A
         //if (Input.GetButtonDown("Decision"))
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetButtonDown("Decision_Debug"))
         {
             // 装備していないor選択しているUIがあったら…
             if (GetSetPlayerEquipState == PlayerEquipState.NoneEquip ||
