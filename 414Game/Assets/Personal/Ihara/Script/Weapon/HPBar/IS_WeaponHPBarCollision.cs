@@ -18,6 +18,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
     [SerializeField] private int m_nDrainBossHp;  // Bossから吸収するHP
     private void OnTriggerEnter(Collider other)
     {
+        // ボスへのダメージ処理
         if (other.gameObject.GetComponent<NK_BossSlime>() != null)
         {
             if (weaponHPBar.GetSetAttack && !other.GetComponent<NK_BossSlime>().GetSetDamageFlag)
@@ -28,7 +29,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
             }
         }
-
+        // スライムへのダメージ処理
         if (other.gameObject.GetComponent<NK_Slime>() != null)
         {
             if (weaponHPBar.GetSetAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)

@@ -148,10 +148,6 @@ public class IS_WeaponHPBar : IS_Weapon
         // 右向きなら
         if (m_Player.GetSetPlayerDir == PlayerDir.Right)
         {
-            //vRot = new Vector3(-vRotAmount.x * m_fRateAmount,
-            //                    -vRotAmount.y * m_fRateAmount,
-            //                    -vRotAmount.z * m_fRateAmount);
-
             vRot = new Vector3(vRotAmount.x * m_fRateAmount,
             vRotAmount.y * m_fRateAmount,
             vRotAmount.z * m_fRateAmount);
