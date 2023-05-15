@@ -20,7 +20,7 @@ public class ON_TimeEffectRenderPass : ScriptableRenderPass
     private readonly int _mainTexPropertyId = Shader.PropertyToID("_MainTex");
     private readonly Material _material;
     private readonly ProfilingSampler _profilingSampler;
-    private readonly int _tintColorPropertyId = Shader.PropertyToID("_TintColor");
+    private readonly int _ratePropertyId = Shader.PropertyToID("_Rate");
 
     private RenderTargetHandle _afterPostProcessTexture;
     private RenderTargetIdentifier _cameraColorTarget;
@@ -93,8 +93,8 @@ public class ON_TimeEffectRenderPass : ScriptableRenderPass
 
         using (new ProfilingScope(cmd, _profilingSampler))
         {
-            // VolumeからTintColorを取得して反映
-            _material.SetColor(_tintColorPropertyId, _volume.tintColor.value);
+            // Volumeからrateを取得して反映
+            _material.SetFloat(_ratePropertyId, _volume.rate.value);
             cmd.SetGlobalTexture(_mainTexPropertyId, source);
 
             // 元のテクスチャから一時的なテクスチャへエフェクトを適応しつつ描画
