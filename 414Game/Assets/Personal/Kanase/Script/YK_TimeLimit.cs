@@ -22,6 +22,9 @@ public class YK_TimeLimit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
         //受け取ったfloat型の値を代入する
         Clock.fillAmount = 1.0f - time.GetSetNowTime / 200.0f;
     }

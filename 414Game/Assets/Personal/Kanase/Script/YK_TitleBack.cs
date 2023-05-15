@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement; // UnityEngine.SceneManagemntの機能を使�
 public class YK_TitleBack : YK_UI
 {
     [SerializeField] Fade fade;
-    [SerializeField] private Image TitleBack;
+    [SerializeField] private Image TitleBackUI;
     [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.5f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
@@ -25,9 +25,9 @@ public class YK_TitleBack : YK_UI
         m_eUIType = UIType.TitleBack; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
         //UIが動くようならUpdateにかかなかん
-        GetSetPos = TitleBack.GetComponent<RectTransform>().anchoredPosition;
+        GetSetPos = TitleBackUI.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
-        GetSetScale = TitleBack.transform.localScale;
+        GetSetScale = TitleBackUI.transform.localScale;
     }
 
     // Update is called once per frame
@@ -41,9 +41,9 @@ public class YK_TitleBack : YK_UI
     {
         m_eFadeState = FadeState.FadeIN;
         // 1秒で後X,Y方向を元の大きさに変更
-        TitleBack.transform.DOScale(GetSetScale, 0f);
+        TitleBackUI.transform.DOScale(GetSetScale, 0f);
         // 1秒でテクスチャをフェードイン
-        TitleBack.DOFade(1f, 0f).OnComplete(() =>
+        TitleBackUI.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeIN終了");
@@ -54,9 +54,9 @@ public class YK_TitleBack : YK_UI
     {
         m_eFadeState = FadeState.FadeOUT;
         // 1秒で後X,Y方向を0.5倍に変更
-        TitleBack.transform.DOScale(m_MinScale, m_fDelTime);
+        TitleBackUI.transform.DOScale(m_MinScale, m_fDelTime);
         // 1秒でテクスチャをフェードアウト
-        TitleBack.DOFade(0f, m_fDelTime).OnComplete(() =>
+        TitleBackUI.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
             Debug.Log("FadeOUT終了");
@@ -76,11 +76,13 @@ public class YK_TitleBack : YK_UI
     }
     public void TitleBackPlay()
     {
+        //ゲームのステートをスタート状態にする
+        GameManager.instance.GetSetGameState = GameState.GameStart;
         //トランジションを掛けてシーン遷移する
         fade.FadeIn(1f, () =>
         {
             IS_AudioManager.instance.StopBGM(BGMType.BGM_GAMEOVER);
-            SceneManager.LoadScene("TitleScene");
+            SceneManager.LoadScene("KanaseScene");
         });
     }
 }

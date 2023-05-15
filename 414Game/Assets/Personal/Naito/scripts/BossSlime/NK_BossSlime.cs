@@ -58,11 +58,13 @@ public class NK_BossSlime : MonoBehaviour
     [SerializeField] private YK_Goal goal;
     private Rigidbody m_Rbody;
     [HideInInspector] public Vector3 m_BSMoveValue;
+    private float m_localScalex;
 
     private void Start()
     {
         m_BSMoveValue = new Vector3(0.0f, 0.0f, 0.0f);
         m_Rbody = GetComponent<Rigidbody>();
+        m_localScalex = this.transform.localScale.x;
     }
 
     private void Update()
@@ -79,12 +81,14 @@ public class NK_BossSlime : MonoBehaviour
         if(m_BSPlayer.transform.position.x>this.gameObject.transform.position.x)
         {
             GetSetBossSlimeDir = BossSlimeDir.Right;
-            this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f));
+            this.transform.localScale =
+                new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
         }
         else
         {
             GetSetBossSlimeDir = BossSlimeDir.Left;
-            this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -90.0f, 0.0f));
+            this.transform.localScale =
+                new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
         }
     }
 

@@ -61,11 +61,13 @@ public class NK_Slime : MonoBehaviour
     [SerializeField] private float m_fMovePower;
     //ジャンプ力
     [SerializeField] private float m_fJumpPower;
+    private float m_localScalex;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         m_rBody = GetComponent<Rigidbody>();
+        m_localScalex = this.transform.localScale.x;
     }
 
     private void Update()
@@ -87,12 +89,14 @@ public class NK_Slime : MonoBehaviour
             if(m_Player.transform.position.x > this.gameObject.transform.position.x)
             {
                 GetSetSlimeDir = SlimeDir.Right;
-                this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, 90.0f, 0.0f));
+                this.transform.localScale =
+                    new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
             }
             else
             {
                 GetSetSlimeDir = SlimeDir.Left;
-                this.transform.rotation = Quaternion.Euler(new Vector3(0.0f, -90.0f, 0.0f));
+                this.transform.localScale =
+                   new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
             }
         }
         if (m_SlimeState == SlimeState.SlimeMove)
