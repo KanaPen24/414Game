@@ -11,7 +11,7 @@ Shader "Hidden/ON_TimePostEffect"
 
 			TEXTURE2D(_MainTex);
 			SAMPLER(sampler_MainTex);
-			half4 _TintColor;
+			float _Rate;
 
 			struct Attributes
 			{
@@ -39,9 +39,19 @@ Shader "Hidden/ON_TimePostEffect"
 			{
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
 				half4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, IN.uv);
-				//col.rgb *= _TintColor.rgb;
+
+				// âÊñ íÜêSÇ©ÇÁê≥â~Çï`Ç≠
+				float radius = lerp(.0f, 1.1f, _Rate);
+				float aspect = _ScreenParams.x / _ScreenParams.y;
+				float2 uv = IN.uv;
+				uv.x *= aspect;
+				float r = distance(uv, float2(.5f * aspect, .5f));
+				float range = smoothstep(radius, radius + .0002f,r);
+
+				// â~ÇÃíÜÇÃÇ›îíçïÇ…
 				float gray = dot(col.rgb, float3(0.299, 0.587, 0.114));
-				col.rgb = gray;
+				col.rgb = lerp(gray, col.rgb, range);
+
 				return col;
 			}
 			ENDHLSL
