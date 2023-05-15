@@ -211,7 +211,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 64
-  m_ForceMagnitude: -4
+  m_ForceMagnitude: -6
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
@@ -1000,6 +1000,8 @@ MonoBehaviour:
   - {fileID: 8823388500288985867}
   - {fileID: 1944106076683542139}
   - {fileID: 1493998724894669398}
+  - {fileID: 6214899964494218869}
+  - {fileID: 756303291483435046}
   - {fileID: 0}
 --- !u!1 &3133148299695287853
 GameObject:
@@ -1649,7 +1651,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 64
-  m_ForceMagnitude: -4
+  m_ForceMagnitude: -6
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
@@ -1982,7 +1984,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 64
-  m_ForceMagnitude: -4
+  m_ForceMagnitude: -6
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
@@ -2351,7 +2353,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 64
-  m_ForceMagnitude: -4
+  m_ForceMagnitude: -6
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
@@ -2494,7 +2496,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 64
-  m_ForceMagnitude: -4
+  m_ForceMagnitude: -6
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
@@ -2675,6 +2677,7 @@ MonoBehaviour:
   m_nTimeLimit: 200
   timerText: {fileID: 4843499608263077420}
   Clock: {fileID: 8823388500288985867}
+  PostEffect: {fileID: 0}
 --- !u!114 &5594442932299360017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2738,6 +2741,8 @@ GameObject:
   - component: {fileID: 143374927631392230}
   - component: {fileID: 7495203909688170979}
   - component: {fileID: 1985264117707769158}
+  - component: {fileID: 2400138925066517039}
+  - component: {fileID: 5896845944844229568}
   m_Layer: 5
   m_Name: BossBar
   m_TagString: UI
@@ -2842,6 +2847,52 @@ MonoBehaviour:
   m_Hand: {fileID: 1202220674682552803}
   m_MinScale: {x: 0.5, y: 0.5, z: 0}
   m_fDelTime: 0.5
+--- !u!61 &2400138925066517039
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7630735543527690732}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 160, y: 9.47}
+  m_EdgeRadius: 0
+--- !u!250 &5896845944844229568
+PointEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7630735543527690732}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceMagnitude: -6
+  m_ForceVariation: 0
+  m_DistanceScale: 1
+  m_ForceSource: 0
+  m_ForceTarget: 0
+  m_ForceMode: 0
+  m_Drag: 20
+  m_AngularDrag: 0
 --- !u!1 &7639210460498898914
 GameObject:
   m_ObjectHideFlags: 0
@@ -3053,7 +3104,7 @@ PointEffector2D:
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 64
-  m_ForceMagnitude: -4
+  m_ForceMagnitude: -6
   m_ForceVariation: 0
   m_DistanceScale: 1
   m_ForceSource: 0
@@ -3431,28 +3482,28 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -137.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1252618961789107931, guid: 536d72463a646b44eb2c1000869a281a,
+        type: 3}
+      propertyPath: m_Name
+      value: TitleBackUI
+      objectReference: {fileID: 0}
     - target: {fileID: 1252618962852615570, guid: 536d72463a646b44eb2c1000869a281a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -29
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252618962852615574, guid: 536d72463a646b44eb2c1000869a281a,
+        type: 3}
+      propertyPath: m_Name
+      value: RetryUI
       objectReference: {fileID: 0}
     - target: {fileID: 2637863287013596610, guid: 536d72463a646b44eb2c1000869a281a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 72
       objectReference: {fileID: 0}
-    - target: {fileID: 6975014456731628318, guid: 536d72463a646b44eb2c1000869a281a,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 7
-      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 1252618961565886809, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
-    - {fileID: 1252618961565886808, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
     - {fileID: 1252618961565886810, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
-    - {fileID: 1252618962852615575, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
-    - {fileID: 1252618961789107924, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
-    - {fileID: 6975014456731628318, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
 --- !u!224 &357825146099693795 stripped
 RectTransform:
@@ -3525,7 +3576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fade: {fileID: 0}
-  TitleBack: {fileID: 357825146413608809}
+  TitleBackUI: {fileID: 357825146413608809}
   m_Hand: {fileID: 1202220674682552803}
   m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
   m_fDelTime: 0.5
@@ -3606,7 +3657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fade: {fileID: 0}
-  Retry: {fileID: 357825147229127724}
+  RetryUI: {fileID: 357825147229127724}
   m_Hand: {fileID: 1202220674682552803}
   m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
   m_fDelTime: 0.5
@@ -4428,33 +4479,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1252618961789107925, guid: 536d72463a646b44eb2c1000869a281a,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3663a7f48ae33354085e8d5c0834b6bf,
+        type: 3}
     - target: {fileID: 1252618961789107927, guid: 536d72463a646b44eb2c1000869a281a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -137.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1252618961789107931, guid: 536d72463a646b44eb2c1000869a281a,
+        type: 3}
+      propertyPath: m_Name
+      value: ExitUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252618962852615568, guid: 536d72463a646b44eb2c1000869a281a,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bd98b720acc15114fbb1f949a42fe32c,
+        type: 3}
     - target: {fileID: 1252618962852615570, guid: 536d72463a646b44eb2c1000869a281a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -29
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252618962852615574, guid: 536d72463a646b44eb2c1000869a281a,
+        type: 3}
+      propertyPath: m_Name
+      value: StartUI
       objectReference: {fileID: 0}
     - target: {fileID: 2637863287013596610, guid: 536d72463a646b44eb2c1000869a281a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 72
       objectReference: {fileID: 0}
-    - target: {fileID: 6975014456731628318, guid: 536d72463a646b44eb2c1000869a281a,
+    - target: {fileID: 7862323879306296968, guid: 536d72463a646b44eb2c1000869a281a,
         type: 3}
-      propertyPath: m_SortingOrder
-      value: 7
+      propertyPath: m_Name
+      value: gamestart
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 1252618961565886809, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
-    - {fileID: 1252618961565886808, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
     - {fileID: 1252618961565886810, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
-    - {fileID: 1252618962852615575, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
-    - {fileID: 1252618961789107924, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
-    - {fileID: 6975014456731628318, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
 --- !u!1 &3365447831523344262 stripped
 GameObject:
@@ -4552,7 +4621,7 @@ PointEffector2D:
   m_ForceMode: 0
   m_Drag: 20
   m_AngularDrag: 0
---- !u!114 &4128310245256288034
+--- !u!114 &756303291483435046
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4561,11 +4630,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5965826253428260821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c7194545f11299468a4faee0539e5a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 188237fa880b1214fad6b6cc16a2358f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fade: {fileID: 0}
-  TitleBack: {fileID: 5965826253428260827}
+  Exit: {fileID: 5965826253428260827}
   m_Hand: {fileID: 1202220674682552803}
   m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
   m_fDelTime: 0.5
@@ -4581,6 +4649,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5965826254180214864 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1252618961565886814, guid: 536d72463a646b44eb2c1000869a281a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4875407256634638606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5965826254180214865 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1252618961565886815, guid: 536d72463a646b44eb2c1000869a281a,
@@ -4639,7 +4713,7 @@ PointEffector2D:
   m_ForceMode: 0
   m_Drag: 20
   m_AngularDrag: 0
---- !u!114 &9140464446637938597
+--- !u!114 &6214899964494218869
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4648,14 +4722,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5965826255464846488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0c80079e7b6d294681a3c34fd98dc0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3dd49756fc7bab54c805545560cfc1fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fade: {fileID: 0}
-  Retry: {fileID: 5965826255464846494}
+  GameStart: {fileID: 5965826254180214864}
+  StartUI: {fileID: 5965826255464846494}
   m_Hand: {fileID: 1202220674682552803}
   m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
   m_fDelTime: 0.5
+  PostEffect: {fileID: 0}
 --- !u!114 &5965826255464846494 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1252618962852615568, guid: 536d72463a646b44eb2c1000869a281a,
@@ -5105,6 +5180,8 @@ MonoBehaviour:
   - {fileID: 8823388500288985867}
   - {fileID: 1944106076683542139}
   - {fileID: 1493998724894669398}
+  - {fileID: 6214899964494218869}
+  - {fileID: 756303291483435046}
   - {fileID: 0}
   particleUI: {fileID: 972375644942067735}
   particlePL: {fileID: 489221037991370908}

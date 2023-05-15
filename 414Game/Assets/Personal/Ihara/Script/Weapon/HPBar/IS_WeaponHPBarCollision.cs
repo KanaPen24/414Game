@@ -12,26 +12,37 @@ using UnityEngine;
 public class IS_WeaponHPBarCollision : MonoBehaviour
 {
     [SerializeField] private IS_WeaponHPBar weaponHPBar;
+    [SerializeField] private int m_nDamage2Enemy; // 敵に与えるダメージ量
+    [SerializeField] private int m_nDamage2HPBar; // HPBarに与えるダメージ量
+    [SerializeField] private int m_nDrainEnemyHp; // 雑魚敵から吸収するHP
+    [SerializeField] private int m_nDrainBossHp;  // Bossから吸収するHP
     private void OnTriggerEnter(Collider other)
     {
+        // ボスへのダメージ処理
         if (other.gameObject.GetComponent<NK_BossSlime>() != null)
         {
             if (weaponHPBar.GetSetAttack && !other.GetComponent<NK_BossSlime>().GetSetDamageFlag)
             {
-                weaponHPBar.GetSetHp -= 7;
-                other.GetComponent<NK_BossSlime>().BossSlimeDamage(5);
-                other.transform.GetComponent<YK_TakeDamage>().Damage(other, 5);
+                weaponHPBar.GetSetHp -= m_nDamage2HPBar;
+                weaponHPBar.GetPlayer().GetSetHp += m_nDrainBossHp;
+                other.GetComponent<NK_BossSlime>().BossSlimeDamage(m_nDamage2Enemy);
+                other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
             }
         }
-
+        // スライムへのダメージ処理
         if (other.gameObject.GetComponent<NK_Slime>() != null)
         {
             if (weaponHPBar.GetSetAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)
             {
-                weaponHPBar.GetSetHp -= 5;
-                other.GetComponent<NK_Slime>().SlimeDamage(5);
-                other.transform.GetComponent<YK_TakeDamage>().Damage(other, 5);
+                weaponHPBar.GetSetHp -= m_nDamage2HPBar;
+                weaponHPBar.GetPlayer().GetSetHp += m_nDrainBossHp;
+                other.GetComponent<NK_Slime>().SlimeDamage(m_nDamage2Enemy);
+                other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
             }
         }
+
+        // 耐久値が0以下になったらゲームオーバー
+        if (weaponHPBar.GetSetHp <= 0)
+            GameManager.instance.GetSetGameState = GameState.GameOver;
     }
 }

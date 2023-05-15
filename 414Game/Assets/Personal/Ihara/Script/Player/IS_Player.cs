@@ -32,7 +32,7 @@ public enum PlayerState
     PlayerJump,       // 跳躍状態
     PlayerDrop,       // 落下状態
     PlayerAttack,     // 攻撃状態
-    //PlayerJumpAttack, // 跳躍攻撃状態
+    PlayerJumpAttack, // 跳躍攻撃状態
 
     MaxPlayerState
 }
@@ -195,12 +195,13 @@ public class IS_Player : MonoBehaviour
         else bInputSpace = false;
 
         // Decision=Key.Z,Joy.A
-        if (Input.GetButtonDown("Decision"))
-        //if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetButtonDown("Decision") || 
+            Input.GetButtonDown("Decision_Debug"))
         {
             // 装備していないor選択しているUIがあったら…
             if (GetSetPlayerEquipState == PlayerEquipState.NoneEquip ||
-                m_CursolEvent.GetSetCurrentUI != null)
+                (m_CursolEvent.GetSetCurrentUI != null && 
+                 m_UICatcher.GetSetSelectUI != m_CursolEvent.GetSetCurrentUI))
             {
                 // 武器装備
                 EquipWeapon();

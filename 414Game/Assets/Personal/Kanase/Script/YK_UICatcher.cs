@@ -79,11 +79,21 @@ public class YK_UICatcher : MonoBehaviour
             particlePL.Play();
             BlackHoleUI.SetActive(true);
             //プレイヤー側に表示するUIを設定
-            if (CursolEvent.GetSetCurrentUI.GetSetUIType == UIType.Retry || CursolEvent.GetSetCurrentUI.GetSetUIType == UIType.TitleBack)
-                BlackHolePL.SetActive(false);
-            else BlackHolePL.SetActive(true);
+            switch(CursolEvent.GetSetCurrentUI.GetSetUIType)
+            {
+                case UIType.Retry:
+                case UIType.TitleBack:
+                case UIType.Start:
+                case UIType.Exit:
+                    BlackHolePL.SetActive(false);
+                    PortalObjPL.SetActive(false);
+                    break;
+                default:
+                    BlackHolePL.SetActive(true);
+                    PortalObjPL.SetActive(true);
+                    break;
+            }
             PortalObjUI.SetActive(true);
-            PortalObjPL.SetActive(true);
             m_bParticleFlg = true;
             Debug.Log(Hand.transform.position);
         }
@@ -139,7 +149,7 @@ public class YK_UICatcher : MonoBehaviour
 
         IS_AudioManager.instance.PlaySE(SEType.SE_UICatcher);
         if (GameObject.Find("DamageCanvas(Clone)"))
-            m_Uis[11] = GameObject.Find("DamageCanvas(Clone)").GetComponent<YK_DamageUI>();
+            m_Uis[13] = GameObject.Find("DamageCanvas(Clone)").GetComponent<YK_DamageUI>();
         // 選択したUIを探す
         for (int i = 0,size = m_Uis.Count; i < size;++i)
         {
