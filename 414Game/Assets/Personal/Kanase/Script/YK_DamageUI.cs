@@ -19,14 +19,12 @@ public class YK_DamageUI : YK_UI
     //　移動値
     [SerializeField]
     private float moveSpeed = 0.4f;
-    private int m_nDamage;
-    [SerializeField] private YK_Hand m_Hand;
+    private int m_nDamage;    
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.5f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
 
     void Start()
-    {
-        m_Hand = GameObject.Find("hand").GetComponent<YK_Hand>();
+    {        
         damageText = GetComponentInChildren<Text>();
         m_eUIType = UIType.DamageNumber; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;

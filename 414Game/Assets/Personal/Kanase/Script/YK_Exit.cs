@@ -13,8 +13,7 @@ using UnityEngine.UI;
 
 public class YK_Exit : YK_UI
 {
-    [SerializeField] private Image Exit;
-    [SerializeField] private YK_Hand m_Hand;
+    [SerializeField] private Image Exit;    
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.5f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
     private bool m_bVisibleRetry = false;
