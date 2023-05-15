@@ -69,6 +69,7 @@ public class YK_Clock : YK_UI
         // SE停止
         IS_AudioManager.instance.StopSE(SEType.SE_StopTime);
         m_bStopTime = false;
+        m_Time.GetSetTimeFlg = true;
         m_bOnce = true;
         m_nTimeCount--;
         UIFadeIN();
