@@ -33,5 +33,9 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, 5);
             }
         }
+
+        // 耐久値が0以下になったらゲームオーバー
+        if (weaponHPBar.GetSetHp <= 0)
+            GameManager.instance.GetSetGameState = GameState.GameOver;
     }
 }
