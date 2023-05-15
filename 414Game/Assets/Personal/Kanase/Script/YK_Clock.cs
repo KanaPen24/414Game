@@ -52,7 +52,7 @@ public class YK_Clock : YK_UI
         if (m_bStopTime && m_bOnce)
         {
             m_bOnce = false;
-            PostEffect.ChangeTimePostEffect(true);
+            PostEffect.ChangeTimePostEffect(1);
             Invoke(nameof(StopTimeSE), 3.0f);
             //StopTimeReleaseを5秒後に呼び出す
             Invoke(nameof(StopTimeRelease), 5.0f);
@@ -67,7 +67,7 @@ public class YK_Clock : YK_UI
 
     public void StopTimeRelease()
     {
-        PostEffect.ChangeTimePostEffect(false);
+        PostEffect.ChangeTimePostEffect(0);
         // SE停止
         IS_AudioManager.instance.StopSE(SEType.SE_StopTime);
         m_bStopTime = false;
