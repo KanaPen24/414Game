@@ -33,12 +33,12 @@ public class YK_Start : YK_UI
     }
     private void Update()
     {
+        //ブラウン管のポストエフェクトを減らしていく処理
         if (!m_bVisibleStart)
         {
             m_fTime += Time.deltaTime;
             m_rate = Mathf.Lerp(1.0f, 0.0f, m_fTime);
             PostEffect.SetBraunRate(m_rate);
-            Debug.Log(m_rate);
         }
         if (GameManager.instance.GetSetGameState != GameState.GameStart && m_rate <= 0) 
             GameStart.SetActive(false);
