@@ -148,10 +148,6 @@ public class IS_WeaponHPBar : IS_Weapon
         // 右向きなら
         if (m_Player.GetSetPlayerDir == PlayerDir.Right)
         {
-            //vRot = new Vector3(-vRotAmount.x * m_fRateAmount,
-            //                    -vRotAmount.y * m_fRateAmount,
-            //                    -vRotAmount.z * m_fRateAmount);
-
             vRot = new Vector3(vRotAmount.x * m_fRateAmount,
             vRotAmount.y * m_fRateAmount,
             vRotAmount.z * m_fRateAmount);
@@ -215,5 +211,10 @@ public class IS_WeaponHPBar : IS_Weapon
         Material[] mats = m_MaterialMesh.m_MeshRender[0].materials;
         mats[1] = m_MaterialMesh.m_Material[(int)m_eCrackLevel];
         m_MaterialMesh.m_MeshRender[0].materials = mats;
+    }
+
+    public IS_Player GetPlayer()
+    {
+        return m_Player;
     }
 }
