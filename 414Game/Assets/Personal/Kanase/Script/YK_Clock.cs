@@ -51,8 +51,7 @@ public class YK_Clock : YK_UI
         Second.transform.eulerAngles = new Vector3(0, 0, (Time.GetSetNowTime/200.0f)*360.0f);
         if (m_bStopTime && m_bOnce)
         {
-            m_bOnce = false;
-            PostEffect.ChangeTimePostEffect(1);
+            m_bOnce = false;            
             Invoke(nameof(StopTimeSE), 3.0f);
             //StopTimeReleaseを5秒後に呼び出す
             Invoke(nameof(StopTimeRelease), 5.0f);
@@ -67,7 +66,6 @@ public class YK_Clock : YK_UI
 
     public void StopTimeRelease()
     {
-        PostEffect.ChangeTimePostEffect(0);
         // SE停止
         IS_AudioManager.instance.StopSE(SEType.SE_StopTime);
         m_bStopTime = false;

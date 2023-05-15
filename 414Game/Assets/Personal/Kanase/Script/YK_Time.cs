@@ -14,9 +14,13 @@ public class YK_Time : MonoBehaviour
     [SerializeField] private int m_nTimeLimit = 200;    //タイムリミット
     [SerializeField] private Text timerText;            //表示するテキスト
     [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
+    [SerializeField] ON_VolumeManager PostEffect;       //ポストエフェクト
     private Outline outline;
-    private float m_fTime;
-    private int  m_nNowTime;       //現在時間
+    private float m_fTime;              //進行時間
+    private float m_fPostEffect_Time;   //ポストエフェクト用の時間
+    private float m_rate = 0.0f;        //ポストエフェクト用の割合
+    private bool m_bPostEffect = false; //ポストエフェクト用のフラグ
+    private int  m_nNowTime;            //現在時間
 
     private void Start()
     {
@@ -32,15 +36,28 @@ public class YK_Time : MonoBehaviour
         //時止め中
         if (Clock.GetSetStopTime)
         {
+            //時止めのポストエフェクトを減らしていく処理
+            m_fPostEffect_Time += Time.deltaTime;
+            m_rate = Mathf.Lerp(0.0f, 1.0f, m_fTime);
+            //ポストエフェクトの変更
+            PostEffect.ChangeTimePostEffect(m_rate);
+            //テキストカラー変更
             timerText.color = Color.black;
             outline.effectColor = Color.white;
             return;
         }
         else
         {
+            //時止めのポストエフェクトを減らしていく処理
+            m_fPostEffect_Time += Time.deltaTime;
+            m_rate = Mathf.Lerp(1.0f, 0.0f, m_fTime);
+            //テキストカラー変更
             timerText.color = Color.white;
             outline.effectColor = Color.black;
         }
+        if (m_bPostEffect)
+        { }
+
         //フレーム毎の経過時間をtime変数に追加
         m_fTime += Time.deltaTime;
         //time変数をint型にし制限時間から引いた数をint型のlimit変数に代入
