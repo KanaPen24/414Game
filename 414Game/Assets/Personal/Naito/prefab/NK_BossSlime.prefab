@@ -1175,10 +1175,10 @@ MonoBehaviour:
   confettiEffect: {fileID: 1766757351493414124, guid: e76bbb5382bf87e448072d3a1e4a2dfa,
     type: 3}
   m_effectParam:
-  - m_vLocalPos: {x: 6, y: 0, z: 0}
+  - m_vLocalPos: {x: 7.5, y: 1, z: 8.5}
     m_vLocalRot: {x: 0, y: 0, z: 45}
     m_vLocalScale: {x: 20, y: 20, z: 20}
-  - m_vLocalPos: {x: -6, y: 0, z: 0}
+  - m_vLocalPos: {x: -7.5, y: 1, z: 8.5}
     m_vLocalRot: {x: 0, y: 0, z: -45}
     m_vLocalScale: {x: 20, y: 20, z: 20}
 --- !u!114 &1217551706
@@ -1318,4 +1318,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BossSlime: {fileID: 1217551708}
+  m_FloorPos: 0
   m_FallPow: 15

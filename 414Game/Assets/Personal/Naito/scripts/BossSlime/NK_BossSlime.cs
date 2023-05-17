@@ -65,6 +65,7 @@ public class NK_BossSlime : MonoBehaviour
         m_BSMoveValue = new Vector3(0.0f, 0.0f, 0.0f);
         m_Rbody = GetComponent<Rigidbody>();
         m_localScalex = this.transform.localScale.x;
+        m_BossSlimeState = BossSlimeState.BossSlimeFall;
     }
 
     private void Update()
