@@ -35,7 +35,7 @@ public class YK_Goal : MonoBehaviour
             fade.FadeIn(1f, () =>
             {
                 IS_AudioManager.instance.StopBGM(BGMType.BGM_Game);
-                SceneManager.LoadScene("TitleScene");
+                SceneManager.LoadScene("GameScene");
             });
         }
 

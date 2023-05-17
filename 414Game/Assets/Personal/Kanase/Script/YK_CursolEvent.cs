@@ -27,13 +27,14 @@ public class YK_CursolEvent : MonoBehaviour
     {
         // メンバの初期化
         m_CurrentUI = null;
+        
     }
 
     //　マウスアイコンが自分のアイコン上に入った時
     private void OnTriggerEnter2D(Collider2D col)
     {
         if(GameObject.Find("DamageCanvas(Clone)"))
-        m_Uis[13] = GameObject.Find("DamageCanvas(Clone)").GetComponent<YK_DamageUI>();
+        m_Uis[14] = GameObject.Find("DamageCanvas(Clone)").GetComponent<YK_DamageUI>();
         // 格納してあるYK_UIのゲームオブジェクトを探す
         for (int i = 0, size = m_Uis.Count; i < size; ++i)
         {
