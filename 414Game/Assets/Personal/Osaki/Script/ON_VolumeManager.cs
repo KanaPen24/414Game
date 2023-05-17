@@ -14,12 +14,14 @@ public class ON_VolumeManager : MonoBehaviour
         _volume = GetComponent<Volume>();
     }
 
-    // タイマーエフェクトの切り替え
-    public void ChangeTimePostEffect(bool flg)
+    // タイマーエフェクトの遷移
+    public void ChangeTimePostEffect(float rate)
     {
         if (_volume.profile.TryGet<ON_TimeEffectVolume>(out timeeffect))
         {
-            timeeffect.active = flg;
+            rate = rate > 1 ? 1 : rate;
+            rate = rate < 0 ? 0 : rate;
+            timeeffect.rate.value = rate;
         }
     }
 
@@ -28,8 +30,8 @@ public class ON_VolumeManager : MonoBehaviour
     {
         if(_volume.profile.TryGet<ON_BraunTubeVolume>(out braunTube))
         {
-            //rate = Mathf.Max(rate, 1);
-            //rate = Mathf.Min(0, rate);
+            rate = rate > 1 ? 1 : rate;
+            rate = rate < 0 ? 0 : rate;
             braunTube.rate.value = rate;
         }
     }

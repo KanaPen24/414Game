@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 [VolumeComponentMenu("Time Effect")]
 public class ON_TimeEffectVolume : VolumeComponent
 {
-    public bool IsActive() => tintColor != Color.white;
+    public bool IsActive() => rate != 0.0f;
 
-    public ColorParameter tintColor = new ColorParameter(Color.white);
+    public ClampedFloatParameter rate = new ClampedFloatParameter(0.0f, 0.0f, 1.0f);
 }

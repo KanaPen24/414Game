@@ -16,7 +16,7 @@ public class IS_PlayerJumpAttack : IS_PlayerStrategy
 
     private void Update()
     {
-        //if (m_Player.GetSetPlayerState == PlayerState.PlayerJumpAttack)
+        if (m_Player.GetSetPlayerState == PlayerState.PlayerJumpAttack)
         {
             // 攻撃開始時の処理
             if (m_Player.GetSetAttackFlg)
@@ -32,7 +32,7 @@ public class IS_PlayerJumpAttack : IS_PlayerStrategy
             if (!m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
-                m_Player.GetAnimator().SetBool("isWait", true);
+                //m_Player.GetAnimator().SetBool("isWait", true);
                 //m_Player.GetAnimator().SetBool("isAttack", false);
                 return;
             }
@@ -56,13 +56,15 @@ public class IS_PlayerJumpAttack : IS_PlayerStrategy
     public override void UpdateStrategy()
     {
         // ここにStateごとに処理を加える
-        //Debug.Log("PlayerAttack");
 
-        // 合計移動量に重力加算
+        // 合計移動量をリセット(y成分はリセットしない)
         m_Player.GetSetMoveAmount =
-            new Vector3(0f, m_Player.GetSetGravity, 0f);
+            new Vector3(0f, m_Player.GetSetMoveAmount.y, 0f);
 
         // 指定した武器で攻撃処理
         m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).UpdateAttack();
+
+        // 重力を合計移動量に加算
+        m_Player.m_vMoveAmount.y += m_Player.GetSetGravity;
     }
 }
