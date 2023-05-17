@@ -23,6 +23,7 @@ public enum UIType
     TitleBack,  // タイトルへ戻る
     Start,      //スタート
     Exit,       //終了
+    Combo,      //コンボ
     DamageNumber,  // ダメージ
 
     MaxUIType

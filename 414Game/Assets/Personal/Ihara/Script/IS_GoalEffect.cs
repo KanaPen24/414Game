@@ -19,7 +19,7 @@ public class IS_GoalEffect : MonoBehaviour
         public Vector3 m_vLocalScale;
     }
 
-    [SerializeField] private IS_Player m_Player;              // Player
+    [SerializeField] private GameObject m_Player;              // Player
     [SerializeField] private ParticleSystem confettiEffect;   // 紙吹雪エフェクト(倒されたとき発生)
     [SerializeField] private List<CEffectParam> m_effectParam;// エフェクトパラメータ
 

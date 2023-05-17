@@ -17,7 +17,6 @@ public class YK_Clock : YK_UI
     [SerializeField] private Image Clock_Inner;     //時計の赤い部分
     [SerializeField] private Image Second_Image;    //時計の針
     [SerializeField] private Image OutLine;         //アウトライン
-    [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private YK_Time m_Time;
     [SerializeField] private IS_Player Player;
     [SerializeField] float timerLimit=5;

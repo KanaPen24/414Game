@@ -19,7 +19,6 @@ public class YK_HPBar : YK_UI
     [SerializeField] private Image Crack;        //ヒビの画像
     [SerializeField] private Image Refraction;   //反射光
     [SerializeField] private Image OutLine;      //アウトライン
-    [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.4f; // 減算していく時間
 
