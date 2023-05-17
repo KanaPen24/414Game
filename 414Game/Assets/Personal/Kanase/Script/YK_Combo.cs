@@ -52,6 +52,8 @@ public class YK_Combo: YK_UI
         ComboNumber = GetComponent<Text>();
         //60FPSに合わせる
         m_fCountDownTime *= 60f;
+        //最初は消しておく
+        a_color = 0.0f;
     }
 
     // Update is called once per frame

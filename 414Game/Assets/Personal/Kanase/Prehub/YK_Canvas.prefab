@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Version: 300
-  m_EffectMaterial: {fileID: 21939717441729078, guid: 17b17d6effbe14075a3bbdf1fda1f6e1,
+  m_EffectMaterial: {fileID: 6447071685718000054, guid: 17b17d6effbe14075a3bbdf1fda1f6e1,
     type: 2}
   m_EffectFactor: 1
   m_Width: 0.5
