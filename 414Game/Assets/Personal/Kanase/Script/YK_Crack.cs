@@ -18,6 +18,7 @@ public class YK_Crack : MonoBehaviour
     [SerializeField] private Sprite Crack_Nor;
     [SerializeField] private Sprite Crack_Max;
     [SerializeField] private IS_WeaponHPBar weaponHpBar;
+    [SerializeField] private ParticleSystem Glass;
 
     private bool m_bCrackMinFlag;
     private bool m_bCrackNorFlag;
@@ -49,6 +50,7 @@ public class YK_Crack : MonoBehaviour
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_2);
                 weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level3);
+                //Glass.Play();
                 m_bCrackMaxFlag = true;
             }
             image.sprite = Crack_Max;
@@ -60,6 +62,7 @@ public class YK_Crack : MonoBehaviour
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_1);
                 weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level2);
+                //Glass.Play();
                 m_bCrackNorFlag = true;
             }
             image.sprite = Crack_Nor;
@@ -71,6 +74,7 @@ public class YK_Crack : MonoBehaviour
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_1);
                 weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level1);
+                //Glass.Play();
                 m_bCrackMinFlag = true;
             }
             image.sprite = Crack_Min;
