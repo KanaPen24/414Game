@@ -57,10 +57,12 @@ public class YK_Combo: YK_UI
     // Update is called once per frame
     void Update()
     {
+        // ゲームがプレイ中または武器中以外は更新しない　
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
         if (Input.GetKeyDown(KeyCode.F2))
         {
             AddCombo();
-            m_bHitFlg = true;
         }
         if (m_Combo == 0)
             a_color = 0.0f;
@@ -129,6 +131,7 @@ public class YK_Combo: YK_UI
     //コンボ加算
     public void AddCombo()
     {
+        m_bHitFlg = true;
         a_color = 1.0f;
         m_Combo ++ ;
         ComboNumber.text = m_Combo +"";
