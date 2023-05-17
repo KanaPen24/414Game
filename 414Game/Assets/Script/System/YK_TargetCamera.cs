@@ -30,54 +30,6 @@ public class YK_TargetCamera : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        //// 左向きなら…
-        //if (Player.GetSetPlayerDir == PlayerDir.Left)
-        //{
-        //    if (Player.GetSetPlayerState != PlayerState.PlayerWait)
-        //    {
-        //        if (m_fCurrnetMoveCnt <= -m_fMoveCnt)
-        //        {
-        //            m_fCurrnetMoveCnt = -m_fMoveCnt;
-        //        }
-        //        else m_fCurrnetMoveCnt -= Time.deltaTime * m_fAccel;
-        //    }
-
-        //    m_fAccel -= 0.1f;
-        //}
-        //// 右向きなら…
-        //else if(Player.GetSetPlayerDir == PlayerDir.Right)
-        //{
-        //    if (Player.GetSetPlayerState != PlayerState.PlayerWait)
-        //    {
-        //        if (m_fCurrnetMoveCnt >= m_fMoveCnt)
-        //        {
-        //            m_fCurrnetMoveCnt = m_fMoveCnt;
-        //        }
-        //        else m_fCurrnetMoveCnt += Time.deltaTime * m_fAccel;
-        //    }
-
-        //    m_fAccel -= 0.1f;
-        //}
-
-        //if(m_fAccel <=0f)
-        //{
-        //    m_fAccel = 0f;
-        //}
-        //if (m_fAccel >= m_fMaxAccel)
-        //{
-        //    m_fAccel = m_fMaxAccel;
-        //}
-        //// 前回と向きが同じであれば…
-        //if ((int)Player.GetSetPlayerDir != nDir)
-        //{
-        //    m_fAccel = m_fMaxAccel;
-        //}
-
-        //// 現在の向きを取得
-        //nDir = (int)Player.GetSetPlayerDir;
-
-        //m_fCameraMove = m_fMaxCameraMove * (m_fCurrnetMoveCnt / m_fMoveCnt);
-
         if (m_Area.GetSetBattleFlag)
         {
             gameObject.transform.position = m_BattleCameraPos.transform.position;
