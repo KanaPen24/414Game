@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Version: 300
-  m_EffectMaterial: {fileID: 21939717441729078, guid: 17b17d6effbe14075a3bbdf1fda1f6e1,
+  m_EffectMaterial: {fileID: 6447071685718000054, guid: 17b17d6effbe14075a3bbdf1fda1f6e1,
     type: 2}
   m_EffectFactor: 1
   m_Width: 0.5
@@ -1098,6 +1098,7 @@ MonoBehaviour:
   Crack_Nor: {fileID: 21300000, guid: 87a855a214ac5c940b013b7a0f4795ed, type: 3}
   Crack_Max: {fileID: 21300000, guid: f51788a1467155c419cddf1bb2065d35, type: 3}
   weaponHpBar: {fileID: 0}
+  Glass: {fileID: 0}
 --- !u!1 &3273958536187721103
 GameObject:
   m_ObjectHideFlags: 0
@@ -2539,7 +2540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 115.1, y: -10.5}
+  m_AnchoredPosition: {x: 115.09999, y: -10.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8534307326416919163
@@ -4245,8 +4246,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2929193501686533518, guid: c0035f25da450fe46b1471d5853bf0db,
         type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2929193501686533518, guid: c0035f25da450fe46b1471d5853bf0db,
+        type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -8.7732
+      value: -10.1
       objectReference: {fileID: 0}
     - target: {fileID: 3604931699140249299, guid: c0035f25da450fe46b1471d5853bf0db,
         type: 3}

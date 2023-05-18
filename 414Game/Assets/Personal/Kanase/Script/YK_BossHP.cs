@@ -22,6 +22,7 @@ public class YK_BossHP : YK_UI
     [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
+    [SerializeField] private NK_BossSlime_Aera m_Area;
 
     // Use this for initialization
     void Start()
@@ -35,11 +36,19 @@ public class YK_BossHP : YK_UI
         GetSetPos = BossSlider.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
         GetSetScale = BossSlider.transform.localScale;
+        //最初は消しとく
+        UIFadeOUT();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //ボス戦が始まったら
+        if (m_Area.GetSetBattleFlag)
+        {
+            UIFadeIN(); 
+        }
+
         // Sliderの更新
         BossSlider.value = Boss.GetSetHp;
 

@@ -52,6 +52,10 @@ public class YK_Combo: YK_UI
         ComboNumber = GetComponent<Text>();
         //60FPSに合わせる
         m_fCountDownTime *= 60f;
+        //最初は消しておく
+        a_color = 0.0f;
+        ComboNumber.color = new Color(0.5f, 0.5f, 1f, a_color);
+        ComboTxt.color = new Color(0.5f, 0.5f, 1f, a_color);
     }
 
     // Update is called once per frame
@@ -82,8 +86,8 @@ public class YK_Combo: YK_UI
         ComboTxt.color = new Color(0.5f, 0.5f, 1f, a_color);
         if (m_Combo >= ComboM && m_Combo < ComboL)
         {
-            ComboNumber.color = new Color(1, 1f, 0.5f, a_color);
-            ComboTxt.color = new Color(1, 1f, 0.5f, a_color);
+            ComboNumber.color = new Color(1f, 1f, 0.5f, a_color);
+            ComboTxt.color = new Color(1f, 1f, 0.5f, a_color);
         }
         if (m_Combo >= ComboL && m_Combo < ComboXL)
         {
