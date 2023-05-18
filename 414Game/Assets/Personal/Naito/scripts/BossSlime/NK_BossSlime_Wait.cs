@@ -28,13 +28,15 @@ public class NK_BossSlime_Wait : NK_BossSlimeStrategy
                 m_SPAttackFlag = true;
                 m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeUp;
             }
-            else if ((this.transform.position.x - m_fAttackRange >= m_Player.transform.position.x)||
+            else if ((this.transform.position.x - m_fAttackRange >= m_Player.transform.position.x) ||
                 (this.transform.position.x + m_fAttackRange <= m_Player.transform.position.x))
             {
+                m_BossSlime.GetSetSAnimFlag = true;
                 m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeSummon;
             }
             else
             {
+                m_BossSlime.GetSetMAnimFlag = true;
                 m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeMartial;
             }
         }
