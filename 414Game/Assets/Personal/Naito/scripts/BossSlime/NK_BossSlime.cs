@@ -59,6 +59,9 @@ public class NK_BossSlime : MonoBehaviour
     private Rigidbody m_Rbody;
     [HideInInspector] public Vector3 m_BSMoveValue;
     private float m_localScalex;
+    private bool m_MAnimFlag;   //近接攻撃アニメフラグ
+    private bool m_SAnimFlag;   //召喚アニメフラグ
+    private Animator m_Anim;
 
     private void Start()
     {
@@ -66,6 +69,7 @@ public class NK_BossSlime : MonoBehaviour
         m_Rbody = GetComponent<Rigidbody>();
         m_localScalex = this.transform.localScale.x;
         m_BossSlimeState = BossSlimeState.BossSlimeFall;
+        m_Anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -102,6 +106,8 @@ public class NK_BossSlime : MonoBehaviour
         m_BossSlimeStrategy[(int)m_BossSlimeState].UpdateStrategy();
 
         m_Rbody.velocity = m_BSMoveValue;
+        m_Anim.SetBool("MartialFlag", m_MAnimFlag);
+        m_Anim.SetBool("SummonFlag", m_SAnimFlag);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -157,6 +163,18 @@ public class NK_BossSlime : MonoBehaviour
     {
         get { return m_DamageFlag; }
         set { m_DamageFlag = value; }
+    }
+
+    public bool GetSetMAnimFlag
+    {
+        get { return m_MAnimFlag; }
+        set { m_MAnimFlag = value; }
+    }
+
+    public bool GetSetSAnimFlag
+    {
+        get { return m_SAnimFlag; }
+        set { m_SAnimFlag = value; }
     }
 
     public void BossSlimeDamage(int Damage)

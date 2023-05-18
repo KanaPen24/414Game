@@ -1,0 +1,54 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "ばさばさ"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "",
+			"Name": "パラメータ5"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "",
+			"Name": "駆け寄り"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "ぱくぱく"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "くんくん"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "しゅっどすん"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part4",
+			"Name": "閉じたつばさ.psd"
+		},
+		{
+			"Id": "Part",
+			"Name": "フォルダー 4"
+		},
+		{
+			"Id": "Part2",
+			"Name": "真っすぐ胴.psd"
+		},
+		{
+			"Id": "Part3",
+			"Name": "胴.psd"
+		}
+	]
+}
