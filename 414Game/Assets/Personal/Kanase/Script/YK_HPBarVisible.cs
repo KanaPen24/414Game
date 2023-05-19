@@ -66,9 +66,9 @@ public class YK_HPBarVisible : MonoBehaviour
     //HPBarを消す
     public void HPEnableFalse()
     {
-        // 1秒で後X,Y方向を0.5倍に変更
+        // m_fDelTime秒でm_MinScaleに変更
         HP.transform.DOScale(new Vector3(0.5f, 0.5f, 0f), 1f);
-        // 1秒でテクスチャをフェードアウト
+        // m_fDelTime秒でテクスチャをフェードイン
         FrontFill.DOFade(0f, 1f);
         BackFill.DOFade(0f, 1f);
         BackGround.DOFade(0f, 1f);
@@ -78,9 +78,9 @@ public class YK_HPBarVisible : MonoBehaviour
     //HPBarを表示
     public void HPEnableTrue()
     {
-        // 1秒で後X,Y方向を元の大きさに変更
+        // 0秒で後X,Y方向を元の大きさに変更
         HP.transform.DOScale(new Vector3(1.5f, 3f, 0f), 1f);
-        // 1秒でテクスチャをフェードイン
+        // 0秒でテクスチャをフェードイン
         FrontFill.DOFade(1f, 0f);
         BackFill.DOFade(1f, 1f);
         BackGround.DOFade(1f, 0f);
