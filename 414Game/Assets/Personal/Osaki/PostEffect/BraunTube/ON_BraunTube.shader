@@ -140,7 +140,7 @@ Shader "Hidden/ON_BraunTube"
 				//col.g = isG * ease_g;
 				//col.b = isB * ease_b;
 
-				col = lerp(defColor, col, _Rate);
+				//col = lerp(defColor, col, _Rate);
 
 				return col;
 			}
