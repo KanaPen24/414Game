@@ -66,12 +66,14 @@ public class YK_BossHP : YK_UI
         // Sliderの更新
         BossSlider.value = Boss.GetSetHp;
 
-        // Sliderが最小値になったら（例：ボスキャラを倒したら）
-        if (BossSlider.value <= 0)
+        // ボスのHPがなくなったら（例：ボスキャラを倒したら）
+        if (Boss.GetSetHp <= 0)
         {
             //ネクスト表示
             Next.UIFadeIN();
-            Destroy(this.gameObject);
+            //ゲームのステートをクリア状態にする
+            GameManager.instance.GetSetGameState = GameState.GameGoal;
+            UIFadeOUT();
         }
     }
 
