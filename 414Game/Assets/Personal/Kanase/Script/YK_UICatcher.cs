@@ -62,7 +62,7 @@ public class YK_UICatcher : MonoBehaviour
         }
         else if(Player.GetSetPlayerDir == PlayerDir.Right)
         {
-            BlackHolePL.transform.position = Player.transform.position + new Vector3(0.5f, 1.0f, 0.0f);
+            BlackHolePL.transform.position = Player.transform.position + new Vector3(0.5f, 1.0f, -1.0f);
         }
     }
 

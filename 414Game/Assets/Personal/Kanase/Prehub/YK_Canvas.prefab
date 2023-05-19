@@ -2928,6 +2928,7 @@ MonoBehaviour:
   m_Hand: {fileID: 1202220674682552803}
   m_MinScale: {x: 0.5, y: 0.5, z: 0}
   m_fDelTime: 0.5
+  m_Area: {fileID: 0}
 --- !u!61 &2400138925066517039
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4583,8 +4584,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: bd98b720acc15114fbb1f949a42fe32c,
+      objectReference: {fileID: 21300000, guid: 37334859b542a1646a72017f22edbefb,
         type: 3}
+    - target: {fileID: 1252618962852615570, guid: 536d72463a646b44eb2c1000869a281a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.1609
+      objectReference: {fileID: 0}
     - target: {fileID: 1252618962852615570, guid: 536d72463a646b44eb2c1000869a281a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4813,6 +4819,21 @@ MonoBehaviour:
   m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
   m_fDelTime: 0.5
   PostEffect: {fileID: 0}
+--- !u!114 &1749560708384535042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5965826255464846488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0.8867588, b: 0, a: 1}
+  m_EffectDistance: {x: 1.25, y: -0.63}
+  m_UseGraphicAlpha: 1
 --- !u!114 &5965826255464846494 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1252618962852615568, guid: 536d72463a646b44eb2c1000869a281a,
