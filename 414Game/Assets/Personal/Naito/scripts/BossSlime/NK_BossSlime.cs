@@ -61,6 +61,7 @@ public class NK_BossSlime : MonoBehaviour
     private float m_localScalex;
     private bool m_MAnimFlag;   //近接攻撃アニメフラグ
     private bool m_SAnimFlag;   //召喚アニメフラグ
+    [SerializeField] private NK_BossSlime_Aera m_Area;
     private Animator m_Anim;
 
     private void Start()
@@ -116,7 +117,6 @@ public class NK_BossSlime : MonoBehaviour
         if (other.gameObject == m_BSPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
-            //m_Player.GetPlayerHp().DelLife(10);
             m_BSPlayer.Damage(10, 2.0f);
         }
     }
@@ -191,6 +191,7 @@ public class NK_BossSlime : MonoBehaviour
                 goalEffect.StartEffect();
                 goal.gameObject.SetActive(true);
                 Destroy(this.gameObject);
+                m_Area.GetSetBattleFlag = false;
             }
         }
     }
