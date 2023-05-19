@@ -2675,7 +2675,7 @@ GameObject:
   - component: {fileID: 5460154008040524519}
   - component: {fileID: 5594442932299360017}
   m_Layer: 5
-  m_Name: TImer
+  m_Name: Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5190,7 +5190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ComboNumber: {fileID: 1391956764787822451}
   ComboTxt: {fileID: 4524092954896448812}
-  m_fCountDownTime: 3
+  m_nCountDownTime: 0
 --- !u!224 &1391956764787822449 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7233422735636838372, guid: 75fe365991b7a71408f0212a8666d4b5,
