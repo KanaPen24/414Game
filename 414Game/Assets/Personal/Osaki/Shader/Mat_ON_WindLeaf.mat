@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_ON_WindWood
+  m_Name: Mat_ON_WindLeaf
   m_Shader: {fileID: -6465566751694194690, guid: 1af0805cc5b8f9c47999a3ab16ab6be6,
     type: 3}
   m_ValidKeywords: []
@@ -47,11 +47,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _WindInfluenceMask_YPosition: 10
+    - _WindInfluenceMask_YPosition: 2
     - _WindScale: 0.02
     - _WindSpeed: 5
-    - _WindStrength: 0.1
+    - _WindStrength: 0.5
     m_Colors:
-    - _RimColor: {r: 0.08443637, g: 0.08223566, b: 0.09433961, a: 0}
+    - _RimColor: {r: 0.112961575, g: 0.104521185, b: 0.1509434, a: 0}
     - _WindDirection: {r: 2, g: -0.2, b: 0, a: 0}
   m_BuildTextureStacks: []
