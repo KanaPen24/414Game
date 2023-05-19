@@ -16,7 +16,7 @@ public class YK_Next : YK_UI
     [SerializeField] private Image Next;
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.5f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
-    private bool m_bVisibleNext = false;
+    private bool m_bVisibleNext;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,19 +26,13 @@ public class YK_Next : YK_UI
         GetSetPos = Next.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
         GetSetScale = Next.transform.localScale;
+        UIFadeOUT();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (m_bVisibleNext)
-        {
-            UIFadeIN();
-        }
-        else
-        {
-            UIFadeOUT();
-        }
+       
     }
 
     //NextUIを表示

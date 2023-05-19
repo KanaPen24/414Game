@@ -33,9 +33,9 @@ public class YK_Retry : YK_UI
     public override void UIFadeIN()
     {
         m_eFadeState = FadeState.FadeIN;
-        // 1秒で後X,Y方向を元の大きさに変更
+        // 0秒で後X,Y方向を元の大きさに変更
         RetryUI.transform.DOScale(GetSetScale, 0f);
-        // 1秒でテクスチャをフェードイン
+        // 0秒でテクスチャをフェードイン
         RetryUI.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
@@ -46,9 +46,9 @@ public class YK_Retry : YK_UI
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
-        // 1秒で後X,Y方向を0.5倍に変更
+        // m_fDelTime秒でm_MinScaleに変更
         RetryUI.transform.DOScale(m_MinScale, m_fDelTime);
-        // 1秒でテクスチャをフェードアウト
+        // m_fDelTime秒でテクスチャをフェードイン
         RetryUI.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             //フェード処理終了時に呼ばれる

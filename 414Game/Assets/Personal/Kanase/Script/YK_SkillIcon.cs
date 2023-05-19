@@ -62,9 +62,9 @@ public class YK_SkillIcon : YK_UI
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
-        // 1秒で後X,Y方向を0.5倍に変更
+        // m_fDelTime秒でm_MinScaleに変更
         SkillIcon.transform.DOScale(m_MinScale, m_fDelTime);
-        // 1秒でテクスチャをフェードアウト
+        // m_fDelTime秒でテクスチャをフェードイン
         OutLine.DOFade(0f, m_fDelTime);
         SkillIcon.DOFade(0f, m_fDelTime).OnComplete(() =>
         {

@@ -17,6 +17,7 @@ public class YK_Start : YK_UI
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.5f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
+    private Outline outline;
     private bool m_bVisibleStart = true;
     private float m_rate = 1.0f;
     private float m_fTime;
@@ -49,9 +50,9 @@ public class YK_Start : YK_UI
     public override void UIFadeIN()
     {
         m_eFadeState = FadeState.FadeIN;
-        // 1秒で後X,Y方向を元の大きさに変更
+        // 0秒で後X,Y方向を元の大きさに変更
         StartUI.transform.DOScale(GetSetScale, 0f);
-        // 1秒でテクスチャをフェードイン
+        // 0秒でテクスチャをフェードイン
         StartUI.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
@@ -62,9 +63,9 @@ public class YK_Start : YK_UI
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
-        // 1秒で後X,Y方向を0.5倍に変更
+        // m_fDelTime秒でm_MinScaleに変更
         StartUI.transform.DOScale(m_MinScale, m_fDelTime);
-        // 1秒でテクスチャをフェードアウト
+        // m_fDelTime秒でテクスチャをフェードイン
         StartUI.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             //フェード処理終了時に呼ばれる
@@ -92,5 +93,17 @@ public class YK_Start : YK_UI
         //ゲームのステートをプレイ状態にする
         GameManager.instance.GetSetGameState = GameState.GamePlay;
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Cursol")
+        {
+            outline.enabled = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        outline.enabled = false;
+    }
+
 
 }
