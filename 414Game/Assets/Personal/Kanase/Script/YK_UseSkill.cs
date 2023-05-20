@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/**
+ * @file YK_UseSkill.cs
+ * @brief スキルが使えるかどうか判定するもの
+ * @author 吉田叶聖
+ * @date 2023/05/21
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,8 +24,15 @@ public class YK_UseSkill : MonoBehaviour
         m_nSkillLimit--;    //配列のため-１をして調整
     }
 
+    //デバック用
+    //private void Update()
+    //{        
+    //    if (Input.GetKeyDown(KeyCode.F3))
+    //        UseSkillJudge();
+    //}
+
     //回避使用時に呼び出す関数
-    public void UseSkillJudge()
+    public bool UseSkillJudge()
     {
         for (int i = 0; i <= m_nSkillLimit; i++)
         {
@@ -45,6 +58,8 @@ public class YK_UseSkill : MonoBehaviour
             Debug.Log("回避できないよ");
         //リセット
         m_nNoSkillUse = 0;
+
+        return m_bSkillUseflg;
     }
     /**
 * @fn
@@ -56,15 +71,5 @@ public class YK_UseSkill : MonoBehaviour
     {
         get { return m_nSkillLimit; }
         set { m_nSkillLimit = value; }
-    }
-    /**
-* @fn
-* スキルが使えるかどうかのgetter
-* @return m_bSkillUseflg(bool)
-* @brief スキルが使えるかどうかを返す
-*/
-    public bool GetSkillUseflg
-    {
-        get { return m_bSkillUseflg; }
     }
 }
