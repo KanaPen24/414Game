@@ -98,9 +98,10 @@ public class YK_Time : MonoBehaviour
     }
 
     //時間を増やす関数
-    void AddTime(int Time)
+    public void AddTime(int Time)
     {
         m_nTimeLimit += Time;
+        
     }
 
     /**
