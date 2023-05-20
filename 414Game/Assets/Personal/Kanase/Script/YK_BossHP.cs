@@ -49,6 +49,8 @@ public class YK_BossHP : YK_UI
         GetSetScale = BossSlider.transform.localScale;                         // スケール取得
 
         UIFadeOUT();  // 最初は消しておく
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<PointEffector2D>().enabled = false;
     }
 
     /**
@@ -61,6 +63,8 @@ public class YK_BossHP : YK_UI
         if (m_Area.GetSetBattleFlag)
         {
             UIFadeIN();
+            GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<PointEffector2D>().enabled = true;
         }
 
         // Sliderの更新
