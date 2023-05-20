@@ -28,7 +28,7 @@ public class YK_Combo: YK_UI
     private int ComboM = 5;                       // 中コンボの閾値
     private int ComboL = 10;                      // 大コンボの閾値
     private int ComboXL = 15;                     // 特大コンボの閾値
-    [SerializeField] private float m_fCountDownTime;    // コンボが消えるまでの時間（秒単位）
+    [SerializeField] private int m_nCountDownTime;    // コンボが消えるまでの時間（秒単位）
     private int m_nCountComboTime = 0;            // コンボが表示されている時間
     private bool m_bHitFlg = false;               // コンボがヒットしたかどうかのフラグ
     private Vector3 Combo_Scale;                  // コンボ表示の初期スケール
@@ -48,7 +48,7 @@ public class YK_Combo: YK_UI
         GetSetScale = ComboNumber.transform.localScale; //スケール取得
         Combo_Scale = ComboTxt.transform.localScale;
         ComboNumber = GetComponent<Text>();
-        m_fCountDownTime *= 60f; //60FPSに合わせる
+        m_nCountDownTime *= 60; //60FPSに合わせる
         a_color = 0.0f; //最初は消しておく
         ComboNumber.color = new Color(0.5f, 0.5f, 1f, a_color);
         ComboTxt.color = new Color(0.5f, 0.5f, 1f, a_color);
@@ -76,8 +76,8 @@ public class YK_Combo: YK_UI
         if (m_bHitFlg)
         {
             m_nCountComboTime++;
-            a_color -= 1f / m_fCountDownTime;
-            if (m_nCountComboTime >= m_fCountDownTime)
+            a_color -= 1f / m_nCountDownTime;
+            if (m_nCountComboTime >= m_nCountDownTime)
             {
                 m_bHitFlg = false;
                 ResetCombo(); // カウントダウン時間を超えたらコンボをリセットする

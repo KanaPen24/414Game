@@ -19,6 +19,7 @@ public enum BatState
     BatWait,     //待機状態
     BatMove,     //移動状態
     BatSonic,    //超音波攻撃状態
+    BatFlight,   //
     BatFall,     //急降下攻撃
     BatUp,       //上昇状態
 
@@ -55,6 +56,9 @@ public class NK_Bat : MonoBehaviour
     private CubismRenderController renderController;
     [SerializeField] private float m_InvincibleTime;
     private float m_localScalex;
+    private bool m_FallAnimFlag;
+    private bool m_FlightAnimFlag;
+    private Animator m_Anim;
 
     private void Start()
     {
@@ -62,6 +66,7 @@ public class NK_Bat : MonoBehaviour
         m_Rbody = GetComponent<Rigidbody>();
         m_DamageFlag = false;
         m_localScalex = this.transform.localScale.x;
+        m_Anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -78,13 +83,13 @@ public class NK_Bat : MonoBehaviour
             {
                 GetSetBatDir = BatDir.Right;
                 this.transform.localScale =
-                    new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+                    new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
             }
             else
             {
                 GetSetBatDir = BatDir.Left;
                 this.transform.localScale =
-                    new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+                    new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
             }
         }
     }
@@ -98,6 +103,9 @@ public class NK_Bat : MonoBehaviour
         m_BatStrategy[(int)m_BatState].UpdateStrategy();
 
         m_Rbody.velocity = m_MoveValue;
+
+        m_Anim.SetBool("FallFlag",m_FallAnimFlag);
+        m_Anim.SetBool("FlightFlag", m_FlightAnimFlag);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -171,5 +179,17 @@ public class NK_Bat : MonoBehaviour
     private void InvisbleEnd()
     {
         m_DamageFlag = false;
+    }
+
+    public bool GetSetFallFlag
+    {
+        get { return m_FallAnimFlag; }
+        set { m_FallAnimFlag = value; }
+    }
+
+    public bool GetSetFlightFlag
+    {
+        get { return m_FlightAnimFlag; }
+        set { m_FlightAnimFlag = value; }
     }
 }
