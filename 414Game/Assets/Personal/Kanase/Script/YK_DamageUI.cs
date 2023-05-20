@@ -64,6 +64,7 @@ public class YK_DamageUI : YK_UI
     public override void UIFadeOUT()
     {
         //時間をプラスする
+        //time.GetSetNowTime += m_nDamage;
         time.AddTime(m_nDamage);
         m_eFadeState = FadeState.FadeOUT;
         // m_fDelTime秒でm_MinScaleに変更
