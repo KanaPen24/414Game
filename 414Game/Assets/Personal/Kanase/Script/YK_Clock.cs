@@ -30,8 +30,8 @@ public class YK_Clock : YK_UI
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
     private Vector3 Second_Scale;
     float seconds = 0f;
-    private int m_nTimeCount = 3;
-    private bool m_bStopTime = false;   //時止め時間かどうか
+    [SerializeField] private int m_nTimeCount = 3;
+    [SerializeField] private bool m_bStopTime = false;   //時止め時間かどうか
     private bool m_bOnce = true;
 
     /**
