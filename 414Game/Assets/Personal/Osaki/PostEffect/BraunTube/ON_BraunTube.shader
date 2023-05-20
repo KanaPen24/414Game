@@ -87,8 +87,6 @@ Shader "Hidden/ON_BraunTube"
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
 				
 				float2 uv = IN.uv;
-				half4 defColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
-				
 				
 				// uv‚ğ‰æ–Ê‚ªo‚Á’£‚Á‚Ä‚¢‚é‚æ‚¤‚É˜c‚Ü‚¹‚é
 				float distort_rate = lerp(.0, .2, _Rate);
@@ -136,11 +134,9 @@ Shader "Hidden/ON_BraunTube"
 				const float ease_b = crt_ease(floor_y, col.b, rand(uv)* 0.1);
 				
 				// 
-				col.r = isR * ease_r;
-				//col.g = isG * ease_g;
-				//col.b = isB * ease_b;
-
-				//col = lerp(defColor, col, _Rate);
+				col.r = lerp(col.r, isR * ease_r, _Rate);
+				//col.g = lerp(isG * ease_g, col.g, _Rate);
+				//col.b = lerp(isB * ease_b, col.b, _Rate);
 
 				return col;
 			}

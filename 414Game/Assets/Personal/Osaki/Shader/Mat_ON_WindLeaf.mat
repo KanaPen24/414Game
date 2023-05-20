@@ -47,10 +47,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _WindInfluenceMask_YPosition: 2
-    - _WindScale: 0.02
+    - _WindInfluenceMask_YPosition: 1.8
+    - _WindScale: 0.03
     - _WindSpeed: 5
-    - _WindStrength: 0.5
+    - _WindStrength: 1.4
     m_Colors:
     - _RimColor: {r: 0.112961575, g: 0.104521185, b: 0.1509434, a: 0}
     - _WindDirection: {r: 2, g: -0.2, b: 0, a: 0}
