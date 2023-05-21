@@ -32,6 +32,7 @@ public class YK_Clock : YK_UI
     float seconds = 0f;
     [SerializeField] private int m_nTimeCount = 3;
     [SerializeField] private bool m_bStopTime = false;   //時止め時間かどうか
+    [SerializeField] private int m_nStopTime = 5;        //時止め時間
     private bool m_bOnce = true;
 
     /**
@@ -64,9 +65,10 @@ public class YK_Clock : YK_UI
         if (m_bStopTime && m_bOnce)
         {
             m_bOnce = false;
-            Invoke(nameof(StopTimeSE), 3.0f);
+            //2秒前に呼び出すといい感じに音が止む
+            Invoke(nameof(StopTimeSE), m_nStopTime - 2.0f);
             // StopTimeReleaseを5秒後に呼び出す
-            Invoke(nameof(StopTimeRelease), 5.0f);
+            Invoke(nameof(StopTimeRelease), m_nStopTime);
         }
     }
 
@@ -90,10 +92,10 @@ public class YK_Clock : YK_UI
         m_Time.GetSetTimeFlg = true;
         m_bOnce = true;
         m_nTimeCount--;
-        UIFadeIN();
+        //UIFadeIN();
         // BGM再生
         IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).UnPause();
-        Player.RemovedWeapon();
+        //Player.RemovedWeapon();
         Debug.Log("元戻る");
     }
 
