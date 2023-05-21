@@ -55,6 +55,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
 
         m_eWeaponType = WeaponType.SkillIcon; // 武器種類はBall
         m_bAttack = false;
+        m_bCharge = false;
         m_bVisible = false;
         m_bDestroy = false;
 
@@ -159,6 +160,25 @@ public class IS_WeaponSkillIcon : IS_Weapon
     public override void StartAttack()
     {
         GetSetAttack = true; // 攻撃ON
+
+        // 弾を生成し攻撃開始!!
+        IS_AudioManager.instance.PlaySE(SEType.SE_FireSkillIcon);
+        GameObject shot = Instantiate(m_Ball.gameObject, this.transform.position, this.transform.rotation); // Ball生成
+        IS_Ball Shot = shot.GetComponent<IS_Ball>();   // コンポーネントの取得
+        Shot.Fire(m_fCurrentPow, Player.GetSetPlayerDir); // 弾発射
+
+        // 弾数を減らす
+        m_nHp--;
+    }
+
+    /**
+     * @fn
+     * 溜め初期化処理(override)
+     * @brief 溜め初期化処理
+     */
+    public override void StartCharge()
+    {
+        GetSetCharge = true; // 溜めON
         IS_AudioManager.instance.PlaySE(SEType.SE_Charge);
         m_ChargeEffect.Play();
         m_ChargeEffect.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -175,8 +195,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
         m_ChargeLevel = ChargeLevel.ChargeLevel_0; // 溜め段階を0にする
         m_fCurrentPow = 0f;
         m_fCurrentChargeTime = 0f;
-        m_ChargeEffect.Stop();
-        IS_AudioManager.instance.StopSE(SEType.SE_Charge);
 
         // 攻撃終了時に弾数が0だったら
         if (m_nHp <= 0)
@@ -188,19 +206,40 @@ public class IS_WeaponSkillIcon : IS_Weapon
 
     /**
      * @fn
+     * 溜め終了処理(override)
+     * @brief 溜め終了処理
+     */
+    public override void FinCharge()
+    {
+        GetSetCharge = false; // 攻撃OFF
+        m_fCurrentChargeTime = 0f;
+        m_ChargeEffect.Stop();
+        IS_AudioManager.instance.StopSE(SEType.SE_Charge);
+    }
+
+    /**
+     * @fn
      * 攻撃更新処理(override)
      * @brief 攻撃処理
      */
     public override void UpdateAttack()
+    {
+        if (Player.GetPlayerAnimator().AnimEnd())
+            FinAttack();
+    }
+
+    /**
+     * @fn
+     * 溜め更新処理(override)
+     * @brief 溜め処理
+     */
+    public override void UpdateCharge()
     {
         // 溜め
         ChargePow();
 
         // 溜め段階チェック
         CheckChargeLevel();
-
-        // 攻撃チェック
-        CheckAttack();
 
         //溜め中は移動できる!!
         // 右向き
@@ -217,14 +256,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
         }
 
         // 溜めエフェクトの位置更新
-        if(Player.GetSetPlayerDir == PlayerDir.Right)
-        {
-            m_ChargeEffect.transform.position = Player.transform.position + new Vector3(0.5f, 1.1f, 0f);
-        }
-        else if (Player.GetSetPlayerDir == PlayerDir.Left)
-        {
-            m_ChargeEffect.transform.position = Player.transform.position + new Vector3(-0.5f, 1.1f, 0f);
-        }
+        m_ChargeEffect.transform.position = this.gameObject.transform.position;
     }
 
     /**
@@ -312,30 +344,30 @@ public class IS_WeaponSkillIcon : IS_Weapon
         }
     }
 
-    /**
-     * @fn
-     * 攻撃チェック処理
-     * @brief 攻撃チェック処理 … 溜めフラグが立っていなかったら攻撃開始
-     */
-    private void CheckAttack()
-    {
-        // 溜めフラグが立っていなかったら…
-        if (!m_bChargeFlg)
-        {
-            // 弾を生成し攻撃開始!!
-            IS_AudioManager.instance.PlaySE(SEType.SE_FireSkillIcon);
-            GameObject shot = Instantiate(m_Ball.gameObject, this.transform.position, this.transform.rotation); // Ball生成
-            IS_Ball Shot = shot.GetComponent<IS_Ball>();   // コンポーネントの取得
-            Shot.Fire(m_fCurrentPow, Player.GetSetPlayerDir); // 弾発射
+    ///**
+    // * @fn
+    // * 攻撃チェック処理
+    // * @brief 攻撃チェック処理 … 溜めフラグが立っていなかったら攻撃開始
+    // */
+    //private void CheckAttack()
+    //{
+    //    // 溜めフラグが立っていなかったら…
+    //    if (!m_bChargeFlg)
+    //    {
+    //        // 弾を生成し攻撃開始!!
+    //        IS_AudioManager.instance.PlaySE(SEType.SE_FireSkillIcon);
+    //        GameObject shot = Instantiate(m_Ball.gameObject, this.transform.position, this.transform.rotation); // Ball生成
+    //        IS_Ball Shot = shot.GetComponent<IS_Ball>();   // コンポーネントの取得
+    //        Shot.Fire(m_fCurrentPow, Player.GetSetPlayerDir); // 弾発射
 
-            // 弾数を減らす
-            m_nHp--;
+    //        // 弾数を減らす
+    //        m_nHp--;
 
-            // 反動時間付与
-            m_fReactionTime = m_fMaxReactionTime;
+    //        // 反動時間付与
+    //        m_fReactionTime = m_fMaxReactionTime;
 
-            // 攻撃終了
-            FinAttack();
-        }
-    }
+    //        // 攻撃終了
+    //        FinAttack();
+    //    }
+    //}
 }
