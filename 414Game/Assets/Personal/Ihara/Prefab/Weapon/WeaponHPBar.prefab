@@ -205,6 +205,7 @@ MonoBehaviour:
     m_MeshRender:
     - {fileID: 3391924801340074708}
     - {fileID: 3007837901538635458}
+    - {fileID: 6780482936452129676}
     m_Material:
     - {fileID: 2100000, guid: b8a213bc708571e458db0b84007980f2, type: 2}
     - {fileID: 2100000, guid: 725e283b259203a4a9659ceab994a693, type: 2}
