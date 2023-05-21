@@ -3683,7 +3683,7 @@ ParticleSystem:
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4892,6 +4892,11 @@ PrefabInstance:
         type: 3}
       propertyPath: CollisionModule.m_Bounce.scalar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 253124853857869007, guid: 45147d4e98094414295d5d763c7ff214,
+        type: 3}
+      propertyPath: CollisionModule.m_Dampen.scalar
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 253124853857869007, guid: 45147d4e98094414295d5d763c7ff214,
         type: 3}
