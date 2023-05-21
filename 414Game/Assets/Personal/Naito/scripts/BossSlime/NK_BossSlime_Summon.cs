@@ -24,6 +24,7 @@ public class NK_BossSlime_Summon : NK_BossSlimeStrategy
         // 状態遷移
         // =========
         // 「召喚 → 待機」
+        m_BossSlime.GetSetSAnimFlag = false;
         m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeWait;
     }
 

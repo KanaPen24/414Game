@@ -16,17 +16,18 @@ public class YK_Time : MonoBehaviour
     [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
     [SerializeField] ON_VolumeManager PostEffect;       //ポストエフェクト
     private Outline outline;
-    private float m_fTime;              //進行時間
+    [SerializeField] private float m_fTime;              //進行時間
     private float m_fPostEffect_Time;   //ポストエフェクト用の時間
     private float m_rate = 0.0f;        //ポストエフェクト用の割合
     private bool m_bPostEffect = false; //ポストエフェクト用のフラグ
     private bool m_bTimer = true;       //タイマー用のフラグ
     private bool m_bOnce = false;       //一回だけ使うフラグ
-    private int  m_nNowTime;            //現在時間
+    [SerializeField] private int m_nNowTime;    //現在時間
 
     private void Start()
     {
         outline = this.GetComponent<Outline>();
+        m_nNowTime = m_nTimeLimit;
     }
 
     void Update()
@@ -35,7 +36,7 @@ public class YK_Time : MonoBehaviour
         if (GameManager.instance.GetSetGameState != GameState.GamePlay)
             return;
 
-        //時間をリセットしておく
+        //ポストエフェクトの時間をリセットしておく
         if(m_bTimer)
         {
             m_fPostEffect_Time = 0.0f;
@@ -76,21 +77,28 @@ public class YK_Time : MonoBehaviour
 
         //フレーム毎の経過時間をtime変数に追加
         m_fTime += Time.deltaTime;
+        m_fTime = Mathf.Max(m_fTime, 0.0f);
         //time変数をint型にし制限時間から引いた数をint型のlimit変数に代入
         m_nNowTime = m_nTimeLimit - (int)m_fTime;
 
         if (Clock.GetSetTimeCount <= 2)
+        {
+            m_nTimeLimit = 99;
             m_nNowTime %= 100;  //3桁目を減らす
-        if(Clock.GetSetTimeCount <= 1)
+        }
+        if (Clock.GetSetTimeCount <= 1)
+        {
+            m_nTimeLimit = 9;
             m_nNowTime %= 10;   //2桁目を減らす
+        }
         if (Clock.GetSetTimeCount <= 0)
             m_nNowTime %= 1;    //1桁目を減らす
-
+                       
         //timerTextを更新していく
-        timerText.text = m_nNowTime.ToString("D3");
+        timerText.text = m_nNowTime + "";
 
         //制限時間が0になったら
-        if(m_nNowTime <=0)
+        if (m_nNowTime <=0)
         {
             //ゲームオーバー
             GameManager.instance.GetSetGameState = GameState.GameOver;
@@ -98,9 +106,10 @@ public class YK_Time : MonoBehaviour
     }
 
     //時間を増やす関数
-    void AddTime(int Time)
+    public void AddTime(int Time)
     {
-        m_nTimeLimit += Time;
+        //経過時間を引くことで現在時間が足される
+        m_fTime -= Time;
     }
 
     /**

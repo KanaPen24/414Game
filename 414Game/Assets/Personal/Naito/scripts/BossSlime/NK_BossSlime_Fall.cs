@@ -6,13 +6,8 @@ public class NK_BossSlime_Fall : NK_BossSlimeStrategy
 {
     //ボスすらいむをアタッチ
     [SerializeField] private NK_BossSlime m_BossSlime;
-    private float m_FloorPos;
+    [SerializeField] private float m_FloorPos;
     [SerializeField] private float m_FallPow;
-
-    private void Start()
-    {
-        m_FloorPos = this.transform.position.y;
-    }
 
     public override void UpdateStrategy()
     {

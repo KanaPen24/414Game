@@ -13,6 +13,7 @@ public class NK_But_Sonic : NK_BatStrategy
     public override void UpdateStrategy()
     {
         Instantiate(m_gSonic, m_SonicPos.transform.position, Quaternion.AngleAxis(GetAim(), Vector3.forward));
+        m_Bat.GetSetMoveValue = new Vector3(0.0f, 0.0f, 0.0f);
         m_Bat.GetSetBatState = BatState.BatWait;
     }
 

@@ -1,48 +1,63 @@
 ﻿/**
  * @file   YK_HPBar.cs
- * @brief  体力バー
+ * @brief  体力バーを制御するためのスクリプト
+ *         UIのフェードイン・フェードアウトや衝突判定などの機能を提供
  * @author 吉田叶聖
+ *         スクリプトの作成者
  * @date   2023/03/17
- * @date   2023/04/21   画像追加に伴う処理の追加
+ *         初版作成日
+ * @date   2023/04/21
+ *         画像追加に伴う処理の追加が行われた日付
  */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+
+/**
+ * @class YK_HPBar
+ * @brief 体力バーを制御するクラス
+ */
 public class YK_HPBar : YK_UI
 {
-    [SerializeField] Slider HP;
-    [SerializeField] private Image FrontFill;    //バーの表面のテクスチャ
-    [SerializeField] private Image BackFill;     //後ろのバーの表面のテクスチャ
-    [SerializeField] private Image Frame;        //フレーム
-    [SerializeField] private Image Crack;        //ヒビの画像
-    [SerializeField] private Image Refraction;   //反射光
-    [SerializeField] private Image OutLine;      //アウトライン
-    [SerializeField] private YK_Hand m_Hand;
+    [SerializeField] Slider HP;                                  // 体力バーのSliderコンポーネント
+    [SerializeField] private Image FrontFill;                    // バーの表面のテクスチャ
+    [SerializeField] private Image BackFill;                     // 後ろのバーの表面のテクスチャ
+    [SerializeField] private Image Frame;                        // フレーム
+    [SerializeField] private Image Crack;                        // ヒビの画像
+    [SerializeField] private Image Refraction;                   // 反射光
+    [SerializeField] private Image OutLine;                      // アウトライン
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.4f; // 減算していく時間
+    [SerializeField] private float m_fDelTime = 0.4f;            // 減算していく時間
 
-    // Start is called before the first frame update
+    /**
+     * @brief スタート時に呼ばれる関数
+     *        初期化処理を行う
+     */
     void Start()
     {
-        m_eUIType = UIType.HPBar;   //UIのタイプ設定
+        m_eUIType = UIType.HPBar;                                 // UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
         GetSetVisible = false;
         OutLine.enabled = false;
-        //UIが動くようならUpdateにかかなかん
-        GetSetPos = HP.GetComponent<RectTransform>().anchoredPosition;
-        //スケール取得
-        GetSetScale = HP.transform.localScale;
+        // UIが動くようならUpdateに書かない
+        GetSetPos = HP.GetComponent<RectTransform>().anchoredPosition;  // 位置取得
+        // スケール取得
+        GetSetScale = HP.transform.localScale;                    // スケール取得
     }
 
-
+    /**
+     * @brief UIのフェードイン処理
+     *        バーとテクスチャのフェードインを行う
+     */
     public override void UIFadeIN()
     {
         m_eFadeState = FadeState.FadeIN;
-        // 1秒で後X,Y方向を元の大きさに変更
+        // 0秒で後X,Y方向を元の大きさに変更
         HP.transform.DOScale(GetSetScale, 0f);
-        // 1秒でテクスチャをフェードイン
+        // 0秒でテクスチャをフェードイン
         FrontFill.DOFade(1f, 0f);
         BackFill.DOFade(1f, 0f);
         Crack.DOFade(1f, 0f);
@@ -51,17 +66,20 @@ public class YK_HPBar : YK_UI
         Frame.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
-            //m_Hand.HandPull();
             Debug.Log("FadeIN終了");
         });
     }
 
+    /**
+     * @brief UIのフェードアウト処理
+     *        バーとテクスチャのフェードアウトを行う
+     */
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
-        // 1秒で後X,Y方向を0.5倍に変更
+        // m_fDelTime秒でm_MinScaleに変更
         HP.transform.DOScale(m_MinScale, m_fDelTime);
-        // 1秒でテクスチャをフェードアウト
+        // m_fDelTime秒でテクスチャをフェードイン
         FrontFill.DOFade(0f, m_fDelTime);
         BackFill.DOFade(0f, m_fDelTime);
         Crack.DOFade(0f, m_fDelTime);
@@ -73,6 +91,12 @@ public class YK_HPBar : YK_UI
             Debug.Log("FadeOUT終了");
         });
     }
+
+    /**
+     * @brief 衝突判定時に呼ばれる関数
+     *        衝突したオブジェクトがカーソルの場合、アウトラインを有効にする
+     * @param collision 衝突したオブジェクトのコライダー情報
+     */
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Cursol")
@@ -80,8 +104,14 @@ public class YK_HPBar : YK_UI
             OutLine.enabled = true;
         }
     }
+
+    /**
+     * @brief 衝突判定から離れた時に呼ばれる関数
+     *        アウトラインを無効にする
+     * @param collision 衝突したオブジェクトのコライダー情報
+     */
     private void OnTriggerExit2D(Collider2D collision)
     {
-            OutLine.enabled = false;   
+        OutLine.enabled = false;
     }
 }
