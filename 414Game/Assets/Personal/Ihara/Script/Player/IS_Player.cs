@@ -37,6 +37,7 @@ public enum PlayerState
     PlayerChargeWait,     // 溜め待機状態
     PlayerChargeWalk,     // 溜め移動状態
     PlayerAvoidance,      // 回避状態
+    PlayerUICatch,        // UI取得状態
     PlayerGameOver,       // ゲームオーバー状態
 
     MaxPlayerState
@@ -319,6 +320,9 @@ public class IS_Player : MonoBehaviour
 
                 // 装備状態にする
                 GetSetPlayerEquipState = PlayerEquipState.Equip;
+
+                // UI取得状態に遷移
+                GetSetPlayerState = PlayerState.PlayerUICatch;
 
                 Debug.Log("武器装備");
             }

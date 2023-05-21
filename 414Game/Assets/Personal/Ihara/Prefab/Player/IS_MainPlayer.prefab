@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 7215862319705578238}
   - component: {fileID: 8581029109993180884}
   - component: {fileID: 6272696007668690122}
+  - component: {fileID: 3682025653976630071}
   - component: {fileID: 4185693316732807252}
   - component: {fileID: 1434260197630297037}
   m_Layer: 0
@@ -240,6 +241,7 @@ MonoBehaviour:
   - {fileID: 7215862319705578238}
   - {fileID: 8581029109993180884}
   - {fileID: 6272696007668690122}
+  - {fileID: 3682025653976630071}
   - {fileID: 4185693316732807252}
   m_Weapons:
   - {fileID: 3816624634288352196}
@@ -404,6 +406,20 @@ MonoBehaviour:
   m_PlayerGroundColl: {fileID: 1434260197630297037}
   m_fAvoidTime: 0.5
   m_MovePow: 7.5
+--- !u!114 &3682025653976630071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7160487676030067711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb23d971b6171bb42b2922e8d6bbdbb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Player: {fileID: 2602812492749303807}
+  m_PlayerGroundColl: {fileID: 1434260197630297037}
 --- !u!114 &4185693316732807252
 MonoBehaviour:
   m_ObjectHideFlags: 0
