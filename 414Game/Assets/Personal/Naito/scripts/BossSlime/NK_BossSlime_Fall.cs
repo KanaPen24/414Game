@@ -8,6 +8,7 @@ public class NK_BossSlime_Fall : NK_BossSlimeStrategy
     [SerializeField] private NK_BossSlime m_BossSlime;
     [SerializeField] private float m_FloorPos;
     [SerializeField] private float m_FallPow;
+    [SerializeField] private GameObject m_FallEffect;
 
     public override void UpdateStrategy()
     {
@@ -18,6 +19,7 @@ public class NK_BossSlime_Fall : NK_BossSlimeStrategy
         }
         else
         {
+            m_FallEffect.SetActive(false);
             m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeWait;
         }
     }

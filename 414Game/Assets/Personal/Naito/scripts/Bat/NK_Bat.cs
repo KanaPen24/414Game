@@ -77,20 +77,17 @@ public class NK_Bat : MonoBehaviour
             float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
             renderController.Opacity = level;
         }
-        if (GetSetBatState == BatState.BatMove)
+        if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
         {
-            if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
-            {
-                GetSetBatDir = BatDir.Right;
-                this.transform.localScale =
-                    new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
-            }
-            else
-            {
-                GetSetBatDir = BatDir.Left;
-                this.transform.localScale =
-                    new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
-            }
+            GetSetBatDir = BatDir.Right;
+            this.transform.localScale =
+                new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+        }
+        else
+        {
+            GetSetBatDir = BatDir.Left;
+            this.transform.localScale =
+                new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
         }
     }
 
@@ -108,32 +105,14 @@ public class NK_Bat : MonoBehaviour
         m_Anim.SetBool("FlightFlag", m_FlightAnimFlag);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        // プレイヤーだったら
-        if (collision.gameObject == m_BPlayer.gameObject)
+        if(other.gameObject==m_BPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
-            //m_Player.GetPlayerHp().DelLife(10);
-        }
-
-        // 武器だったら
-        if (collision.gameObject.tag == "Weapon" && !m_DamageFlag)
-        {
-            Debug.Log("Enemy Damage!!");
-            //m_HpBarHP.DelLife(10);
-            m_nHP -= 5;
-            m_DamageFlag = true;
-            Invoke("InvincibleEnd", m_InvincibleTime);
-        }
-
-        // HPが0になったら、このオブジェクトを破壊
-        if (m_nHP <= 0)
-        {
-            Destroy(this.gameObject);
+            m_BPlayer.Damage(10, 2.0f);
         }
     }
-
 
     /**
  * @fn

@@ -12,6 +12,7 @@ public class NK_Bat_Flight : NK_BatStrategy
     private float m_Cnt;
     private bool m_FallFlag;
     private float m_FlightCnt;
+    [SerializeField] private GameObject m_FallEffect;
     public override void UpdateStrategy()
     {
         m_Cnt += Time.deltaTime;
@@ -35,6 +36,7 @@ public class NK_Bat_Flight : NK_BatStrategy
                     m_FallFlag = false;
                     m_FlightCnt = 0f;
                     m_Cnt = 0f;
+                    m_FallEffect.SetActive(true);
                     m_Bat.GetSetBatState = BatState.BatFall;
                 }
             }
