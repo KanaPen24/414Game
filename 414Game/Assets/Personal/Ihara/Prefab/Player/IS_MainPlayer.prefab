@@ -272,6 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 2602812492749303807}
   m_PlayerGroundColl: {fileID: 1434260197630297037}
+  m_UseSkill: {fileID: 0}
 --- !u!114 &5780929874000730567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 2602812492749303807}
   m_PlayerGroundColl: {fileID: 1434260197630297037}
-  m_fAvoidTime: 1
+  m_fAvoidTime: 0.5
   m_MovePow: 7.5
 --- !u!114 &1434260197630297037
 MonoBehaviour:

@@ -13,8 +13,9 @@ using UnityEngine;
 
 public class IS_PlayerWait : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
+    [SerializeField] private IS_Player m_Player;                          // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
+    [SerializeField] private YK_UseSkill m_UseSkill;                      // 回避できるかのスクリプト
 
     private void Update()
     {
@@ -63,9 +64,8 @@ public class IS_PlayerWait : IS_PlayerStrategy
                 }
                 return;
             }
-
             // 「待機 → 回避」
-            if (m_Player.bInputAvoid)
+            if (m_Player.bInputAvoid && m_UseSkill.UseSkillJudge())
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerAvoidance;
                 m_Player.GetSetAvoidFlg = true;
