@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e56c52845d40a49bf6e1d9df2e0a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  liquidColor: {r: 0.38426486, g: 0.48431095, b: 0.7924528, a: 1}
+  liquidColor: {r: 0.234596, g: 0.89199996, b: 0.234596, a: 1}
   bottleSizeOffsetPoints:
   - {x: 400, y: 200, z: 160}
   - {x: 400, y: 200, z: 280}
