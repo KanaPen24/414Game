@@ -97,6 +97,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             // 「待機 → 回避」
             if (m_Player.bInputAvoid && m_UseSkill.UseSkillJudge())
             {
+                IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 m_Player.GetSetPlayerState = PlayerState.PlayerAvoidance;
                 m_Player.GetSetAvoidFlg = true;
                 return;
