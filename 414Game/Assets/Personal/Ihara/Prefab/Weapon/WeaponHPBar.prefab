@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHPBar: {fileID: 2525600869589869567}
+  Player: {fileID: 0}
   m_nDamage2Enemy: 10
   m_nDamage2HPBar: 5
   m_nDrainEnemyHp: 2
@@ -346,7 +347,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: e30988c843ca80948bda4bab15a2170c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a181c25a2415a0a4793ff5a924a4ef9b, type: 3}
 --- !u!1 &595969443826295075 stripped
