@@ -95,12 +95,7 @@ public class YK_Crack : MonoBehaviour
         {
             color.a = 0.0f;
         }
-        //HPバーが壊れたら
-        if (weaponHpBar.GetSetHp <= 0)
-        {
-            //ゲームオーバー
-            GameManager.instance.GetSetGameState = GameState.GameOver;
-        }
+       
         this.GetComponent<Image>().color = color;
     }
 }
