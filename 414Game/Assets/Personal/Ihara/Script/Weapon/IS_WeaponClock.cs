@@ -27,6 +27,7 @@ public class IS_WeaponClock : IS_Weapon
         // メンバの初期化
         m_eWeaponType = WeaponType.Clock; // 武器種類は時計
         m_bAttack = false;
+        m_bCharge = false;
         m_bVisible = false;
         m_bDestroy = false;
     }
