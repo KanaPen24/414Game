@@ -38,6 +38,8 @@ public class YK_Next : YK_UI
     //NextUIを表示
     public override void UIFadeIN()
     {
+        GetComponent<BoxCollider2D>().enabled = true;
+        GetComponent<PointEffector2D>().enabled = true;
         m_eFadeState = FadeState.FadeIN;
         // 1秒で後X,Y方向を元の大きさに変更
         Next.transform.DOScale(GetSetScale, 0f);
@@ -50,6 +52,8 @@ public class YK_Next : YK_UI
 
     public override void UIFadeOUT()
     {
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<PointEffector2D>().enabled = false;
         m_eFadeState = FadeState.FadeOUT;
         // 1秒で後X,Y方向を0.5倍に変更
         Next.transform.DOScale(m_MinScale, m_fDelTime);
