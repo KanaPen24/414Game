@@ -3671,9 +3671,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -3736,7 +3736,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3790,7 +3790,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       scalar: 0
-      minScalar: 0
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4878,6 +4878,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3196756643094345922}
     m_Modifications:
+    - target: {fileID: 253124853857869007, guid: 45147d4e98094414295d5d763c7ff214,
+        type: 3}
+      propertyPath: CollisionModule.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 253124853857869007, guid: 45147d4e98094414295d5d763c7ff214,
+        type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 253124853857869007, guid: 45147d4e98094414295d5d763c7ff214,
+        type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 253124853857869007, guid: 45147d4e98094414295d5d763c7ff214,
+        type: 3}
+      propertyPath: CollisionModule.m_Planes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 253124853857869007, guid: 45147d4e98094414295d5d763c7ff214,
+        type: 3}
+      propertyPath: CollisionModule.m_EnergyLossOnCollision.scalar
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3457202533184009681, guid: 45147d4e98094414295d5d763c7ff214,
         type: 3}
       propertyPath: m_RootOrder
