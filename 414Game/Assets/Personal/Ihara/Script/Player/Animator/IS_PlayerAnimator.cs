@@ -48,6 +48,12 @@ public enum PlayerAnimState
     ChargeWaitSkillIcon, // 溜め待機状態(SkillIcon)
     ChargeWalkSkillIcon, // 溜め移動状態(SkillIcon)
 
+    Avoid,               // 回避状態
+
+    GameOver,            // ゲームオーバー状態
+
+    UICatch,             // UIキャッチ 
+
     MaxPlayerAnimState
 }
 
