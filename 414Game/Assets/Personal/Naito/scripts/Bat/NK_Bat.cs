@@ -59,6 +59,8 @@ public class NK_Bat : MonoBehaviour
     private bool m_FallAnimFlag;
     private bool m_FlightAnimFlag;
     private Animator m_Anim;
+    [SerializeField] private float m_MoveReng;
+    private float m_fViewX;
 
     private void Start()
     {
@@ -71,7 +73,8 @@ public class NK_Bat : MonoBehaviour
 
     private void Update()
     {
-        if(m_DamageFlag)
+        m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
+        if (m_DamageFlag)
         {
             //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
             float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
@@ -93,7 +96,11 @@ public class NK_Bat : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(m_Clock.GetSetStopTime)
+        if(m_Clock.GetSetStopTime || m_fViewX >= m_MoveReng)
+        {
+            return;
+        }
+        if(GameManager.instance.GetSetGameState != GameState.GamePlay)
         {
             return;
         }
@@ -170,5 +177,19 @@ public class NK_Bat : MonoBehaviour
     {
         get { return m_FlightAnimFlag; }
         set { m_FlightAnimFlag = value; }
+    }
+
+    public void BatDamage(int Damage)
+    {
+        if(!m_DamageFlag)
+        {
+            m_nHP -= Damage;
+            m_DamageFlag = true;
+            Invoke("InvincibleEnd", m_InvincibleTime);
+            if(m_nHP<=0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

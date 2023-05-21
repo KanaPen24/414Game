@@ -62,6 +62,7 @@ public class NK_Slime : MonoBehaviour
     //ジャンプ力
     [SerializeField] private float m_fJumpPower;
     private float m_localScalex;
+    [SerializeField] private float m_MoveReng;
 
     private void Start()
     {
@@ -111,7 +112,11 @@ public class NK_Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_Clock.GetSetStopTime || m_fViewX >= 3)
+        if (m_Clock.GetSetStopTime || m_fViewX >= m_MoveReng)
+        {
+            return;
+        }
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
         {
             return;
         }
