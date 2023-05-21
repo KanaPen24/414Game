@@ -90,10 +90,10 @@ public class YK_Clock : YK_UI
         m_Time.GetSetTimeFlg = true;
         m_bOnce = true;
         m_nTimeCount--;
-        UIFadeIN();
+        //UIFadeIN();
         // BGM再生
         IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).UnPause();
-        Player.RemovedWeapon();
+        //Player.RemovedWeapon();
         Debug.Log("元戻る");
     }
 
