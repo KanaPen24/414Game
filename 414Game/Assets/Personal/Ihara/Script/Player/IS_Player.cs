@@ -15,6 +15,7 @@
  * @Update 2023/04/21 無敵処理追加
  * @Update 2023/05/08 反動フラグ追加
  * @Update 2023/05/12 武器チェンジ処理追加
+ * @Update 2023/05/21 GameOver状態,回避状態処理実装
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -36,6 +37,7 @@ public enum PlayerState
     PlayerChargeWait,     // 溜め待機状態
     PlayerChargeWalk,     // 溜め移動状態
     PlayerAvoidance,      // 回避状態
+    PlayerGameOver,       // ゲームオーバー状態
 
     MaxPlayerState
 }
@@ -175,6 +177,30 @@ public class IS_Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        // Decision=Key.Z,Joy.A
+        if (Input.GetButtonDown("Decision") ||
+            Input.GetButtonDown("Decision_Debug"))
+        {
+            // 装備していないor選択しているUIがあったら…
+            if (GetSetPlayerEquipState == PlayerEquipState.NoneEquip ||
+                (m_CursolEvent.GetSetCurrentUI != null &&
+                 m_UICatcher.GetSetSelectUI != m_CursolEvent.GetSetCurrentUI))
+            {
+                // 武器装備
+                EquipWeapon();
+            }
+            // 装備していたら…
+            else if (GetSetPlayerEquipState == PlayerEquipState.Equip)
+            {
+                // 装備解除
+                RemovedWeapon();
+            }
+        }
+
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
+
         // 入力管理
         // Jump=Key.w,Joy.B
         if (Input.GetButtonDown("Jump"))
@@ -217,34 +243,10 @@ public class IS_Player : MonoBehaviour
             bInputAvoid = true;
         }
         else bInputAvoid = false;
-
-        // Decision=Key.Z,Joy.A
-        if (Input.GetButtonDown("Decision") || 
-            Input.GetButtonDown("Decision_Debug"))
-        {
-            // 装備していないor選択しているUIがあったら…
-            if (GetSetPlayerEquipState == PlayerEquipState.NoneEquip ||
-                (m_CursolEvent.GetSetCurrentUI != null && 
-                 m_UICatcher.GetSetSelectUI != m_CursolEvent.GetSetCurrentUI))
-            {
-                // 武器装備
-                EquipWeapon();
-            }
-            // 装備していたら…
-            else if (GetSetPlayerEquipState == PlayerEquipState.Equip)
-            {
-                // 装備解除
-                RemovedWeapon();
-            }
-        }
     }
     private void FixedUpdate()
     {
         m_Rigidbody.velocity = new Vector3(0f, 0f, 0f);
-
-        // ゲームがプレイ中以外は更新しない
-        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
-            return;
 
         // Playerの状態によって更新処理
         m_PlayerStrategys[(int)GetSetPlayerState].UpdateStrategy();
@@ -369,6 +371,7 @@ public class IS_Player : MonoBehaviour
         if (m_nHp <= 0)
         {
             // GameOverに移行
+            GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;
         }
     }

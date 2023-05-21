@@ -3,6 +3,7 @@
  * @brief テキスト版時計
  * @author 吉田叶聖
  * @date 2023/04/17
+ * @Update 2023/05/21 ゲームオーバー処理編集(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ public class YK_Time : MonoBehaviour
     [SerializeField] private int m_nTimeLimit = 200;    //タイムリミット
     [SerializeField] private Text timerText;            //表示するテキスト
     [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
+    [SerializeField] private IS_Player Player;          //プレイヤーをアタッチ
     [SerializeField] ON_VolumeManager PostEffect;       //ポストエフェクト
     private Outline outline;
     [SerializeField] private float m_fTime;              //進行時間
@@ -101,6 +103,7 @@ public class YK_Time : MonoBehaviour
         if (m_nNowTime <=0)
         {
             //ゲームオーバー
+            Player.GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;
         }
     }
