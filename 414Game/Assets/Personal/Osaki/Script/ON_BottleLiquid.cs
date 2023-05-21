@@ -162,6 +162,12 @@ public class ON_BottleLiquid : MonoBehaviour
         fillingRate = Mathf.Max(rate, 0.0f);
     }
 
+
+    // 外部から液体の色を設定
+    public void SetLiquidColor(Color col)
+    {
+        liquidColor = col;
+    }
 #if UNITY_EDITOR
     // 選択時のギズモ表示
     private void OnDrawGizmosSelected()

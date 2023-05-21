@@ -30,6 +30,8 @@ public class YK_Start : YK_UI
         GetSetPos = StartUI.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
         GetSetScale = StartUI.transform.localScale;
+        //アウトライン取得
+        outline = this.GetComponent<Outline>();
     }
     private void Update()
     {

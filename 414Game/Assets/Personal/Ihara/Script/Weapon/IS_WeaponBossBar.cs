@@ -15,12 +15,6 @@ public class IS_WeaponBossBar : IS_Weapon
     [SerializeField] private IS_Player m_Player;               // Player
     [SerializeField] private CapsuleCollider m_CapsuleCollider;// 当たり判定
     [SerializeField] private MeshRenderer m_MeshRender;        // メッシュ
-    [SerializeField] private float fAttackRate;                // 攻撃の割合(スピード)
-    [SerializeField] private Vector3 vRotAmount;               // 攻撃の回転量
-    [SerializeField] private Vector3 vRotOrigin;               // 攻撃の初期角度
-
-    private float m_fRateAmount;// 割合の合計
-    private Vector3 vRot;       // 回転する大きさ
     private int m_nCnt;
 
     /**
@@ -33,6 +27,7 @@ public class IS_WeaponBossBar : IS_Weapon
         // メンバの初期化
         m_eWeaponType = WeaponType.BossBar; // 武器種類はBossバー
         m_bAttack = false;
+        m_bCharge = false;
         m_bVisible = false;
         m_bDestroy = false;
     }
@@ -66,7 +61,11 @@ public class IS_WeaponBossBar : IS_Weapon
     */
     public override void StartAttack()
     {
-        GetSetAttack = true; // 攻撃ON
+        // SE再生
+        IS_AudioManager.instance.PlaySE(SEType.SE_FireHPBar);
+
+        // 攻撃ON
+        GetSetAttack = true;
     }
 
     /**
@@ -77,8 +76,6 @@ public class IS_WeaponBossBar : IS_Weapon
     public override void FinAttack()
     {
         GetSetAttack = false; // 攻撃OFF
-        m_fRateAmount = 0.0f;
-        this.transform.rotation = Quaternion.Euler(vRotOrigin);
     }
 
     /**
@@ -88,33 +85,8 @@ public class IS_WeaponBossBar : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        // ここに処理を加える
-
-        // 回転量を計算
-        // 右向きなら
-        if (m_Player.GetSetPlayerDir == PlayerDir.Right)
-        {
-            vRot = new Vector3(-vRotAmount.x * m_fRateAmount,
-            -vRotAmount.y * m_fRateAmount,
-            -vRotAmount.z * m_fRateAmount);
-        }
-        // 左向きなら
-        else if (m_Player.GetSetPlayerDir == PlayerDir.Left)
-        {
-            vRot = new Vector3(vRotAmount.x * m_fRateAmount,
-                        vRotAmount.y * m_fRateAmount,
-                        vRotAmount.z * m_fRateAmount);
-        }
-
-        // 武器を回転させる
-        this.transform.rotation = Quaternion.Euler(vRot);
-
-        // 攻撃仕切ったら終了する
-        if (m_fRateAmount >= 1.0f)
-        {
+        if (m_Player.GetPlayerAnimator().AnimEnd())
             FinAttack();
-        }
-        else m_fRateAmount += fAttackRate;
     }
 
     /**

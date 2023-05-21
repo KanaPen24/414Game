@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_eWeaponType: 0
-  m_eWeaponAttackType: 0
   m_bAttack: 0
+  m_bCharge: 0
   m_bVisible: 0
   m_bDestroy: 0
   m_nHp: 0
@@ -62,6 +62,7 @@ MonoBehaviour:
   m_fMinPow: 3
   m_fMaxChargeTime: 5
   m_fPlayerMovePow: 3
+  m_fMaxReactionTime: 0
   m_ChargeLevel: 0
 --- !u!1 &6774856577874567479
 GameObject:
@@ -124,7 +125,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 2232d14e5f17ac543a1d616ab70cdded, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

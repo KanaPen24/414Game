@@ -25,24 +25,27 @@ public enum WeaponType
     MaxWeaponType
 }
 
-// ================================================
-// WeaponAttackType
-// … 攻撃方法の種類の列挙体
-// ================================================
-public enum WeaponAttackType
-{
-    WeaponAttack,     // 通常攻撃
-    WeaponAttackJump, // ジャンプ攻撃
-    WeaponAttackDrop, // 落下攻撃
+//// ================================================
+//// WeaponState
+//// … 武器の状態を管理する列挙体
+//// ================================================
+//public enum WeaponState
+//{
+//    WeaponNone,       // 無
+//    WeaponCharge,     // 溜め
+//    WeaponAttack,     // 通常攻撃
+//    WeaponAttackJump, // ジャンプ攻撃
+//    WeaponAttackDrop, // 落下攻撃
 
-    MaxWeaponAttackType
-}
+//    MaxWeaponState
+//}
 
 public class IS_Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponType m_eWeaponType;             // 武器の種類
-    [SerializeField] protected WeaponAttackType m_eWeaponAttackType; // 武器の攻撃方法
+    //[SerializeField] protected WeaponState m_eWeaponState;           // 武器状態
     [SerializeField] protected bool m_bAttack;                       // 攻撃中かどうか
+    [SerializeField] protected bool m_bCharge;                       // 溜め中かどうか
     [SerializeField] protected bool m_bVisible;                      // 表示するかどうか
     [SerializeField] protected bool m_bDestroy;                      // 破壊されたかどうか
     [SerializeField] protected int  m_nHp;                           // 耐久値
@@ -87,12 +90,23 @@ public class IS_Weapon : MonoBehaviour
     {
 
     }
+
     /**
      * @fn
      * 攻撃初期化処理(override前提)
      * @brief 攻撃初期化処理
      */
     public virtual void StartAttack()
+    {
+        // ここに処理を加える
+    }
+
+    /**
+     * @fn
+     * 溜め初期化処理(override前提)
+     * @brief 溜め初期化処理
+     */
+    public virtual void StartCharge()
     {
         // ここに処理を加える
     }
@@ -109,6 +123,16 @@ public class IS_Weapon : MonoBehaviour
 
     /**
      * @fn
+     * 溜め終了処理(override前提)
+     * @brief 溜め終了処理
+     */
+    public virtual void FinCharge()
+    {
+        // ここに処理を加える
+    }
+
+    /**
+     * @fn
      * 攻撃更新処理(override前提)
      * @brief 攻撃更新処理
      */
@@ -119,10 +143,20 @@ public class IS_Weapon : MonoBehaviour
 
     /**
      * @fn
+     * 溜め更新処理(override前提)
+     * @brief 溜め更新処理
+     */
+    public virtual void UpdateCharge()
+    {
+        // ここに処理を加える
+    }
+
+    /**
+     * @fn
      * 表示更新処理(override前提)
      * @brief 表示更新処理
      */
-     public virtual void UpdateVisible()
+    public virtual void UpdateVisible()
     {
 
     }
@@ -139,17 +173,17 @@ public class IS_Weapon : MonoBehaviour
         set { m_eWeaponType = value; }
     }
 
-    /**
-     * @fn
-     * 武器種類のgetter・setter
-     * @return m_eWeaponType(WeaponType)
-     * @brief 武器の攻撃方法を返す・セット
-     */
-    public WeaponAttackType GetSetWeaponAttackType
-    {
-        get { return m_eWeaponAttackType; }
-        set { m_eWeaponAttackType = value; }
-    }
+    ///**
+    // * @fn
+    // * 武器の状態のgetter・setter
+    // * @return m_eWeaponState(WeaponState)
+    // * @brief 武器の状態を返す・セット
+    // */
+    //public WeaponState GetSetWeaponState
+    //{
+    //    get { return m_eWeaponState; }
+    //    set { m_eWeaponState = value; }
+    //}
 
     /**
      * @fn
@@ -161,6 +195,18 @@ public class IS_Weapon : MonoBehaviour
     {
         get { return m_bAttack; }
         set { m_bAttack = value; }
+    }
+
+    /**
+     * @fn
+     * 溜め中のgetter・setter
+     * @return m_bCharge(bool)
+     * @brief 溜め中を返す・セット
+     */
+    public bool GetSetCharge
+    {
+        get { return m_bCharge; }
+        set { m_bCharge = value; }
     }
 
     /**
