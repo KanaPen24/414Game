@@ -40,7 +40,8 @@ public enum PlayerAnimState
     DropBossBar,    // 落下状態(BossBar)
     DropClock,      // 落下状態(Clock)
 
-    AttackHPBar,    // 攻撃状態(HPBar)
+    Attack01HPBar,  // 攻撃01状態(HPBar)
+    Attack02HPBar,  // 攻撃02状態(HPBar)
     AttackSkillIcon,// 攻撃状態(SkillIcon)
     AttackBossBar,  // 攻撃状態(BossBar)
     AttackClock,    // 攻撃状態(Clock)
@@ -75,9 +76,10 @@ public class IS_PlayerAnimator : MonoBehaviour
         else return false;
     }
 
-    public bool GetAnimNormalizeTime(float time)
+    public bool GetAnimNormalizeTime(PlayerAnimState anim,float time)
     {
-        if (m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= time)
+        if (m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= time &&
+            m_animator.GetCurrentAnimatorStateInfo(0).IsName(anim.ToString()))
             return true;
         else return false;
     }
