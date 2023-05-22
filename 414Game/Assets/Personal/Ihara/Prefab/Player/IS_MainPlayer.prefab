@@ -345,7 +345,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 2602812492749303807}
   m_PlayerGroundColl: {fileID: 1434260197630297037}
-  m_PlayerAnimState: 0
 --- !u!114 &9033297660117328532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +357,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5000b0d2bb41785449ac67bb99285f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Player: {fileID: 2602812492749303807}
+  m_PlayerGroundColl: {fileID: 1434260197630297037}
 --- !u!114 &7215862319705578238
 MonoBehaviour:
   m_ObjectHideFlags: 0

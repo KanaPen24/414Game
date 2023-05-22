@@ -83,18 +83,22 @@ public class YK_Time : MonoBehaviour
         //time変数をint型にし制限時間から引いた数をint型のlimit変数に代入
         m_nNowTime = m_nTimeLimit - (int)m_fTime;
 
-        if (Clock.GetSetTimeCount <= 2)
+        switch(Clock.GetSetTimeCount)
         {
-            m_nTimeLimit = 99;
-            m_nNowTime %= 100;  //3桁目を減らす
-        }
-        if (Clock.GetSetTimeCount <= 1)
-        {
-            m_nTimeLimit = 9;
-            m_nNowTime %= 10;   //2桁目を減らす
-        }
-        if (Clock.GetSetTimeCount <= 0)
-            m_nNowTime %= 1;    //1桁目を減らす
+            case 2:
+                m_nTimeLimit = 99;
+                m_nNowTime %= 100;  //3桁目を減らす
+                break;
+            case 1:
+                m_nTimeLimit = 9;
+                m_nNowTime %= 10;   //2桁目を減らす
+                m_fTime %= 10;
+                Clock.GetSetTimeCount = 0;
+                break;
+            case -1:
+                m_nNowTime %= 1;    //1桁目を減らす
+                break;
+        }           
                        
         //timerTextを更新していく
         timerText.text = m_nNowTime + "";
@@ -129,7 +133,7 @@ public class YK_Time : MonoBehaviour
     /**
 * @fn
 * 表示非表示のgetter・setter
-* @return m_bTimer(int)
+* @return m_bTimer(bool)
 * @brief 制限時間を返す・セット
 */
     public bool GetSetTimeFlg
