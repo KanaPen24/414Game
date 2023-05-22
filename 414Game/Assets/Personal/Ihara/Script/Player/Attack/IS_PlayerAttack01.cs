@@ -14,6 +14,7 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
 {
     [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
+    public PlayerAnimState m_PlayerAnimState;
 
     private void Update()
     {
@@ -24,13 +25,36 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
             {
                 m_Player.GetSetAttackFlg = false;
                 m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartAttack();
+
+                if (m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
+                {
+                    switch (m_Player.GetSetEquipWeaponState)
+                    {
+                        case EquipWeaponState.PlayerHpBar:
+                            m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackHPBar);
+                            m_PlayerAnimState = PlayerAnimState.AttackHPBar;
+                            break;
+                        case EquipWeaponState.PlayerSkillIcon:
+                            m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackSkillIcon);
+                            m_PlayerAnimState = PlayerAnimState.AttackSkillIcon;
+                            break;
+                        case EquipWeaponState.PlayerBossBar:
+                            m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackBossBar);
+                            m_PlayerAnimState = PlayerAnimState.AttackBossBar;
+                            break;
+                        case EquipWeaponState.PlayerClock:
+                            m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackClock);
+                            m_PlayerAnimState = PlayerAnimState.AttackClock;
+                            break;
+                    }
+                }
             }
 
             // =========
             // 状態遷移
             // =========
             // 「攻撃01 → 待機」
-            if (m_Player.GetPlayerAnimator().AnimEnd() &&
+            if (m_Player.GetPlayerAnimator().AnimEnd(m_PlayerAnimState) &&
                 !m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
