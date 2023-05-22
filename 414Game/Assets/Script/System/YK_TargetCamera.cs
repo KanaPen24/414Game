@@ -20,6 +20,7 @@ public class YK_TargetCamera : MonoBehaviour
     private float Shakefloat = 0.0f;
     private Vector3 RendaPos;
     private bool m_OneFlag;
+    [SerializeField] private float m_CameraSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +45,9 @@ public class YK_TargetCamera : MonoBehaviour
         this.gameObject.transform.position = RendaPos;
         if (m_Area.GetSetBattleFlag)
         {
-            if (!m_OneFlag)
+            if (this.gameObject.transform.position != m_BattleCameraPos.transform.position)
             {
-                m_OneFlag = true;
-                gameObject.transform.position = m_BattleCameraPos.transform.position;
+                this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, m_BattleCameraPos.transform.position, m_CameraSpeed * Time.deltaTime);
             }
         }
         else
