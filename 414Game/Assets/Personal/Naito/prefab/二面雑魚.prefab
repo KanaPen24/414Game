@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3582545848134466138}
   - component: {fileID: 1688303824533556321}
   - component: {fileID: 4797400132503851344}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Param6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1755642972591582168}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Drawables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 6865870547256035180}
   - component: {fileID: 2250703022739885729}
   - component: {fileID: 190693963525002571}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3946648002566454841}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 8717376701551704281}
   - component: {fileID: 541596753279399400}
   - component: {fileID: 7759648007460132270}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Param2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 6336538438825987409}
   - component: {fileID: 1385592929190929545}
   - component: {fileID: 5244502824637936887}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 6511076437070758105}
   - component: {fileID: 8690899210402552650}
   - component: {fileID: 8687346266925876180}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 853289251532141736}
   - component: {fileID: 9139076426085807886}
   - component: {fileID: 8400074558069197362}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2768162795316133111}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: APos
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -649,7 +649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2768162795316133110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.468, y: 0.225, z: 0}
+  m_LocalPosition: {x: -0.468, y: 0.225, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 9170743884844553618}
   - component: {fileID: 2641612102384486933}
   - component: {fileID: 3016329997296769976}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -787,7 +787,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5768592751113303277}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Parameters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -828,7 +828,7 @@ GameObject:
   - component: {fileID: 5625738881650618595}
   - component: {fileID: 245800590724215861}
   - component: {fileID: 1125675404016443354}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,7 +950,7 @@ GameObject:
   - component: {fileID: 360375289088577135}
   - component: {fileID: 2637882032586228405}
   - component: {fileID: 7761367447104223119}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1070,7 +1070,7 @@ GameObject:
   - component: {fileID: 4130932425410143614}
   - component: {fileID: 2128911924204920744}
   - component: {fileID: 7696106526698103900}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Param5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1133,7 +1133,7 @@ GameObject:
   - component: {fileID: 2082477149298464845}
   - component: {fileID: 7137856538909231811}
   - component: {fileID: 530790260055093449}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1255,7 +1255,7 @@ GameObject:
   - component: {fileID: 9141679656929494589}
   - component: {fileID: 2341900914276824156}
   - component: {fileID: 4989124651340692201}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1375,7 +1375,7 @@ GameObject:
   - component: {fileID: 6180681182836144459}
   - component: {fileID: 7913573498543085731}
   - component: {fileID: 5460240983961246878}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Param3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1438,7 +1438,7 @@ GameObject:
   - component: {fileID: 1999897039793106527}
   - component: {fileID: 3655754617287203956}
   - component: {fileID: 7904092948714359781}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1558,7 +1558,7 @@ GameObject:
   - component: {fileID: 6287615022229293309}
   - component: {fileID: 4213835930736150760}
   - component: {fileID: 3275852583467125328}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Part3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1619,7 +1619,7 @@ GameObject:
   - component: {fileID: 5192293242930057520}
   - component: {fileID: 8695225469582739596}
   - component: {fileID: 1908375771685831419}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Param4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1680,7 +1680,7 @@ GameObject:
   - component: {fileID: 3108540847746452867}
   - component: {fileID: 1051454813004870906}
   - component: {fileID: 4387541577370438313}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Part2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1758,7 +1758,7 @@ GameObject:
   - component: {fileID: 2768162793742960937}
   - component: {fileID: 2768162793742960938}
   - component: {fileID: 2768162793742960949}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: "\u4E8C\u9762\u96D1\u9B5A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2065,6 +2065,7 @@ MonoBehaviour:
   m_Clock: {fileID: 0}
   m_MoveValue: {x: 0, y: 0, z: 0}
   m_InvincibleTime: 0
+  m_MoveReng: 0
 --- !u!114 &2768162793742960949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2094,7 +2095,7 @@ GameObject:
   - component: {fileID: 4343429413860682497}
   - component: {fileID: 4868019590309232940}
   - component: {fileID: 7494724412066348404}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Param
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2155,7 +2156,7 @@ GameObject:
   - component: {fileID: 7460507538251537432}
   - component: {fileID: 8380882083660149102}
   - component: {fileID: 2936476619700758019}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Part4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2218,7 +2219,7 @@ GameObject:
   - component: {fileID: 4652506496632144174}
   - component: {fileID: 6413953747234810247}
   - component: {fileID: 8549882140655250360}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArtMesh6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2334,6 +2335,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3891957864131621395}
     m_Modifications:
+    - target: {fileID: 99353883667413507, guid: 6552175160c6359459bce2f55e7c2136,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638936450974987941, guid: 6552175160c6359459bce2f55e7c2136,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3967796007634297752, guid: 6552175160c6359459bce2f55e7c2136,
         type: 3}
       propertyPath: m_Name
@@ -2341,8 +2352,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3967796007634297752, guid: 6552175160c6359459bce2f55e7c2136,
         type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967796007634297752, guid: 6552175160c6359459bce2f55e7c2136,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980180018459833246, guid: 6552175160c6359459bce2f55e7c2136,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4055058817360538112, guid: 6552175160c6359459bce2f55e7c2136,
         type: 3}
