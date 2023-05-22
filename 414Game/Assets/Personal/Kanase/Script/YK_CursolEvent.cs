@@ -28,7 +28,7 @@ public class YK_CursolEvent : MonoBehaviour
     {
         // メンバの初期化
         m_CurrentUI = null;
-        Array = m_Uis.Capacity - 1;
+        Array = m_Uis.Capacity - 1; //配列のため-1する
     }
 
     //　マウスアイコンが自分のアイコン上に入った時
