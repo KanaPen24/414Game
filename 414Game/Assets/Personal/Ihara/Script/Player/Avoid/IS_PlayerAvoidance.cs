@@ -34,16 +34,12 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
             if (m_Player.GetSetPlayerInvincible.GetSetInvincibleCnt <= 0f)
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
-                //m_Player.GetAnimator().SetBool("isWait", true);
-                //m_Player.GetAnimator().SetBool("isAttack", false);
                 return;
             }
             // 「回避 → 落下」
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
-                //m_Player.GetAnimator().SetBool("isDrop", true);
-                //m_Player.GetAnimator().SetBool("isAttack", false);
                 return;
             }
         }
@@ -56,7 +52,8 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
      */
     public override void UpdateStrategy()
     {
-        // ここにStateごとに処理を加える
+        // アニメーション更新
+        UpdateAnim();
 
         // 合計移動量をリセット
         if (m_Player.GetSetPlayerDir == PlayerDir.Right)
@@ -69,5 +66,16 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
             m_Player.GetSetMoveAmount =
                 new Vector3(-m_MovePow, 0f, 0f);
         }
+    }
+
+    /**
+     * @fn
+     * アニメーション更新処理
+     * @brief Playerのアニメーション更新処理
+     * @detail 継承元からoverrideしています
+     */
+    public override void UpdateAnim()
+    {
+        m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Avoid);
     }
 }

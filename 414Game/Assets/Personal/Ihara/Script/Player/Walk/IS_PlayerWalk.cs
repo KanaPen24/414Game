@@ -16,6 +16,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
 {
     [SerializeField] private IS_Player m_Player;                          // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
+    [SerializeField] private YK_UseSkill m_UseSkill;                      // 回避できるかのスクリプト
     [SerializeField] private ParticleSystem walkEffect;                   // 歩行エフェクト
     [SerializeField] private float m_fMovePow;                            // 移動する力
     [SerializeField] private float m_fMaxDustCnt;                         // 歩行エフェクト最大カウント
@@ -80,6 +81,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             if (m_Player.bInputAttack &&
                 m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
             {
+                IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 if (m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerSkillIcon)
                 {
                     m_Player.GetSetPlayerState = PlayerState.PlayerChargeWalk;
@@ -91,6 +93,13 @@ public class IS_PlayerWalk : IS_PlayerStrategy
                     m_Player.GetSetAttackFlg = true;
                 }
                 return;
+            }
+            // 「待機 → 回避」
+            if (m_Player.bInputAvoid && m_UseSkill.UseSkillJudge())
+            {
+                IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
+                m_Player.GetSetPlayerState = PlayerState.PlayerAvoidance;
+                m_Player.GetSetAvoidFlg = true;
                 return;
             }
         }

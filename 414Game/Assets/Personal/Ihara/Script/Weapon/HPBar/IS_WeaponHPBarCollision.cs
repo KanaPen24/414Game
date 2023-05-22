@@ -12,6 +12,7 @@ using UnityEngine;
 public class IS_WeaponHPBarCollision : MonoBehaviour
 {
     [SerializeField] private IS_WeaponHPBar weaponHPBar;
+    [SerializeField] private IS_Player Player;    // Playerをアタッチ
     [SerializeField] private int m_nDamage2Enemy; // 敵に与えるダメージ量
     [SerializeField] private int m_nDamage2HPBar; // HPBarに与えるダメージ量
     [SerializeField] private int m_nDrainEnemyHp; // 雑魚敵から吸収するHP
@@ -43,6 +44,9 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
 
         // 耐久値が0以下になったらゲームオーバー
         if (weaponHPBar.GetSetHp <= 0)
+        {
+            Player.GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;
+        }
     }
 }

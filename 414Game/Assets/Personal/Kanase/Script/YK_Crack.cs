@@ -4,6 +4,7 @@
  * @author 吉田叶聖
  * @date 2023/04/21
  * @Update 2023/05/12 ヒビレベルの処理を反映(Ihara)
+ * @Update 2023/05/21 ヒビエフェクトの処理を反映(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -50,7 +51,10 @@ public class YK_Crack : MonoBehaviour
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_2);
                 weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level3);
-                //Glass.Play();
+                ParticleSystem Effect = Instantiate(Glass);
+                Effect.Play();
+                Effect.transform.position = weaponHpBar.transform.position;
+                Destroy(Effect.gameObject, 5.0f);
                 m_bCrackMaxFlag = true;
             }
             image.sprite = Crack_Max;
@@ -62,7 +66,10 @@ public class YK_Crack : MonoBehaviour
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_1);
                 weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level2);
-                //Glass.Play();
+                ParticleSystem Effect = Instantiate(Glass);
+                Effect.Play();
+                Effect.transform.position = weaponHpBar.transform.position;
+                Destroy(Effect.gameObject, 5.0f);
                 m_bCrackNorFlag = true;
             }
             image.sprite = Crack_Nor;
@@ -74,7 +81,10 @@ public class YK_Crack : MonoBehaviour
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_1);
                 weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level1);
-                //Glass.Play();
+                ParticleSystem Effect = Instantiate(Glass);
+                Effect.Play();
+                Effect.transform.position = weaponHpBar.transform.position;
+                Destroy(Effect.gameObject, 5.0f);
                 m_bCrackMinFlag = true;
             }
             image.sprite = Crack_Min;
@@ -85,12 +95,7 @@ public class YK_Crack : MonoBehaviour
         {
             color.a = 0.0f;
         }
-        //HPバーが壊れたら
-        if (weaponHpBar.GetSetHp <= 0)
-        {
-            //ゲームオーバー
-            GameManager.instance.GetSetGameState = GameState.GameOver;
-        }
+       
         this.GetComponent<Image>().color = color;
     }
 }

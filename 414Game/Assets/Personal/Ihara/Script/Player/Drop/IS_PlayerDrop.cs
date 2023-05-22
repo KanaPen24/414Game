@@ -41,6 +41,7 @@ public class IS_PlayerDrop : IS_PlayerStrategy
                 if (m_Player.bInputLeft || m_Player.bInputRight)
                 {
                     m_Player.GetSetPlayerState = PlayerState.PlayerWalk;
+                    m_Player.GetSetWalkFlg = true;
                     return;
                 }
 
