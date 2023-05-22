@@ -44,6 +44,7 @@ public class YK_SkillIcon : YK_UI
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<PointEffector2D>().enabled = false;
             GetComponent<Image>().enabled = false;
+            SkillInner.GetComponent<Image>().enabled = false;
             m_bSkillUse = true;
         }
         else
@@ -51,6 +52,7 @@ public class YK_SkillIcon : YK_UI
             GetComponent<BoxCollider2D>().enabled = true;
             GetComponent<PointEffector2D>().enabled = true;
             GetComponent<Image>().enabled = true;
+            SkillInner.GetComponent<Image>().enabled = true;
             if (m_bSkillUse)
             {
                 m_fCoolTime += Time.deltaTime;

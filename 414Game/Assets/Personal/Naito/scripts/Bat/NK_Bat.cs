@@ -59,6 +59,8 @@ public class NK_Bat : MonoBehaviour
     private bool m_FallAnimFlag;
     private bool m_FlightAnimFlag;
     private Animator m_Anim;
+    [SerializeField] private float m_MoveReng;
+    private float m_fViewX;
 
     private void Start()
     {
@@ -71,32 +73,34 @@ public class NK_Bat : MonoBehaviour
 
     private void Update()
     {
-        if(m_DamageFlag)
+        m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
+        if (m_DamageFlag)
         {
             //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
             float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
             renderController.Opacity = level;
         }
-        if (GetSetBatState == BatState.BatMove)
+        if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
         {
-            if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
-            {
-                GetSetBatDir = BatDir.Right;
-                this.transform.localScale =
-                    new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
-            }
-            else
-            {
-                GetSetBatDir = BatDir.Left;
-                this.transform.localScale =
-                    new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
-            }
+            GetSetBatDir = BatDir.Right;
+            this.transform.localScale =
+                new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+        }
+        else
+        {
+            GetSetBatDir = BatDir.Left;
+            this.transform.localScale =
+                new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
         }
     }
 
     private void FixedUpdate()
     {
-        if(m_Clock.GetSetStopTime)
+        if(m_Clock.GetSetStopTime || m_fViewX >= m_MoveReng)
+        {
+            return;
+        }
+        if(GameManager.instance.GetSetGameState != GameState.GamePlay)
         {
             return;
         }
@@ -108,32 +112,14 @@ public class NK_Bat : MonoBehaviour
         m_Anim.SetBool("FlightFlag", m_FlightAnimFlag);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        // プレイヤーだったら
-        if (collision.gameObject == m_BPlayer.gameObject)
+        if(other.gameObject==m_BPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
-            //m_Player.GetPlayerHp().DelLife(10);
-        }
-
-        // 武器だったら
-        if (collision.gameObject.tag == "Weapon" && !m_DamageFlag)
-        {
-            Debug.Log("Enemy Damage!!");
-            //m_HpBarHP.DelLife(10);
-            m_nHP -= 5;
-            m_DamageFlag = true;
-            Invoke("InvincibleEnd", m_InvincibleTime);
-        }
-
-        // HPが0になったら、このオブジェクトを破壊
-        if (m_nHP <= 0)
-        {
-            Destroy(this.gameObject);
+            m_BPlayer.Damage(10, 2.0f);
         }
     }
-
 
     /**
  * @fn
@@ -191,5 +177,19 @@ public class NK_Bat : MonoBehaviour
     {
         get { return m_FlightAnimFlag; }
         set { m_FlightAnimFlag = value; }
+    }
+
+    public void BatDamage(int Damage)
+    {
+        if(!m_DamageFlag)
+        {
+            m_nHP -= Damage;
+            m_DamageFlag = true;
+            Invoke("InvincibleEnd", m_InvincibleTime);
+            if(m_nHP<=0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 }
