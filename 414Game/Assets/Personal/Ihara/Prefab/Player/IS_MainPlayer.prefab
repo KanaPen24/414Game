@@ -406,8 +406,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 2602812492749303807}
   m_PlayerGroundColl: {fileID: 1434260197630297037}
-  m_fAvoidTime: 0.5
-  m_MovePow: 7.5
+  m_fAvoidTime: 0.2
+  m_MovePow: 20
 --- !u!114 &3682025653976630071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,6 +669,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1922407339374070836, guid: 6952fa759bcd5c6468dabe0201539064,
         type: 3}
+      propertyPath: m_ChargeEffect
+      value: 
+      objectReference: {fileID: 6693226489186108087}
+    - target: {fileID: 1922407339374070836, guid: 6952fa759bcd5c6468dabe0201539064,
+        type: 3}
       propertyPath: m_fMaxReactionTime
       value: 1
       objectReference: {fileID: 0}
@@ -792,6 +797,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8485a6031c3e06849ae3cf6957582b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!2083052967 &6693226489186108087 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 9090554749189692330, guid: 6952fa759bcd5c6468dabe0201539064,
+    type: 3}
+  m_PrefabInstance: {fileID: 2507165129978501405}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5428282029080114953
 PrefabInstance:
   m_ObjectHideFlags: 0

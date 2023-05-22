@@ -244,6 +244,9 @@ public class IS_Player : MonoBehaviour
             bInputAvoid = true;
         }
         else bInputAvoid = false;
+
+        // 無敵チェック
+        CheckInvincible();
     }
     private void FixedUpdate()
     {
@@ -260,10 +263,6 @@ public class IS_Player : MonoBehaviour
 
         // HPチェック
         CheckHP();
-
-        // 無敵チェック
-        CheckInvincible();
-
     }
 
     /**
