@@ -224,7 +224,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        if (Player.GetPlayerAnimator().AnimEnd())
+        if (Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.AttackSkillIcon))
             FinAttack();
     }
 

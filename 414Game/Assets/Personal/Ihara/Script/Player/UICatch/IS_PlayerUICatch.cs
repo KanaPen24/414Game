@@ -22,7 +22,7 @@ public class IS_PlayerUICatch : IS_PlayerStrategy
             // 状態遷移
             // =========
             // 「UI取得 → 待機」
-            if (m_Player.GetPlayerAnimator().AnimEnd())
+            if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.UICatch))
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
                 return;

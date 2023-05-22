@@ -85,7 +85,7 @@ public class IS_WeaponBossBar : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        if (m_Player.GetPlayerAnimator().AnimEnd())
+        if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.AttackBossBar))
             FinAttack();
     }
 
