@@ -16560,6 +16560,8 @@ MonoBehaviour:
   m_FloorPos: 10
   m_FallPow: 15
   m_FallEffect: {fileID: 7423213002520024082}
+  m_Shake: {fileID: 0}
+  m_ShakePow: 0
 --- !u!114 &7423213002365111434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16610,6 +16612,7 @@ MonoBehaviour:
   m_BossSlime: {fileID: 7423213002365111430}
   m_KidsSlime: {fileID: 0}
   m_SummonPos: {fileID: 7423213001834812599}
+  m_SummonTime: 3
 --- !u!114 &7423213002365111431
 MonoBehaviour:
   m_ObjectHideFlags: 0
