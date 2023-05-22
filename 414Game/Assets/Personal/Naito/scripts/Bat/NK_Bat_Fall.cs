@@ -10,6 +10,7 @@ public class NK_Bat_Fall : NK_BatStrategy
     [SerializeField] private NK_Bat m_Bat;
     [SerializeField] private float m_UpTime;
     private float m_Cnt;
+    [SerializeField] private GameObject m_FallEffect;
 
     private void Start()
     {
@@ -25,6 +26,7 @@ public class NK_Bat_Fall : NK_BatStrategy
         }
         else
         {
+            m_FallEffect.SetActive(false);
             m_Cnt += Time.deltaTime;
             if (m_Cnt > m_UpTime)
             {

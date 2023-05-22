@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
   m_Name: BossSlime.fadeMotionList
   m_EditorClassIdentifier: 
-  MotionInstanceIds: 5000ffffeafdfeffe0fdfeff
+  MotionInstanceIds: 5000ffffeafdfeffe0fdfeff1673fcff0c73fcff0273fcff
   CubismFadeMotionObjects:
   - {fileID: 11400000, guid: f6887c986d2d67344975ebc507f00b8f, type: 2}
   - {fileID: 11400000, guid: 8a3aa901304fb634393550daff91c51b, type: 2}
   - {fileID: 11400000, guid: 1531fab7d103cf341b9e764d2261793b, type: 2}
+  - {fileID: 11400000, guid: a3f7132ded6ba554295e62522d989867, type: 2}
+  - {fileID: 11400000, guid: b794e95a3a18cd841a1a060d74c4bb6f, type: 2}
+  - {fileID: 11400000, guid: c5885d83c070e874d98adcb09b26b65d, type: 2}

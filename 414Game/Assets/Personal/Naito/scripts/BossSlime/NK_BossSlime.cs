@@ -104,6 +104,10 @@ public class NK_BossSlime : MonoBehaviour
         {
             return;
         }
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+        {
+            return;
+        }
         m_BossSlimeStrategy[(int)m_BossSlimeState].UpdateStrategy();
 
         m_Rbody.velocity = m_BSMoveValue;
