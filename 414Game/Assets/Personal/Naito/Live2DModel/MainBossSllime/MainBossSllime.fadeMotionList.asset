@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 403ae2dd693bb1d4b924f6b8d206b053, type: 3}
+  m_Name: MainBossSllime.fadeMotionList
+  m_EditorClassIdentifier: 
+  MotionInstanceIds: 56cbffff48cbffff3ecbffff34cbffffb2c8ffffa8c8ffff
+  CubismFadeMotionObjects:
+  - {fileID: 11400000, guid: 85c12ab2dd976b549acf70f999f468b5, type: 2}
+  - {fileID: 11400000, guid: 46894e078a7102940a96e23eb5300da5, type: 2}
+  - {fileID: 11400000, guid: b91898bf9a932984d8d955aa68ff05fb, type: 2}
+  - {fileID: 11400000, guid: 35178d781caafed4f82bac7b2e8ac33d, type: 2}
+  - {fileID: 11400000, guid: 472352264a6ab8347b20bfb28149b9e1, type: 2}
+  - {fileID: 11400000, guid: 254d31343a18be64c8841b00ea0fc0ff, type: 2}

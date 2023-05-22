@@ -42,6 +42,18 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
             }
         }
 
+        // 蝙蝠へのダメージ処理
+        if (other.gameObject.GetComponent<NK_Bat>() != null)
+        {
+            if (weaponHPBar.GetSetAttack && !other.GetComponent<NK_Bat>().GetSetDamageFlag)
+            {
+                weaponHPBar.GetSetHp -= m_nDamage2HPBar;
+                weaponHPBar.GetPlayer().GetSetHp += m_nDrainBossHp;
+                other.GetComponent<NK_Bat>().BatDamage(m_nDamage2Enemy);
+                other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
+            }
+        }
+
         // 耐久値が0以下になったらゲームオーバー
         if (weaponHPBar.GetSetHp <= 0)
         {
