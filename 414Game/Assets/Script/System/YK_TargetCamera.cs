@@ -19,6 +19,7 @@ public class YK_TargetCamera : MonoBehaviour
     [SerializeField] private GameObject m_BattleCameraPos;
     private float Shakefloat = 0.0f;
     private Vector3 RendaPos;
+    private bool m_OneFlag;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,13 +38,17 @@ public class YK_TargetCamera : MonoBehaviour
         //連打の振動
         Shakefloat = Shakefloat * 0.99f - Shakefloat * 0.01f;
 
-        RendaPos.x = RendaPos.x + UnityEngine.Random.Range(-Shakefloat, Shakefloat);
-        RendaPos.y = RendaPos.y + UnityEngine.Random.Range(-Shakefloat, Shakefloat);
+        RendaPos.x = m_BattleCameraPos.transform.position.x + UnityEngine.Random.Range(-Shakefloat, Shakefloat);
+        RendaPos.y = m_BattleCameraPos.transform.position.y + UnityEngine.Random.Range(-Shakefloat, Shakefloat);
 
         this.gameObject.transform.position = RendaPos;
         if (m_Area.GetSetBattleFlag)
         {
-            gameObject.transform.position = m_BattleCameraPos.transform.position;
+            if (!m_OneFlag)
+            {
+                m_OneFlag = true;
+                gameObject.transform.position = m_BattleCameraPos.transform.position;
+            }
         }
         else
         {

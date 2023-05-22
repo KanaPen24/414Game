@@ -1,0 +1,54 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "Slime_移動"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "スライム_ズリズリ移動"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "どしーん"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "パラメータ3"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "",
+			"Name": "パラメータ4"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "",
+			"Name": "パラメータ5"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part4",
+			"Name": "ボススライム0512統合２追加パーツ.psd"
+		},
+		{
+			"Id": "Part3",
+			"Name": "ボススライム0512統合２.psd"
+		},
+		{
+			"Id": "Part",
+			"Name": "フォルダー 1"
+		},
+		{
+			"Id": "Part2",
+			"Name": "フォルダー 2 のコピー"
+		}
+	]
+}
