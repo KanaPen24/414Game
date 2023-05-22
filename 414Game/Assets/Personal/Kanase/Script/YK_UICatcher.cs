@@ -70,9 +70,7 @@ public class YK_UICatcher : MonoBehaviour
     {
         // プレイしてなかったら再生する
         if (!m_bParticleFlg)
-        {
-            //音(sound1)を鳴らす
-            //audioSource.Play();
+        {            
             Hand.GetComponent<Animator>().SetBool("Hand", true);
             particleUI.Play();
             particlePL.Play();
@@ -144,7 +142,7 @@ public class YK_UICatcher : MonoBehaviour
     public void StartUI2WeaponEvent()
     {
         m_UICatcherState = UICatcherState.UI2Weapon; // UIから武器化するイベント状態にする
-        ParticlePlay(); // エフェクト再生
+        //ParticlePlay(); // エフェクト再
 
         IS_AudioManager.instance.PlaySE(SEType.SE_UICatcher);    
         // 選択したUIを探す
