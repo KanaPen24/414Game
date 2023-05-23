@@ -36,6 +36,7 @@ public class YK_UICatcher : MonoBehaviour
     private bool m_bParticleFlg;                        //パーティクルエフェクト用のフラグ
     private UICatcherState m_UICatcherState;            // UICatcherの状態
     private YK_UI m_SelectUI;                           // 選択中のUI(現在武器化しているUI)
+    private int Array;  //m_Uisの中身
 
     // Start is called before the first frame update
     void Start()
@@ -50,9 +51,10 @@ public class YK_UICatcher : MonoBehaviour
         m_bParticleFlg = false;
         m_SelectUI = null;
         audioSource = GetComponent<AudioSource>();
+        Array = m_Uis.Capacity - 1; //配列のため-1する
     }
 
-    private void Update()
+        private void Update()
     {
         //プレイヤーの向き比較
         if(Player.GetSetPlayerDir == PlayerDir.Left)
@@ -70,9 +72,7 @@ public class YK_UICatcher : MonoBehaviour
     {
         // プレイしてなかったら再生する
         if (!m_bParticleFlg)
-        {
-            //音(sound1)を鳴らす
-            //audioSource.Play();
+        {            
             Hand.GetComponent<Animator>().SetBool("Hand", true);
             particleUI.Play();
             particlePL.Play();
@@ -82,7 +82,6 @@ public class YK_UICatcher : MonoBehaviour
             {
                 case UIType.Retry:
                 case UIType.TitleBack:
-                case UIType.Start:
                 case UIType.Exit:
                     BlackHolePL.SetActive(false);
                     PortalObjPL.SetActive(false);
@@ -144,8 +143,8 @@ public class YK_UICatcher : MonoBehaviour
     public void StartUI2WeaponEvent()
     {
         m_UICatcherState = UICatcherState.UI2Weapon; // UIから武器化するイベント状態にする
-        ParticlePlay(); // エフェクト再生
-
+        if (GameObject.Find("DamageCanvas(Clone)"))
+            m_Uis[Array] = GameObject.Find("DamageCanvas(Clone)").GetComponent<YK_DamageUI>();
         IS_AudioManager.instance.PlaySE(SEType.SE_UICatcher);    
         // 選択したUIを探す
         for (int i = 0,size = m_Uis.Count; i < size;++i)
