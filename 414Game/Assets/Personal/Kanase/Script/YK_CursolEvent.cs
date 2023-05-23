@@ -32,7 +32,7 @@ public class YK_CursolEvent : MonoBehaviour
     }
 
     //　マウスアイコンが自分のアイコン上に入った時
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         if(GameObject.Find("DamageCanvas(Clone)"))
         m_Uis[Array] = GameObject.Find("DamageCanvas(Clone)").GetComponent<YK_DamageUI>();
@@ -44,10 +44,14 @@ public class YK_CursolEvent : MonoBehaviour
                 // 予め格納しておく
                 m_CurrentUI = m_Uis[i];
                 Debug.Log(m_CurrentUI.GetSetUIType);
+                //ダメージのUIのみカーソルの当たり判定で場所を特定する
+                if (m_CurrentUI.GetSetUIType == UIType.DamageNumber)
+                    m_CurrentUI.GetSetPos = this.gameObject.GetComponent<RectTransform>().anchoredPosition;
                 return;
             }
         }
     }
+
     //　マウスアイコンが自分のアイコン上から出て行った時
     void OnTriggerExit2D(Collider2D col)
     {

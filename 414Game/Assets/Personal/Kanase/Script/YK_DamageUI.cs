@@ -29,10 +29,6 @@ public class YK_DamageUI : YK_UI
         damageText = GetComponentInChildren<Text>();
         m_eUIType = UIType.DamageNumber; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
-        //UIが動くようならUpdateにかかなかん
-        GetSetPos = this.GetComponent<RectTransform>().anchoredPosition;
-        //スケール取得
-        GetSetScale = damageText.transform.localScale;
         m_nCountDown *= 60; //60FPSに合わせる
         time= GameObject.Find("Timer").GetComponent<YK_Time>();
     }
@@ -81,6 +77,7 @@ public class YK_DamageUI : YK_UI
         {
             damageText.color = Color.blue;
         }
+        GetSetPos = collision.transform.position;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
