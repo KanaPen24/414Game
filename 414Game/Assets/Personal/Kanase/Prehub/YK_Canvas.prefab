@@ -203,7 +203,6 @@ MonoBehaviour:
   m_fDelTime: 0.5
   m_fCoolTimeLimit: 5
   Use: {fileID: 5496827138260071250}
-  CursolEvent: {fileID: 1549991834780537682}
 --- !u!250 &8717153263600393736
 PointEffector2D:
   m_ObjectHideFlags: 0
@@ -1727,7 +1726,6 @@ MonoBehaviour:
   OutLine: {fileID: 308019043261332728}
   m_MinScale: {x: 0.5, y: 0.5, z: 0}
   m_fDelTime: 0.5
-  CursolEvent: {fileID: 1549991834780537682}
 --- !u!114 &3233989728016196554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2157,7 +2155,6 @@ MonoBehaviour:
   m_fDelTime: 0.5
   m_fCoolTimeLimit: 5
   Use: {fileID: 5496827138260071250}
-  CursolEvent: {fileID: 1549991834780537682}
 --- !u!250 &6131844389292980097
 PointEffector2D:
   m_ObjectHideFlags: 0
@@ -2531,7 +2528,6 @@ MonoBehaviour:
   m_fDelTime: 0.5
   m_fCoolTimeLimit: 5
   Use: {fileID: 5496827138260071250}
-  CursolEvent: {fileID: 1549991834780537682}
 --- !u!250 &5990558202246654384
 PointEffector2D:
   m_ObjectHideFlags: 0
@@ -2649,7 +2645,6 @@ MonoBehaviour:
   m_fDelTime: 0.5
   m_fCoolTimeLimit: 5
   Use: {fileID: 5496827138260071250}
-  CursolEvent: {fileID: 1549991834780537682}
 --- !u!114 &1345458143150749385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3453,7 +3448,6 @@ MonoBehaviour:
   m_fDelTime: 0.5
   m_fCoolTimeLimit: 5
   Use: {fileID: 5496827138260071250}
-  CursolEvent: {fileID: 1549991834780537682}
 --- !u!250 &3902336220945663062
 PointEffector2D:
   m_ObjectHideFlags: 0
@@ -5102,7 +5096,7 @@ PrefabInstance:
     - target: {fileID: 2637863287013596610, guid: 536d72463a646b44eb2c1000869a281a,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 26.599102
+      value: 36.919556
       objectReference: {fileID: 0}
     - target: {fileID: 2637863287013596610, guid: 536d72463a646b44eb2c1000869a281a,
         type: 3}
@@ -5158,7 +5152,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 352f87e936ec8dd40b624fdac13d6a42, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ed3d22719023bfd4abcc9f85f879e727, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5343,7 +5337,6 @@ MonoBehaviour:
   m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
   m_fDelTime: 0.5
   PostEffect: {fileID: 0}
-  CursolEvent: {fileID: 1549991834780537682}
 --- !u!114 &5965826255464846494 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1252618962852615568, guid: 536d72463a646b44eb2c1000869a281a,
