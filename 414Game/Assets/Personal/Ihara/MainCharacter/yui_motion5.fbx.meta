@@ -60,7 +60,52 @@ ModelImporter:
   - first:
       74: -3330444337901185739
     second: anim_Clip37
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: A
+    second: {fileID: 2100000, guid: 2d52d1b31a71bf84a9d5b82409fc4734, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: B
+    second: {fileID: 2100000, guid: ead0be9748e7e574eb177a747f87e6e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: C
+    second: {fileID: 2100000, guid: 4630500c39becbe4aabdf58b715adc89, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: D
+    second: {fileID: 2100000, guid: 1c77aa854f7faaa42b6428de9eda8ece, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 78959c39a05f5174fa852861479f9789, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: yui_uv_A_BaseColor.1001
+    second: {fileID: 2800000, guid: 1608fe0e489c2bf469a4abb92b603c1d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: yui_uv_B_BaseColor.1002
+    second: {fileID: 2800000, guid: 17ff76a1fe6ebea4f968ebeb0fa0c719, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: yui_uv_C_BaseColor.1011
+    second: {fileID: 2800000, guid: f3ea4240b37425543bc6942c6109dea7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: yui_uv_D_BaseColor.1012
+    second: {fileID: 2800000, guid: 4ddfdd61a55bc83429b3e062b639b172, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
