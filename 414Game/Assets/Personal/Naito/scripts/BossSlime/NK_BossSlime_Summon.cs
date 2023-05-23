@@ -21,6 +21,7 @@ public class NK_BossSlime_Summon : NK_BossSlimeStrategy
         m_Cnt += Time.deltaTime;
         if (m_Cnt > m_SummonTime)
         {
+            m_Cnt = 0;
             GameObject childSlimeObj =
             Instantiate(m_KidsSlime, m_SummonPos.transform.position, Quaternion.identity);
             childSlimeObj.SetActive(true);

@@ -14,7 +14,7 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
 {
     [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
-    public PlayerAnimState m_PlayerAnimState;
+    private PlayerAnimState m_CurrentPlayerAnimState;
 
     private void Update()
     {
@@ -25,36 +25,24 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
             {
                 m_Player.GetSetAttackFlg = false;
                 m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartAttack();
-
-                if (m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
-                {
-                    switch (m_Player.GetSetEquipWeaponState)
-                    {
-                        case EquipWeaponState.PlayerHpBar:
-                            m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackHPBar);
-                            m_PlayerAnimState = PlayerAnimState.AttackHPBar;
-                            break;
-                        case EquipWeaponState.PlayerSkillIcon:
-                            m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackSkillIcon);
-                            m_PlayerAnimState = PlayerAnimState.AttackSkillIcon;
-                            break;
-                        case EquipWeaponState.PlayerBossBar:
-                            m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackBossBar);
-                            m_PlayerAnimState = PlayerAnimState.AttackBossBar;
-                            break;
-                        case EquipWeaponState.PlayerClock:
-                            m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackClock);
-                            m_PlayerAnimState = PlayerAnimState.AttackClock;
-                            break;
-                    }
-                }
             }
 
             // =========
             // 状態遷移
             // =========
+            // 「攻撃01 → 攻撃02」
+            if (m_Player.GetPlayerAnimator().GetAnimNormalizeTime(m_CurrentPlayerAnimState,0.7f) &&
+                m_Player.bInputAttack)
+            {
+                if (m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar)
+                {
+                    m_Player.GetSetPlayerState = PlayerState.PlayerAttack02;
+                    m_Player.GetSetAttackFlg = true;
+                    return;
+                }
+            }
             // 「攻撃01 → 待機」
-            if (m_Player.GetPlayerAnimator().AnimEnd(m_PlayerAnimState) &&
+            if (m_Player.GetPlayerAnimator().AnimEnd(m_CurrentPlayerAnimState) &&
                 !m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
@@ -96,23 +84,24 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        if (m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
+        switch (m_Player.GetSetEquipWeaponState)
         {
-            switch (m_Player.GetSetEquipWeaponState)
-            {
-                case EquipWeaponState.PlayerHpBar:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackHPBar);
-                    break;
-                case EquipWeaponState.PlayerSkillIcon:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackSkillIcon);
-                    break;
-                case EquipWeaponState.PlayerBossBar:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackBossBar);
-                    break;
-                case EquipWeaponState.PlayerClock:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackClock);
-                    break;
-            }
+            case EquipWeaponState.PlayerHpBar:
+                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack01HPBar);
+                m_CurrentPlayerAnimState = PlayerAnimState.Attack01HPBar;
+                break;
+            case EquipWeaponState.PlayerSkillIcon:
+                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackSkillIcon);
+                m_CurrentPlayerAnimState = PlayerAnimState.AttackSkillIcon;
+                break;
+            case EquipWeaponState.PlayerBossBar:
+                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackBossBar);
+                m_CurrentPlayerAnimState = PlayerAnimState.AttackBossBar;
+                break;
+            case EquipWeaponState.PlayerClock:
+                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackClock);
+                m_CurrentPlayerAnimState = PlayerAnimState.AttackClock;
+                break;
         }
     }
 }

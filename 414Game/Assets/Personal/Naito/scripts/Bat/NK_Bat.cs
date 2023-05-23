@@ -156,6 +156,12 @@ public class NK_Bat : MonoBehaviour
         set { m_nMaxHP = value; }
     }
 
+    public bool GetSetDamageFlag
+    {
+        get { return m_DamageFlag; }
+        set { m_DamageFlag = value; }
+    }
+
     public Vector3 GetSetMoveValue
     {
         get { return m_MoveValue; }

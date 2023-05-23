@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.VFX;
 
 public class IS_WeaponSkillIcon : IS_Weapon
 {
@@ -26,7 +27,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
 
     [SerializeField] private IS_Player Player;          // Player    
     [SerializeField] private IS_Ball m_Ball;            // 生成Ball
-    [SerializeField] private ParticleSystem m_ChargeEffect; // 溜めエフェクト
+    [SerializeField] private VisualEffect m_ChargeEffect; // 溜めエフェクト
     [SerializeField] private YK_UICatcher m_UICatcher;  // UIキャッチャー
     [SerializeField] private MeshRenderer m_MeshRender; // メッシュ
     [SerializeField] private float m_fMaxPow;           // 最大攻撃速度
@@ -180,8 +181,9 @@ public class IS_WeaponSkillIcon : IS_Weapon
     {
         GetSetCharge = true; // 溜めON
         IS_AudioManager.instance.PlaySE(SEType.SE_Charge);
+        m_ChargeEffect.Reinit();
         m_ChargeEffect.Play();
-        m_ChargeEffect.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        m_ChargeEffect.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
     }
 
     /**
