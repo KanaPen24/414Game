@@ -199,8 +199,6 @@ MonoBehaviour:
   SkillInner: {fileID: 2592891712234899399}
   OutLine: {fileID: 6822737503444664033}
   m_nStuck: 3
-  m_MinScale: {x: 0.5, y: 0.5, z: 0}
-  m_fDelTime: 0.5
   m_fCoolTimeLimit: 5
   Use: {fileID: 5496827138260071250}
 --- !u!250 &8717153263600393736
@@ -1484,8 +1482,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Next: {fileID: 1406356346491746500}
-  m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_fDelTime: 0.5
 --- !u!250 &2413587131873695908
 PointEffector2D:
   m_ObjectHideFlags: 0
@@ -1724,8 +1720,6 @@ MonoBehaviour:
   Crack: {fileID: 1431378542017538723}
   Refraction: {fileID: 7902141527014177492}
   OutLine: {fileID: 308019043261332728}
-  m_MinScale: {x: 0.5, y: 0.5, z: 0}
-  m_fDelTime: 0.5
 --- !u!114 &3233989728016196554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2151,8 +2145,6 @@ MonoBehaviour:
   SkillInner: {fileID: 3245806725021241744}
   OutLine: {fileID: 9119524462115296924}
   m_nStuck: 3
-  m_MinScale: {x: 0.5, y: 0.5, z: 0}
-  m_fDelTime: 0.5
   m_fCoolTimeLimit: 5
   Use: {fileID: 5496827138260071250}
 --- !u!250 &6131844389292980097
@@ -2600,8 +2592,6 @@ MonoBehaviour:
   SkillInner: {fileID: 2466564180303343867}
   OutLine: {fileID: 7659940590319079242}
   m_nStuck: 3
-  m_MinScale: {x: 0.5, y: 0.5, z: 0}
-  m_fDelTime: 0.5
   m_fCoolTimeLimit: 5
   Use: {fileID: 5496827138260071250}
 --- !u!250 &5990558202246654384
@@ -2717,8 +2707,6 @@ MonoBehaviour:
   SkillInner: {fileID: 155176535934762334}
   OutLine: {fileID: 671649131468096357}
   m_nStuck: 3
-  m_MinScale: {x: 0.5, y: 0.5, z: 0}
-  m_fDelTime: 0.5
   m_fCoolTimeLimit: 5
   Use: {fileID: 5496827138260071250}
 --- !u!114 &1345458143150749385
@@ -3273,9 +3261,8 @@ MonoBehaviour:
   BackFill: {fileID: 3614546344597714229}
   BackGround: {fileID: 280059530390260626}
   Frame: {fileID: 1141875360679443149}
+  Refraction: {fileID: 0}
   m_Hand: {fileID: 1202220674682552803}
-  m_MinScale: {x: 0.5, y: 0.5, z: 0}
-  m_fDelTime: 0.5
   m_Area: {fileID: 0}
 --- !u!61 &2400138925066517039
 BoxCollider2D:
@@ -3522,8 +3509,6 @@ MonoBehaviour:
   SkillInner: {fileID: 8584323896830477929}
   OutLine: {fileID: 8283103162062107326}
   m_nStuck: 3
-  m_MinScale: {x: 0.5, y: 0.5, z: 0}
-  m_fDelTime: 0.5
   m_fCoolTimeLimit: 5
   Use: {fileID: 5496827138260071250}
 --- !u!250 &3902336220945663062
@@ -4066,8 +4051,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fade: {fileID: 0}
   TitleBackUI: {fileID: 357825146413608809}
-  m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_fDelTime: 0.5
 --- !u!114 &357825146413608809 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1252618961789107925, guid: 536d72463a646b44eb2c1000869a281a,
@@ -4146,8 +4129,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fade: {fileID: 0}
   RetryUI: {fileID: 357825147229127724}
-  m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_fDelTime: 0.5
 --- !u!114 &4920406889218078429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4889,7 +4870,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 49021622192567908}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c06b876a2568c84faad152c9b3680a6, type: 3}
   m_Name: 
@@ -5234,8 +5215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Exit: {fileID: 5965826253428260827}
-  m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_fDelTime: 0.5
 --- !u!114 &4535071391709070199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5365,8 +5344,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameStart: {fileID: 5965826254180214864}
   StartUI: {fileID: 5965826255464846494}
-  m_MinScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_fDelTime: 0.5
   PostEffect: {fileID: 0}
 --- !u!114 &5965826255464846494 stripped
 MonoBehaviour:
