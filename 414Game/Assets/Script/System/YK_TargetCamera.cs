@@ -45,9 +45,14 @@ public class YK_TargetCamera : MonoBehaviour
         this.gameObject.transform.position = RendaPos;
         if (m_Area.GetSetBattleFlag)
         {
-            if (this.gameObject.transform.position != m_BattleCameraPos.transform.position)
+            //if (this.gameObject.transform.position != m_BattleCameraPos.transform.position)
+            //{
+            //    this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, m_BattleCameraPos.transform.position, m_CameraSpeed * Time.deltaTime);
+            //}
+            if(!m_OneFlag)
             {
-                this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, m_BattleCameraPos.transform.position, m_CameraSpeed * Time.deltaTime);
+                this.gameObject.transform.position = m_BattleCameraPos.transform.position;
+                m_OneFlag = true;
             }
         }
         else
