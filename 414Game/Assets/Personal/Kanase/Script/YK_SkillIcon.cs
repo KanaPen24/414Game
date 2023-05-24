@@ -17,8 +17,6 @@ public class YK_SkillIcon : YK_UI
     [SerializeField] private Image SkillInner;      //スキルのインナー
     [SerializeField] private Image OutLine;         //アウトライン
     [SerializeField] private int m_nStuck;          //弾数ストック
-    [SerializeField] private Vector3 m_MinScale=new  Vector3(0.5f,0.5f,0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.5f;   //減算していく時間
     private float m_fCoolTime = 0.0f;             //スキルのクールタイム
     [SerializeField] private float m_fCoolTimeLimit;    //スキルのクールタイム
     [SerializeField] private YK_UseSkill Use;     //スキルを使ったか管理するもの

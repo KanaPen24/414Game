@@ -13,9 +13,7 @@ using UnityEngine.UI;
 public class YK_Start : YK_UI
 {
     [SerializeField] private GameObject GameStart;
-    [SerializeField] private Image StartUI;
-    [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.5f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
+    [SerializeField] private Image StartUI;    
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
     private Outline outline;
     private bool m_bVisibleStart = true;
