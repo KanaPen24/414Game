@@ -44,7 +44,7 @@ public class NK_BossSlime_Flight : NK_BossSlimeStrategy
         if(m_FallFlag)
         {
             m_FallCnt += Time.deltaTime;
-            if(m_FallCnt>m_FallTime)
+            if (m_FallCnt>m_FallTime)
             {
                 m_FallCnt = 0;
                 m_FlightTime = 0;

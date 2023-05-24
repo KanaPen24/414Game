@@ -61,6 +61,8 @@ public class NK_Bat : MonoBehaviour
     private Animator m_Anim;
     [SerializeField] private float m_MoveReng;
     private float m_fViewX;
+    //死亡時エフェクト
+    [SerializeField] private ParticleSystem m_DieEffect;
 
     private void Start()
     {
@@ -98,6 +100,7 @@ public class NK_Bat : MonoBehaviour
     {
         if(m_Clock.GetSetStopTime || m_fViewX >= m_MoveReng)
         {
+            m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
             return;
         }
         if(GameManager.instance.GetSetGameState != GameState.GamePlay)
@@ -194,6 +197,12 @@ public class NK_Bat : MonoBehaviour
             Invoke("InvincibleEnd", m_InvincibleTime);
             if(m_nHP<=0)
             {
+                // エフェクト再生
+                ParticleSystem Effect = Instantiate(m_DieEffect);
+                Effect.Play();
+                Effect.transform.position = this.transform.position;
+                Destroy(Effect.gameObject, 2.0f);
+
                 Destroy(this.gameObject);
             }
         }

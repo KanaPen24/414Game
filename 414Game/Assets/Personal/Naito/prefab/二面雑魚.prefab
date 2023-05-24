@@ -198,7 +198,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &190693963525002571
 MonoBehaviour:
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 0
+  _localSortingOrder: 3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 5b98bf828c86fad4f88f238e407605f8, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   _renderOrder: 4
   _depthOffset: 0.00001
   _opacity: 1
@@ -477,7 +477,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &8687346266925876180
 MonoBehaviour:
@@ -491,7 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 0
+  _localSortingOrder: 3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -499,7 +499,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 5b98bf828c86fad4f88f238e407605f8, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   _renderOrder: 5
   _depthOffset: 0.00001
   _opacity: 1
@@ -599,7 +599,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &8400074558069197362
 MonoBehaviour:
@@ -613,7 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 0
+  _localSortingOrder: 3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -621,7 +621,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 5b98bf828c86fad4f88f238e407605f8, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   _renderOrder: 0
   _depthOffset: 0.00001
   _opacity: 1
@@ -752,7 +752,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3016329997296769976
 MonoBehaviour:
@@ -766,7 +766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 0
+  _localSortingOrder: 3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -774,7 +774,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 5b98bf828c86fad4f88f238e407605f8, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   _renderOrder: 3
   _depthOffset: 0.00001
   _opacity: 0
@@ -911,7 +911,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1125675404016443354
 MonoBehaviour:
@@ -925,7 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 0
+  _localSortingOrder: 3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -933,7 +933,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 5b98bf828c86fad4f88f238e407605f8, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   _renderOrder: 9
   _depthOffset: 0.00001
   _opacity: 0
@@ -1033,7 +1033,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &7761367447104223119
 MonoBehaviour:
@@ -1047,7 +1047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 0
+  _localSortingOrder: 3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -1055,7 +1055,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 5b98bf828c86fad4f88f238e407605f8, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   _renderOrder: 7
   _depthOffset: 0.00001
   _opacity: 1
@@ -1216,7 +1216,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 54
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &530790260055093449
 MonoBehaviour:
@@ -1230,7 +1230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 1
+  _localSortingOrder: 4
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -1238,7 +1238,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 5b98bf828c86fad4f88f238e407605f8, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   _renderOrder: 6
   _depthOffset: 0.00001
   _opacity: 1
@@ -1338,7 +1338,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4989124651340692201
 MonoBehaviour:
@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 0
+  _localSortingOrder: 3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -1360,7 +1360,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 5b98bf828c86fad4f88f238e407605f8, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   _renderOrder: 1
   _depthOffset: 0.00001
   _opacity: 1
@@ -1521,7 +1521,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &7904092948714359781
 MonoBehaviour:
@@ -1535,7 +1535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 0
+  _localSortingOrder: 3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -1543,7 +1543,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 5b98bf828c86fad4f88f238e407605f8, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   _renderOrder: 8
   _depthOffset: 0.00001
   _opacity: 1
@@ -1842,7 +1842,7 @@ MonoBehaviour:
   _modelScreenColor: {r: 0, g: 0, b: 0, a: 0}
   _sortingLayerId: 0
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   CameraToFace: {fileID: 0}
   _drawOrderHandler: {fileID: 0}
   _opacityHandler: {fileID: 0}
@@ -2066,6 +2066,8 @@ MonoBehaviour:
   m_MoveValue: {x: 0, y: 0, z: 0}
   m_InvincibleTime: 0
   m_MoveReng: 0
+  m_DieEffect: {fileID: 6814668452755134957, guid: 4424c2c298bfb2345bba73411e81288d,
+    type: 3}
 --- !u!114 &2768162793742960949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2084,6 +2086,7 @@ MonoBehaviour:
   m_MoveTime: 1.5
   m_FlightTime: 1
   m_FallEffect: {fileID: 3967796006303646544}
+  m_Rotation: 2
 --- !u!1 &7510626889654095519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2302,7 +2305,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &8549882140655250360
 MonoBehaviour:
@@ -2316,7 +2319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 0
+  _localSortingOrder: 3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -2324,7 +2327,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: 5b98bf828c86fad4f88f238e407605f8, type: 3}
   _sortingMode: 0
-  _sortingOrder: 0
+  _sortingOrder: 50
   _renderOrder: 2
   _depthOffset: 0.00001
   _opacity: 1
