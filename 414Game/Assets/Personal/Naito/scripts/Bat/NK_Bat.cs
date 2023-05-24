@@ -98,6 +98,7 @@ public class NK_Bat : MonoBehaviour
     {
         if(m_Clock.GetSetStopTime || m_fViewX >= m_MoveReng)
         {
+            m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
             return;
         }
         if(GameManager.instance.GetSetGameState != GameState.GamePlay)

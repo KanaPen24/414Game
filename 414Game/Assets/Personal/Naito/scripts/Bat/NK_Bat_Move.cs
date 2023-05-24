@@ -10,9 +10,11 @@ public class NK_Bat_Move : NK_BatStrategy
     //動き出すまでの時間
     [SerializeField] private float m_fMoveCnt;
     private int m_Rand;
+    private float m_BatPosY;
 
-    public void Update()
+    private void Start()
     {
+        m_BatPosY = this.gameObject.transform.position.y;
     }
     public override void UpdateStrategy()
     {
@@ -42,5 +44,6 @@ public class NK_Bat_Move : NK_BatStrategy
         {
             m_Bat.m_MoveValue.x += m_fMovePow;
         }
+        transform.position = new Vector3(transform.position.x, m_BatPosY + Mathf.PingPong(Time.time, 0.3f), transform.position.z);
     }
 }
