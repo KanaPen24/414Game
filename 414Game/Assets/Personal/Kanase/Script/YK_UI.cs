@@ -49,6 +49,9 @@ public class YK_UI : MonoBehaviour
     protected bool m_bVisible;       // 表示非表示フラグ
     protected Vector3 m_Pos;         // UIの座標
     protected Vector2 m_Scale;       // スケール
+    protected Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
+    protected float m_fDelTime = 0.4f;            // 減算していく時間
+
 
     /**
      * @fn

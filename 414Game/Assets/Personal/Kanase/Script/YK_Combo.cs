@@ -32,8 +32,6 @@ public class YK_Combo: YK_UI
     private int m_nCountComboTime = 0;            // コンボが表示されている時間
     private bool m_bHitFlg = false;               // コンボがヒットしたかどうかのフラグ
     private Vector3 Combo_Scale;                  // コンボ表示の初期スケール
-    private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小スケール
-    private float m_fDelTime = 0.3f;              // スケール変更にかかる時間
 
     // Start is called before the first frame update
     /**

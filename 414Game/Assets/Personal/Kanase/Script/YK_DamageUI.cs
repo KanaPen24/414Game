@@ -19,8 +19,6 @@ public class YK_DamageUI : YK_UI
     //　移動値
     [SerializeField] private float moveSpeed = 0.4f;
     [SerializeField] private int m_nDamage;    
-    [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.5f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.5f;   // 減算していく時間
     [SerializeField] private int m_nCountDown;          // 消えるまでの時間（秒単位）
     private int m_nCountTime = 0;                       // 表示されている時間
     [SerializeField] YK_Time time;                      // 時間

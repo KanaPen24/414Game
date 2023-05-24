@@ -24,8 +24,6 @@ public class YK_Clock : YK_UI
     [SerializeField] private Image OutLine;         //アウトライン
     [SerializeField] private YK_Time m_Time;
     [SerializeField] private IS_Player Player;
-    [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.3f; // 減算していく時間
     [SerializeField] YK_Time Time; // 時間
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
     private Vector3 Second_Scale;
