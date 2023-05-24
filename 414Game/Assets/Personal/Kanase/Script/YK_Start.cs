@@ -95,17 +95,7 @@ public class YK_Start : YK_UI
         //ゲームのステートをプレイ状態にする
         GameManager.instance.GetSetGameState = GameState.GamePlay;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "Cursol")
-        {
-            outline.enabled = true;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        outline.enabled = false;
-    }
+    
 
 
 }

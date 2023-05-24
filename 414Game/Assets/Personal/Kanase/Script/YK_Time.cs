@@ -25,6 +25,7 @@ public class YK_Time : MonoBehaviour
     private bool m_bTimer = true;       //タイマー用のフラグ
     private bool m_bOnce = false;       //一回だけ使うフラグ
     [SerializeField] private int m_nNowTime;    //現在時間
+    [SerializeField] private ParticleSystem Effect;    //回復エフェクト
 
     private void Start()
     {
@@ -117,6 +118,7 @@ public class YK_Time : MonoBehaviour
     {
         //経過時間を引くことで現在時間が足される
         m_fTime -= Time;
+        //Effect.Play();
     }
 
     /**
