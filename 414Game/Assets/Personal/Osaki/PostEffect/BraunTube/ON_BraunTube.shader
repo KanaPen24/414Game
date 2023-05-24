@@ -82,6 +82,13 @@ Shader "Hidden/ON_BraunTube"
 				return ease * base + base * 0.8;
 			}
 
+			// 走査線の作成
+			float scanline(float pos, float size, float2 uv)
+			{
+				float scanline = smoothstep(uv.y - size, uv.y, pos) * smoothstep(pos - size, pos,uv.y);
+				return scanline * lerp(0.0f, 0.05f, _Rate);
+			}
+
 			half4 frag(Varyings IN) : SV_Target
 			{
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
@@ -130,13 +137,21 @@ Shader "Hidden/ON_BraunTube"
 				// 横線
 				const float floor_y = fmod(uv.y * _ScreenParams.y / 6, 1);
 				const float ease_r = crt_ease(floor_y, col.r, rand(uv)* 0.1);
-				const float ease_g = crt_ease(floor_y, col.g, rand(uv)* 0.1);
-				const float ease_b = crt_ease(floor_y, col.b, rand(uv)* 0.1);
 				
-				// 
+				// 色を補間
 				col.r = lerp(col.r, isR * ease_r, _Rate);
-				//col.g = lerp(isG * ease_g, col.g, _Rate);
-				//col.b = lerp(isB * ease_b, col.b, _Rate);
+
+				// 画面をチカチカさせる
+				float flash = sin(_Time.z * 100.0f);
+				col.rgb += lerp(0.0f, float3(flash, flash, flash) * 0.01f, _Rate);
+
+				// 走査線
+				// 毎回画面に映る
+				// col.rgb -= scanline(frac(_Time.y), 0.01f, IN.uv);
+				// 2回に1回画面に映る
+				col.rgb -= scanline(frac(_Time.y + 0.05f) * (floor(_Time.y + 0.05f) % 2), 0.01f, IN.uv);
+				// 7回に1回画面に映る
+				col.rgb -= scanline(frac(_Time.y + 0.1f) * step(6, (floor(_Time.y + 0.1f) % 7)), 0.01f, IN.uv);
 
 				return col;
 			}

@@ -20,8 +20,7 @@ public class YK_UseSkill : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_nSkillLimit = SkillIcons.Capacity;
-        m_nSkillLimit--;    //配列のため-１をして調整
+        m_nSkillLimit = SkillIcons.Capacity - 1;//配列のため-１をして調整
     }
 
     //デバック用

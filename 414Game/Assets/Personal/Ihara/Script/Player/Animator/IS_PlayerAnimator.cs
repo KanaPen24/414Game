@@ -62,6 +62,7 @@ public class IS_PlayerAnimator : MonoBehaviour
 {
     [SerializeField] private Animator m_animator; // Playerのアニメーション
     private const string s_intName = "motionNum";
+    [SerializeField] private YK_UICatcher UICatcher;    //UIキャッチャーのパーティクルを流す用のやつ
 
     public void ChangeAnim(PlayerAnimState anim)
     {
@@ -82,5 +83,10 @@ public class IS_PlayerAnimator : MonoBehaviour
             m_animator.GetCurrentAnimatorStateInfo(0).IsName(anim.ToString()))
             return true;
         else return false;
+    }
+
+    private void ParticlePlay()
+    {
+        UICatcher.ParticlePlay();
     }
 }
