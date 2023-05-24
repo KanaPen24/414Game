@@ -56,6 +56,12 @@ public class YK_Clock : YK_UI
      */
     void Update()
     {
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
+        //受け取ったfloat型の値を代入する
+        Clock_Inner.fillAmount = 1.0f - Time.GetSetNowTime / 200.0f;
+
         // 時計の針の回転
         Second.transform.eulerAngles = new Vector3(0, 0, (Time.GetSetNowTime / 200.0f) * 360.0f);
 
