@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/**
+ * @file   YK_ScaleDownOrUp.cs
+ * @brief  UIのスケールを変える
+ * @author 吉田叶聖
+ * @date   2023/05/24
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

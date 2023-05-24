@@ -24,8 +24,6 @@ public class YK_Clock : YK_UI
     [SerializeField] private Image OutLine;         //アウトライン
     [SerializeField] private YK_Time m_Time;
     [SerializeField] private IS_Player Player;
-    [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.3f; // 減算していく時間
     [SerializeField] YK_Time Time; // 時間
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
     private Vector3 Second_Scale;
@@ -58,6 +56,12 @@ public class YK_Clock : YK_UI
      */
     void Update()
     {
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
+        //受け取ったfloat型の値を代入する
+        Clock_Inner.fillAmount = 1.0f - Time.GetSetNowTime / 200.0f;
+
         // 時計の針の回転
         Second.transform.eulerAngles = new Vector3(0, 0, (Time.GetSetNowTime / 200.0f) * 360.0f);
 

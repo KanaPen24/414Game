@@ -9,11 +9,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class IS_WeaponClock : IS_Weapon
 {
     [SerializeField] private IS_Player Player;
     [SerializeField] private MeshRenderer m_MeshRender;        // メッシュ
+    [SerializeField] private Image Clock_Inner;     //時計の赤い部分
     [SerializeField] private YK_Clock clock;
     private int m_nCnt;
 
@@ -118,11 +120,13 @@ public class IS_WeaponClock : IS_Weapon
         if (m_bVisible)
         {
             m_MeshRender.enabled = true;
+            Clock_Inner.enabled = true;
         }
         // 非表示状態だったら
         else
         {
             m_MeshRender.enabled = false;
+            Clock_Inner.enabled = false;
         }
     }
 }
