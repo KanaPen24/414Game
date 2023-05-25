@@ -63,6 +63,7 @@ public class NK_Bat : MonoBehaviour
     private float m_fViewX;
     //死亡時エフェクト
     [SerializeField] private ParticleSystem m_DieEffect;
+    [SerializeField] private int m_PlayerDamage;
 
     private void Start()
     {
@@ -120,7 +121,7 @@ public class NK_Bat : MonoBehaviour
         if(other.gameObject==m_BPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_BPlayer.Damage(10, 2.0f);
+            m_BPlayer.Damage(m_PlayerDamage, 2.0f);
         }
     }
 
