@@ -356,6 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AttackTime: 0.7
   m_Player: {fileID: 0}
+  m_PlayerDamage: 0
 --- !u!1 &7423213001185136491
 GameObject:
   m_ObjectHideFlags: 0
@@ -16308,6 +16309,7 @@ GameObject:
   - component: {fileID: 7423213002365111431}
   - component: {fileID: 7423213002365111430}
   - component: {fileID: 7423213002365111425}
+  - component: {fileID: 7201522178705198154}
   m_Layer: 7
   m_Name: "\u5B8C\u6210\u30B9\u30E9\u30A4\u30E0"
   m_TagString: Untagged
@@ -16660,6 +16662,7 @@ MonoBehaviour:
   goal: {fileID: 0}
   m_BSMoveValue: {x: 0, y: 0, z: 0}
   m_Area: {fileID: 0}
+  m_PlayerDamage: 0
 --- !u!114 &7423213002365111425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16675,6 +16678,20 @@ MonoBehaviour:
   m_Player: {fileID: 0}
   confettiEffect: {fileID: 0}
   m_effectParam: []
+--- !u!114 &7201522178705198154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423213002365111424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef51d0405fdafc478096ffc22c9c5e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageUI: {fileID: 1589118213952898113, guid: b685cb64ab74a4947b9fdcbcf93524f1,
+    type: 3}
 --- !u!1 &7423213002395397849
 GameObject:
   m_ObjectHideFlags: 0
