@@ -43,6 +43,7 @@ public class NK_BossMole : MonoBehaviour
     private float m_localScalex;
     [SerializeField] private CubismRenderController renderController;
     [HideInInspector] public Vector3 m_BMMoveValue;
+    [HideInInspector] public float m_MLocalScaleX;
     public GameObject m_RushPosR;
     public GameObject m_RushPosL;
     public GameObject m_MolePosR;
@@ -54,6 +55,7 @@ public class NK_BossMole : MonoBehaviour
         m_BMMoveValue = new Vector3(0.0f, 0.0f, 0.0f);
         m_Rbody = GetComponent<Rigidbody>();
         m_localScalex = this.transform.localScale.x;
+        m_BossMoleDir = BossMoleDir.Left;
     }
 
     private void Update()
