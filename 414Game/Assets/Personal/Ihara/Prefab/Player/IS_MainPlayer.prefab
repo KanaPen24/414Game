@@ -1023,6 +1023,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: yui_motion6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b2aa08e36338c644aa8297d247225592,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2aa08e36338c644aa8297d247225592, type: 3}
 --- !u!137 &1069764937778894639 stripped
