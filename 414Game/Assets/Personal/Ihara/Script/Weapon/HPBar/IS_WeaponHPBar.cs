@@ -83,6 +83,13 @@ public class IS_WeaponHPBar : IS_Weapon
         // 現在の状態に更新
         m_nCnt = Convert.ToInt32(m_bVisible);
 
+        //攻撃中だったら当たり判定をON
+        if (GetSetAttack)
+        {
+            m_CapsuleCollider.enabled = true;
+        }
+        else m_CapsuleCollider.enabled = false;
+
         // 液体の量をPlayerのHPに依存させる
         m_BottleLiquid.ChangeFillingRate((float)(m_Player.GetSetHp / 100.0f));
 
