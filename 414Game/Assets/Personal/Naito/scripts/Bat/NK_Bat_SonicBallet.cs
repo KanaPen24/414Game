@@ -16,7 +16,7 @@ public class NK_Bat_SonicBallet : MonoBehaviour
     {
         if (other.gameObject == m_Player.gameObject)
         {
-            m_Player.Damage(10, 1.5f);
+            m_Player.Damage(15, 1.5f);
             Destroy(this.gameObject);
         }
         

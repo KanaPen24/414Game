@@ -21722,6 +21722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AttackTime: 0.7
   m_Player: {fileID: 0}
+  m_PlayerDamage: 20
 --- !u!1 &8293022822773543714
 GameObject:
   m_ObjectHideFlags: 0
@@ -21752,6 +21753,7 @@ GameObject:
   - component: {fileID: 8812148710462003214}
   - component: {fileID: 3456673036114860971}
   - component: {fileID: 4078485202564911806}
+  - component: {fileID: 281351423508018944}
   m_Layer: 7
   m_Name: BossSlime
   m_TagString: Untagged
@@ -21974,6 +21976,7 @@ MonoBehaviour:
   goal: {fileID: 0}
   m_BSMoveValue: {x: 0, y: 0, z: 0}
   m_Area: {fileID: 0}
+  m_PlayerDamage: 25
 --- !u!114 &8582619616546583450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22126,6 +22129,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7675738, y: 0.5497422, z: 0.7025619}
   m_Center: {x: 0.002211285, y: -0.318403, z: 0.00003811518}
+--- !u!114 &281351423508018944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293022822773543714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef51d0405fdafc478096ffc22c9c5e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageUI: {fileID: 1589118213952898113, guid: b685cb64ab74a4947b9fdcbcf93524f1,
+    type: 3}
 --- !u!1 &9140687401959265521
 GameObject:
   m_ObjectHideFlags: 0
