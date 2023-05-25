@@ -2025,6 +2025,7 @@ MonoBehaviour:
   m_Bat: {fileID: 2768162793742960938}
   m_fMovePow: 1.5
   m_fMoveCnt: 5
+  m_Reng: 0.5
 --- !u!114 &2768162793742960937
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,10 +11,10 @@ public class NK_SlimeBes_Wait : NK_SlimeBesStrategy
     public override void UpdateStrategy()
     {
         m_fCnt += Time.deltaTime;
-        if(m_fCnt>m_MoveTime)
+        if (m_fCnt>m_MoveTime)
         {
             m_fCnt = 0.0f;
-            
+            m_Bes.GetSetBesState = SlimeBesState.BesCrawl;
         }
     }
 }
