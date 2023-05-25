@@ -200,7 +200,8 @@ public class IS_Player : MonoBehaviour
         }
 
         // ゲームがプレイ中以外は更新しない
-        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay &&
+            GameManager.instance.GetSetGameState != GameState.GameGoal)
             return;
 
         // 入力管理
