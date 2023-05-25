@@ -170,6 +170,13 @@ public class IS_WeaponSkillIcon : IS_Weapon
 
         // 弾数を減らす
         m_nHp--;
+
+        // 攻撃終了時に弾数が0だったら(バグが起きる可能性あり)
+        if (m_nHp <= 0)
+        {
+            // 装備解除する
+            Player.RemovedWeapon();
+        }
     }
 
     /**
@@ -197,13 +204,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
         m_ChargeLevel = ChargeLevel.ChargeLevel_0; // 溜め段階を0にする
         m_fCurrentPow = 0f;
         m_fCurrentChargeTime = 0f;
-
-        // 攻撃終了時に弾数が0だったら
-        if (m_nHp <= 0)
-        {
-            // 装備解除する
-            Player.RemovedWeapon();
-        }
     }
 
     /**
