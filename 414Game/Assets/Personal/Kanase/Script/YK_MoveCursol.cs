@@ -33,6 +33,8 @@ public class YK_MoveCursol : MonoBehaviour
     private GameObject Effect;
     //リジットボディ
     Rigidbody2D rb;
+    //カーソルイベント
+    [SerializeField] private YK_CursolEvent CursolEvent;
 
     void Start()
     {
@@ -51,6 +53,8 @@ public class YK_MoveCursol : MonoBehaviour
         if (Mathf.Approximately(Input.GetAxis("HorizontalR"), 0f) && Mathf.Approximately(Input.GetAxis("VerticalR"), 0f))
         {
             Circle();
+            if (CursolEvent.GetSetCurrentUI == null)
+                ZeroVelocity();
             return;
         }
         //　移動先を計算
@@ -70,6 +74,10 @@ public class YK_MoveCursol : MonoBehaviour
         //　位置を設定
         rect.anchoredPosition = pos;
         m_fPos = pos;
+
+        if (CursolEvent.GetSetCurrentUI == null)
+            ZeroVelocity();
+
     }
 
     //円運動
@@ -86,18 +94,11 @@ public class YK_MoveCursol : MonoBehaviour
         
         Effect.GetComponent<RectTransform>().anchoredPosition = pos;
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    public void ZeroVelocity()
     {
         //Rigidbodyを0にする
         //やらないと離れても磁力が発生し続ける
-        rb.velocity = Vector3.zero;
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        //Rigidbodyを0にする
-        //やらないと離れても磁力が発生し続ける
-        rb.velocity = Vector3.zero;
+        rb.velocity = Vector3.zero;        
     }
 
 }

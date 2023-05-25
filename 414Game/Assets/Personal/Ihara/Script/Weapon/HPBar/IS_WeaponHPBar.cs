@@ -138,7 +138,8 @@ public class IS_WeaponHPBar : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.AttackHPBar))
+        if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack01HPBar) ||
+            m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack02HPBar))
         {
             if (m_fReactionTime >= m_fMaxReactionTime)
             {

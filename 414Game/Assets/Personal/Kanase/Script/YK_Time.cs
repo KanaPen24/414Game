@@ -25,6 +25,8 @@ public class YK_Time : MonoBehaviour
     private bool m_bTimer = true;       //タイマー用のフラグ
     private bool m_bOnce = false;       //一回だけ使うフラグ
     [SerializeField] private int m_nNowTime;    //現在時間
+    [SerializeField] private ParticleSystem Effect;    //回復エフェクト
+    [SerializeField] private Material TextMaterial;    //ラスタースクロール
 
     private void Start()
     {
@@ -58,6 +60,8 @@ public class YK_Time : MonoBehaviour
             //テキストカラー変更
             timerText.color = Color.black;
             outline.effectColor = Color.white;
+            //マテリアル変更
+            timerText.material = TextMaterial;
             return;
         }
         else if(m_bOnce)
@@ -71,6 +75,8 @@ public class YK_Time : MonoBehaviour
             //テキストカラー変更
             timerText.color = Color.white;
             outline.effectColor = Color.black;
+            //マテリアル変更
+            timerText.material = null;
             //これをすることで最初の起動時に流れないようになる
             if (m_rate <= 0.0f)
                 m_bOnce = false;
@@ -117,6 +123,7 @@ public class YK_Time : MonoBehaviour
     {
         //経過時間を引くことで現在時間が足される
         m_fTime -= Time;
+        //Effect.Play();
     }
 
     /**
