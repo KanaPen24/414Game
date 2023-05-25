@@ -199,8 +199,8 @@ MonoBehaviour:
   m_bCharge: 0
   m_bVisible: 0
   m_bDestroy: 0
-  m_nHp: 100
-  m_nMaxHp: 100
+  m_nHp: 200
+  m_nMaxHp: 200
   m_Player: {fileID: 0}
   m_MaterialMesh:
     m_MeshRender:
