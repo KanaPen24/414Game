@@ -63,6 +63,7 @@ public class NK_BossSlime : MonoBehaviour
     private bool m_SAnimFlag;   //召喚アニメフラグ
     [SerializeField] private NK_BossSlime_Aera m_Area;
     private Animator m_Anim;
+    [SerializeField] private int m_PlayerDamage;
 
     private void Start()
     {
@@ -121,7 +122,7 @@ public class NK_BossSlime : MonoBehaviour
         if (other.gameObject == m_BSPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_BSPlayer.Damage(10, 2.0f);
+            m_BSPlayer.Damage(m_PlayerDamage, 2.0f);
         }
     }
 
