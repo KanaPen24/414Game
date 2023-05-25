@@ -58,6 +58,8 @@ public class YK_BossHP : YK_UI
      */
     void Update()
     {
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
         // ボス戦が始まったらフェードイン
         if (m_Area.GetSetBattleFlag)
         {
