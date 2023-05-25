@@ -704,8 +704,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0a997f3950c2b49ae8180a3a6c5194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nHP: 10
-  m_nMaxHP: 10
+  m_nHP: 15
+  m_nMaxHP: 15
   m_Player: {fileID: 0}
   m_SlimeStrategy:
   - {fileID: 80574027}
@@ -720,6 +720,7 @@ MonoBehaviour:
   Shadow: {fileID: 1583492506907936919}
   m_fMovePower: 3
   m_fJumpPower: 5
+  m_MoveReng: 0
 --- !u!114 &80574029
 MonoBehaviour:
   m_ObjectHideFlags: 0
