@@ -13,24 +13,26 @@ public class NK_Bat_Move : NK_BatStrategy
 
     public void Update()
     {
+    }
+    public override void UpdateStrategy()
+    {
         m_fCnt += Time.deltaTime;
+        m_Bat.m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
+
         if(m_fCnt > m_fMoveCnt)
         {
             m_fCnt = 0.0f;
             m_Rand = Random.Range(1, 4);
             if(m_Rand <= 1)
             {
-                m_Bat.GetSetBatState = BatState.BatFall;
+                m_Bat.GetSetFlightFlag = true;
+                m_Bat.GetSetBatState = BatState.BatFlight;
             }
             else
             {
                 m_Bat.GetSetBatState = BatState.BatSonic;
             }
         }
-    }
-    public override void UpdateStrategy()
-    {
-        m_Bat.m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
 
         if(m_Bat.GetSetBatDir == BatDir.Left)
         {

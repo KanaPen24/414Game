@@ -67,6 +67,7 @@ Shader "Hidden/ON_BraunTube"
 			}
 
 			// イージング
+			// 値の変化がなめらかになるように
 			float ease_in_out_cubic(const float x)
 			{
 				return x < .5 ? 4 * x * x * x : 1 - pow(-2 * x + 2, 3) / 2;
@@ -86,8 +87,6 @@ Shader "Hidden/ON_BraunTube"
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
 				
 				float2 uv = IN.uv;
-				half4 defColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv);
-				
 				
 				// uvを画面が出っ張っているように歪ませる
 				float distort_rate = lerp(.0, .2, _Rate);
@@ -100,6 +99,7 @@ Shader "Hidden/ON_BraunTube"
 				}
 
 				// 縦方向に同じ色の画素が並ぶ
+				// 縦線
 				const float floor_x = fmod(IN.uv.x * _ScreenParams.x / 3, 1);
 				const float isR = floor_x <= 0.3;
 				const float isG = 0.3 < floor_x && floor_x <= 0.6;
@@ -117,23 +117,26 @@ Shader "Hidden/ON_BraunTube"
 				// ガウシアンフィルタによって、境界をぼかす
 				half4 col = sample_gaussian(uv, dx, dy);
 
+				// コントラスト調整
+				// シグモイド曲線
+				//col = 1 / (1 + exp(-10 * (col - 0.5f)));
+
 				// 暗くなりすぎたのでカラーグレーディング
-				col.rgb *= float3(1.25, 0.95, 0.7);
-				col.rgb = clamp(col.rgb, 0.0, 1.0);
-				col.rgb = col.rgb * col.rgb * (3.0 - 2.0 * col.rgb);
+				//col.rgb *= float3(1.25, 0.95, 0.7);
+				//col.rgb = clamp(col.rgb, 0.0, 1.0);
+				//col.rgb = col.rgb * col.rgb * (3.0 - 2.0 * col.rgb);
 
 				// 縦方向をNピクセルごとに分割して端を暗くする処理
+				// 横線
 				const float floor_y = fmod(uv.y * _ScreenParams.y / 6, 1);
 				const float ease_r = crt_ease(floor_y, col.r, rand(uv)* 0.1);
 				const float ease_g = crt_ease(floor_y, col.g, rand(uv)* 0.1);
 				const float ease_b = crt_ease(floor_y, col.b, rand(uv)* 0.1);
-
-				// 現在のピクセルによってRGBのうち一つの色だけを表示する
-				col.r = isR * ease_r;
-				col.g = isG * ease_g;
-				col.b = isB * ease_b;
-
-				col = lerp(defColor, col, _Rate);
+				
+				// 
+				col.r = lerp(col.r, isR * ease_r, _Rate);
+				//col.g = lerp(isG * ease_g, col.g, _Rate);
+				//col.b = lerp(isB * ease_b, col.b, _Rate);
 
 				return col;
 			}

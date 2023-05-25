@@ -62,7 +62,7 @@ public class YK_UICatcher : MonoBehaviour
         }
         else if(Player.GetSetPlayerDir == PlayerDir.Right)
         {
-            BlackHolePL.transform.position = Player.transform.position + new Vector3(0.5f, 1.0f, 0.0f);
+            BlackHolePL.transform.position = Player.transform.position + new Vector3(0.5f, 1.0f, -1.0f);
         }
     }
 
@@ -149,7 +149,7 @@ public class YK_UICatcher : MonoBehaviour
 
         IS_AudioManager.instance.PlaySE(SEType.SE_UICatcher);
         if (GameObject.Find("DamageCanvas(Clone)"))
-            m_Uis[13] = GameObject.Find("DamageCanvas(Clone)").GetComponent<YK_DamageUI>();
+            m_Uis[14] = GameObject.Find("DamageCanvas(Clone)").GetComponent<YK_DamageUI>();
         // 選択したUIを探す
         for (int i = 0,size = m_Uis.Count; i < size;++i)
         {

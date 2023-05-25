@@ -14,10 +14,15 @@ using DG.Tweening;
 public class YK_SkillIcon : YK_UI
 {
     [SerializeField] private Image SkillIcon;
-    [SerializeField] private Image OutLine;      //アウトライン
-    [SerializeField] private int m_nStuck; // 弾数ストック
+    [SerializeField] private Image SkillInner;      //スキルのインナー
+    [SerializeField] private Image OutLine;         //アウトライン
+    [SerializeField] private int m_nStuck;          //弾数ストック
     [SerializeField] private Vector3 m_MinScale=new  Vector3(0.5f,0.5f,0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
+    [SerializeField] private float m_fDelTime = 0.5f;   //減算していく時間
+    private float m_fCoolTime = 0.0f;             //スキルのクールタイム
+    [SerializeField] private float m_fCoolTimeLimit;    //スキルのクールタイム
+    [SerializeField] private YK_UseSkill Use;     //スキルを使ったか管理するもの
+    private bool m_bSkillUse;                     //スキルが使われたかどうか    
 
     private void Start()
     {
@@ -37,12 +42,23 @@ public class YK_SkillIcon : YK_UI
         if(m_nStuck <= 0)
         {
             GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<PointEffector2D>().enabled = false;
             GetComponent<Image>().enabled = false;
+            m_bSkillUse = true;
         }
         else
         {
             GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<PointEffector2D>().enabled = true;
             GetComponent<Image>().enabled = true;
+            if (m_bSkillUse)
+            {
+                m_fCoolTime += Time.deltaTime;
+                //float型の値を代入する
+                SkillInner.fillAmount = 1.0f - m_fCoolTime / m_fCoolTimeLimit;
+                if (SkillInner.fillAmount <= 0.0f)
+                    m_bSkillUse = false;
+            }
         }
     }
 
@@ -62,14 +78,21 @@ public class YK_SkillIcon : YK_UI
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
-        // 1秒で後X,Y方向を0.5倍に変更
+        // m_fDelTime秒でm_MinScaleに変更
         SkillIcon.transform.DOScale(m_MinScale, m_fDelTime);
-        // 1秒でテクスチャをフェードアウト
+        // m_fDelTime秒でテクスチャをフェードイン
         OutLine.DOFade(0f, m_fDelTime);
         SkillIcon.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
         });
+    }
+
+    public void UseSkill()
+    {
+        m_bSkillUse = true;
+        SkillInner.fillAmount = 1.0f;
+        m_fCoolTime = 0.0f;
     }
 
     public int GetSetStuck
@@ -87,6 +110,16 @@ public class YK_SkillIcon : YK_UI
     private void OnTriggerExit2D(Collider2D collision)
     {
         OutLine.enabled = false;
+    }
+    /**
+* @fn
+* スキル使用のgetter
+* @return m_bSkillUse(bool)
+* @brief 使ってるかどうかを返す
+*/
+    public bool GetUseSkill
+    {
+        get { return m_bSkillUse; }
     }
 
 }

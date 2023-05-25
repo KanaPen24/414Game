@@ -15,7 +15,6 @@ public class YK_Retry : YK_UI
 {
     [SerializeField] Fade fade;
     [SerializeField] private Image RetryUI;
-    [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.5f); // 最小サイズ
     [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
     private bool m_bVisibleRetry = false;
@@ -34,9 +33,9 @@ public class YK_Retry : YK_UI
     public override void UIFadeIN()
     {
         m_eFadeState = FadeState.FadeIN;
-        // 1秒で後X,Y方向を元の大きさに変更
+        // 0秒で後X,Y方向を元の大きさに変更
         RetryUI.transform.DOScale(GetSetScale, 0f);
-        // 1秒でテクスチャをフェードイン
+        // 0秒でテクスチャをフェードイン
         RetryUI.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
@@ -47,9 +46,9 @@ public class YK_Retry : YK_UI
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
-        // 1秒で後X,Y方向を0.5倍に変更
+        // m_fDelTime秒でm_MinScaleに変更
         RetryUI.transform.DOScale(m_MinScale, m_fDelTime);
-        // 1秒でテクスチャをフェードアウト
+        // m_fDelTime秒でテクスチャをフェードイン
         RetryUI.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             //フェード処理終了時に呼ばれる
