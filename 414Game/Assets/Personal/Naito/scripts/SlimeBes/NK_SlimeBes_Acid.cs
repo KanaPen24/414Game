@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NK_SlimeBes_Acid : NK_BatStrategy
+public class NK_SlimeBes_Acid : NK_SlimeBesStrategy
 {
     [SerializeField] private GameObject m_gAcid;
     [SerializeField] private GameObject m_AcidPos;
