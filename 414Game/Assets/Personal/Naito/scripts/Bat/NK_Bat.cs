@@ -198,6 +198,7 @@ public class NK_Bat : MonoBehaviour
             Invoke("InvincibleEnd", m_InvincibleTime);
             if(m_nHP<=0)
             {
+                IS_AudioManager.instance.PlaySE(SEType.SE_DeathSlime);
                 // エフェクト再生
                 ParticleSystem Effect = Instantiate(m_DieEffect);
                 Effect.Play();
