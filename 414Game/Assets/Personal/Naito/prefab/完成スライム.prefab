@@ -16641,8 +16641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4e796450953c44ad3b29ed447b383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nHP: 50
-  m_nMaxHP: 50
+  m_nHP: 75
+  m_nMaxHP: 75
   m_BSPlayer: {fileID: 0}
   goalEffect: {fileID: 7423213002365111425}
   m_BossSlimeStrategy:

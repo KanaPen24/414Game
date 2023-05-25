@@ -85,6 +85,11 @@ public class IS_WeaponHPBar : IS_Weapon
 
         // 液体の量をPlayerのHPに依存させる
         m_BottleLiquid.ChangeFillingRate((float)(m_Player.GetSetHp / 100.0f));
+
+        if(m_nHp > m_nMaxHp)
+        {
+            m_nHp = m_nMaxHp;
+        }
     }
 
     /**

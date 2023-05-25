@@ -17,6 +17,7 @@ public class IS_Ball : MonoBehaviour
     [SerializeField] private ParticleSystem hitEffect; // 着弾エフェクト
     [SerializeField] private float fGravity;           // 重力
     [SerializeField] private float fUpPow;             // 上への力
+    [SerializeField] private int   nAttackPow;         // 攻撃力
     [SerializeField] private NK_BossSlime bossSlime;
 
     /**
@@ -71,16 +72,16 @@ public class IS_Ball : MonoBehaviour
             if(hit.collider.gameObject.GetComponent<NK_BossSlime>() != null &&
                 !hit.collider.gameObject.GetComponent<NK_BossSlime>().GetSetDamageFlag)
             {
-                hit.collider.gameObject.GetComponent<NK_BossSlime>().BossSlimeDamage(5);
-                hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, 5);
+                hit.collider.gameObject.GetComponent<NK_BossSlime>().BossSlimeDamage(nAttackPow);
+                hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, nAttackPow);
                 continue;
             }
 
             if (hit.collider.gameObject.GetComponent<NK_Slime>() != null &&
                 !hit.collider.gameObject.GetComponent<NK_Slime>().GetSetDamageFlag)
             {
-                hit.collider.gameObject.GetComponent<NK_Slime>().SlimeDamage(5);
-                hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, 5);
+                hit.collider.gameObject.GetComponent<NK_Slime>().SlimeDamage(nAttackPow);
+                hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, nAttackPow);
                 continue;
             }
         }
