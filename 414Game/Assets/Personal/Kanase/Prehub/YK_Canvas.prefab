@@ -3261,7 +3261,7 @@ MonoBehaviour:
   BackFill: {fileID: 3614546344597714229}
   BackGround: {fileID: 280059530390260626}
   Frame: {fileID: 1141875360679443149}
-  Refraction: {fileID: 0}
+  Refraction: {fileID: 6189697322471391674}
   m_Hand: {fileID: 1202220674682552803}
   m_Area: {fileID: 0}
 --- !u!61 &2400138925066517039
