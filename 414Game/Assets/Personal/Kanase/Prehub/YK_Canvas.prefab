@@ -3009,7 +3009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbec5237f1d4d9e4f9195e15b2f4acc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nTimeLimit: 200
+  m_nTimeLimit: 300
   timerText: {fileID: 4843499608263077420}
   Clock: {fileID: 8823388500288985867}
   Player: {fileID: 0}
@@ -4720,6 +4720,11 @@ PrefabInstance:
       propertyPath: CursolEvent
       value: 
       objectReference: {fileID: 1549991834780537682}
+    - target: {fileID: 4088707169045967027, guid: c0035f25da450fe46b1471d5853bf0db,
+        type: 3}
+      propertyPath: m_nStopTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6424088624521762985, guid: c0035f25da450fe46b1471d5853bf0db,
         type: 3}
       propertyPath: m_Color.a
@@ -4857,26 +4862,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0035f25da450fe46b1471d5853bf0db, type: 3}
---- !u!1 &49021622192567908 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4783614940159663580, guid: c0035f25da450fe46b1471d5853bf0db,
-    type: 3}
-  m_PrefabInstance: {fileID: 4813495426414947256}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2613487557384662523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49021622192567908}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c06b876a2568c84faad152c9b3680a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Clock: {fileID: 2011431208978838289}
-  time: {fileID: 5460154008040524519}
 --- !u!114 &2011431208978838289 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6424088624521762985, guid: c0035f25da450fe46b1471d5853bf0db,
