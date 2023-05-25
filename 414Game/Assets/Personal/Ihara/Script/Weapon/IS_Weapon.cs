@@ -21,29 +21,14 @@ public enum WeaponType
     SkillIcon, // スキルアイコン
     BossBar,   // Bossバー
     Clock,     // 時計
+    Start,     // スタート
 
     MaxWeaponType
 }
 
-//// ================================================
-//// WeaponState
-//// … 武器の状態を管理する列挙体
-//// ================================================
-//public enum WeaponState
-//{
-//    WeaponNone,       // 無
-//    WeaponCharge,     // 溜め
-//    WeaponAttack,     // 通常攻撃
-//    WeaponAttackJump, // ジャンプ攻撃
-//    WeaponAttackDrop, // 落下攻撃
-
-//    MaxWeaponState
-//}
-
 public class IS_Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponType m_eWeaponType;             // 武器の種類
-    //[SerializeField] protected WeaponState m_eWeaponState;           // 武器状態
     [SerializeField] protected bool m_bAttack;                       // 攻撃中かどうか
     [SerializeField] protected bool m_bCharge;                       // 溜め中かどうか
     [SerializeField] protected bool m_bVisible;                      // 表示するかどうか
@@ -172,18 +157,6 @@ public class IS_Weapon : MonoBehaviour
         get { return m_eWeaponType; }
         set { m_eWeaponType = value; }
     }
-
-    ///**
-    // * @fn
-    // * 武器の状態のgetter・setter
-    // * @return m_eWeaponState(WeaponState)
-    // * @brief 武器の状態を返す・セット
-    // */
-    //public WeaponState GetSetWeaponState
-    //{
-    //    get { return m_eWeaponState; }
-    //    set { m_eWeaponState = value; }
-    //}
 
     /**
      * @fn
