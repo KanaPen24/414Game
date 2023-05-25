@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 public class YK_Time : MonoBehaviour
 {
-    [SerializeField] private int m_nTimeLimit = 200;    //タイムリミット
+    [SerializeField] private int m_nTimeLimit;    //タイムリミット
     [SerializeField] private Text timerText;            //表示するテキスト
     [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
     [SerializeField] private IS_Player Player;          //プレイヤーをアタッチ
@@ -130,7 +130,7 @@ public class YK_Time : MonoBehaviour
   * @fn
   * 時間のgetter・setter
   * @return m_nNowTime(int)
-  * @brief 制限時間を返す・セット
+  * @brief 現在時間を返す・セット
   */
     public int GetSetNowTime
     {
@@ -148,5 +148,15 @@ public class YK_Time : MonoBehaviour
         get { return m_bTimer; }
         set { m_bTimer = value; }
     }
-
+    /**
+* @fn
+* 時間のgetter・setter
+* @return m_nTimeLimit(int)
+* @brief 制限時間を返す・セット
+*/
+    public int GetSetTimeLimit
+    {
+        get { return m_nTimeLimit; }
+        set { m_nTimeLimit = value; }
+    }
 }

@@ -1,41 +1,20 @@
-﻿/**
- * @file   IS_WeaponHPBar.cs
- * @brief  HPBarの武器クラス
+﻿/*
+ * @file   IS_WeaponStart.cs
+ * @brief  Startの武器クラス
  * @author IharaShota
- * @date   2023/03/12
- * @Update 2023/03/12 作成
- * @Update 2023/04/17 SE実装
- * @Update 2023/05/11 当たり判定処理をIS_WeaponHPBarCollision.csに移動
- * @Update 2023/05/11 マテリアル切替処理追加
- * @Update 2023/05/15 液体シェーダー実装
+ * @date   2023/05/25
+ * @Update 2023/05/25 作成
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class IS_WeaponHPBar : IS_Weapon
+public class IS_WeaponStart : IS_Weapon
 {
-    public enum CrackLevel
-    {
-        Level0,
-        Level1,
-        Level2,
-        Level3,
-
-        MaxMaterialLevel
-    }
-    [System.Serializable]
-    private class C_MaterialMesh
-    {
-        public List<MeshRenderer> m_MeshRender; // メッシュのリスト
-        public List<Material> m_Material; // マテリアルのリスト
-    }
     [SerializeField] private IS_Player m_Player;               // Player
-    [SerializeField] private C_MaterialMesh m_MaterialMesh;    // メッシュとマテリアルのリスト
-    [SerializeField] private ON_BottleLiquid m_BottleLiquid;   // 液体シェーダー
     [SerializeField] private CapsuleCollider m_CapsuleCollider;// 当たり判定
-    [SerializeField] private CrackLevel m_eCrackLevel;　　　   // ヒビレベル
+    [SerializeField] private MeshRenderer m_MeshRender;        // メッシュ
     private int m_nCnt;
 
     /**
@@ -46,21 +25,18 @@ public class IS_WeaponHPBar : IS_Weapon
     protected override void Awake()
     {
         // メンバの初期化
-        m_eWeaponType = WeaponType.HPBar; // 武器種類はHPバー
-        m_bAttack  = false;
-        m_bCharge  = false;
+        m_eWeaponType = WeaponType.Start; // 武器種類はStart
+        m_bAttack = false;
+        m_bCharge = false;
         m_bVisible = false;
         m_bDestroy = false;
-
-        m_eCrackLevel = CrackLevel.Level0;
-
     }
 
-   /**
-    * @fn
-    * 初期化処理(override前提)
-    * @brief 初期化処理(外部参照する場合)
-    */
+    /**
+     * @fn
+     * 初期化処理(override前提)
+     * @brief 初期化処理(外部参照する場合)
+     */
     protected override void Start()
     {
         // 現在の状態に更新
@@ -88,10 +64,7 @@ public class IS_WeaponHPBar : IS_Weapon
         }
         else m_CapsuleCollider.enabled = false;
 
-        // 液体の量をPlayerのHPに依存させる
-        m_BottleLiquid.ChangeFillingRate((float)(m_Player.GetSetHp / 100.0f));
-
-        if(m_nHp > m_nMaxHp)
+        if (m_nHp > m_nMaxHp)
         {
             m_nHp = m_nMaxHp;
         }
@@ -164,35 +137,13 @@ public class IS_WeaponHPBar : IS_Weapon
         if (m_bVisible)
         {
             m_CapsuleCollider.enabled = true;
-            for (int i = 0, size = m_MaterialMesh.m_MeshRender.Count; i < size; ++i)
-            {
-                m_MaterialMesh.m_MeshRender[i].enabled = true;
-            }
+            m_MeshRender.enabled = true;
         }
         // 非表示状態だったら
         else
         {
             m_CapsuleCollider.enabled = false;
-            for (int i = 0, size = m_MaterialMesh.m_MeshRender.Count; i < size; ++i)
-            {
-                m_MaterialMesh.m_MeshRender[i].enabled = false;
-            }
+            m_MeshRender.enabled = false;
         }
-    }
-
-    /**
-     * @fn
-     * ヒビレベルを変更
-     * @return なし
-     * @brief ヒビレベルを変更し、マテリアルを変える
-     */
-    public void ChangeCrackLevel(CrackLevel cracklevel)
-    {
-        m_eCrackLevel = cracklevel;
-
-        // マテリアル切替(耐久度によってHPBarにヒビが入る)
-        Material[] mats = m_MaterialMesh.m_MeshRender[0].materials;
-        mats[1] = m_MaterialMesh.m_Material[(int)m_eCrackLevel];
-        m_MaterialMesh.m_MeshRender[0].materials = mats;
     }
 }
