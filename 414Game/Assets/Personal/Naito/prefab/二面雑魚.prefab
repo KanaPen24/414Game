@@ -1758,6 +1758,7 @@ GameObject:
   - component: {fileID: 2768162793742960937}
   - component: {fileID: 2768162793742960938}
   - component: {fileID: 2768162793742960949}
+  - component: {fileID: -6078628421359857553}
   m_Layer: 7
   m_Name: "\u4E8C\u9762\u96D1\u9B5A"
   m_TagString: Untagged
@@ -2088,6 +2089,20 @@ MonoBehaviour:
   m_FlightTime: 1
   m_FallEffect: {fileID: 3967796006303646544}
   m_Rotation: 2
+--- !u!114 &-6078628421359857553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7409205144173188313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef51d0405fdafc478096ffc22c9c5e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageUI: {fileID: 1589118213952898113, guid: b685cb64ab74a4947b9fdcbcf93524f1,
+    type: 3}
 --- !u!1 &7510626889654095519
 GameObject:
   m_ObjectHideFlags: 0
