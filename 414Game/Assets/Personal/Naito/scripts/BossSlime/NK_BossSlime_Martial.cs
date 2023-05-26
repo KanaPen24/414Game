@@ -16,6 +16,8 @@ public class NK_BossSlime_Martial : NK_BossSlimeStrategy
         if (m_Cnt > m_AttackTime)
         {
             m_Cnt = 0.0f;
+            // SE再生
+            IS_AudioManager.instance.PlaySE(SEType.SE_SlimeFall);
             m_MartialArts.SetActive(true);
             //Instantiate(m_MartialArts, m_MartialArtsPos.transform.position, Quaternion.identity);
             // =========
