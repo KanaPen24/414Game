@@ -3083,7 +3083,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 300
 --- !u!114 &5460154008040524519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3427,6 +3427,7 @@ MonoBehaviour:
   Frame: {fileID: 1141875360679443149}
   Refraction: {fileID: 6189697322471391674}
   m_Hand: {fileID: 1202220674682552803}
+  clock: {fileID: 0}
   m_Area: {fileID: 0}
 --- !u!61 &2400138925066517039
 BoxCollider2D:
