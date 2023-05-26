@@ -101,7 +101,16 @@ public class NK_BossSlime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_Clock.GetSetStopTime || m_fViewX >= 3)
+        if (m_Clock.GetSetStopTime)
+        {
+            m_Anim.SetFloat("Moving", 0.0f);
+            return;
+        }
+        else
+        {
+            m_Anim.SetFloat("Moving", 1.0f);
+        }
+        if (m_fViewX >= 3)
         {
             return;
         }

@@ -99,9 +99,18 @@ public class NK_Bat : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(m_Clock.GetSetStopTime || m_fViewX >= m_MoveReng)
+        if(m_Clock.GetSetStopTime)
         {
-            m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
+            m_Rbody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            m_Anim.SetFloat("Moving", 0.0f);
+            return;
+        }
+        else
+        {
+            m_Anim.SetFloat("Moving", 1.0f);
+        }
+        if(m_fViewX >= m_MoveReng)
+        {
             return;
         }
         if(GameManager.instance.GetSetGameState != GameState.GamePlay)
