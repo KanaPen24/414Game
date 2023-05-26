@@ -27,6 +27,7 @@ public class YK_TargetCamera : MonoBehaviour
         m_fCameraMove = 0;
         m_fCurrnetMoveCnt = 0;
         m_fAccel = m_fMaxAccel;
+
     }
 
     /// <summary>
@@ -34,6 +35,10 @@ public class YK_TargetCamera : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
+
         RendaPos = this.gameObject.transform.position;
 
         //連打の振動

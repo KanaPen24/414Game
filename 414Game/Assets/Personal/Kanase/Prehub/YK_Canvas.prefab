@@ -3075,7 +3075,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 111
+  m_Text: 
 --- !u!114 &5460154008040524519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5341,7 +5341,7 @@ PrefabInstance:
     - target: {fileID: 7862323879306296968, guid: 536d72463a646b44eb2c1000869a281a,
         type: 3}
       propertyPath: m_Name
-      value: gamestart
+      value: GameTitle
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1252618961565886810, guid: 536d72463a646b44eb2c1000869a281a, type: 3}
@@ -5586,6 +5586,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameStart: {fileID: 5965826254180214864}
   StartUI: {fileID: 5965826255464846494}
+  ExitUI: {fileID: 5965826253428260827}
+  TitleUI: {fileID: 229224383540734812}
   PostEffect: {fileID: 0}
 --- !u!114 &5965826255464846494 stripped
 MonoBehaviour:

@@ -9,11 +9,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class YK_Start : YK_UI
 {
     [SerializeField] private GameObject GameStart;
-    [SerializeField] private Image StartUI;    
+    [SerializeField] private Image StartUI;
+    [SerializeField] private Image ExitUI;
+    [SerializeField] private Image TitleUI;
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
     private Outline outline;
     private bool m_bVisibleStart = true;
@@ -40,10 +43,10 @@ public class YK_Start : YK_UI
             m_rate = Mathf.Lerp(1.0f, 0.0f, m_fTime);
             PostEffect.SetBraunRate(m_rate);
         }
-        if (GameManager.instance.GetSetGameState != GameState.GameStart && m_rate <= 0) 
-            GameStart.SetActive(false);
+        if (GameManager.instance.GetSetGameState != GameState.GameStart)
+            UIFadeOUT();
         else
-            GameStart.SetActive(true);
+            UIFadeIN();
         
     }
     //StartUIを表示
@@ -65,7 +68,9 @@ public class YK_Start : YK_UI
         m_eFadeState = FadeState.FadeOUT;
         // m_fDelTime秒でm_MinScaleに変更
         StartUI.transform.DOScale(m_MinScale, m_fDelTime);
-        // m_fDelTime秒でテクスチャをフェードイン
+        ExitUI.DOFade(0f, 2.0f);
+        TitleUI.DOFade(0f, 2.0f);
+        // m_fDelTime秒でテクスチャをフェードアウト
         StartUI.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             //フェード処理終了時に呼ばれる
