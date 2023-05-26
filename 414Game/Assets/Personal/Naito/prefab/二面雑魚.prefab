@@ -2071,6 +2071,7 @@ MonoBehaviour:
   m_DieEffect: {fileID: 6814668452755134957, guid: 4424c2c298bfb2345bba73411e81288d,
     type: 3}
   m_PlayerDamage: 20
+  m_FallEffact: {fileID: 3762828481114052837}
 --- !u!114 &2768162793742960949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2482,6 +2483,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6552175160c6359459bce2f55e7c2136, type: 3}
+--- !u!198 &3762828481114052837 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3762828481914124333, guid: 6552175160c6359459bce2f55e7c2136,
+    type: 3}
+  m_PrefabInstance: {fileID: 1353720008}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3967796006303646544 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3967796007634297752, guid: 6552175160c6359459bce2f55e7c2136,
