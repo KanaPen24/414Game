@@ -70,7 +70,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
                 return;
             }
             // 「移動 → 跳躍」
-            if (m_Player.bInputUp)
+            if (m_Player.bInputJump)
             {
                 IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 m_Player.GetSetPlayerState = PlayerState.PlayerJump;
