@@ -12,6 +12,7 @@ using UnityEngine;
 public class YK_GameOver : MonoBehaviour
 {
     [SerializeField] private GameObject GameOver;
+    [SerializeField] private YK_Clock clock;
     private bool m_bGameOverFlg;
 
     // Start is called before the first frame update
@@ -28,9 +29,11 @@ public class YK_GameOver : MonoBehaviour
         {
             if (!m_bGameOverFlg)
             {
+                IS_AudioManager.instance.AllStopSE();
                 IS_AudioManager.instance.StopBGM(BGMType.BGM_Game);
                 IS_AudioManager.instance.PlayBGM(BGMType.BGM_GAMEOVER);
             }
+            clock.GetSetStopTime = false;
             m_bGameOverFlg = true;
             Debug.Log("Gameover");
             //Time.timeScale = 0.0f;

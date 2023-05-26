@@ -9,12 +9,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement; // UnityEngine.SceneManagemntの機能を使用
 
 public class YK_Next : YK_UI
 {
     [SerializeField] private Image Next;
-    private bool m_bVisibleNext;
+    [SerializeField] private Fade fade;
+    private bool m_bClear = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +31,7 @@ public class YK_Next : YK_UI
     // Update is called once per frame
     void Update()
     {
-       
+
     }
 
     //NextUIを表示
@@ -44,32 +45,28 @@ public class YK_Next : YK_UI
         // 1秒でテクスチャをフェードイン
         Next.DOFade(1f, 0f).OnComplete(() =>
         {
-            GetSetFadeState = FadeState.FadeNone;     
+            GetSetFadeState = FadeState.FadeNone;
+            m_bClear = true;
         });
     }
 
     public override void UIFadeOUT()
     {
-        GetComponent<BoxCollider2D>().enabled = false;
-        GetComponent<PointEffector2D>().enabled = false;
         m_eFadeState = FadeState.FadeOUT;
         // 1秒で後X,Y方向を0.5倍に変更
         Next.transform.DOScale(m_MinScale, m_fDelTime);
         // 1秒でテクスチャをフェードアウト
         Next.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
+            //フェードアウトが終わったら
             GetSetFadeState = FadeState.FadeNone;
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<PointEffector2D>().enabled = false;
+            if (m_bClear)
+            {
+                IS_AudioManager.instance.StopBGM(BGMType.BGM_Game);
+                SceneManager.LoadScene("GameScene");
+            }
         });
-    }
-    /**
- * @fn
- * 表示非表示のgetter・setter
- * @return m_bVisibleNext(bool)
- * @brief 表示非表示処理
- */
-    public bool GetSetVisibleFlg
-    {
-        get { return m_bVisibleNext; }
-        set { m_bVisibleNext = value; }
     }
 }

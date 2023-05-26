@@ -123,12 +123,13 @@ public class IS_Player : MonoBehaviour
     [SerializeField] private PlayerEquipState          m_PlayerEquipState; // 装備状態を管理する
 
     public Vector3 m_vMoveAmount; // 合計移動量(移動時や重力を加算したものをvelocityに代入する)
-    public bool bInputUp;
+    public bool bInputJump;
     public bool bInputRight;
     public bool bInputLeft;
     public bool bInputAttack;
     public bool bInputCharge;
     public bool bInputAvoid;
+    public bool m_bInvincible;
 
     private C_Invincible m_Invincible; // 無敵かどうか管理する
     private bool m_bWalkFlg;           // 歩行開始フラグ
@@ -162,7 +163,7 @@ public class IS_Player : MonoBehaviour
         m_bAttackFlg  = false;
         m_bAvoidFlg   = false;
         m_bReactionFlg = false;
-        bInputUp      = false;
+        bInputJump      = false;
         bInputRight   = false;
         bInputLeft    = false;
         bInputAttack   = false;
@@ -208,9 +209,9 @@ public class IS_Player : MonoBehaviour
         // Jump=Key.w,Joy.B
         if (Input.GetButtonDown("Jump"))
         {
-            bInputUp = true;
+            bInputJump = true;
         }
-        else bInputUp = false;
+        else bInputJump = false;
 
         // 右移動
         if ((Input.GetAxis("HorizontalL")) >= m_fDeadZone)
@@ -389,6 +390,13 @@ public class IS_Player : MonoBehaviour
      */
     private void CheckInvincible()
     {
+        // デバッグ用無敵
+        if(m_bInvincible)
+        {
+            m_Invincible.GetSetInvincible = true;
+            return;
+        }
+
         // 無敵カウントが0以下だった場合…
         if(m_Invincible.GetSetInvincibleCnt <= 0f)
         {

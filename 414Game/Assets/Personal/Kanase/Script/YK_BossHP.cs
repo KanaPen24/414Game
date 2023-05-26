@@ -58,6 +58,8 @@ public class YK_BossHP : YK_UI
      */
     void Update()
     {
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
         // ボス戦が始まったらフェードイン
         if (m_Area.GetSetBattleFlag)
         {
@@ -72,11 +74,15 @@ public class YK_BossHP : YK_UI
         // ボスのHPがなくなったら（例：ボスキャラを倒したら）
         if (Boss.GetSetHp <= 0)
         {
-            //ネクスト表示
-            Next.UIFadeIN();
+            if (GameManager.instance.GetSetGameState == GameState.GamePlay)
+            {
+                //ネクスト表示
+                Next.UIFadeIN();
+                //ボスバーの非表示
+                UIFadeOUT();
+            }
             //ゲームのステートをクリア状態にする
             GameManager.instance.GetSetGameState = GameState.GameGoal;
-            UIFadeOUT();
         }
     }
 

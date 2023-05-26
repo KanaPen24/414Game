@@ -11,22 +11,37 @@ using UnityEngine;
 
 public class IS_Pause : MonoBehaviour
 {
+    [SerializeField] private GameObject Pause;
+    private bool m_bPause;
+
+    private void Start()
+    {
+        Pause.SetActive(false);
+        m_bPause = false;
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P)|| Input.GetKeyDown(KeyCode.Joystick1Button7) && !m_bPause)
         {
             GameManager.instance.GetSetGameState = GameState.GamePause;
+            m_bPause = true;
         }
-        if (Input.GetKeyDown(KeyCode.Return))
+        else if (Input.GetKeyDown(KeyCode.P)|| Input.GetKeyDown(KeyCode.Joystick1Button7) && m_bPause)
         {
             GameManager.instance.GetSetGameState = GameState.GamePlay;
+            m_bPause = false;
         }
 
         if (GameManager.instance.GetSetGameState == GameState.GamePause)
         {
             Time.timeScale = 0.0f;
+            Pause.SetActive(true);
         }
-        else Time.timeScale = 1.0f;
+        else
+        {
+            Time.timeScale = 1.0f;
+            Pause.SetActive(false);
+        }
     }
 }

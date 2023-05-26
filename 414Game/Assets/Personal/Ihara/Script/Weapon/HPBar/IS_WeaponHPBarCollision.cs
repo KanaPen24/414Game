@@ -22,6 +22,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         {
             if (WeaponStart.GetSetAttack && !other.GetComponent<NK_BossSlime>().GetSetDamageFlag)
             {
+                IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponStart.GetSetHp -= m_nDamage2Start;
                 other.GetComponent<NK_BossSlime>().BossSlimeDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
@@ -32,6 +33,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         {
             if (WeaponStart.GetSetAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)
             {
+                IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponStart.GetSetHp -= m_nDamage2Start;
                 other.GetComponent<NK_Slime>().SlimeDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
@@ -43,6 +45,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         {
             if (WeaponStart.GetSetAttack && !other.GetComponent<NK_Bat>().GetSetDamageFlag)
             {
+                IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponStart.GetSetHp -= m_nDamage2Start;
                 other.GetComponent<NK_Bat>().BatDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);

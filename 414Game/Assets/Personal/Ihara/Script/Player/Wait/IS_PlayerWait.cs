@@ -35,7 +35,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
                 return;
             }
             //「待機 → 跳躍」
-            if (m_Player.bInputUp)
+            if (m_Player.bInputJump)
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerJump;
                 m_Player.GetSetJumpFlg = true;
@@ -70,6 +70,11 @@ public class IS_PlayerWait : IS_PlayerStrategy
                 m_Player.GetSetPlayerState = PlayerState.PlayerAvoidance;
                 m_Player.GetSetAvoidFlg = true;
                 return;
+            }
+            // 「待機 → 回避」
+            if (Input.GetButtonDown("Decision") || Input.GetButtonDown("Decision_Debug"))
+            {
+
             }
         }
     }
