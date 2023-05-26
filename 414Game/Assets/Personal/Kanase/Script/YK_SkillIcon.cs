@@ -21,6 +21,7 @@ public class YK_SkillIcon : YK_UI
     [SerializeField] private float m_fCoolTimeLimit;    //スキルのクールタイム
     [SerializeField] private YK_UseSkill Use;     //スキルを使ったか管理するもの
     private bool m_bSkillUse;                     //スキルが使われたかどうか    
+    [SerializeField] private ParticleSystem HealParticle;   //UI回復エフェクト
 
     private void Start()
     {
@@ -57,7 +58,10 @@ public class YK_SkillIcon : YK_UI
                 //float型の値を代入する
                 SkillInner.fillAmount = 1.0f - m_fCoolTime / m_fCoolTimeLimit;
                 if (SkillInner.fillAmount <= 0.0f)
+                {
                     m_bSkillUse = false;
+                    HealParticle.Play();
+                }
             }
         }
     }
