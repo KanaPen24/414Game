@@ -64,6 +64,8 @@ public class NK_Bat : MonoBehaviour
     //死亡時エフェクト
     [SerializeField] private ParticleSystem m_DieEffect;
     [SerializeField] private int m_PlayerDamage;
+    [SerializeField] private ParticleSystem m_FallEffact;
+    private bool m_ClockFlag;
 
     private void Start()
     {
@@ -83,17 +85,20 @@ public class NK_Bat : MonoBehaviour
             float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
             renderController.Opacity = level;
         }
-        if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
+        if (!m_ClockFlag)
         {
-            GetSetBatDir = BatDir.Right;
-            this.transform.localScale =
-                new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
-        }
-        else
-        {
-            GetSetBatDir = BatDir.Left;
-            this.transform.localScale =
-                new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+            if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
+            {
+                GetSetBatDir = BatDir.Right;
+                this.transform.localScale =
+                    new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+            }
+            else
+            {
+                GetSetBatDir = BatDir.Left;
+                this.transform.localScale =
+                    new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+            }
         }
     }
 
@@ -102,12 +107,16 @@ public class NK_Bat : MonoBehaviour
         if(m_Clock.GetSetStopTime)
         {
             m_Rbody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            m_FallEffact.Stop();
             m_Anim.SetFloat("Moving", 0.0f);
+            m_ClockFlag = true;
             return;
         }
         else
         {
+            m_FallEffact.Play();
             m_Anim.SetFloat("Moving", 1.0f);
+            m_ClockFlag = false;
         }
         if(m_fViewX >= m_MoveReng)
         {
@@ -115,7 +124,10 @@ public class NK_Bat : MonoBehaviour
         }
         if(GameManager.instance.GetSetGameState != GameState.GamePlay)
         {
-            return;
+            if (m_BatState == BatState.BatMove)
+            {
+                return;
+            }
         }
         m_BatStrategy[(int)m_BatState].UpdateStrategy();
 
