@@ -139,7 +139,7 @@ public class YK_Time : MonoBehaviour
     }
     /**
 * @fn
-* 表示非表示のgetter・setter
+* タイマー用フラグのgetter・setter
 * @return m_bTimer(bool)
 * @brief 制限時間を返す・セット
 */
