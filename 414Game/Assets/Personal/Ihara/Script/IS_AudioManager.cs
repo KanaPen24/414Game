@@ -202,6 +202,21 @@ public class IS_AudioManager : MonoBehaviour
         }
     }
 
+    /**
+    * @fn
+    * SE全ストップ
+    * @param なし
+    * @brief  SE全ストップ
+    * @detail SEとseTypeの数があっていることが前提
+    */
+    public void AllStopSE()
+    {
+        for (int i = 0, size = SESources.Count; i < size; ++i)
+        {
+            SESources[i].m_SEData.Stop();
+        }
+    }
+
     public AudioSource GetSE(SEType seType)
     {
         for (int i = 0, size = SESources.Count; i < size; ++i)
