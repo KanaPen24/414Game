@@ -29,9 +29,9 @@ public class YK_BossHP : YK_UI
     [SerializeField] private Image BackFill;        // 後ろのバーの表面のテクスチャ
     [SerializeField] private Image BackGround;      // バーの裏のテクスチャ
     [SerializeField] private Image Frame;           // フレーム
+    [SerializeField] private Image Refraction;      // 反射光
     [SerializeField] private YK_Hand m_Hand;
-    [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
+    [SerializeField] private YK_Clock clock;
     [SerializeField] private NK_BossSlime_Aera m_Area;
 
     /**
@@ -59,6 +59,8 @@ public class YK_BossHP : YK_UI
      */
     void Update()
     {
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
         // ボス戦が始まったらフェードイン
         if (m_Area.GetSetBattleFlag)
         {
@@ -73,11 +75,17 @@ public class YK_BossHP : YK_UI
         // ボスのHPがなくなったら（例：ボスキャラを倒したら）
         if (Boss.GetSetHp <= 0)
         {
-            //ネクスト表示
-            Next.UIFadeIN();
+            if (GameManager.instance.GetSetGameState == GameState.GamePlay)
+            {
+                //ネクスト表示
+                Next.UIFadeIN();
+                //ボスバーの非表示
+                UIFadeOUT();
+                //時止め解除
+                clock.GetSetStopTime = false;
+            }
             //ゲームのステートをクリア状態にする
             GameManager.instance.GetSetGameState = GameState.GameGoal;
-            UIFadeOUT();
         }
     }
 
@@ -95,6 +103,7 @@ public class YK_BossHP : YK_UI
         FrontFill.DOFade(1f, 0f);
         Frame.DOFade(1f, 0f);
         BackFill.DOFade(1f, 0f);
+        Refraction.DOFade(1f, 0f);
         BackGround.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
@@ -116,6 +125,7 @@ public class YK_BossHP : YK_UI
         FrontFill.DOFade(0f, m_fDelTime);
         Frame.DOFade(0f, m_fDelTime);
         BackFill.DOFade(0f, m_fDelTime);
+        Refraction.DOFade(0f, m_fDelTime);
         BackGround.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;

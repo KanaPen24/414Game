@@ -19,7 +19,7 @@ public class YK_Hand : MonoBehaviour
     private Vector2 Scale;
 
     //定数定義
-    const float MAX_SCALE = 140.0f;
+    const float MAX_SCALE = 150.0f;
     const float MIN_SCALE = 70.0f;
 
     private void Start()
@@ -31,7 +31,7 @@ public class YK_Hand : MonoBehaviour
         renderController.Opacity = 0.0f;
         //現在のサイズ取得
         Scale = this.transform.localScale;
-        this.transform.localScale= new Vector3(MIN_SCALE, MIN_SCALE);
+        //this.transform.localScale= new Vector3(MIN_SCALE, MIN_SCALE);
     }
 
     private void Update()
@@ -43,7 +43,7 @@ public class YK_Hand : MonoBehaviour
             {
                 renderController.Opacity += 0.04f;
                 if (this.transform.localScale.x <= MAX_SCALE)
-                this.transform.localScale += new Vector3(2.5f, 2.5f);
+                this.transform.localScale += new Vector3(3.0f, 3.0f);
             }
         }
         //α値を増やす場合のフラグが偽なら
@@ -53,7 +53,7 @@ public class YK_Hand : MonoBehaviour
             {
                 renderController.Opacity -= 0.05f;
                 if (this.transform.localScale.x > MIN_SCALE)
-                    this.transform.localScale -= new Vector3(1.5f, 1.5f);
+                    this.transform.localScale -= new Vector3(2.0f, 2.0f);
             }
         }
     }

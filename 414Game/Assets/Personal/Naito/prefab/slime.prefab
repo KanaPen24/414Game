@@ -331,7 +331,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 54
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5297982598181373587
 MonoBehaviour:
@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: 0
+  _localSortingOrder: 4
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: ed7c4ffdb634cbd408abeb82686b8a29, type: 3}
   _sortingMode: 0
-  _sortingOrder: 10
+  _sortingOrder: 50
   _renderOrder: 0
   _depthOffset: 0.00001
   _opacity: 1
@@ -557,7 +557,7 @@ MonoBehaviour:
   _modelScreenColor: {r: 0, g: 0, b: 0, a: 0}
   _sortingLayerId: 0
   _sortingMode: 0
-  _sortingOrder: 10
+  _sortingOrder: 50
   CameraToFace: {fileID: 0}
   _drawOrderHandler: {fileID: 0}
   _opacityHandler: {fileID: 0}
@@ -704,8 +704,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0a997f3950c2b49ae8180a3a6c5194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nHP: 10
-  m_nMaxHP: 10
+  m_nHP: 15
+  m_nMaxHP: 15
   m_Player: {fileID: 0}
   m_SlimeStrategy:
   - {fileID: 80574027}
@@ -720,6 +720,8 @@ MonoBehaviour:
   Shadow: {fileID: 1583492506907936919}
   m_fMovePower: 3
   m_fJumpPower: 5
+  m_MoveReng: 0
+  m_PlayerDamage: 10
 --- !u!114 &80574029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,7 +880,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 9
+  m_SortingOrder: 53
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &183769725607408000
 MonoBehaviour:
@@ -892,7 +894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 308e904e3f33207489a2c15b9b0b297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localSortingOrder: -1
+  _localSortingOrder: 3
   _color: {r: 1, g: 1, b: 1, a: 1}
   _isOverwrittenDrawableMultiplyColors: 0
   _isOverwrittenDrawableScreenColors: 0
@@ -900,7 +902,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: ed7c4ffdb634cbd408abeb82686b8a29, type: 3}
   _sortingMode: 0
-  _sortingOrder: 10
+  _sortingOrder: 50
   _renderOrder: 1
   _depthOffset: 0.00001
   _opacity: 0.5019608

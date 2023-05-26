@@ -17,12 +17,11 @@ public class YK_SkillIcon : YK_UI
     [SerializeField] private Image SkillInner;      //スキルのインナー
     [SerializeField] private Image OutLine;         //アウトライン
     [SerializeField] private int m_nStuck;          //弾数ストック
-    [SerializeField] private Vector3 m_MinScale=new  Vector3(0.5f,0.5f,0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.5f;   //減算していく時間
     private float m_fCoolTime = 0.0f;             //スキルのクールタイム
     [SerializeField] private float m_fCoolTimeLimit;    //スキルのクールタイム
     [SerializeField] private YK_UseSkill Use;     //スキルを使ったか管理するもの
     private bool m_bSkillUse;                     //スキルが使われたかどうか    
+    [SerializeField] private ParticleSystem HealParticle;   //UI回復エフェクト
 
     private void Start()
     {
@@ -44,6 +43,7 @@ public class YK_SkillIcon : YK_UI
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<PointEffector2D>().enabled = false;
             GetComponent<Image>().enabled = false;
+            SkillInner.GetComponent<Image>().enabled = false;
             m_bSkillUse = true;
         }
         else
@@ -51,13 +51,17 @@ public class YK_SkillIcon : YK_UI
             GetComponent<BoxCollider2D>().enabled = true;
             GetComponent<PointEffector2D>().enabled = true;
             GetComponent<Image>().enabled = true;
+            SkillInner.GetComponent<Image>().enabled = true;
             if (m_bSkillUse)
             {
                 m_fCoolTime += Time.deltaTime;
                 //float型の値を代入する
                 SkillInner.fillAmount = 1.0f - m_fCoolTime / m_fCoolTimeLimit;
                 if (SkillInner.fillAmount <= 0.0f)
+                {
                     m_bSkillUse = false;
+                    HealParticle.Play();
+                }
             }
         }
     }

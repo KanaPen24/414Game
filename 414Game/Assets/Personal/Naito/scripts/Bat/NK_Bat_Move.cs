@@ -10,9 +10,12 @@ public class NK_Bat_Move : NK_BatStrategy
     //動き出すまでの時間
     [SerializeField] private float m_fMoveCnt;
     private int m_Rand;
+    private float m_BatPosY;
+    [SerializeField] private float m_Reng;
 
-    public void Update()
+    private void Start()
     {
+        m_BatPosY = this.gameObject.transform.position.y;
     }
     public override void UpdateStrategy()
     {
@@ -30,17 +33,28 @@ public class NK_Bat_Move : NK_BatStrategy
             }
             else
             {
+                // SE再生
+                IS_AudioManager.instance.PlaySE(SEType.SE_Sonic);
                 m_Bat.GetSetBatState = BatState.BatSonic;
             }
         }
 
-        if(m_Bat.GetSetBatDir == BatDir.Left)
+        if (this.gameObject.transform.position.x > m_Bat.m_BPlayer.transform.position.x - m_Reng &&
+            this.gameObject.transform.position.x < m_Bat.m_BPlayer.transform.position.x + m_Reng)
         {
-            m_Bat.m_MoveValue.x -= m_fMovePow;
+
         }
-        if (m_Bat.GetSetBatDir == BatDir.Right)
+        else
         {
-            m_Bat.m_MoveValue.x += m_fMovePow;
+            if (m_Bat.GetSetBatDir == BatDir.Left)
+            {
+                m_Bat.m_MoveValue.x -= m_fMovePow;
+            }
+            if (m_Bat.GetSetBatDir == BatDir.Right)
+            {
+                m_Bat.m_MoveValue.x += m_fMovePow;
+            }
         }
+        transform.position = new Vector3(transform.position.x, m_BatPosY + Mathf.PingPong(Time.time, 0.3f), transform.position.z);
     }
 }

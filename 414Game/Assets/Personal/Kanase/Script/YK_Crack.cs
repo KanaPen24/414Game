@@ -4,6 +4,7 @@
  * @author 吉田叶聖
  * @date 2023/04/21
  * @Update 2023/05/12 ヒビレベルの処理を反映(Ihara)
+ * @Update 2023/05/21 ヒビエフェクトの処理を反映(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ public class YK_Crack : MonoBehaviour
     [SerializeField] private IS_WeaponHPBar weaponHpBar;
     [SerializeField] private ParticleSystem Glass;
 
+    private int WeaponHP;
     private bool m_bCrackMinFlag;
     private bool m_bCrackNorFlag;
     private bool m_bCrackMaxFlag;
@@ -33,6 +35,7 @@ public class YK_Crack : MonoBehaviour
         m_bCrackMinFlag = false;
         m_bCrackNorFlag = false;
         m_bCrackMaxFlag = false;
+        WeaponHP = weaponHpBar.GetSetHp;
     }
 
     // Update is called once per frame
@@ -44,38 +47,50 @@ public class YK_Crack : MonoBehaviour
     private void CheckHP()
     {
         // ※ここで画像の切替を行う
-        if (weaponHpBar.GetSetHp <= 25)
+        if (weaponHpBar.GetSetHp <= WeaponHP * 0.2f)
         {
-            if(!m_bCrackMaxFlag)
+            if (!m_bCrackMaxFlag)
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_2);
                 weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level3);
-                //Glass.Play();
+                ParticleSystem Effect = Instantiate(Glass);
+                Effect.Play();
+                Effect.transform.position = weaponHpBar.transform.position;
+                Destroy(Effect.gameObject, 5.0f);
                 m_bCrackMaxFlag = true;
+                Debug.Log("残り2割り");
             }
             image.sprite = Crack_Max;
             return;
         }
-        else if (weaponHpBar.GetSetHp <= 50)
+        else if (weaponHpBar.GetSetHp <= WeaponHP * 0.5f)
         {
             if (!m_bCrackNorFlag)
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_1);
                 weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level2);
-                //Glass.Play();
+                ParticleSystem Effect = Instantiate(Glass);
+                Effect.Play();
+                Effect.transform.position = weaponHpBar.transform.position;
+                Destroy(Effect.gameObject, 5.0f);
                 m_bCrackNorFlag = true;
+                Debug.Log("残り5割り");
             }
             image.sprite = Crack_Nor;
             return;
         }
-        else if (weaponHpBar.GetSetHp <= 75)
+        else if (weaponHpBar.GetSetHp <= WeaponHP * 0.7f) 
         {
             if (!m_bCrackMinFlag)
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_1);
                 weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level1);
-                //Glass.Play();
+                ParticleSystem Effect = Instantiate(Glass);
+                Effect.Play();
+                Effect.transform.position = weaponHpBar.transform.position;
+                Destroy(Effect.gameObject, 5.0f);
                 m_bCrackMinFlag = true;
+                Debug.Log("残り７割り");
             }
             image.sprite = Crack_Min;
             color.a = 1.0f;
@@ -85,12 +100,7 @@ public class YK_Crack : MonoBehaviour
         {
             color.a = 0.0f;
         }
-        //HPバーが壊れたら
-        if (weaponHpBar.GetSetHp <= 0)
-        {
-            //ゲームオーバー
-            GameManager.instance.GetSetGameState = GameState.GameOver;
-        }
+       
         this.GetComponent<Image>().color = color;
     }
 }

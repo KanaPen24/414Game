@@ -20,4 +20,14 @@ public class IS_PlayerStrategy : MonoBehaviour
     {
         // ここにStateごとに処理を加える
     }
+
+    /**
+     * @fn
+     * アニメーション更新処理(override前提)
+     * @brief Playerのアニメーション更新処理
+     */
+    public virtual void UpdateAnim()
+    {
+        // ここにStateごとに処理を加える
+    }
 }

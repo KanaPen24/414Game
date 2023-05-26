@@ -34,6 +34,9 @@ public enum SEType
     SE_HPBarCrack_2, // HPBarのヒビ2SE
     SE_StopTime,     // 時止め中の音
     SE_StopTime_Return, // 時止め中の解除音
+    SE_SlimeFall,       //スライムが地面に着地したときの音
+    SE_Sonic,           //超音波のSE
+    SE_SlimeMove,       //スライムが移動してる時の音
 
     MAX_SE
 }
@@ -199,6 +202,21 @@ public class IS_AudioManager : MonoBehaviour
         for (int i = 0, size = BGMSources.Count; i < size; ++i)
         {
             BGMSources[i].m_BGMData.Stop();
+        }
+    }
+
+    /**
+    * @fn
+    * SE全ストップ
+    * @param なし
+    * @brief  SE全ストップ
+    * @detail SEとseTypeの数があっていることが前提
+    */
+    public void AllStopSE()
+    {
+        for (int i = 0, size = SESources.Count; i < size; ++i)
+        {
+            SESources[i].m_SEData.Stop();
         }
     }
 

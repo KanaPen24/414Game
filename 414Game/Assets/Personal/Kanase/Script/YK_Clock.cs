@@ -24,15 +24,15 @@ public class YK_Clock : YK_UI
     [SerializeField] private Image OutLine;         //アウトライン
     [SerializeField] private YK_Time m_Time;
     [SerializeField] private IS_Player Player;
-    [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.3f; // 減算していく時間
     [SerializeField] YK_Time Time; // 時間
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
     private Vector3 Second_Scale;
     float seconds = 0f;
     [SerializeField] private int m_nTimeCount = 3;
     [SerializeField] private bool m_bStopTime = false;   //時止め時間かどうか
+    [SerializeField] private int m_nStopTime;        //時止め時間
     private bool m_bOnce = true;
+    private int m_nTimeLimit;
 
     /**
      * @brief スタート時に呼ばれる関数
@@ -48,6 +48,8 @@ public class YK_Clock : YK_UI
         // スケール取得
         GetSetScale = Clock.transform.localScale;
         Second_Scale = Second.transform.localScale;
+        //タイムリミットの取得
+        m_nTimeLimit = Time.GetSetTimeLimit;
     }
 
 
@@ -57,16 +59,23 @@ public class YK_Clock : YK_UI
      */
     void Update()
     {
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
+        //受け取ったfloat型の値を代入する
+        Clock_Inner.fillAmount = 1.0f - Time.GetSetNowTime / (float)m_nTimeLimit;
+
         // 時計の針の回転
-        Second.transform.eulerAngles = new Vector3(0, 0, (Time.GetSetNowTime / 200.0f) * 360.0f);
+        Second.transform.eulerAngles = new Vector3(0, 0, (Time.GetSetNowTime / (float)m_nTimeLimit) * 360.0f);
 
         // 時止め時間かどうかの判定
         if (m_bStopTime && m_bOnce)
         {
             m_bOnce = false;
-            Invoke(nameof(StopTimeSE), 3.0f);
+            //2秒前に呼び出すといい感じに音が止む
+            Invoke(nameof(StopTimeSE), m_nStopTime - 2.0f);
             // StopTimeReleaseを5秒後に呼び出す
-            Invoke(nameof(StopTimeRelease), 5.0f);
+            Invoke(nameof(StopTimeRelease), m_nStopTime);
         }
     }
 
@@ -90,10 +99,10 @@ public class YK_Clock : YK_UI
         m_Time.GetSetTimeFlg = true;
         m_bOnce = true;
         m_nTimeCount--;
-        UIFadeIN();
+        //UIFadeIN();
         // BGM再生
         IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).UnPause();
-        Player.RemovedWeapon();
+        //Player.RemovedWeapon();
         Debug.Log("元戻る");
     }
 

@@ -3,6 +3,7 @@
  * @brief テキスト版時計
  * @author 吉田叶聖
  * @date 2023/04/17
+ * @Update 2023/05/21 ゲームオーバー処理編集(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -11,9 +12,10 @@ using UnityEngine.UI;
 
 public class YK_Time : MonoBehaviour
 {
-    [SerializeField] private int m_nTimeLimit = 200;    //タイムリミット
+    [SerializeField] private int m_nTimeLimit;    //タイムリミット
     [SerializeField] private Text timerText;            //表示するテキスト
     [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
+    [SerializeField] private IS_Player Player;          //プレイヤーをアタッチ
     [SerializeField] ON_VolumeManager PostEffect;       //ポストエフェクト
     private Outline outline;
     [SerializeField] private float m_fTime;              //進行時間
@@ -23,6 +25,8 @@ public class YK_Time : MonoBehaviour
     private bool m_bTimer = true;       //タイマー用のフラグ
     private bool m_bOnce = false;       //一回だけ使うフラグ
     [SerializeField] private int m_nNowTime;    //現在時間
+    [SerializeField] private ParticleSystem Effect;    //回復エフェクト
+    [SerializeField] private Material TextMaterial;    //ラスタースクロール
 
     private void Start()
     {
@@ -56,6 +60,8 @@ public class YK_Time : MonoBehaviour
             //テキストカラー変更
             timerText.color = Color.black;
             outline.effectColor = Color.white;
+            //マテリアル変更
+            timerText.material = TextMaterial;
             return;
         }
         else if(m_bOnce)
@@ -69,6 +75,8 @@ public class YK_Time : MonoBehaviour
             //テキストカラー変更
             timerText.color = Color.white;
             outline.effectColor = Color.black;
+            //マテリアル変更
+            timerText.material = null;
             //これをすることで最初の起動時に流れないようになる
             if (m_rate <= 0.0f)
                 m_bOnce = false;
@@ -81,18 +89,22 @@ public class YK_Time : MonoBehaviour
         //time変数をint型にし制限時間から引いた数をint型のlimit変数に代入
         m_nNowTime = m_nTimeLimit - (int)m_fTime;
 
-        if (Clock.GetSetTimeCount <= 2)
+        switch(Clock.GetSetTimeCount)
         {
-            m_nTimeLimit = 99;
-            m_nNowTime %= 100;  //3桁目を減らす
-        }
-        if (Clock.GetSetTimeCount <= 1)
-        {
-            m_nTimeLimit = 9;
-            m_nNowTime %= 10;   //2桁目を減らす
-        }
-        if (Clock.GetSetTimeCount <= 0)
-            m_nNowTime %= 1;    //1桁目を減らす
+            case 2:
+                m_nTimeLimit = 99;
+                //m_nNowTime %= 100;  //3桁目を減らす
+                break;
+            case 1:
+                m_nTimeLimit = 9;
+                //m_nNowTime %= 10;   //2桁目を減らす
+                m_fTime %= 10;
+                Clock.GetSetTimeCount = 0;
+                break;
+            case -1:
+                m_nNowTime %= 1;    //1桁目を減らす
+                break;
+        }           
                        
         //timerTextを更新していく
         timerText.text = m_nNowTime + "";
@@ -101,6 +113,7 @@ public class YK_Time : MonoBehaviour
         if (m_nNowTime <=0)
         {
             //ゲームオーバー
+            Player.GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;
         }
     }
@@ -110,13 +123,14 @@ public class YK_Time : MonoBehaviour
     {
         //経過時間を引くことで現在時間が足される
         m_fTime -= Time;
+        Effect.Play();
     }
 
     /**
   * @fn
   * 時間のgetter・setter
   * @return m_nNowTime(int)
-  * @brief 制限時間を返す・セット
+  * @brief 現在時間を返す・セット
   */
     public int GetSetNowTime
     {
@@ -126,7 +140,7 @@ public class YK_Time : MonoBehaviour
     /**
 * @fn
 * 表示非表示のgetter・setter
-* @return m_bTimer(int)
+* @return m_bTimer(bool)
 * @brief 制限時間を返す・セット
 */
     public bool GetSetTimeFlg
@@ -134,5 +148,15 @@ public class YK_Time : MonoBehaviour
         get { return m_bTimer; }
         set { m_bTimer = value; }
     }
-
+    /**
+* @fn
+* 時間のgetter・setter
+* @return m_nTimeLimit(int)
+* @brief 制限時間を返す・セット
+*/
+    public int GetSetTimeLimit
+    {
+        get { return m_nTimeLimit; }
+        set { m_nTimeLimit = value; }
+    }
 }

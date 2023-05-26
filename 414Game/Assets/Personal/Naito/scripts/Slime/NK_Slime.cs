@@ -62,6 +62,9 @@ public class NK_Slime : MonoBehaviour
     //ジャンプ力
     [SerializeField] private float m_fJumpPower;
     private float m_localScalex;
+    [SerializeField] private float m_MoveReng;
+    [SerializeField] private int m_PlayerDamage;
+    private bool m_ClockFlag;
 
     private void Start()
     {
@@ -83,20 +86,22 @@ public class NK_Slime : MonoBehaviour
         {
             renderController.Opacity = 1f;
         }
-
-        if (GetSetSlimeState == SlimeState.SlimeMove)
+        if (!m_ClockFlag)
         {
-            if(m_Player.transform.position.x > this.gameObject.transform.position.x)
+            if (GetSetSlimeState == SlimeState.SlimeMove)
             {
-                GetSetSlimeDir = SlimeDir.Right;
-                this.transform.localScale =
-                    new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
-            }
-            else
-            {
-                GetSetSlimeDir = SlimeDir.Left;
-                this.transform.localScale =
-                   new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+                if (m_Player.transform.position.x > this.gameObject.transform.position.x)
+                {
+                    GetSetSlimeDir = SlimeDir.Right;
+                    this.transform.localScale =
+                        new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+                }
+                else
+                {
+                    GetSetSlimeDir = SlimeDir.Left;
+                    this.transform.localScale =
+                       new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+                }
             }
         }
         if (m_SlimeState == SlimeState.SlimeMove)
@@ -111,7 +116,20 @@ public class NK_Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_Clock.GetSetStopTime || m_fViewX >= 3)
+        if (m_Clock.GetSetStopTime)
+        {
+            m_ClockFlag = true;
+            return;
+        }
+        else
+        {
+            m_ClockFlag = false;
+        }
+        if(m_fViewX >= m_MoveReng)
+        {
+            return;
+        }
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
         {
             return;
         }
@@ -126,7 +144,7 @@ public class NK_Slime : MonoBehaviour
         if (other.gameObject == m_Player.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_Player.Damage(10, 1.5f);
+            m_Player.Damage(m_PlayerDamage, 1.5f);
         }
     }
 

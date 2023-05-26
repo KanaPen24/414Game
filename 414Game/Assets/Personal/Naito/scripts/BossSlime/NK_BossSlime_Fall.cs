@@ -8,6 +8,9 @@ public class NK_BossSlime_Fall : NK_BossSlimeStrategy
     [SerializeField] private NK_BossSlime m_BossSlime;
     [SerializeField] private float m_FloorPos;
     [SerializeField] private float m_FallPow;
+    [SerializeField] private GameObject m_FallEffect;
+    [SerializeField] private YK_TargetCamera m_Shake;
+    [SerializeField] private float m_ShakePow;
 
     public override void UpdateStrategy()
     {
@@ -18,6 +21,10 @@ public class NK_BossSlime_Fall : NK_BossSlimeStrategy
         }
         else
         {
+            m_Shake.GetShakeFloat(m_ShakePow);
+            // SE再生
+            IS_AudioManager.instance.PlaySE(SEType.SE_SlimeFall);
+            m_FallEffect.SetActive(false);
             m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeWait;
         }
     }

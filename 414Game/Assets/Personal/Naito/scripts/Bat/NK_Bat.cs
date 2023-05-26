@@ -59,6 +59,13 @@ public class NK_Bat : MonoBehaviour
     private bool m_FallAnimFlag;
     private bool m_FlightAnimFlag;
     private Animator m_Anim;
+    [SerializeField] private float m_MoveReng;
+    private float m_fViewX;
+    //死亡時エフェクト
+    [SerializeField] private ParticleSystem m_DieEffect;
+    [SerializeField] private int m_PlayerDamage;
+    [SerializeField] private ParticleSystem m_FallEffact;
+    private bool m_ClockFlag;
 
     private void Start()
     {
@@ -71,13 +78,14 @@ public class NK_Bat : MonoBehaviour
 
     private void Update()
     {
-        if(m_DamageFlag)
+        m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
+        if (m_DamageFlag)
         {
             //Mathf.Absは絶対値を返す、Mathf.Sinは＋なら１，－なら0を返す
             float level = Mathf.Abs(Mathf.Sin(Time.time * 10));
             renderController.Opacity = level;
         }
-        if (GetSetBatState == BatState.BatMove)
+        if (!m_ClockFlag)
         {
             if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
             {
@@ -98,7 +106,28 @@ public class NK_Bat : MonoBehaviour
     {
         if(m_Clock.GetSetStopTime)
         {
+            m_Rbody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            m_FallEffact.Stop();
+            m_Anim.SetFloat("Moving", 0.0f);
+            m_ClockFlag = true;
             return;
+        }
+        else
+        {
+            m_FallEffact.Play();
+            m_Anim.SetFloat("Moving", 1.0f);
+            m_ClockFlag = false;
+        }
+        if(m_fViewX >= m_MoveReng)
+        {
+            return;
+        }
+        if(GameManager.instance.GetSetGameState != GameState.GamePlay)
+        {
+            if (m_BatState == BatState.BatMove)
+            {
+                return;
+            }
         }
         m_BatStrategy[(int)m_BatState].UpdateStrategy();
 
@@ -108,32 +137,14 @@ public class NK_Bat : MonoBehaviour
         m_Anim.SetBool("FlightFlag", m_FlightAnimFlag);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        // プレイヤーだったら
-        if (collision.gameObject == m_BPlayer.gameObject)
+        if(other.gameObject==m_BPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
-            //m_Player.GetPlayerHp().DelLife(10);
-        }
-
-        // 武器だったら
-        if (collision.gameObject.tag == "Weapon" && !m_DamageFlag)
-        {
-            Debug.Log("Enemy Damage!!");
-            //m_HpBarHP.DelLife(10);
-            m_nHP -= 5;
-            m_DamageFlag = true;
-            Invoke("InvincibleEnd", m_InvincibleTime);
-        }
-
-        // HPが0になったら、このオブジェクトを破壊
-        if (m_nHP <= 0)
-        {
-            Destroy(this.gameObject);
+            m_BPlayer.Damage(m_PlayerDamage, 2.0f);
         }
     }
-
 
     /**
  * @fn
@@ -170,6 +181,12 @@ public class NK_Bat : MonoBehaviour
         set { m_nMaxHP = value; }
     }
 
+    public bool GetSetDamageFlag
+    {
+        get { return m_DamageFlag; }
+        set { m_DamageFlag = value; }
+    }
+
     public Vector3 GetSetMoveValue
     {
         get { return m_MoveValue; }
@@ -191,5 +208,26 @@ public class NK_Bat : MonoBehaviour
     {
         get { return m_FlightAnimFlag; }
         set { m_FlightAnimFlag = value; }
+    }
+
+    public void BatDamage(int Damage)
+    {
+        if(!m_DamageFlag)
+        {
+            m_nHP -= Damage;
+            m_DamageFlag = true;
+            Invoke("InvincibleEnd", m_InvincibleTime);
+            if(m_nHP<=0)
+            {
+                IS_AudioManager.instance.PlaySE(SEType.SE_DeathSlime);
+                // エフェクト再生
+                ParticleSystem Effect = Instantiate(m_DieEffect);
+                Effect.Play();
+                Effect.transform.position = this.transform.position;
+                Destroy(Effect.gameObject, 2.0f);
+
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

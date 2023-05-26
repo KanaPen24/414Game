@@ -9,13 +9,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class YK_Start : YK_UI
 {
     [SerializeField] private GameObject GameStart;
     [SerializeField] private Image StartUI;
-    [SerializeField] private Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.5f); // 最小サイズ
-    [SerializeField] private float m_fDelTime = 0.5f; // 減算していく時間
+    [SerializeField] private Image ExitUI;
+    [SerializeField] private Image TitleUI;
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
     private Outline outline;
     private bool m_bVisibleStart = true;
@@ -32,6 +33,8 @@ public class YK_Start : YK_UI
         GetSetScale = StartUI.transform.localScale;
         //アウトライン取得
         outline = this.GetComponent<Outline>();
+
+        GameStart.SetActive(true);
     }
     private void Update()
     {
@@ -42,10 +45,6 @@ public class YK_Start : YK_UI
             m_rate = Mathf.Lerp(1.0f, 0.0f, m_fTime);
             PostEffect.SetBraunRate(m_rate);
         }
-        if (GameManager.instance.GetSetGameState != GameState.GameStart && m_rate <= 0) 
-            GameStart.SetActive(false);
-        else
-            GameStart.SetActive(true);
         
     }
     //StartUIを表示
@@ -67,12 +66,17 @@ public class YK_Start : YK_UI
         m_eFadeState = FadeState.FadeOUT;
         // m_fDelTime秒でm_MinScaleに変更
         StartUI.transform.DOScale(m_MinScale, m_fDelTime);
-        // m_fDelTime秒でテクスチャをフェードイン
+        // m_fDelTime秒でテクスチャをフェードアウト
         StartUI.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             //フェード処理終了時に呼ばれる
             GetSetFadeState = FadeState.FadeNone;
             StartPlay();
+            ExitUI.DOFade(0f, 1.0f);
+            TitleUI.DOFade(0f, 1.0f).OnComplete(() =>
+            {
+                GameStart.SetActive(false);
+            });
             Debug.Log("FadeOUT終了");
         });
         
@@ -95,17 +99,7 @@ public class YK_Start : YK_UI
         //ゲームのステートをプレイ状態にする
         GameManager.instance.GetSetGameState = GameState.GamePlay;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "Cursol")
-        {
-            outline.enabled = true;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        outline.enabled = false;
-    }
+    
 
 
 }
