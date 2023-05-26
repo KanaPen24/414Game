@@ -123,7 +123,7 @@ public class YK_Time : MonoBehaviour
     {
         //経過時間を引くことで現在時間が足される
         m_fTime -= Time;
-        //Effect.Play();
+        Effect.Play();
     }
 
     /**
