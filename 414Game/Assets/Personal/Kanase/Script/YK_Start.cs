@@ -33,6 +33,8 @@ public class YK_Start : YK_UI
         GetSetScale = StartUI.transform.localScale;
         //アウトライン取得
         outline = this.GetComponent<Outline>();
+
+        GameStart.SetActive(true);
     }
     private void Update()
     {
@@ -43,10 +45,6 @@ public class YK_Start : YK_UI
             m_rate = Mathf.Lerp(1.0f, 0.0f, m_fTime);
             PostEffect.SetBraunRate(m_rate);
         }
-        if (GameManager.instance.GetSetGameState != GameState.GameStart)
-            UIFadeOUT();
-        else
-            UIFadeIN();
         
     }
     //StartUIを表示
@@ -68,14 +66,17 @@ public class YK_Start : YK_UI
         m_eFadeState = FadeState.FadeOUT;
         // m_fDelTime秒でm_MinScaleに変更
         StartUI.transform.DOScale(m_MinScale, m_fDelTime);
-        ExitUI.DOFade(0f, 2.0f);
-        TitleUI.DOFade(0f, 2.0f);
         // m_fDelTime秒でテクスチャをフェードアウト
         StartUI.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             //フェード処理終了時に呼ばれる
             GetSetFadeState = FadeState.FadeNone;
             StartPlay();
+            ExitUI.DOFade(0f, 1.0f);
+            TitleUI.DOFade(0f, 1.0f).OnComplete(() =>
+            {
+                GameStart.SetActive(false);
+            });
             Debug.Log("FadeOUT終了");
         });
         
