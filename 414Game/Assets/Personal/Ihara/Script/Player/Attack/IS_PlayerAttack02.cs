@@ -78,6 +78,10 @@ public class IS_PlayerAttack02 : IS_PlayerStrategy
                 m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack02HPBar);
                 m_CurrentPlayerAnimState = PlayerAnimState.Attack02HPBar;
                 break;
+            case EquipWeaponState.PlayerStart:
+                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack02HPBar);
+                m_CurrentPlayerAnimState = PlayerAnimState.Attack02HPBar;
+                break;
         }
     }
 }
