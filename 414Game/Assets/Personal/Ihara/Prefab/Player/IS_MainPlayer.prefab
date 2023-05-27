@@ -842,9 +842,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1618595704736087697, guid: d3accfe391bc01846b975d30b3c0f804,
         type: 3}
+      propertyPath: m_nHp
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618595704736087697, guid: d3accfe391bc01846b975d30b3c0f804,
+        type: 3}
       propertyPath: m_Player
       value: 
       objectReference: {fileID: 2602812492749303807}
+    - target: {fileID: 1618595704736087697, guid: d3accfe391bc01846b975d30b3c0f804,
+        type: 3}
+      propertyPath: m_nMaxHp
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 3998143670999886738, guid: d3accfe391bc01846b975d30b3c0f804,
         type: 3}
       propertyPath: Player
