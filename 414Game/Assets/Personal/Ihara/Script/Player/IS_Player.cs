@@ -66,6 +66,7 @@ public enum EquipWeaponState
     PlayerSkillIcon, // Ball
     PlayerBossBar,   // Bossバー
     PlayerClock,     // 時計
+    PlayerStart,     // スタート
 
     MaxEquipWeaponState
 }

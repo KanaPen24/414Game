@@ -18,10 +18,10 @@ public enum UIType
     SkillIcon,  // スキルアイコン
     BossBar,    // Bossバー
     Clock,      // 時計
+    Start,      //スタート
     Next,       // Next
     Retry,      // リトライ
     TitleBack,  // タイトルへ戻る
-    Start,      //スタート
     Exit,       //終了
     Combo,      //コンボ
     DamageNumber,  // ダメージ
