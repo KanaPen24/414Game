@@ -105,6 +105,9 @@ public class IS_PlayerDrop : IS_PlayerStrategy
                 case EquipWeaponState.PlayerClock:
                     m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.DropClock);
                     break;
+                case EquipWeaponState.PlayerStart:
+                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.DropHPBar);
+                    break;
             }
         }
         else m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Drop);

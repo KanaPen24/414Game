@@ -118,6 +118,9 @@ public class IS_PlayerWait : IS_PlayerStrategy
                 case EquipWeaponState.PlayerClock:
                     m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitClock);
                     break;
+                case EquipWeaponState.PlayerStart:
+                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitHPBar);
+                    break;
             }
         }
         else m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Wait);

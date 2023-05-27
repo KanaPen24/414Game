@@ -21,6 +21,8 @@ public class YK_SkillIcon : YK_UI
     [SerializeField] private float m_fCoolTimeLimit;    //スキルのクールタイム
     [SerializeField] private YK_UseSkill Use;     //スキルを使ったか管理するもの
     private bool m_bSkillUse;                     //スキルが使われたかどうか    
+    [SerializeField] private ParticleSystem HealParticle;   //UI回復エフェクト
+    [SerializeField] private YK_MoveCursol MoveCursol;
 
     private void Start()
     {
@@ -36,8 +38,14 @@ public class YK_SkillIcon : YK_UI
 
     private void Update()
     {
+        //カーソルが到達するまで
+        if (!MoveCursol.GetSetArrivalFlg)
+        {
+            GetComponent<PointEffector2D>().enabled = false;    //エフェクターを無効にすることで道中吸い寄せられない
+            return;
+        }
         // ストック数が0になったら非表示,当たり判定なし
-        if(m_nStuck <= 0)
+        if (m_nStuck <= 0)
         {
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<PointEffector2D>().enabled = false;
@@ -57,7 +65,10 @@ public class YK_SkillIcon : YK_UI
                 //float型の値を代入する
                 SkillInner.fillAmount = 1.0f - m_fCoolTime / m_fCoolTimeLimit;
                 if (SkillInner.fillAmount <= 0.0f)
+                {
                     m_bSkillUse = false;
+                    HealParticle.Play();
+                }
             }
         }
     }

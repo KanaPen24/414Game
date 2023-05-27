@@ -103,6 +103,9 @@ public class IS_PlayerJump : IS_PlayerStrategy
                 case EquipWeaponState.PlayerClock:
                     m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpClock);
                     break;
+                case EquipWeaponState.PlayerStart:
+                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpHPBar);
+                    break;
             }
         }
         else m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Jump);

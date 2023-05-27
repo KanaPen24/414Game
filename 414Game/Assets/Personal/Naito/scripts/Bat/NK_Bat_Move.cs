@@ -33,6 +33,8 @@ public class NK_Bat_Move : NK_BatStrategy
             }
             else
             {
+                // SE再生
+                IS_AudioManager.instance.PlaySE(SEType.SE_Sonic);
                 m_Bat.GetSetBatState = BatState.BatSonic;
             }
         }

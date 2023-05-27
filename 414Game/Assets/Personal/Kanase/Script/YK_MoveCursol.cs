@@ -35,6 +35,13 @@ public class YK_MoveCursol : MonoBehaviour
     Rigidbody2D rb;
     //カーソルイベント
     [SerializeField] private YK_CursolEvent CursolEvent;
+    //指定座標に移動
+    [SerializeField] RectTransform target;
+    //到達したら
+    private bool m_bArrival = false;
+    //　アイコンが1秒間に何ピクセル移動するか
+    [SerializeField]
+    private float m_fTargetSpeed = 1.0f;    //ターゲットまで移動するスピード
 
     void Start()
     {
@@ -49,6 +56,17 @@ public class YK_MoveCursol : MonoBehaviour
 
     void Update()
     {
+        //最初にカーソルを演出でターゲットまで動かす
+        if (!m_bArrival)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target.position, m_fTargetSpeed * Time.deltaTime);
+            //ターゲットに到達したら
+            if (transform.position == target.position) 
+            {
+                m_bArrival = true;
+            }
+            return;
+        }
         //　移動キーを押していなければ円運動
         if (Mathf.Approximately(Input.GetAxis("HorizontalR"), 0f) && Mathf.Approximately(Input.GetAxis("VerticalR"), 0f))
         {
@@ -100,5 +118,15 @@ public class YK_MoveCursol : MonoBehaviour
         //やらないと離れても磁力が発生し続ける
         rb.velocity = Vector3.zero;        
     }
-
+    /**
+* @fn
+* 到達したかどうかのフラグのgetter・setter
+* @return m_bArrival(bool)
+* @brief 到達フラグを返す・セット
+*/
+    public bool GetSetArrivalFlg
+    {
+        get { return m_bArrival; }
+        set { m_bArrival = value; }
+    }
 }

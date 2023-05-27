@@ -93,11 +93,11 @@ public class YK_Time : MonoBehaviour
         {
             case 2:
                 m_nTimeLimit = 99;
-                m_nNowTime %= 100;  //3桁目を減らす
+                //m_nNowTime %= 100;  //3桁目を減らす
                 break;
             case 1:
                 m_nTimeLimit = 9;
-                m_nNowTime %= 10;   //2桁目を減らす
+                //m_nNowTime %= 10;   //2桁目を減らす
                 m_fTime %= 10;
                 Clock.GetSetTimeCount = 0;
                 break;
@@ -139,7 +139,7 @@ public class YK_Time : MonoBehaviour
     }
     /**
 * @fn
-* 表示非表示のgetter・setter
+* タイマー用フラグのgetter・setter
 * @return m_bTimer(bool)
 * @brief 制限時間を返す・セット
 */

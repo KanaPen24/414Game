@@ -14,7 +14,9 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
 {
     [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
+    [SerializeField] private float m_fMax2NextAttackTime; // 次の攻撃に移れる最大時間
     private PlayerAnimState m_CurrentPlayerAnimState;
+    private float f2NextAttackTime;
 
     private void Update()
     {
@@ -25,29 +27,12 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
             {
                 m_Player.GetSetAttackFlg = false;
                 m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartAttack();
+                f2NextAttackTime = 0.0f;
             }
 
             // =========
             // 状態遷移
             // =========
-            // 「攻撃01 → 攻撃02」
-            if (m_Player.GetPlayerAnimator().GetAnimNormalizeTime(m_CurrentPlayerAnimState,0.7f) &&
-                m_Player.bInputAttack)
-            {
-                if (m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar)
-                {
-                    m_Player.GetSetPlayerState = PlayerState.PlayerAttack02;
-                    m_Player.GetSetAttackFlg = true;
-                    return;
-                }
-            }
-            // 「攻撃01 → 待機」
-            if (m_Player.GetPlayerAnimator().AnimEnd(m_CurrentPlayerAnimState) &&
-                !m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
-            {
-                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
-                return;
-            }
             // 「攻撃01 → 落下」
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
@@ -55,6 +40,34 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
                 m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinAttack();
                 return;
             }
+            // 「攻撃01 → 攻撃02」
+            if (f2NextAttackTime <= m_fMax2NextAttackTime &&
+                m_Player.bInputAttack)
+            {
+                if (m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar ||
+                    m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerStart)
+                {
+                    m_Player.GetSetPlayerState = PlayerState.PlayerAttack02;
+                    m_Player.GetSetAttackFlg = true;
+                    return;
+                }
+            }
+            // 「攻撃01 → 移動」
+            if (!m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack  &&
+                (m_Player.bInputRight || m_Player.bInputLeft))
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                return;
+            }
+            // 「攻撃01 → 待機」
+            if (f2NextAttackTime >= m_fMax2NextAttackTime)
+            {
+                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                return;
+            }
+
+            if(!m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+            f2NextAttackTime += Time.deltaTime;
         }
     }
     /**
@@ -101,6 +114,10 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
             case EquipWeaponState.PlayerClock:
                 m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackClock);
                 m_CurrentPlayerAnimState = PlayerAnimState.AttackClock;
+                break;
+            case EquipWeaponState.PlayerStart:
+                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack01HPBar);
+                m_CurrentPlayerAnimState = PlayerAnimState.Attack01HPBar;
                 break;
         }
     }

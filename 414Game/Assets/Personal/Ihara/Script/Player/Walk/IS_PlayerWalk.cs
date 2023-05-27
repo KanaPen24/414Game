@@ -164,6 +164,9 @@ public class IS_PlayerWalk : IS_PlayerStrategy
                 case EquipWeaponState.PlayerClock:
                     m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WalkClock);
                     break;
+                case EquipWeaponState.PlayerStart:
+                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WalkHPBar);
+                    break;
             }
         }
         else m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Walk);
