@@ -20,6 +20,9 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
     {
         if (m_Player.GetSetPlayerState == PlayerState.PlayerAvoidance)
         {
+            //回避の音再生
+            IS_AudioManager.instance.PlaySE(SEType.SE_Avoidance);
+
             // 攻撃開始時の処理
             if (m_Player.GetSetAvoidFlg)
             {
