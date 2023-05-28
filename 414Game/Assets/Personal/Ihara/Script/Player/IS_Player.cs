@@ -113,6 +113,7 @@ public class IS_Player : MonoBehaviour
     [SerializeField] private List<SkinnedMeshRenderer> m_PlayerMesh;       // Playerのメッシュ
     [SerializeField] private YK_CursolEvent            m_CursolEvent;      // カーソルイベントの情報
     [SerializeField] private YK_UICatcher              m_UICatcher;        // UIキャッチャー
+    [SerializeField] private YK_CameraOut              m_CameraOut;        // カメラ外判定
     [SerializeField] private List<IS_PlayerStrategy>   m_PlayerStrategys;  // Player挙動クラスの動的配列
     [SerializeField] private List<IS_Weapon>           m_Weapons;          // 武器クラスの動的配列
     [SerializeField] private int                       m_nHp;              // PlayerのHP
@@ -259,8 +260,11 @@ public class IS_Player : MonoBehaviour
         // Playerの状態によって更新処理
         m_PlayerStrategys[(int)GetSetPlayerState].UpdateStrategy();
 
-        // 合計移動量をvelocityに加算
-        m_Rigidbody.velocity = m_vMoveAmount;
+        if (!m_CameraOut.GetSetCameraOut)
+            // 合計移動量をvelocityに加算
+            m_Rigidbody.velocity = m_vMoveAmount;
+        else
+            Debug.Log("場外");
 
         // 向き更新
         UpdatePlayerDir();
