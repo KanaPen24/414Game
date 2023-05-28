@@ -16,6 +16,7 @@
  * @Update 2023/05/08 反動フラグ追加
  * @Update 2023/05/12 武器チェンジ処理追加
  * @Update 2023/05/21 GameOver状態,回避状態処理実装
+ * @Update 2023/05/28 画面外にでないようにした(YK)
  */
 using System.Collections;
 using System.Collections.Generic;
