@@ -37,6 +37,8 @@ public enum SEType
     SE_SlimeFall,       //スライムが地面に着地したときの音
     SE_Sonic,           //超音波のSE
     SE_SlimeMove,       //スライムが移動してる時の音
+    SE_Avoidance,       //回避の音
+    SE_HPBarCrack_3,    // HPBarの壊れる音
 
     MAX_SE
 }
