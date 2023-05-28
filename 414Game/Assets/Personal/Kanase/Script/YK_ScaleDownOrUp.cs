@@ -12,7 +12,7 @@ public class YK_ScaleDownOrUp : MonoBehaviour
 {
     private float time, changeSpeed;
     private bool enlarge;
-    private bool m_bCollision;
+    private bool m_bScallDownUp;
     private Vector2 Scale;  //初期値を保存
 
     void Start()
@@ -24,7 +24,7 @@ public class YK_ScaleDownOrUp : MonoBehaviour
 
     void Update()
     {
-        if (!m_bCollision)
+        if (!m_bScallDownUp)
             return;
         changeSpeed = Time.deltaTime * 0.8f;
 
@@ -52,15 +52,26 @@ public class YK_ScaleDownOrUp : MonoBehaviour
     {
         if (collision.gameObject.name == "Cursol")
         {
-            m_bCollision = true;
+            m_bScallDownUp = true;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Cursol")
         {
-            m_bCollision = false;
+            m_bScallDownUp = false;
             transform.localScale = Scale;
         }
+    }
+    /**
+* @fn
+* 拡縮フラグのgetter・setter
+* @return m_bArrival(bool)
+* @brief 拡縮フラグを返す・セット
+*/
+    public bool GetSetScalelFlg
+    {
+        get { return m_bScallDownUp; }
+        set { m_bScallDownUp = value; }
     }
 }
