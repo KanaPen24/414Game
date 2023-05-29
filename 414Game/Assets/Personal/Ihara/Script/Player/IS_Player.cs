@@ -139,6 +139,7 @@ public class IS_Player : MonoBehaviour
     private bool m_bWalkFlg;           // 歩行開始フラグ
     private bool m_bJumpFlg;           // 跳躍開始フラグ
     private bool m_bAttackFlg;         // 攻撃開始フラグ
+    private bool m_bJumpAttackFlg;     // 跳躍攻撃開始フラグ
     private bool m_bChargeWaitFlg;     // 溜め待機開始フラグ
     private bool m_bChargeWalkFlg;     // 溜め移動開始フラグ
     private bool m_bAvoidFlg;          // 回避開始フラグ
@@ -164,6 +165,7 @@ public class IS_Player : MonoBehaviour
         m_bWalkFlg    = false;
         m_bJumpFlg    = false;
         m_bAttackFlg  = false;
+        m_bJumpAttackFlg  = false;
         m_bAvoidFlg   = false;
         bInputJump      = false;
         bInputRight   = false;
@@ -635,6 +637,18 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_bAttackFlg; }
         set { m_bAttackFlg = value; }
+    }
+
+    /**
+     * @fn
+     * 跳躍攻撃開始フラグのgetter・setter
+     * @return m_bJumpAttackFlg(bool)
+     * @brief 跳躍攻撃開始フラグを返す・セット
+     */
+    public bool GetSetJumpAttackFlg
+    {
+        get { return m_bJumpAttackFlg; }
+        set { m_bJumpAttackFlg = value; }
     }
 
     /**
