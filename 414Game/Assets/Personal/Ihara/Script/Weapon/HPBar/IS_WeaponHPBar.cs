@@ -194,5 +194,7 @@ public class IS_WeaponHPBar : IS_Weapon
         Material[] mats = m_MaterialMesh.m_MeshRender[0].materials;
         mats[1] = m_MaterialMesh.m_Material[(int)m_eCrackLevel];
         m_MaterialMesh.m_MeshRender[0].materials = mats;
+
+        m_BottleLiquid.SetBrokeTex((int)m_eCrackLevel);
     }
 }

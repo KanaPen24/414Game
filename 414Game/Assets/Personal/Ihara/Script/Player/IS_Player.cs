@@ -40,6 +40,7 @@ public enum PlayerState
     PlayerAvoidance,      // 回避状態
     PlayerUICatch,        // UI取得状態
     PlayerGameOver,       // ゲームオーバー状態
+    PlayerJumpAttack,     // 跳躍攻撃状態
 
     MaxPlayerState
 }
@@ -141,7 +142,6 @@ public class IS_Player : MonoBehaviour
     private bool m_bChargeWaitFlg;     // 溜め待機開始フラグ
     private bool m_bChargeWalkFlg;     // 溜め移動開始フラグ
     private bool m_bAvoidFlg;          // 回避開始フラグ
-    private bool m_bReactionFlg;       // 反動フラグ
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
     private bool m_bItemHit;    //武器回復アイテムぶつかったら
 
@@ -165,7 +165,6 @@ public class IS_Player : MonoBehaviour
         m_bJumpFlg    = false;
         m_bAttackFlg  = false;
         m_bAvoidFlg   = false;
-        m_bReactionFlg = false;
         bInputJump      = false;
         bInputRight   = false;
         bInputLeft    = false;
@@ -397,7 +396,7 @@ public class IS_Player : MonoBehaviour
     private void CheckInvincible()
     {
         // デバッグ用無敵
-        if(m_bInvincible)
+        if(m_bInvincible && GetSetPlayerState != PlayerState.PlayerAvoidance)
         {
             m_Invincible.GetSetInvincible = true;
             return;
@@ -674,17 +673,6 @@ public class IS_Player : MonoBehaviour
         set { m_bAvoidFlg = value; }
     }
 
-    /**
-     * @fn
-     * 反動フラグのgetter・setter
-     * @return m_bReactionFlg(bool)
-     * @brief 反動フラグを返す・セット
-     */
-    public bool GetSetReactionFlg
-    {
-        get { return m_bReactionFlg; }
-        set { m_bReactionFlg = value; }
-    }
     /**
    * @fn
    * 武器アイテムヒットフラグのgetter・setter
