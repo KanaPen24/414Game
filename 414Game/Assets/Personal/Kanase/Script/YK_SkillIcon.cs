@@ -24,6 +24,9 @@ public class YK_SkillIcon : YK_UI
     [SerializeField] private ParticleSystem HealParticle;   //UI回復エフェクト
     [SerializeField] private YK_MoveCursol MoveCursol;
     private bool m_bNowWeapon = false;  //武器化中かどうか
+    [SerializeField] private float m_fJumpPower = 10.0f;    //跳ぶ力
+    private int m_nJump = 1;    //跳ぶ回数
+    [SerializeField] private float m_fJumpTime = 0.3f;      //跳ぶ時間
 
     private void Start()
     {
@@ -71,6 +74,9 @@ public class YK_SkillIcon : YK_UI
                 {
                     m_bSkillUse = false;
                     HealParticle.Play();
+                    RectTransform recttran = this.GetComponent<RectTransform>();
+                    Vector2 originalPos = recttran.anchoredPosition;
+                    recttran.DOJumpAnchorPos(originalPos, 10f, 1, 0.3f, true);
                 }
             }
         }
