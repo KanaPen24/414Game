@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 3682025653976630071}
   - component: {fileID: 4185693316732807252}
   - component: {fileID: 1434260197630297037}
+  - component: {fileID: 7540650566075471485}
   m_Layer: 8
   m_Name: IS_MainPlayer
   m_TagString: Player
@@ -233,6 +234,7 @@ MonoBehaviour:
   - {fileID: 6477659685577618009}
   m_CursolEvent: {fileID: 0}
   m_UICatcher: {fileID: 0}
+  m_CameraOut: {fileID: 7540650566075471485}
   m_PlayerStrategys:
   - {fileID: 8900614492408564906}
   - {fileID: 5780929874000730567}
@@ -457,6 +459,18 @@ MonoBehaviour:
   - {fileID: 7160487674152967977}
   - {fileID: 4464189845088996141}
   m_fRayLength: 0.6
+--- !u!114 &7540650566075471485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7160487676030067711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d816153c68fcf4f86f867bea3eee3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1728225013331478587
 PrefabInstance:
   m_ObjectHideFlags: 0
