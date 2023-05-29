@@ -42,7 +42,9 @@ public class YK_MoveCursol : MonoBehaviour
     //　アイコンが1秒間に何ピクセル移動するか
     [SerializeField]
     private float m_fTargetSpeed = 1.0f;    //ターゲットまで移動するスピード
-
+    //キャンバス
+    [SerializeField] Canvas canvas;
+    
     void Start()
     {
         rect = GetComponent<RectTransform>();
@@ -52,6 +54,8 @@ public class YK_MoveCursol : MonoBehaviour
         m_fPos = rect.anchoredPosition;
         //Rigidbodyを取得
         rb = GetComponent<Rigidbody2D>();
+
+        
     }
 
     void Update()
@@ -78,17 +82,18 @@ public class YK_MoveCursol : MonoBehaviour
         //　移動先を計算
         var pos = rect.anchoredPosition + new Vector2(Input.GetAxis("HorizontalR") * m_fIconSpeed, Input.GetAxis("VerticalR") * -m_fIconSpeed) * Time.deltaTime;
 
+       
         //　カーソルが画面内でループ
         //X座標
-        if (pos.x >= Screen.width / 2)
-            pos.x = -Screen.width / 2;
-       else if (pos.x <= -Screen.width / 2)
-            pos.x = Screen.width / 2;
+        if (pos.x >= canvas.GetComponent<RectTransform>().rect.width / 2.0f)
+            pos.x = -canvas.GetComponent<RectTransform>().rect.width / 2.0f;
+       else if (pos.x <= -canvas.GetComponent<RectTransform>().rect.width / 2.0f)
+            pos.x = canvas.GetComponent<RectTransform>().rect.width / 2.0f;
         //Y座標
-        if (pos.y >= Screen.height / 2)
-            pos.y = -Screen.height / 2;
-        else if (pos.y <= -Screen.height / 2)
-            pos.y = Screen.height / 2;
+        if (pos.y >= canvas.GetComponent<RectTransform>().rect.height / 2.0f)
+            pos.y = -canvas.GetComponent<RectTransform>().rect.height / 2.0f;
+        else if (pos.y <= -canvas.GetComponent<RectTransform>().rect.height / 2.0f)
+            pos.y = canvas.GetComponent<RectTransform>().rect.height / 2.0f;
         //　位置を設定
         rect.anchoredPosition = pos;
         m_fPos = pos;

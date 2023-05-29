@@ -1235,6 +1235,7 @@ MonoBehaviour:
   CursolEvent: {fileID: 1549991834780537682}
   target: {fileID: 2025817065194382829}
   m_fTargetSpeed: 1
+  canvas: {fileID: 1760798992062702861}
 --- !u!114 &1549991834780537682
 MonoBehaviour:
   m_ObjectHideFlags: 0

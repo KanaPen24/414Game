@@ -31,7 +31,7 @@ public class YK_Exit : YK_UI
         m_eFadeState = FadeState.FadeOUT;
         // m_fDelTime秒でm_MinScaleに変更
         Exit.transform.DOScale(m_MinScale, m_fDelTime);
-        // m_fDelTime秒でテクスチャをフェードイン
+        // m_fDelTime秒でテクスチャをフェードアウト
         Exit.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             //フェード処理終了時に呼ばれる
