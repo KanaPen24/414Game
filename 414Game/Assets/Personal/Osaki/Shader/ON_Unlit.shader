@@ -3,6 +3,7 @@ Shader "Custom/ON_Unlit"
 	Properties
 	{
 		_MainTex("Texture", 2D) = "white" {}
+		_BaseColor("BaseColor", Color) = (.0, .0, .0, .0)
 	}
 		SubShader
 	{
@@ -43,6 +44,7 @@ Shader "Custom/ON_Unlit"
 
 		CBUFFER_START(UnityPerMaterial)
 		float4 _MainTex_ST;
+		float4 _BaseColor;
 		CBUFFER_END
 
 		v2f vert(appdata v)
@@ -56,8 +58,11 @@ Shader "Custom/ON_Unlit"
 
 		float4 frag(v2f i) : SV_Target
 		{
+			// add base color
+			float4 col = _BaseColor;
+
 			// sample the texture
-			float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
+			col *= SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
 			// apply fog
 			col.rgb = MixFog(col.rgb, i.fogFactor);
 			return col;

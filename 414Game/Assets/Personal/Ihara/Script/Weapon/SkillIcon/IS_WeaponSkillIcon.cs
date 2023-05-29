@@ -101,18 +101,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
 
         // 現在の状態に更新
         m_nCnt = Convert.ToInt32(m_bVisible);
-
-        // 反動時間があれば
-        if (m_fReactionTime > 0f)
-        {
-            m_fReactionTime -= Time.deltaTime;
-            Player.GetSetReactionFlg = true;
-        }
-        else
-        {
-            m_fReactionTime = 0f;
-            Player.GetSetReactionFlg = false;
-        }
     }
 
     /**
