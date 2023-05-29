@@ -35,9 +35,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 other.GetComponent<NK_BossSlime>().BossSlimeDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
 
-                m_DrainEffect.GetVisualEffect().Stop();
                 m_DrainEffect.SetStartPos(other.transform.position);
-                m_DrainEffect.SetEndPos(Player.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
                 DrainEffect.SendEvent("OnPlay");
@@ -55,9 +53,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 other.GetComponent<NK_Slime>().SlimeDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
 
-                m_DrainEffect.GetVisualEffect().Stop();
                 m_DrainEffect.SetStartPos(other.transform.position);
-                m_DrainEffect.SetEndPos(Player.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
                 DrainEffect.SendEvent("OnPlay");
@@ -76,9 +72,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 other.GetComponent<NK_Bat>().BatDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
 
-                m_DrainEffect.GetVisualEffect().Stop();
                 m_DrainEffect.SetStartPos(other.transform.position);
-                m_DrainEffect.SetEndPos(Player.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
                 DrainEffect.SendEvent("OnPlay");

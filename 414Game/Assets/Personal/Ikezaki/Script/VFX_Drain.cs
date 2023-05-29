@@ -11,6 +11,10 @@ public class VFX_Drain : MonoBehaviour
     [SerializeField] private Transform StandardPoint;     // 第二制御点の基準点
     [SerializeField] private VisualEffect DrainEffect; // 吸収エフェクト
 
+    private void Update()
+    {
+        SetEndPos(StandardPoint.transform.position);
+    }
     // 始点の指定
     public void SetStartPos(Vector3 pos)
     {
