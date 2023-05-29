@@ -742,9 +742,39 @@ PrefabInstance:
       objectReference: {fileID: 892406939}
     - target: {fileID: 2901897953650236348, guid: 5cdd905d94b0d6e44b9af74582986062,
         type: 3}
-      propertyPath: fillingRate
-      value: 1
+      propertyPath: texIdx
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2901897953650236348, guid: 5cdd905d94b0d6e44b9af74582986062,
+        type: 3}
+      propertyPath: fillingRate
+      value: 0.874
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901897953650236348, guid: 5cdd905d94b0d6e44b9af74582986062,
+        type: 3}
+      propertyPath: brokeTex.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901897953650236348, guid: 5cdd905d94b0d6e44b9af74582986062,
+        type: 3}
+      propertyPath: brokeTex.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901897953650236348, guid: 5cdd905d94b0d6e44b9af74582986062,
+        type: 3}
+      propertyPath: brokeTex.Array.data[1]
+      value: 
+      objectReference: {fileID: 2800000, guid: 05f0782643015a5479790a4c7e1e17e3, type: 3}
+    - target: {fileID: 2901897953650236348, guid: 5cdd905d94b0d6e44b9af74582986062,
+        type: 3}
+      propertyPath: brokeTex.Array.data[2]
+      value: 
+      objectReference: {fileID: 2800000, guid: e0c5a5620c88cd3449f3387f43208fd8, type: 3}
+    - target: {fileID: 2901897953650236348, guid: 5cdd905d94b0d6e44b9af74582986062,
+        type: 3}
+      propertyPath: brokeTex.Array.data[3]
+      value: 
+      objectReference: {fileID: 2800000, guid: 25c50ebadbaf1094e9b2131a0e6249b4, type: 3}
     - target: {fileID: 3446129767287108169, guid: 5cdd905d94b0d6e44b9af74582986062,
         type: 3}
       propertyPath: m_IsActive

@@ -20,6 +20,7 @@ public class ON_BottleLiquid : MonoBehaviour
         public static readonly int BottleLiquidWaveParams = Shader.PropertyToID("_WaveParams");
         public static readonly int BottleLiquidColorForward = Shader.PropertyToID("_LiquidColorForward");
         public static readonly int BottleLiquidColorBack = Shader.PropertyToID("_LiquidColorBack");
+        public static readonly int BottleLiquidBrokeTex = Shader.PropertyToID("_BrokeTex");
     }
 
     private static readonly Color LiquidColorTopOffset = new Color(0.15f, 0.15f, 0.15f, 0.0f);  // 液面カラーオフセット
@@ -33,6 +34,8 @@ public class ON_BottleLiquid : MonoBehaviour
     [SerializeField] private float cycleOffsetCoef = 12.0f; // 時間による位相変化係数
     [SerializeField] private float deltaSizeMax = 0.15f;    // 差分による変化量最大(波の大きさ)
     [SerializeField] private float deltaCycleMax = 10.0f;   // 差分による変化量最大(波の周期)
+    [SerializeField] private Texture2D[] brokeTex;      // 破壊具合のテクスチャ
+    [SerializeField] private int texIdx = 0; // 現在のテクスチャ番号 
     private Material[] targetMaterials; // 制御対象のマテリアル
     private Vector3 prevPosition;   // 前回参照位置
     private Vector3 prevEulerAngle; // 前回参照オイラー角
@@ -127,6 +130,14 @@ public class ON_BottleLiquid : MonoBehaviour
             material.SetVector(ShaderPropertyId.BottleLiquidWaveParams, waveCurrentParams);
             material.SetVector(ShaderPropertyId.BottleLiquidColorForward, liquidColor);
             material.SetVector(ShaderPropertyId.BottleLiquidColorBack, liquidColor + LiquidColorTopOffset);
+            if(brokeTex.Length > 0 && texIdx < brokeTex.Length)
+            {
+                material.SetTexture(ShaderPropertyId.BottleLiquidBrokeTex, brokeTex[texIdx]);
+            }
+            else
+            {
+                material.SetTexture(ShaderPropertyId.BottleLiquidBrokeTex, null);
+            }
         }
     }
 
@@ -167,6 +178,19 @@ public class ON_BottleLiquid : MonoBehaviour
     public void SetLiquidColor(Color col)
     {
         liquidColor = col;
+    }
+
+    // 外部からヒビテクスチャを設定
+    public void SetBrokeTex(int index)
+    {
+        if(index < brokeTex.Length)
+        {
+            texIdx = index;
+        }
+        else
+        {
+            texIdx = 0;
+        }
     }
 #if UNITY_EDITOR
     // 選択時のギズモ表示
