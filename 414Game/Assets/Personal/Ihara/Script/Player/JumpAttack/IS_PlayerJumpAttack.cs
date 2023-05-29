@@ -11,24 +11,27 @@ using UnityEngine;
 
 public class IS_PlayerJumpAttack : IS_PlayerStrategy
 {
-    [SerializeField] IS_Player m_Player;      // IS_Playerをアタッチする
+    [SerializeField] IS_Player m_Player;       // IS_Playerをアタッチする
+    [SerializeField] IS_PlayerGroundCollision　m_PlayerGroundCollision; // 地面判定
 
     private void Update()
     {
         if (m_Player.GetSetPlayerState == PlayerState.PlayerJumpAttack)
         {
             // 跳躍攻撃開始時に
-            if (m_Player.GetSetAttackFlg)
+            if (m_Player.GetSetJumpAttackFlg)
             {
-                m_Player.GetSetAttackFlg = false;
+                m_Player.GetSetJumpAttackFlg = false;
+                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartAttack();
             }
 
             // =========
             // 状態遷移
             // =========
-            // 「跳躍攻撃 → 落下」
-            if (m_Player.GetSetMoveAmount.y <= 0.0f)
+            // 「跳躍攻撃 → 待ち」
+            if (m_PlayerGroundCollision.IsGroundCollision())
             {
+                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinAttack();
                 m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
                 return;
             }
@@ -66,22 +69,15 @@ public class IS_PlayerJumpAttack : IS_PlayerStrategy
             switch (m_Player.GetSetEquipWeaponState)
             {
                 case EquipWeaponState.PlayerHpBar:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpHPBar);
-                    break;
-                case EquipWeaponState.PlayerSkillIcon:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpSkillIcon);
+                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpAttackHPBar);
                     break;
                 case EquipWeaponState.PlayerBossBar:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpBossBar);
-                    break;
-                case EquipWeaponState.PlayerClock:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpClock);
+                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpAttackHPBar);
                     break;
                 case EquipWeaponState.PlayerStart:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpHPBar);
+                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpAttackHPBar);
                     break;
             }
         }
-        else m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Jump);
     }
 }
