@@ -66,6 +66,7 @@ public class NK_Bat : MonoBehaviour
     [SerializeField] private int m_PlayerDamage;
     [SerializeField] private ParticleSystem m_FallEffact;
     private bool m_ClockFlag;
+    [SerializeField] private NK_BossSlime_Aera m_Area;
 
     private void Start()
     {
@@ -126,9 +127,16 @@ public class NK_Bat : MonoBehaviour
         {
             if (m_BatState == BatState.BatMove)
             {
+                m_Rbody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
                 return;
             }
         }
+        if(m_Area.GetSetBattleFlag)
+        {
+            m_Rbody.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            return;
+        }
+        
         m_BatStrategy[(int)m_BatState].UpdateStrategy();
 
         m_Rbody.velocity = m_MoveValue;

@@ -10,6 +10,7 @@ public class YK_TargetCamera : MonoBehaviour
     [SerializeField] private Vector3 offset;
     [SerializeField] private float m_fMaxCameraMove;
     [SerializeField] private float m_fMoveCnt;
+    [SerializeField] private float m_fMoveCamera;   //カメラの動くスピード
     private float m_fCameraMove;
     private float m_fCurrnetMoveCnt;
     private float m_fAccel;
@@ -50,14 +51,14 @@ public class YK_TargetCamera : MonoBehaviour
         this.gameObject.transform.position = RendaPos;
         if (m_Area.GetSetBattleFlag)
         {
-            //if (this.gameObject.transform.position != m_BattleCameraPos.transform.position)
-            //{
-            //    this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, m_BattleCameraPos.transform.position, m_CameraSpeed * Time.deltaTime);
-            //}
             if(!m_OneFlag)
             {
-                this.gameObject.transform.position = m_BattleCameraPos.transform.position;
-                m_OneFlag = true;
+                this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, m_BattleCameraPos.transform.position, m_fMoveCamera * Time.deltaTime);
+                //ターゲットに到達したら
+                if (transform.position == m_BattleCameraPos.transform.position)
+                {
+                    m_OneFlag = true;
+                }
             }
         }
         else

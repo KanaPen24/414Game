@@ -21,10 +21,6 @@ public class IS_PlayerWait : IS_PlayerStrategy
     {
         if(m_Player.GetSetPlayerState == PlayerState.PlayerWait)
         {
-            // 反動があれば状態遷移しない
-            if (m_Player.GetSetReactionFlg)
-                return;
-
             // =========
             // 状態遷移
             // =========
@@ -117,6 +113,9 @@ public class IS_PlayerWait : IS_PlayerStrategy
                     break;
                 case EquipWeaponState.PlayerClock:
                     m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitClock);
+                    break;
+                case EquipWeaponState.PlayerStart:
+                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitHPBar);
                     break;
             }
         }

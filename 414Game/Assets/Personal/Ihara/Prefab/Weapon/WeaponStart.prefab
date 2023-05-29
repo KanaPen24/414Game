@@ -114,8 +114,8 @@ MonoBehaviour:
   m_bCharge: 0
   m_bVisible: 0
   m_bDestroy: 0
-  m_nHp: 20
-  m_nMaxHp: 20
+  m_nHp: 40
+  m_nMaxHp: 40
   m_Player: {fileID: 0}
   m_CapsuleCollider: {fileID: 4988708374065785329}
   m_MeshRender: {fileID: 8519984309096566006}
