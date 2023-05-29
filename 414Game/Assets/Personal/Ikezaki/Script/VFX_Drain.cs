@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class VFX_Drain : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class VFX_Drain : MonoBehaviour
     [SerializeField] private float Length1;             // 第一制御点の縦幅
     [SerializeField] private float Length2;             // 第二制御点の縦幅 
     [SerializeField] private Transform StandardPoint;     // 第二制御点の基準点
+    [SerializeField] private VisualEffect DrainEffect; // 吸収エフェクト
 
     // 始点の指定
     public void SetStartPos(Vector3 pos)
@@ -33,7 +35,10 @@ public class VFX_Drain : MonoBehaviour
         Fulcrum = StandardPoint.position;
         Fulcrum.y -= Length2;
         ControlPoints[4].position = Fulcrum;
+    }
 
-
+    public VisualEffect GetVisualEffect()
+    {
+        return DrainEffect;
     }
 }

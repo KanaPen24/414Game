@@ -49,9 +49,14 @@ public class IS_PlayerJump : IS_PlayerStrategy
             // 「跳躍 → 跳躍攻撃」
             if (m_Player.bInputAttack)
             {
-                m_Player.GetSetJumpAttackFlg = true;
-                m_Player.GetSetPlayerState = PlayerState.PlayerJumpAttack;
-                return;
+                if(m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar   ||
+                   m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerBossBar ||
+                   m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerStart)
+                {
+                    m_Player.GetSetJumpAttackFlg = true;
+                    m_Player.GetSetPlayerState = PlayerState.PlayerJumpAttack;
+                    return;
+                }
             }
         }
     }
