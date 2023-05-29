@@ -1175,10 +1175,10 @@ MonoBehaviour:
   confettiEffect: {fileID: 1766757351493414124, guid: e76bbb5382bf87e448072d3a1e4a2dfa,
     type: 3}
   m_effectParam:
-  - m_vLocalPos: {x: 6, y: 0, z: 0}
+  - m_vLocalPos: {x: 7.5, y: 1, z: 8.5}
     m_vLocalRot: {x: 0, y: 0, z: 45}
     m_vLocalScale: {x: 20, y: 20, z: 20}
-  - m_vLocalPos: {x: -6, y: 0, z: 0}
+  - m_vLocalPos: {x: -7.5, y: 1, z: 8.5}
     m_vLocalRot: {x: 0, y: 0, z: -45}
     m_vLocalScale: {x: 20, y: 20, z: 20}
 --- !u!114 &1217551706
@@ -1196,6 +1196,7 @@ MonoBehaviour:
   m_BossSlime: {fileID: 1217551708}
   m_MartialArts: {fileID: 8098956214015859040}
   m_MartialArtsPos: {fileID: 856765115}
+  m_AttackTime: 0
 --- !u!114 &1217551707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,6 +1242,7 @@ MonoBehaviour:
   m_InvincibleTime: 0
   goal: {fileID: 0}
   m_BSMoveValue: {x: 0, y: 0, z: 0}
+  m_Area: {fileID: 0}
 --- !u!114 &1217551724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1305,6 +1307,7 @@ MonoBehaviour:
   m_FallTime: 3
   m_FlightTime: 3
   m_Danger: {fileID: 576255961896321819}
+  m_FallEffect: {fileID: 0}
 --- !u!114 &-5590738290752166403
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,4 +1321,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BossSlime: {fileID: 1217551708}
+  m_FloorPos: 9.5
   m_FallPow: 15
+  m_FallEffect: {fileID: 0}

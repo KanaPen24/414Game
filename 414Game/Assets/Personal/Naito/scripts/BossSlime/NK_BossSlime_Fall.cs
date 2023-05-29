@@ -6,13 +6,11 @@ public class NK_BossSlime_Fall : NK_BossSlimeStrategy
 {
     //ボスすらいむをアタッチ
     [SerializeField] private NK_BossSlime m_BossSlime;
-    private float m_FloorPos;
+    [SerializeField] private float m_FloorPos;
     [SerializeField] private float m_FallPow;
-
-    private void Start()
-    {
-        m_FloorPos = this.transform.position.y;
-    }
+    [SerializeField] private GameObject m_FallEffect;
+    [SerializeField] private YK_TargetCamera m_Shake;
+    [SerializeField] private float m_ShakePow;
 
     public override void UpdateStrategy()
     {
@@ -23,6 +21,8 @@ public class NK_BossSlime_Fall : NK_BossSlimeStrategy
         }
         else
         {
+            m_Shake.GetShakeFloat(m_ShakePow);
+            m_FallEffect.SetActive(false);
             m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeWait;
         }
     }

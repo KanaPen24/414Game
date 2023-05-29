@@ -62,6 +62,8 @@ public class NK_Slime : MonoBehaviour
     //ジャンプ力
     [SerializeField] private float m_fJumpPower;
     private float m_localScalex;
+    [SerializeField] private float m_MoveReng;
+    [SerializeField] private int m_PlayerDamage;
 
     private void Start()
     {
@@ -111,7 +113,11 @@ public class NK_Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_Clock.GetSetStopTime || m_fViewX >= 3)
+        if (m_Clock.GetSetStopTime || m_fViewX >= m_MoveReng)
+        {
+            return;
+        }
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
         {
             return;
         }
@@ -126,7 +132,7 @@ public class NK_Slime : MonoBehaviour
         if (other.gameObject == m_Player.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_Player.Damage(10, 1.5f);
+            m_Player.Damage(m_PlayerDamage, 1.5f);
         }
     }
 

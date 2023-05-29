@@ -23,7 +23,7 @@ public class NK_Slime_Wait : NK_SlimeStrategy
             m_fCnt = 0.0f;
             //anim.SetBool("JumpFlag", true);
             m_Slime.GetSetMoveAnimFlag = true;
-            Invoke("AnimeChange", 0.3f);
+            //Invoke("AnimeChange", 0.3f);
             m_Slime.GetSetSlimeState = SlimeState.SlimeMove;
         }
     }

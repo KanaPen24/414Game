@@ -12,13 +12,14 @@ using UnityEngine;
 public class YK_GameOver : MonoBehaviour
 {
     [SerializeField] private GameObject GameOver;
-    private bool m_bGameOverFlag;
+    [SerializeField] private YK_Clock clock;
+    private bool m_bGameOverFlg;
 
     // Start is called before the first frame update
     void Start()
     {
         GameOver.SetActive(false);
-        m_bGameOverFlag = false;
+        m_bGameOverFlg = false;
     }
 
     // Update is called once per frame
@@ -26,12 +27,14 @@ public class YK_GameOver : MonoBehaviour
     {
         if (GameManager.instance.GetSetGameState == GameState.GameOver)
         {
-            if (!m_bGameOverFlag)
+            if (!m_bGameOverFlg)
             {
+                IS_AudioManager.instance.AllStopSE();
                 IS_AudioManager.instance.StopBGM(BGMType.BGM_Game);
                 IS_AudioManager.instance.PlayBGM(BGMType.BGM_GAMEOVER);
             }
-            m_bGameOverFlag = true;
+            clock.GetSetStopTime = false;
+            m_bGameOverFlg = true;
             Debug.Log("Gameover");
             //Time.timeScale = 0.0f;
             GameOver.SetActive(true);

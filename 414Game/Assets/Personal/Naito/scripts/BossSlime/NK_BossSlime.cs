@@ -59,12 +59,19 @@ public class NK_BossSlime : MonoBehaviour
     private Rigidbody m_Rbody;
     [HideInInspector] public Vector3 m_BSMoveValue;
     private float m_localScalex;
+    private bool m_MAnimFlag;   //近接攻撃アニメフラグ
+    private bool m_SAnimFlag;   //召喚アニメフラグ
+    [SerializeField] private NK_BossSlime_Aera m_Area;
+    private Animator m_Anim;
+    [SerializeField] private int m_PlayerDamage;
 
     private void Start()
     {
         m_BSMoveValue = new Vector3(0.0f, 0.0f, 0.0f);
         m_Rbody = GetComponent<Rigidbody>();
         m_localScalex = this.transform.localScale.x;
+        m_BossSlimeState = BossSlimeState.BossSlimeFall;
+        m_Anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -94,13 +101,28 @@ public class NK_BossSlime : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (m_Clock.GetSetStopTime || m_fViewX >= 3)
+        if (m_Clock.GetSetStopTime)
+        {
+            m_Anim.SetFloat("Moving", 0.0f);
+            return;
+        }
+        else
+        {
+            m_Anim.SetFloat("Moving", 1.0f);
+        }
+        if (m_fViewX >= 3)
+        {
+            return;
+        }
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
         {
             return;
         }
         m_BossSlimeStrategy[(int)m_BossSlimeState].UpdateStrategy();
 
         m_Rbody.velocity = m_BSMoveValue;
+        m_Anim.SetBool("MartialFlag", m_MAnimFlag);
+        m_Anim.SetBool("SummonFlag", m_SAnimFlag);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -109,8 +131,7 @@ public class NK_BossSlime : MonoBehaviour
         if (other.gameObject == m_BSPlayer.gameObject)
         {
             Debug.Log("Player Damage!!");
-            //m_Player.GetPlayerHp().DelLife(10);
-            m_BSPlayer.Damage(10, 2.0f);
+            m_BSPlayer.Damage(m_PlayerDamage, 2.0f);
         }
     }
 
@@ -158,6 +179,18 @@ public class NK_BossSlime : MonoBehaviour
         set { m_DamageFlag = value; }
     }
 
+    public bool GetSetMAnimFlag
+    {
+        get { return m_MAnimFlag; }
+        set { m_MAnimFlag = value; }
+    }
+
+    public bool GetSetSAnimFlag
+    {
+        get { return m_SAnimFlag; }
+        set { m_SAnimFlag = value; }
+    }
+
     public void BossSlimeDamage(int Damage)
     {
         if (!m_DamageFlag)
@@ -172,6 +205,7 @@ public class NK_BossSlime : MonoBehaviour
                 goalEffect.StartEffect();
                 goal.gameObject.SetActive(true);
                 Destroy(this.gameObject);
+                m_Area.GetSetBattleFlag = false;
             }
         }
     }

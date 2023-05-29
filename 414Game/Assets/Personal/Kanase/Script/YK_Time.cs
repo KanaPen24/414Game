@@ -3,6 +3,7 @@
  * @brief テキスト版時計
  * @author 吉田叶聖
  * @date 2023/04/17
+ * @Update 2023/05/21 ゲームオーバー処理編集(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -11,16 +12,26 @@ using UnityEngine.UI;
 
 public class YK_Time : MonoBehaviour
 {
-    [SerializeField] private int m_nTimeLimit = 200;    //タイムリミット
+    [SerializeField] private int m_nTimeLimit;    //タイムリミット
     [SerializeField] private Text timerText;            //表示するテキスト
     [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
+    [SerializeField] private IS_Player Player;          //プレイヤーをアタッチ
+    [SerializeField] ON_VolumeManager PostEffect;       //ポストエフェクト
     private Outline outline;
-    private float m_fTime;
-    private int  m_nNowTime;       //現在時間
+    [SerializeField] private float m_fTime;              //進行時間
+    private float m_fPostEffect_Time;   //ポストエフェクト用の時間
+    private float m_rate = 0.0f;        //ポストエフェクト用の割合
+    private bool m_bPostEffect = false; //ポストエフェクト用のフラグ
+    private bool m_bTimer = true;       //タイマー用のフラグ
+    private bool m_bOnce = false;       //一回だけ使うフラグ
+    [SerializeField] private int m_nNowTime;    //現在時間
+    [SerializeField] private ParticleSystem Effect;    //回復エフェクト
+    [SerializeField] private Material TextMaterial;    //ラスタースクロール
 
     private void Start()
     {
         outline = this.GetComponent<Outline>();
+        m_nNowTime = m_nTimeLimit;
     }
 
     void Update()
@@ -29,56 +40,123 @@ public class YK_Time : MonoBehaviour
         if (GameManager.instance.GetSetGameState != GameState.GamePlay)
             return;
 
+        //ポストエフェクトの時間をリセットしておく
+        if(m_bTimer)
+        {
+            m_fPostEffect_Time = 0.0f;
+        }
+
         //時止め中
         if (Clock.GetSetStopTime)
         {
+            m_bTimer = false;
+            //時止めのポストエフェクトを減らしていく処理
+            m_fPostEffect_Time += Time.deltaTime;
+            m_rate = Mathf.Lerp(0.0f, 1.0f, m_fPostEffect_Time);
+            //ポストエフェクトの変更
+            PostEffect.ChangeTimePostEffect(m_rate);
+            if (m_rate >= 1.0f)
+                m_bOnce = true;
+            //テキストカラー変更
             timerText.color = Color.black;
             outline.effectColor = Color.white;
+            //マテリアル変更
+            timerText.material = TextMaterial;
             return;
         }
-        else
+        else if(m_bOnce)
         {
+            m_bTimer = false;
+            //時止めのポストエフェクトを減らしていく処理
+            m_fPostEffect_Time += Time.deltaTime;
+            m_rate = Mathf.Lerp(1.0f, 0.0f, m_fPostEffect_Time);
+            //ポストエフェクトの変更
+            PostEffect.ChangeTimePostEffect(m_rate);
+            //テキストカラー変更
             timerText.color = Color.white;
             outline.effectColor = Color.black;
+            //マテリアル変更
+            timerText.material = null;
+            //これをすることで最初の起動時に流れないようになる
+            if (m_rate <= 0.0f)
+                m_bOnce = false;
         }
+        
+
         //フレーム毎の経過時間をtime変数に追加
         m_fTime += Time.deltaTime;
+        m_fTime = Mathf.Max(m_fTime, 0.0f);
         //time変数をint型にし制限時間から引いた数をint型のlimit変数に代入
         m_nNowTime = m_nTimeLimit - (int)m_fTime;
 
-        if (Clock.GetSetTimeCount <= 2)
-            m_nNowTime %= 100;  //3桁目を減らす
-        if(Clock.GetSetTimeCount <= 1)
-            m_nNowTime %= 10;   //2桁目を減らす
-        if (Clock.GetSetTimeCount <= 0)
-            m_nNowTime %= 1;    //1桁目を減らす
-
+        switch(Clock.GetSetTimeCount)
+        {
+            case 2:
+                m_nTimeLimit = 99;
+                m_nNowTime %= 100;  //3桁目を減らす
+                break;
+            case 1:
+                m_nTimeLimit = 9;
+                m_nNowTime %= 10;   //2桁目を減らす
+                m_fTime %= 10;
+                Clock.GetSetTimeCount = 0;
+                break;
+            case -1:
+                m_nNowTime %= 1;    //1桁目を減らす
+                break;
+        }           
+                       
         //timerTextを更新していく
-        timerText.text = m_nNowTime.ToString("D3");
+        timerText.text = m_nNowTime + "";
 
         //制限時間が0になったら
-        if(m_nNowTime <=0)
+        if (m_nNowTime <=0)
         {
             //ゲームオーバー
+            Player.GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;
         }
     }
 
     //時間を増やす関数
-    void AddTime(int Time)
+    public void AddTime(int Time)
     {
-        m_nTimeLimit += Time;
+        //経過時間を引くことで現在時間が足される
+        m_fTime -= Time;
+        Effect.Play();
     }
 
     /**
   * @fn
-  * 表示非表示のgetter・setter
+  * 時間のgetter・setter
   * @return m_nNowTime(int)
-  * @brief 制限時間を返す・セット
+  * @brief 現在時間を返す・セット
   */
     public int GetSetNowTime
     {
         get { return m_nNowTime; }
         set { m_nNowTime = value; }
+    }
+    /**
+* @fn
+* 表示非表示のgetter・setter
+* @return m_bTimer(bool)
+* @brief 制限時間を返す・セット
+*/
+    public bool GetSetTimeFlg
+    {
+        get { return m_bTimer; }
+        set { m_bTimer = value; }
+    }
+    /**
+* @fn
+* 時間のgetter・setter
+* @return m_nTimeLimit(int)
+* @brief 制限時間を返す・セット
+*/
+    public int GetSetTimeLimit
+    {
+        get { return m_nTimeLimit; }
+        set { m_nTimeLimit = value; }
     }
 }
