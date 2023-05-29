@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972526682827380249}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.64, y: 1.87, z: -0.014}
+  m_LocalPosition: {x: -11.26, y: 0.77, z: -0.014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86,7 +86,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972526683348106470}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.79, y: 4.26, z: 0}
+  m_LocalPosition: {x: -8.56, y: 3.26, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -179,6 +179,7 @@ MonoBehaviour:
   Length1: 3
   Length2: 5
   StandardPoint: {fileID: 0}
+  DrainEffect: {fileID: 0}
 --- !u!1 &972526683835969796
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,9 +242,24 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 10
+        m_Name: Release Particles
+        m_Overridden: 1
+      - m_Value: 50
+        m_Name: Particle Count
+        m_Overridden: 1
+      - m_Value: 0.5
+        m_Name: Min Lifetime
+        m_Overridden: 1
+      - m_Value: 1
+        m_Name: Max Lifetime
+        m_Overridden: 1
     m_Vector2f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: -2, y: 2}
+        m_Name: Spreading Range
+        m_Overridden: 1
     m_Vector3f:
       m_Array:
       - m_Value: {x: 0, y: 0, z: 0}
@@ -267,10 +283,10 @@ VisualEffect:
       - m_Value: {x: -5.07, y: 2.66, z: 0}
         m_Name: Pos2
         m_Overridden: 1
-      - m_Value: {x: -12.79, y: 4.26, z: 0}
+      - m_Value: {x: -8.56, y: 3.26, z: 0}
         m_Name: Pos3
         m_Overridden: 1
-      - m_Value: {x: -10.64, y: 1.87, z: -0.014}
+      - m_Value: {x: -11.26, y: 0.77, z: -0.014}
         m_Name: Pos4
         m_Overridden: 1
       - m_Value: {x: 0, y: 0, z: 0}
@@ -279,7 +295,7 @@ VisualEffect:
       - m_Value: {x: -4.47, y: -0.29, z: -0.014}
         m_Name: Pos5
         m_Overridden: 1
-      - m_Value: {x: -11.75, y: -0.53, z: -0.014}
+      - m_Value: {x: -8.89, y: -0.28, z: -0.014}
         m_Name: Pos6
         m_Overridden: 1
     m_Vector4f:
@@ -287,7 +303,10 @@ VisualEffect:
     m_Uint:
       m_Array: []
     m_Int:
-      m_Array: []
+      m_Array:
+      - m_Value: 10
+        m_Name: Particle Count
+        m_Overridden: 1
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
@@ -473,7 +492,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972526684171615139}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.75, y: -0.53, z: -0.014}
+  m_LocalPosition: {x: -8.89, y: -0.28, z: -0.014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
