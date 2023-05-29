@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 6272696007668690122}
   - component: {fileID: 3682025653976630071}
   - component: {fileID: 4185693316732807252}
+  - component: {fileID: 6236598813434675599}
   - component: {fileID: 1434260197630297037}
   - component: {fileID: 7540650566075471485}
   m_Layer: 8
@@ -247,6 +248,7 @@ MonoBehaviour:
   - {fileID: 6272696007668690122}
   - {fileID: 3682025653976630071}
   - {fileID: 4185693316732807252}
+  - {fileID: 6236598813434675599}
   m_Weapons:
   - {fileID: 3816624634288352196}
   - {fileID: 4064215181992105257}
@@ -443,6 +445,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 2602812492749303807}
   m_PlayerGroundColl: {fileID: 1434260197630297037}
+--- !u!114 &6236598813434675599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7160487676030067711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d4d1ea313103647891ff31532d6631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Player: {fileID: 2602812492749303807}
 --- !u!114 &1434260197630297037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,6 +658,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 4593249056982045575, guid: a5b6da13ee6f3a246b16e4ea04e0ca5b,
+        type: 3}
+      propertyPath: texIdx
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593249056982045575, guid: a5b6da13ee6f3a246b16e4ea04e0ca5b,
+        type: 3}
+      propertyPath: brokeTex.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593249056982045575, guid: a5b6da13ee6f3a246b16e4ea04e0ca5b,
+        type: 3}
+      propertyPath: brokeTex.Array.data[1]
+      value: 
+      objectReference: {fileID: 2800000, guid: 05f0782643015a5479790a4c7e1e17e3, type: 3}
+    - target: {fileID: 4593249056982045575, guid: a5b6da13ee6f3a246b16e4ea04e0ca5b,
+        type: 3}
+      propertyPath: brokeTex.Array.data[2]
+      value: 
+      objectReference: {fileID: 2800000, guid: e0c5a5620c88cd3449f3387f43208fd8, type: 3}
+    - target: {fileID: 4593249056982045575, guid: a5b6da13ee6f3a246b16e4ea04e0ca5b,
+        type: 3}
+      propertyPath: brokeTex.Array.data[3]
+      value: 
+      objectReference: {fileID: 2800000, guid: 25c50ebadbaf1094e9b2131a0e6249b4, type: 3}
     - target: {fileID: 9194882299619061355, guid: a5b6da13ee6f3a246b16e4ea04e0ca5b,
         type: 3}
       propertyPath: m_Layer
