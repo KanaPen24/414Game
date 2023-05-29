@@ -48,6 +48,18 @@ public class IS_PlayerDrop : IS_PlayerStrategy
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
                 return;
             }
+            // 「落下 → 跳躍攻撃」
+            if (m_Player.bInputAttack)
+            {
+                if (m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar ||
+                   m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerBossBar ||
+                   m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerStart)
+                {
+                    m_Player.GetSetJumpAttackFlg = true;
+                    m_Player.GetSetPlayerState = PlayerState.PlayerJumpAttack;
+                    return;
+                }
+            }
         }
     }
     /**

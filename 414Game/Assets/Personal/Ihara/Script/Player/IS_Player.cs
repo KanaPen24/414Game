@@ -16,6 +16,7 @@
  * @Update 2023/05/08 反動フラグ追加
  * @Update 2023/05/12 武器チェンジ処理追加
  * @Update 2023/05/21 GameOver状態,回避状態処理実装
+ * @Update 2023/05/28 画面外にでないようにした(YK)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -39,6 +40,7 @@ public enum PlayerState
     PlayerAvoidance,      // 回避状態
     PlayerUICatch,        // UI取得状態
     PlayerGameOver,       // ゲームオーバー状態
+    PlayerJumpAttack,     // 跳躍攻撃状態
 
     MaxPlayerState
 }
@@ -113,6 +115,7 @@ public class IS_Player : MonoBehaviour
     [SerializeField] private List<SkinnedMeshRenderer> m_PlayerMesh;       // Playerのメッシュ
     [SerializeField] private YK_CursolEvent            m_CursolEvent;      // カーソルイベントの情報
     [SerializeField] private YK_UICatcher              m_UICatcher;        // UIキャッチャー
+    [SerializeField] private YK_CameraOut              m_CameraOut;        // カメラ外判定
     [SerializeField] private List<IS_PlayerStrategy>   m_PlayerStrategys;  // Player挙動クラスの動的配列
     [SerializeField] private List<IS_Weapon>           m_Weapons;          // 武器クラスの動的配列
     [SerializeField] private int                       m_nHp;              // PlayerのHP
@@ -136,10 +139,10 @@ public class IS_Player : MonoBehaviour
     private bool m_bWalkFlg;           // 歩行開始フラグ
     private bool m_bJumpFlg;           // 跳躍開始フラグ
     private bool m_bAttackFlg;         // 攻撃開始フラグ
+    private bool m_bJumpAttackFlg;     // 跳躍攻撃開始フラグ
     private bool m_bChargeWaitFlg;     // 溜め待機開始フラグ
     private bool m_bChargeWalkFlg;     // 溜め移動開始フラグ
     private bool m_bAvoidFlg;          // 回避開始フラグ
-    private bool m_bReactionFlg;       // 反動フラグ
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
     private bool m_bItemHit;    //武器回復アイテムぶつかったら
 
@@ -162,8 +165,8 @@ public class IS_Player : MonoBehaviour
         m_bWalkFlg    = false;
         m_bJumpFlg    = false;
         m_bAttackFlg  = false;
+        m_bJumpAttackFlg  = false;
         m_bAvoidFlg   = false;
-        m_bReactionFlg = false;
         bInputJump      = false;
         bInputRight   = false;
         bInputLeft    = false;
@@ -259,8 +262,11 @@ public class IS_Player : MonoBehaviour
         // Playerの状態によって更新処理
         m_PlayerStrategys[(int)GetSetPlayerState].UpdateStrategy();
 
-        // 合計移動量をvelocityに加算
-        m_Rigidbody.velocity = m_vMoveAmount;
+        if (!m_CameraOut.GetSetCameraOut)
+            // 合計移動量をvelocityに加算
+            m_Rigidbody.velocity = m_vMoveAmount;
+        else
+            Debug.Log("場外");
 
         // 向き更新
         UpdatePlayerDir();
@@ -392,7 +398,7 @@ public class IS_Player : MonoBehaviour
     private void CheckInvincible()
     {
         // デバッグ用無敵
-        if(m_bInvincible)
+        if(m_bInvincible && GetSetPlayerState != PlayerState.PlayerAvoidance)
         {
             m_Invincible.GetSetInvincible = true;
             return;
@@ -635,6 +641,18 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
+     * 跳躍攻撃開始フラグのgetter・setter
+     * @return m_bJumpAttackFlg(bool)
+     * @brief 跳躍攻撃開始フラグを返す・セット
+     */
+    public bool GetSetJumpAttackFlg
+    {
+        get { return m_bJumpAttackFlg; }
+        set { m_bJumpAttackFlg = value; }
+    }
+
+    /**
+     * @fn
      * 溜め待機開始フラグのgetter・setter
      * @return m_bChargeWaitFlg(bool)
      * @brief 溜め待機開始フラグを返す・セット
@@ -669,17 +687,6 @@ public class IS_Player : MonoBehaviour
         set { m_bAvoidFlg = value; }
     }
 
-    /**
-     * @fn
-     * 反動フラグのgetter・setter
-     * @return m_bReactionFlg(bool)
-     * @brief 反動フラグを返す・セット
-     */
-    public bool GetSetReactionFlg
-    {
-        get { return m_bReactionFlg; }
-        set { m_bReactionFlg = value; }
-    }
     /**
    * @fn
    * 武器アイテムヒットフラグのgetter・setter
