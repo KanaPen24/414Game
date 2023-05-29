@@ -64,6 +64,7 @@ public class NK_BossSlime : MonoBehaviour
     [SerializeField] private NK_BossSlime_Aera m_Area;
     private Animator m_Anim;
     [SerializeField] private int m_PlayerDamage;
+    private bool m_ClockFlag;
 
     private void Start()
     {
@@ -85,17 +86,20 @@ public class NK_BossSlime : MonoBehaviour
         }
         else renderController.Opacity = 1f;
 
-        if(m_BSPlayer.transform.position.x>this.gameObject.transform.position.x)
+        if (!m_ClockFlag)
         {
-            GetSetBossSlimeDir = BossSlimeDir.Right;
-            this.transform.localScale =
-                new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
-        }
-        else
-        {
-            GetSetBossSlimeDir = BossSlimeDir.Left;
-            this.transform.localScale =
-                new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+            if (m_BSPlayer.transform.position.x > this.gameObject.transform.position.x)
+            {
+                GetSetBossSlimeDir = BossSlimeDir.Right;
+                this.transform.localScale =
+                    new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+            }
+            else
+            {
+                GetSetBossSlimeDir = BossSlimeDir.Left;
+                this.transform.localScale =
+                    new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+            }
         }
     }
 
@@ -103,11 +107,13 @@ public class NK_BossSlime : MonoBehaviour
     {
         if (m_Clock.GetSetStopTime)
         {
+            m_ClockFlag = true;
             m_Anim.SetFloat("Moving", 0.0f);
             return;
         }
         else
         {
+            m_ClockFlag = false;
             m_Anim.SetFloat("Moving", 1.0f);
         }
         if (m_fViewX >= 3)

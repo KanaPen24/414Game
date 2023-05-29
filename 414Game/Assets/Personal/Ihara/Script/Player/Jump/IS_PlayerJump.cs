@@ -46,6 +46,13 @@ public class IS_PlayerJump : IS_PlayerStrategy
                 m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
                 return;
             }
+            // 「跳躍 → 跳躍攻撃」
+            if (m_Player.bInputAttack)
+            {
+                m_Player.GetSetJumpAttackFlg = true;
+                m_Player.GetSetPlayerState = PlayerState.PlayerJumpAttack;
+                return;
+            }
         }
     }
     /**
@@ -102,6 +109,9 @@ public class IS_PlayerJump : IS_PlayerStrategy
                     break;
                 case EquipWeaponState.PlayerClock:
                     m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpClock);
+                    break;
+                case EquipWeaponState.PlayerStart:
+                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpHPBar);
                     break;
             }
         }

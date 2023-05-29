@@ -6,6 +6,7 @@ Shader "Custom/ON_Liquid"
 		_WaveParams("WaveParam", Vector)=(.1, 10.0, 10.0, .0)
 		_LiquidColorForward("LiquidColorForward", Color)=(.5, .6, .9, 1.0)
 		_LiquidColorBack("LiquidColorBack", Color)=(.6, .7, 1.0, 1.0)
+		_BrokeTex("_BrokeTex", 2D) = "white"{}
     }
     SubShader
     {
@@ -33,11 +34,15 @@ Shader "Custom/ON_Liquid"
 
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
+			TEXTURE2D(_BrokeTex);
+			SAMPLER(sampler_BrokeTex);
+
 			CBUFFER_START(UnityPerMaterial)
 			float4 _WaveCenter;			// 波の中心位置 xz:モデルの中心, y:波の基準高さ
 			float4 _WaveParams;			// 波のパラメータ x:波振幅, y:波周期, z:波の移動速度
 			float4 _LiquidColorForward;	// 流体モデル表カラー(流体側面カラー
 			float4 _LiquidColorBack;	// 流体モデル裏カラー(流体表面カラー
+			float4 _BrokeTex_ST;		// ヒビテクスチャ
 			CBUFFER_END
 
 			// マクロ定義
@@ -49,6 +54,7 @@ Shader "Custom/ON_Liquid"
             {
 			    float4 positionOS : POSITION;
 				float3 normalOS : NORMAL;
+				float2 uv : TEXCOORD4;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
@@ -59,10 +65,10 @@ Shader "Custom/ON_Liquid"
 				float3 normalWS : TEXCOORD1;	// 法線情報
 				float3 viewDir : TEXCOORD2;		// 視線方向
 				float fogCoord : TEXCOORD3;
+				float2 uv : TEXCOORD4;
 				UNITY_VERTEX_INPUT_INSTANCE_ID
 				UNITY_VERTEX_OUTPUT_STEREO
             };
-
 
 			Varyings vert(Attributes input)
             {
@@ -79,13 +85,14 @@ Shader "Custom/ON_Liquid"
 
 				output.vertex = vertexInput.positionCS;
 				output.fogCoord = ComputeFogFactor(vertexInput.positionCS.z);
+
+				output.uv = TRANSFORM_TEX(input.uv, _BrokeTex);
 				return output;
             }
 
 			half4 frag(Varyings input) : SV_TARGET
 			{
 				UNITY_SETUP_INSTANCE_ID(input);
-
 
 				// 設定されたパラメータとxz座標から波の高さを算出
 				float waveBaseY = _WaveCenter.y;
@@ -103,6 +110,11 @@ Shader "Custom/ON_Liquid"
 				half NdotV = dot(input.normalWS, input.viewDir);
 
 				half4 color = lerp(_LiquidColorBack, _LiquidColorForward, step(0.0h, NdotV));
+				
+				// テクスチャからサンプリング
+				float4 tex = SAMPLE_TEXTURE2D(_BrokeTex, sampler_BrokeTex, input.uv);
+				color.rgb *= tex.rbg;
+
 				color.rgb = MixFog(color.rgb, input.fogCoord);
 				return color;
 			}

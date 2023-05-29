@@ -12,13 +12,14 @@ using UnityEngine.UI;
 
 public class YK_Time : MonoBehaviour
 {
-    [SerializeField] private int m_nTimeLimit;    //タイムリミット
+    [SerializeField] private int m_nTimeLimit;          //タイムリミット
     [SerializeField] private Text timerText;            //表示するテキスト
     [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
     [SerializeField] private IS_Player Player;          //プレイヤーをアタッチ
     [SerializeField] ON_VolumeManager PostEffect;       //ポストエフェクト
     private Outline outline;
     [SerializeField] private float m_fTime;              //進行時間
+    [SerializeField] private int m_nNearLimit;           //限界時間が近くなったら
     private float m_fPostEffect_Time;   //ポストエフェクト用の時間
     private float m_rate = 0.0f;        //ポストエフェクト用の割合
     private bool m_bPostEffect = false; //ポストエフェクト用のフラグ
@@ -27,11 +28,13 @@ public class YK_Time : MonoBehaviour
     [SerializeField] private int m_nNowTime;    //現在時間
     [SerializeField] private ParticleSystem Effect;    //回復エフェクト
     [SerializeField] private Material TextMaterial;    //ラスタースクロール
+    private YK_ScaleDownOrUp ScaleDownUp;
 
     private void Start()
     {
         outline = this.GetComponent<Outline>();
         m_nNowTime = m_nTimeLimit;
+        ScaleDownUp = this.GetComponent<YK_ScaleDownOrUp>();
     }
 
     void Update()
@@ -93,11 +96,11 @@ public class YK_Time : MonoBehaviour
         {
             case 2:
                 m_nTimeLimit = 99;
-                m_nNowTime %= 100;  //3桁目を減らす
+                //m_nNowTime %= 100;  //3桁目を減らす
                 break;
             case 1:
                 m_nTimeLimit = 9;
-                m_nNowTime %= 10;   //2桁目を減らす
+                //m_nNowTime %= 10;   //2桁目を減らす
                 m_fTime %= 10;
                 Clock.GetSetTimeCount = 0;
                 break;
@@ -108,6 +111,13 @@ public class YK_Time : MonoBehaviour
                        
         //timerTextを更新していく
         timerText.text = m_nNowTime + "";
+
+        if (m_nNowTime <= m_nNearLimit)
+        {
+            ScaleDownUp.GetSetScalelFlg = true;
+            timerText.color = Color.red;
+            
+        }
 
         //制限時間が0になったら
         if (m_nNowTime <=0)
@@ -139,7 +149,7 @@ public class YK_Time : MonoBehaviour
     }
     /**
 * @fn
-* 表示非表示のgetter・setter
+* タイマー用フラグのgetter・setter
 * @return m_bTimer(bool)
 * @brief 制限時間を返す・セット
 */

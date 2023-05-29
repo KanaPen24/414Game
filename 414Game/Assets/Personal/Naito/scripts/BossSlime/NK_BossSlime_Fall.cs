@@ -22,6 +22,8 @@ public class NK_BossSlime_Fall : NK_BossSlimeStrategy
         else
         {
             m_Shake.GetShakeFloat(m_ShakePow);
+            // SE再生
+            IS_AudioManager.instance.PlaySE(SEType.SE_SlimeFall);
             m_FallEffect.SetActive(false);
             m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeWait;
         }

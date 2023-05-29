@@ -55,6 +55,8 @@ public enum PlayerAnimState
 
     UICatch,             // UIキャッチ 
 
+    JumpAttackHPBar,     // 跳躍攻撃(HPBar)
+
     MaxPlayerAnimState
 }
 
