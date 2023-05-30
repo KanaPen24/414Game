@@ -39,6 +39,8 @@ public enum SEType
     SE_SlimeMove,       //スライムが移動してる時の音
     SE_Avoidance,       //回避の音
     SE_HPBarCrack_3,    // HPBarの壊れる音
+    SE_BookOpen,        // 本を開く音
+    SE_BookClose,       // 本を閉じる音
 
     MAX_SE
 }

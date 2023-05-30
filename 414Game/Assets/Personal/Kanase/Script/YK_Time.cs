@@ -39,12 +39,9 @@ public class YK_Time : MonoBehaviour
 
     void Update()
     {
-        // ゲームがプレイ中以外は更新しない
-        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
-            return;
 
         //ポストエフェクトの時間をリセットしておく
-        if(m_bTimer)
+        if (m_bTimer)
         {
             m_fPostEffect_Time = 0.0f;
         }
@@ -67,7 +64,7 @@ public class YK_Time : MonoBehaviour
             timerText.material = TextMaterial;
             return;
         }
-        else if(m_bOnce)
+        else if (m_bOnce)
         {
             m_bTimer = false;
             //時止めのポストエフェクトを減らしていく処理
@@ -84,7 +81,10 @@ public class YK_Time : MonoBehaviour
             if (m_rate <= 0.0f)
                 m_bOnce = false;
         }
-        
+
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay)
+            return;
 
         //フレーム毎の経過時間をtime変数に追加
         m_fTime += Time.deltaTime;
@@ -151,7 +151,7 @@ public class YK_Time : MonoBehaviour
 * @fn
 * タイマー用フラグのgetter・setter
 * @return m_bTimer(bool)
-* @brief 制限時間を返す・セット
+* @brief タイマー用フラグを返す・セット
 */
     public bool GetSetTimeFlg
     {

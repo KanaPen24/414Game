@@ -21,6 +21,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
     [SerializeField] private int m_nDamage2HPBar;        // HPBarに与えるダメージ量
     [SerializeField] private int m_nDrainEnemyHp;        // 雑魚敵から吸収するHP
     [SerializeField] private int m_nDrainBossHp;         // Bossから吸収するHP
+    [SerializeField] private ParticleSystem HitEffect;  // ヒットエフェクト
 
     private void OnTriggerEnter(Collider other)
     {
@@ -34,12 +35,12 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 Player.GetSetHp += m_nDrainBossHp;
                 other.GetComponent<NK_BossSlime>().BossSlimeDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
+                HitEffect.transform.position = other.transform.position;
+                HitEffect.Play();
 
                 m_DrainEffect.SetStartPos(other.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
-                DrainEffect.SendEvent("OnPlay");
-                //m_DrainEffect.GetVisualEffect().transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
         }
         // スライムへのダメージ処理
@@ -52,12 +53,12 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 Player.GetSetHp += m_nDrainBossHp;
                 other.GetComponent<NK_Slime>().SlimeDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
+                HitEffect.transform.position = other.transform.position;
+                HitEffect.Play();
 
                 m_DrainEffect.SetStartPos(other.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
-                DrainEffect.SendEvent("OnPlay");
-                //m_DrainEffect.GetVisualEffect().transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
         }
 
@@ -71,12 +72,12 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 Player.GetSetHp += m_nDrainBossHp;
                 other.GetComponent<NK_Bat>().BatDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
+                HitEffect.transform.position = other.transform.position;
+                HitEffect.Play();
 
                 m_DrainEffect.SetStartPos(other.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
-                DrainEffect.SendEvent("OnPlay");
-                //m_DrainEffect.GetVisualEffect().transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
         }
 

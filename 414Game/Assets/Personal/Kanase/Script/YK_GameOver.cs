@@ -33,9 +33,7 @@ public class YK_GameOver : MonoBehaviour
                 IS_AudioManager.instance.StopBGM(BGMType.BGM_Game);
                 IS_AudioManager.instance.PlayBGM(BGMType.BGM_GAMEOVER);
             }
-            clock.GetSetStopTime = false;
             m_bGameOverFlg = true;
-            Debug.Log("Gameover");
             //Time.timeScale = 0.0f;
             GameOver.SetActive(true);
         }
