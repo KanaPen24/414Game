@@ -19,11 +19,11 @@ public class NK_SlimeBes_Crawl : NK_SlimeBesStrategy
                 m_MovePow += 0.03f;
                 if (m_SlimeBes.GetSetBesDir == BesDir.Left)
                 {
-                    m_SlimeBes.m_MoveValue.x -= m_MovePow;
+                    m_SlimeBes.m_MoveValue.x += m_MovePow;
                 }
                 if (m_SlimeBes.GetSetBesDir == BesDir.Right)
                 {
-                    m_SlimeBes.m_MoveValue.x += m_MovePow;
+                    m_SlimeBes.m_MoveValue.x -= m_MovePow;
                 }
             }
             else

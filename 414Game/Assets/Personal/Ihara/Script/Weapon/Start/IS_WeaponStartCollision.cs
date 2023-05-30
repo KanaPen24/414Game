@@ -60,6 +60,18 @@ public class IS_WeaponStartCollision : MonoBehaviour
             }
         }
 
+
+        // スライムベスへのダメージ処理
+        if (other.gameObject.GetComponent<NK_SlimeBes>() != null)
+        {
+            IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
+            WeaponStart.GetSetHp -= m_nDamage2Start;
+            other.GetComponent<NK_SlimeBes>().BesDamage(m_nDamage2Enemy);
+            other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
+            HitEffect.transform.position = other.transform.position;
+            HitEffect.Play();
+        }
+
         // 耐久値が0以下になったらゲームオーバー
         if (WeaponStart.GetSetHp <= 0)
         {
