@@ -21,6 +21,8 @@ public class IS_PlayerWait : IS_PlayerStrategy
     {
         if(m_Player.GetSetPlayerState == PlayerState.PlayerWait)
         {
+            if (GameManager.instance.GetSetGameState == GameState.GameRule)
+                return;
             // =========
             // 状態遷移
             // =========
