@@ -10,6 +10,7 @@ public class YK_Rule : MonoBehaviour
     [SerializeField] YK_Book book;
     private Vector2 StartPos;
     private bool m_bRuleVisible = false;
+    [SerializeField] IS_Player Player;
 
     private void Start()
     {
@@ -31,6 +32,8 @@ public class YK_Rule : MonoBehaviour
     //Ruleを表示
     public void FadeIN()
     {
+        GameManager.instance.GetSetGameState = GameState.GameRule;
+        Player.GetSetPlayerState = PlayerState.PlayerWait;
         //開くの音再生
         IS_AudioManager.instance.PlaySE(SEType.SE_BookOpen);
         // 2秒で後X,Y方向を元の大きさに変更
@@ -38,7 +41,7 @@ public class YK_Rule : MonoBehaviour
         // 2秒でテクスチャをフェードイン
         Rule.DOFade(1f, 1f).OnComplete(() =>
         {
-            GameManager.instance.GetSetGameState = GameState.GameRule;
+           
         });
         m_bRuleVisible = true;
         
@@ -55,5 +58,6 @@ public class YK_Rule : MonoBehaviour
         {
             GameManager.instance.GetSetGameState = GameState.GamePlay;
         });
+        m_bRuleVisible = false;
     }
 }
