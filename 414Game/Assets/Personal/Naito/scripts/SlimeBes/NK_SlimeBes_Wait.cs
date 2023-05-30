@@ -25,9 +25,9 @@ public class NK_SlimeBes_Wait : NK_SlimeBesStrategy
             else
             {
                 m_AcidCnt = 0;
-                m_Bes.GetSetAcidAnimFlag = true;
-                Invoke("AFlagChange", 0.5f);
-                m_Bes.GetSetBesState = SlimeBesState.BesAcid;
+                m_Bes.GetSetMoveAnimFlag = true;
+                Invoke("MFlagChange", 0.5f);
+                m_Bes.GetSetBesState = SlimeBesState.BesCrawl;
             }
         }
     }

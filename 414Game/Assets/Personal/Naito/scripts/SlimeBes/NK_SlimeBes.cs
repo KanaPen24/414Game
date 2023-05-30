@@ -67,13 +67,13 @@ public class NK_SlimeBes : MonoBehaviour
             {
                 GetSetBesDir = BesDir.Right;
                 this.transform.localScale =
-                 new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+                 new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
             }
             else
             {
                 GetSetBesDir = BesDir.Left;
                 this.transform.localScale =
-                 new Vector3(m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
+                 new Vector3(-m_localScalex, this.transform.localScale.y, this.transform.localScale.z);
             }
         }
     }
