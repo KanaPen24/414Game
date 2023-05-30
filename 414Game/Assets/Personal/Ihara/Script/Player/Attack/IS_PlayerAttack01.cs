@@ -48,6 +48,7 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
                     m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerStart)
                 {
                     m_Player.GetSetPlayerState = PlayerState.PlayerAttack02;
+                    m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinAttack();
                     m_Player.GetSetAttackFlg = true;
                     return;
                 }

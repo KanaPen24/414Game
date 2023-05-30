@@ -18,6 +18,7 @@ public enum GameState
     GameStart,
     GamePlay,
     GamePause,
+    GameRule,
     GameGoal,
     GameOver,
 

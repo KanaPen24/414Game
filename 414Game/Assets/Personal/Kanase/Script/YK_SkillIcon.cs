@@ -16,13 +16,17 @@ public class YK_SkillIcon : YK_UI
     [SerializeField] private Image SkillIcon;
     [SerializeField] private Image SkillInner;      //スキルのインナー
     [SerializeField] private Image OutLine;         //アウトライン
-    [SerializeField] private int m_nStuck;          //弾数ストック
-    private float m_fCoolTime = 0.0f;             //スキルのクールタイム
+    [SerializeField] private int m_nStuck = 1;      //弾数ストック
+    private float m_fCoolTime = 0.0f;               //スキルのクールタイム
     [SerializeField] private float m_fCoolTimeLimit;    //スキルのクールタイム
     [SerializeField] private YK_UseSkill Use;     //スキルを使ったか管理するもの
     private bool m_bSkillUse;                     //スキルが使われたかどうか    
     [SerializeField] private ParticleSystem HealParticle;   //UI回復エフェクト
     [SerializeField] private YK_MoveCursol MoveCursol;
+    private bool m_bNowWeapon = false;  //武器化中かどうか
+    [SerializeField] private float m_fJumpPower = 10.0f;    //跳ぶ力
+    private int m_nJump = 1;    //跳ぶ回数
+    [SerializeField] private float m_fJumpTime = 0.3f;      //跳ぶ時間
 
     private void Start()
     {
@@ -44,6 +48,8 @@ public class YK_SkillIcon : YK_UI
             GetComponent<PointEffector2D>().enabled = false;    //エフェクターを無効にすることで道中吸い寄せられない
             return;
         }
+        //残弾数を制限
+        m_nStuck = Mathf.Min(m_nStuck, 1);
         // ストック数が0になったら非表示,当たり判定なし
         if (m_nStuck <= 0)
         {
@@ -59,7 +65,7 @@ public class YK_SkillIcon : YK_UI
             GetComponent<PointEffector2D>().enabled = true;
             GetComponent<Image>().enabled = true;
             SkillInner.GetComponent<Image>().enabled = true;
-            if (m_bSkillUse)
+            if (m_bSkillUse && !m_bNowWeapon)
             {
                 m_fCoolTime += Time.deltaTime;
                 //float型の値を代入する
@@ -68,6 +74,9 @@ public class YK_SkillIcon : YK_UI
                 {
                     m_bSkillUse = false;
                     HealParticle.Play();
+                    RectTransform recttran = this.GetComponent<RectTransform>();
+                    Vector2 originalPos = recttran.anchoredPosition;
+                    recttran.DOJumpAnchorPos(originalPos, 10f, 1, 0.3f, true);
                 }
             }
         }
@@ -80,9 +89,11 @@ public class YK_SkillIcon : YK_UI
         SkillIcon.transform.DOScale(GetSetScale, 0f);
         // 0秒でテクスチャをフェードイン
         OutLine.DOFade(1f, 0f);
+        SkillInner.DOFade(0.7f, 0f);
         SkillIcon.DOFade(1f, 0f).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
+            m_bNowWeapon = false;
         });
     }
 
@@ -93,9 +104,11 @@ public class YK_SkillIcon : YK_UI
         SkillIcon.transform.DOScale(m_MinScale, m_fDelTime);
         // m_fDelTime秒でテクスチャをフェードイン
         OutLine.DOFade(0f, m_fDelTime);
+        SkillInner.DOFade(0f, m_fDelTime);
         SkillIcon.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
+            m_bNowWeapon = true;
         });
     }
 

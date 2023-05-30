@@ -535,7 +535,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 50
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &8939123574345221030
 MonoBehaviour:
@@ -557,7 +557,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: ed7c4ffdb634cbd408abeb82686b8a29, type: 3}
   _sortingMode: 0
-  _sortingOrder: 10
+  _sortingOrder: 50
   _renderOrder: 0
   _depthOffset: 0.00001
   _opacity: 1
@@ -751,7 +751,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 50
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3964560798913361077
 MonoBehaviour:
@@ -773,7 +773,7 @@ MonoBehaviour:
   _screenColor: {r: 0, g: 0, b: 0, a: 0}
   _mainTexture: {fileID: 2800000, guid: ed7c4ffdb634cbd408abeb82686b8a29, type: 3}
   _sortingMode: 0
-  _sortingOrder: 10
+  _sortingOrder: 50
   _renderOrder: 1
   _depthOffset: 0.00001
   _opacity: 0.5019608
@@ -922,6 +922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AttackTime: 1
   m_Player: {fileID: 0}
+  m_PlayerDamage: 0
 --- !u!1 &8427985959625675572
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,7 +1039,7 @@ MonoBehaviour:
   _modelScreenColor: {r: 0, g: 0, b: 0, a: 0}
   _sortingLayerId: 0
   _sortingMode: 0
-  _sortingOrder: 10
+  _sortingOrder: 50
   CameraToFace: {fileID: 0}
   _drawOrderHandler: {fileID: 0}
   _opacityHandler: {fileID: 0}
@@ -1212,6 +1213,7 @@ MonoBehaviour:
   m_BossSlime: {fileID: 1217551708}
   m_KidsSlime: {fileID: 0}
   m_SummonPos: {fileID: 856765115}
+  m_SummonTime: 0
 --- !u!114 &1217551708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1224,8 +1226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a4e796450953c44ad3b29ed447b383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_nHP: 50
-  m_nMaxHP: 50
+  m_nHP: 80
+  m_nMaxHP: 80
   m_BSPlayer: {fileID: 0}
   goalEffect: {fileID: 5579063421521300113}
   m_BossSlimeStrategy:
@@ -1239,10 +1241,11 @@ MonoBehaviour:
   m_BossSlimeDir: 0
   m_Clock: {fileID: 0}
   renderController: {fileID: 1699356676891749584}
-  m_InvincibleTime: 0
+  m_InvincibleTime: 1
   goal: {fileID: 0}
   m_BSMoveValue: {x: 0, y: 0, z: 0}
   m_Area: {fileID: 0}
+  m_PlayerDamage: 0
 --- !u!114 &1217551724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1324,3 +1327,5 @@ MonoBehaviour:
   m_FloorPos: 9.5
   m_FallPow: 15
   m_FallEffect: {fileID: 0}
+  m_Shake: {fileID: 0}
+  m_ShakePow: 0

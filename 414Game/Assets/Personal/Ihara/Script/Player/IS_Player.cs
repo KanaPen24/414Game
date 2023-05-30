@@ -40,6 +40,7 @@ public enum PlayerState
     PlayerAvoidance,      // 回避状態
     PlayerUICatch,        // UI取得状態
     PlayerGameOver,       // ゲームオーバー状態
+    PlayerJumpAttack,     // 跳躍攻撃状態
 
     MaxPlayerState
 }
@@ -138,10 +139,10 @@ public class IS_Player : MonoBehaviour
     private bool m_bWalkFlg;           // 歩行開始フラグ
     private bool m_bJumpFlg;           // 跳躍開始フラグ
     private bool m_bAttackFlg;         // 攻撃開始フラグ
+    private bool m_bJumpAttackFlg;     // 跳躍攻撃開始フラグ
     private bool m_bChargeWaitFlg;     // 溜め待機開始フラグ
     private bool m_bChargeWalkFlg;     // 溜め移動開始フラグ
     private bool m_bAvoidFlg;          // 回避開始フラグ
-    private bool m_bReactionFlg;       // 反動フラグ
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
     private bool m_bItemHit;    //武器回復アイテムぶつかったら
 
@@ -164,8 +165,8 @@ public class IS_Player : MonoBehaviour
         m_bWalkFlg    = false;
         m_bJumpFlg    = false;
         m_bAttackFlg  = false;
+        m_bJumpAttackFlg  = false;
         m_bAvoidFlg   = false;
-        m_bReactionFlg = false;
         bInputJump      = false;
         bInputRight   = false;
         bInputLeft    = false;
@@ -183,6 +184,12 @@ public class IS_Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay &&
+            GameManager.instance.GetSetGameState != GameState.GameGoal &&
+            GameManager.instance.GetSetGameState != GameState.GameStart)
+            return;
+
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision") ||
             Input.GetButtonDown("Decision_Debug"))
@@ -202,12 +209,7 @@ public class IS_Player : MonoBehaviour
                 RemovedWeapon();
             }
         }
-
-        // ゲームがプレイ中以外は更新しない
-        if (GameManager.instance.GetSetGameState != GameState.GamePlay &&
-            GameManager.instance.GetSetGameState != GameState.GameGoal)
-            return;
-
+        
         // 入力管理
         // Jump=Key.w,Joy.B
         if (Input.GetButtonDown("Jump"))
@@ -397,7 +399,7 @@ public class IS_Player : MonoBehaviour
     private void CheckInvincible()
     {
         // デバッグ用無敵
-        if(m_bInvincible)
+        if(m_bInvincible && GetSetPlayerState != PlayerState.PlayerAvoidance)
         {
             m_Invincible.GetSetInvincible = true;
             return;
@@ -640,6 +642,18 @@ public class IS_Player : MonoBehaviour
 
     /**
      * @fn
+     * 跳躍攻撃開始フラグのgetter・setter
+     * @return m_bJumpAttackFlg(bool)
+     * @brief 跳躍攻撃開始フラグを返す・セット
+     */
+    public bool GetSetJumpAttackFlg
+    {
+        get { return m_bJumpAttackFlg; }
+        set { m_bJumpAttackFlg = value; }
+    }
+
+    /**
+     * @fn
      * 溜め待機開始フラグのgetter・setter
      * @return m_bChargeWaitFlg(bool)
      * @brief 溜め待機開始フラグを返す・セット
@@ -674,17 +688,6 @@ public class IS_Player : MonoBehaviour
         set { m_bAvoidFlg = value; }
     }
 
-    /**
-     * @fn
-     * 反動フラグのgetter・setter
-     * @return m_bReactionFlg(bool)
-     * @brief 反動フラグを返す・セット
-     */
-    public bool GetSetReactionFlg
-    {
-        get { return m_bReactionFlg; }
-        set { m_bReactionFlg = value; }
-    }
     /**
    * @fn
    * 武器アイテムヒットフラグのgetter・setter

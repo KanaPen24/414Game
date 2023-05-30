@@ -55,14 +55,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
                 m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
                 return;
             }
-            // 「移動 → 待機」①
-            if (m_Player.GetSetReactionFlg)
-            {
-                IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
-                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
-                return;
-            }
-            // 「移動 → 待機」②
+            // 「移動 → 待機」
             if (!m_Player.bInputRight && !m_Player.bInputLeft)
             {
                 IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);

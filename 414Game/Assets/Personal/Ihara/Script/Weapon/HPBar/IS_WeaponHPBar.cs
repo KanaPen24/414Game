@@ -148,9 +148,19 @@ public class IS_WeaponHPBar : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack01HPBar) ||
-            m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack02HPBar))
-            FinAttack();
+        switch(m_Player.GetSetPlayerState)
+        {
+            case PlayerState.PlayerAttack01:
+                if(m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack01HPBar))
+                    FinAttack();
+                break;
+            case PlayerState.PlayerAttack02:
+                if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack02HPBar))
+                    FinAttack();
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -194,5 +204,7 @@ public class IS_WeaponHPBar : IS_Weapon
         Material[] mats = m_MaterialMesh.m_MeshRender[0].materials;
         mats[1] = m_MaterialMesh.m_Material[(int)m_eCrackLevel];
         m_MaterialMesh.m_MeshRender[0].materials = mats;
+
+        m_BottleLiquid.SetBrokeTex((int)m_eCrackLevel);
     }
 }
