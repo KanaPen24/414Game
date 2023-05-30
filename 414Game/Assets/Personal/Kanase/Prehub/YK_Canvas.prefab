@@ -983,7 +983,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -276, y: -33}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4795044324027166804
@@ -1232,6 +1232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_fIconSpeed: 600
   m_fCircle_Radius: 80
+  m_fCircle_Radius_Limit: 1000
   m_fCircle_Speed: 0.07
   m_bDirection: 0
   Effect: {fileID: 3933541370888973499}
@@ -1251,7 +1252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3f84493d32da441bbc42012d8b07e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Player: {fileID: 0}
   m_Uis:
   - {fileID: 7025658565330855289}
   - {fileID: 7111819576557512756}
@@ -1884,6 +1884,7 @@ MonoBehaviour:
   Crack: {fileID: 1431378542017538723}
   Refraction: {fileID: 7902141527014177492}
   OutLine: {fileID: 308019043261332728}
+  MoveCursol: {fileID: 2561112146707847214}
 --- !u!250 &4386970927552410890
 PointEffector2D:
   m_ObjectHideFlags: 0
@@ -5539,6 +5540,11 @@ PrefabInstance:
       objectReference: {fileID: 9108408021766281359}
     - target: {fileID: 4088707169045967027, guid: c0035f25da450fe46b1471d5853bf0db,
         type: 3}
+      propertyPath: MoveCursol
+      value: 
+      objectReference: {fileID: 2561112146707847214}
+    - target: {fileID: 4088707169045967027, guid: c0035f25da450fe46b1471d5853bf0db,
+        type: 3}
       propertyPath: Clock_Inner
       value: 
       objectReference: {fileID: 2011431208978838289}
@@ -6027,6 +6033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Exit: {fileID: 5965826253428260827}
+  MoveCursol: {fileID: 2561112146707847214}
 --- !u!114 &4535071391709070199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6159,6 +6166,7 @@ MonoBehaviour:
   ExitUI: {fileID: 5965826253428260827}
   TitleUI: {fileID: 229224383540734812}
   PostEffect: {fileID: 0}
+  MoveCursol: {fileID: 2561112146707847214}
 --- !u!114 &5965826255464846494 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1252618962852615568, guid: 536d72463a646b44eb2c1000869a281a,
