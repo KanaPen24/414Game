@@ -503,6 +503,7 @@ MonoBehaviour:
   AtkEff: {fileID: 0}
   AvoEff: {fileID: 0}
   Player: {fileID: 2602812492749303807}
+  Weapon: {fileID: 3816624634288352196}
 --- !u!1001 &429338215743229632
 PrefabInstance:
   m_ObjectHideFlags: 0

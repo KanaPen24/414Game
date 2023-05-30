@@ -103,6 +103,8 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
         {
             Player.RemovedWeapon();
             IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_3);
+            //HPバーが壊れたにかえる
+            YK_GameOver.instance.GetSetGameOverState = GameOverState.BreakHPBar;
             GameManager.instance.GetSetGameState = GameState.GameOver;
         }
     }
