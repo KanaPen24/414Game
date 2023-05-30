@@ -45,6 +45,7 @@ public class YK_SkillIcon : YK_UI
         //カーソルが到達するまで
         if (!MoveCursol.GetSetArrivalFlg)
         {
+            GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<PointEffector2D>().enabled = false;    //エフェクターを無効にすることで道中吸い寄せられない
             return;
         }

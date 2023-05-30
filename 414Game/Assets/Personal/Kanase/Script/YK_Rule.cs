@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/**
+ * @file YK_Rule.cs
+ * @brief ルール画面表示
+ * @author 吉田叶聖
+ * @date 2023/05/28
+ */
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
