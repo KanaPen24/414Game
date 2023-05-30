@@ -28,7 +28,7 @@ public class YK_PLPlayEff : MonoBehaviour
                 AvoEff.Play();
                 break;
             default:
-                AvoEff.Stop();
+                AtkEff.Stop();
                 AvoEff.Stop();
                 break;
         }
