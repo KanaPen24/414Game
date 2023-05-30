@@ -6,12 +6,24 @@ public class YK_Book : MonoBehaviour
 {
     private bool m_Hit;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if(other.tag=="Player")
         {
             m_Hit = true;
         }
         Destroy(gameObject);
+    }
+  
+    /**
+* @fn
+* 当たったかのgetter・setter
+* @return m_bHit(bool)
+* @brief 当たり判定
+*/
+    public bool GetSetHitFlg
+    {
+        get { return m_Hit; }
+        set { m_Hit = value; }
     }
 }
