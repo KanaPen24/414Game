@@ -19,10 +19,17 @@ public class YK_MoveCursol : MonoBehaviour
     private Vector2 offset;
     //円運動の半径
     [SerializeField]
-    private float m_fCircle_Radius = 20.0f;
-    //円運動の半径
+    private float m_fCircle_Radius;
+    //円運動の半径限界値
     [SerializeField]
-    private float m_fCircle_Speed = 0.1f;
+    private float m_fCircle_Radius_Limit;
+    //円運動の半径保存用
+    private float m_fCircle_Radius_Storage;
+    //円運動のスピード
+    [SerializeField]
+    private float m_fCircle_Speed;
+    //円運動のスピード保存用
+    private float m_fCircle_Speed_Storage;
     //現時点の座標を保存する
     private Vector2 m_fPos;
     //回転方向の正負
@@ -38,13 +45,14 @@ public class YK_MoveCursol : MonoBehaviour
     //指定座標に移動
     [SerializeField] RectTransform target;
     //到達したら
-    private bool m_bArrival = false;
+    private bool m_bMove = false;
     //　アイコンが1秒間に何ピクセル移動するか
     [SerializeField]
     private float m_fTargetSpeed = 1.0f;    //ターゲットまで移動するスピード
     //キャンバス
     [SerializeField] Canvas canvas;
-    
+    private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
+
     void Start()
     {
         rect = GetComponent<RectTransform>();
@@ -55,19 +63,32 @@ public class YK_MoveCursol : MonoBehaviour
         //Rigidbodyを取得
         rb = GetComponent<Rigidbody2D>();
 
-        
+        m_fDeadZone = 0.2f;
+        m_fCircle_Radius_Storage = m_fCircle_Radius;
+        m_fCircle_Speed_Storage = m_fCircle_Speed;
     }
 
     void Update()
     {
         //最初にカーソルを演出でターゲットまで動かす
-        if (!m_bArrival)
+        if (!m_bMove)
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position, m_fTargetSpeed * Time.deltaTime);
-            //ターゲットに到達したら
             if (transform.position == target.position) 
             {
-                m_bArrival = true;
+                if(m_fCircle_Radius<=m_fCircle_Radius_Limit)
+                //最初のタイミングだけは半径とスピードを変える
+                m_fCircle_Radius++;
+                m_fCircle_Speed = m_fCircle_Speed_Storage / 2f;
+                Circle();
+            }
+            //ちょっとでも動かしたら
+            if (Mathf.Abs(Input.GetAxis("HorizontalR")) >= m_fDeadZone || Mathf.Abs(Input.GetAxis("VerticalR")) >= m_fDeadZone)
+            {
+                m_bMove = true;
+                //  元に戻す
+                m_fCircle_Radius = m_fCircle_Radius_Storage;
+                m_fCircle_Speed = m_fCircle_Speed_Storage;
             }
             return;
         }
@@ -129,9 +150,9 @@ public class YK_MoveCursol : MonoBehaviour
 * @return m_bArrival(bool)
 * @brief 到達フラグを返す・セット
 */
-    public bool GetSetArrivalFlg
+    public bool GetSetMoveFlg
     {
-        get { return m_bArrival; }
-        set { m_bArrival = value; }
+        get { return m_bMove; }
+        set { m_bMove = value; }
     }
 }
