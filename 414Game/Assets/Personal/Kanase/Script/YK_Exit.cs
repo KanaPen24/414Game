@@ -26,6 +26,16 @@ public class YK_Exit : YK_UI
         GetSetScale = Exit.transform.localScale;
     }
 
+    private void Update()
+    {
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GameStart)
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<PointEffector2D>().enabled = false;
+        }
+    }
+
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;

@@ -184,6 +184,12 @@ public class IS_Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        // ゲームがプレイ中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay &&
+            GameManager.instance.GetSetGameState != GameState.GameGoal &&
+            GameManager.instance.GetSetGameState != GameState.GameStart)
+            return;
+
         // Decision=Key.Z,Joy.A
         if (Input.GetButtonDown("Decision") ||
             Input.GetButtonDown("Decision_Debug"))
@@ -203,12 +209,7 @@ public class IS_Player : MonoBehaviour
                 RemovedWeapon();
             }
         }
-
-        // ゲームがプレイ中以外は更新しない
-        if (GameManager.instance.GetSetGameState != GameState.GamePlay &&
-            GameManager.instance.GetSetGameState != GameState.GameGoal)
-            return;
-
+        
         // 入力管理
         // Jump=Key.w,Joy.B
         if (Input.GetButtonDown("Jump"))

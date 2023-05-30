@@ -63,6 +63,8 @@ public class YK_Start : YK_UI
     //StartUIを非表示
     public override void UIFadeOUT()
     {
+        //ゲームのステートをプレイ状態にする
+        GameManager.instance.GetSetGameState = GameState.GamePlay;
         m_eFadeState = FadeState.FadeOUT;
         // m_fDelTime秒でm_MinScaleに変更
         StartUI.transform.DOScale(m_MinScale, m_fDelTime);
@@ -96,8 +98,6 @@ public class YK_Start : YK_UI
     public void StartPlay()
     {
         m_bVisibleStart = false;
-        //ゲームのステートをプレイ状態にする
-        GameManager.instance.GetSetGameState = GameState.GamePlay;
     }
     
 
