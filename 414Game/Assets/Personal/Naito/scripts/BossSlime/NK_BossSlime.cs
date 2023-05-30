@@ -23,6 +23,7 @@ public enum BossSlimeState
     BossSlimeUp,
     BossSlimeFlight,
     BossSlimeFall,
+    BossSlimeAcid,
 
     MaxBossSlimeState
 }

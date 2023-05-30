@@ -43,6 +43,7 @@ public class NK_SlimeBes : MonoBehaviour
     [SerializeField] private float m_fJumpPower;
     //死亡時エフェクト
     [SerializeField] private ParticleSystem m_DieEffect;
+    [SerializeField] private GameObject m_Hammer;
     private Animator m_Anim;
     private bool m_MoveAnimFlag;
     private bool m_AcidAnimFlag;
@@ -162,6 +163,7 @@ public class NK_SlimeBes : MonoBehaviour
             Effect.Play();
             Effect.transform.position = this.transform.position;
             Destroy(Effect.gameObject, 2.0f);
+            Instantiate(m_Hammer, this.transform.position, Quaternion.identity);
 
             Destroy(this.gameObject);
         }

@@ -454,7 +454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SlimeBes: {fileID: 6122548564909137367}
-  m_MovePow: 3
+  m_MoveTime: 0
+  m_StartTime: 0
 --- !u!114 &6122548564909137366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,6 +498,8 @@ MonoBehaviour:
   m_fMovePower: 3
   m_fJumpPower: 5
   m_DieEffect: {fileID: 6814668452755134957, guid: 4424c2c298bfb2345bba73411e81288d,
+    type: 3}
+  m_Hammer: {fileID: 5984464336551161344, guid: febc9fbecfa0c0c438ce733947a1d1fc,
     type: 3}
 --- !u!1 &1074074315985320743
 GameObject:
