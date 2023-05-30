@@ -983,7 +983,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -255, y: 10}
+  m_AnchoredPosition: {x: -276, y: -33}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4795044324027166804
@@ -4165,6 +4165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rule: {fileID: 7288262872819389705}
   book: {fileID: 0}
+  Player: {fileID: 0}
 --- !u!1001 &383954945146717797
 PrefabInstance:
   m_ObjectHideFlags: 0
