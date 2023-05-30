@@ -33,6 +33,7 @@ public class YK_Clock : YK_UI
     [SerializeField] private int m_nStopTime;        //時止め時間
     private bool m_bOnce = true;
     private int m_nTimeLimit;
+    [SerializeField] private YK_MoveCursol MoveCursol;
 
     /**
      * @brief スタート時に呼ばれる関数
@@ -59,6 +60,19 @@ public class YK_Clock : YK_UI
      */
     void Update()
     {
+        // カーソルが動き始めるまで
+        if (!MoveCursol.GetSetMoveFlg)
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<PointEffector2D>().enabled = false;    //エフェクターを無効にすることで道中吸い寄せられない
+            return;
+        }
+        else
+        {
+            GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<PointEffector2D>().enabled = true;
+        }
+
         // ゲームがプレイ中以外は更新しない
         if (GameManager.instance.GetSetGameState != GameState.GamePlay)
             return;

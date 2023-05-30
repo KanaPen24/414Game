@@ -15,6 +15,8 @@ public class YK_Exit : YK_UI
 {
     [SerializeField] private Image Exit;    
     private bool m_bVisibleRetry = false;
+    [SerializeField] private YK_MoveCursol MoveCursol;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,11 +30,17 @@ public class YK_Exit : YK_UI
 
     private void Update()
     {
-        // ゲームがプレイ中以外は更新しない
-        if (GameManager.instance.GetSetGameState != GameState.GameStart)
+        // カーソルが動き始めるまでとゲームがプレイ中以外は更新しない
+        if (!MoveCursol.GetSetMoveFlg || GameManager.instance.GetSetGameState != GameState.GameStart) 
         {
             GetComponent<BoxCollider2D>().enabled = false;
-            GetComponent<PointEffector2D>().enabled = false;
+            GetComponent<PointEffector2D>().enabled = false;    //エフェクターを無効にすることで道中吸い寄せられない
+            return;
+        }
+        else
+        {
+            GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<PointEffector2D>().enabled = true;
         }
     }
 
