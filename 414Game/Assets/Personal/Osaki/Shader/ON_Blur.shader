@@ -1,15 +1,19 @@
-Shader "Custom/ON_Toon"
+Shader "Custom/ON_Blur"
 {
 	Properties
 	{
-		_MainTex("Texture", 2D) = "white" {}
+		[HideInInspector] _MainTex("Texture", 2D) = "white" {}
+		_BaseColor("BaseColor", Color) = (1.0, 1.0, 1.0, 0)
+		_ShadowColor("Shadow Color", Color) = (.5, .5, .5, 0)
+		_LightColor("Light Color", Color) = (1.0, 1.0, 1.0, 0)
 		_ShadeToony("ShadeToony", Range(.0, 1.0)) = 0.9
 		_ShadeShift("ShadeShift", Range(-1.0, 1.0)) = 0
-		
+
 		_NoiseTex("NoiseTex", 2D) = "white"{}
+		_Glossiness("Smoothness", Range(.0, 1.0)) = 0.5
 		[HideInInspector] _TrailDir("TrailDir", Vector) = (.0, .0, .0, .0)
 	}
-		SubShader
+	SubShader
 	{
 		Tags {
 			"RenderType" = "Opaque"
@@ -53,8 +57,12 @@ Shader "Custom/ON_Toon"
 
 		CBUFFER_START(UnityPerMaterial)
 		float4 _MainTex_ST;
+		float4 _BaseColor;
+		half4 _ShadowColor;
+		half4 _LightColor;
 		half _ShadeToony;
 		half _ShadeShift;
+		half _Glossiness;
 		half4 _TrailDir;
 		CBUFFER_END
 
@@ -77,19 +85,20 @@ Shader "Custom/ON_Toon"
 		{
 			// sample the texture
 			float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
-
-			////diff
+			col = _BaseColor;
+		
+			//diff
 			Light light = GetMainLight();
 			float t = dot(normalize(i.normal), normalize(light.direction));
 			half thresholdL = (_ShadeShift - (1 - _ShadeToony)) / 2 + 0.5;
 			half thresholdH = (_ShadeShift + (1 - _ShadeToony)) / 2 + 0.5;
-			col.rgb = lerp(col.rgb * 0.5f, col.rgb, smoothstep(thresholdL, thresholdH, t));
-
+			col.rgb *= lerp(_ShadowColor.rgb, _LightColor.rgb, smoothstep(thresholdL, thresholdH, t));
+			
 			// apply fog
 			col.rgb = MixFog(col.rgb, i.fogFactor);
 			return col;
 		}
 		ENDHLSL
-	}
+		}
 	}
 }
