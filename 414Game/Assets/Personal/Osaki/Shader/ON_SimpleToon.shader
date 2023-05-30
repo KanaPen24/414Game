@@ -8,6 +8,9 @@ Shader "Custom/ON_SimpleToon"
 		_LightColor("Light Color", Color) = (1.0, 1.0, 1.0, 0)
 		_ShadeToony("ShadeToony", Range(.0, 1.0)) = 0.9
 		_ShadeShift("ShadeShift", Range(-1.0, 1.0)) = 0
+		
+		_NoiseTex("NoiseTex", 2D) = "white"{}
+		[HideInInspector] _TrailDir("TrailDir", Vector) = (.0, .0, .0, .0)
 	}
 		SubShader
 	{
@@ -48,6 +51,8 @@ Shader "Custom/ON_SimpleToon"
 
 		TEXTURE2D(_MainTex);
 		SAMPLER(sampler_MainTex);
+		TEXTURE2D(_NoiseTex);
+		SAMPLER(sampler_NoiseTex);
 
 		CBUFFER_START(UnityPerMaterial)
 		float4 _MainTex_ST;
@@ -56,12 +61,17 @@ Shader "Custom/ON_SimpleToon"
 		half4 _LightColor;
 		half _ShadeToony;
 		half _ShadeShift;
+		half4 _TrailDir;
 		CBUFFER_END
 
 
 		v2f vert(appdata v)
 		{
 			v2f o;
+			float weight = clamp(dot(v.normal, _TrailDir.xyz), 0, 1);
+			float noise = tex2Dlod(sampler_NoiseTex, float4(1 - v.uv.x, v.uv.y, 0, 0)).r;
+			float4 trail = _TrailDir * weight * noise;
+			v.vertex.xyz = float3(v.vertex.x + trail.x, v.vertex.y + trail.y, v.vertex.z + trail.z);
 			o.vertex = TransformObjectToHClip(v.vertex.xyz);
 			o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 			o.fogFactor = ComputeFogFactor(o.vertex.z);

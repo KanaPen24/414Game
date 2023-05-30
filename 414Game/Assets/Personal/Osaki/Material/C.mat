@@ -24,6 +24,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 78ba95ef8b83fcd46bd727e416a6c553, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: bc68d9000ecfa304d980e337f3469eb0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _ShadeShift: -0.19
@@ -32,4 +36,5 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
     - _LightColor: {r: 1, g: 1, b: 1, a: 0}
     - _ShadowColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _TrailDir: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
