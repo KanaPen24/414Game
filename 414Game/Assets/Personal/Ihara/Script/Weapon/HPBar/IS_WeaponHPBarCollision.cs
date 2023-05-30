@@ -41,8 +41,6 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 m_DrainEffect.SetStartPos(other.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
-                DrainEffect.SendEvent("OnPlay");
-                //m_DrainEffect.GetVisualEffect().transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
         }
         // スライムへのダメージ処理
@@ -61,8 +59,6 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 m_DrainEffect.SetStartPos(other.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
-                DrainEffect.SendEvent("OnPlay");
-                //m_DrainEffect.GetVisualEffect().transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
         }
 
@@ -82,8 +78,6 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 m_DrainEffect.SetStartPos(other.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
-                DrainEffect.SendEvent("OnPlay");
-                //m_DrainEffect.GetVisualEffect().transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
         }
 
