@@ -77,7 +77,7 @@ public class YK_GameOver : MonoBehaviour
             if (!m_bGameOverFlg)
             {
                 IS_AudioManager.instance.AllStopSE();
-                IS_AudioManager.instance.StopBGM(BGMType.BGM_Game);
+                IS_AudioManager.instance.AllStopBGM();
                 IS_AudioManager.instance.PlayBGM(BGMType.BGM_GAMEOVER);
             }
             m_bGameOverFlg = true;
