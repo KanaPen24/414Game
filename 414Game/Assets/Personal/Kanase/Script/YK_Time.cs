@@ -13,6 +13,7 @@ using UnityEngine.UI;
 public class YK_Time : MonoBehaviour
 {
     [SerializeField] private int m_nTimeLimit;          //タイムリミット
+    private int m_nTimeLimitStorage;                    //タイムリミット保存用
     [SerializeField] private Text timerText;            //表示するテキスト
     [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
     [SerializeField] private IS_Player Player;          //プレイヤーをアタッチ
@@ -35,6 +36,7 @@ public class YK_Time : MonoBehaviour
         outline = this.GetComponent<Outline>();
         m_nNowTime = m_nTimeLimit;
         ScaleDownUp = this.GetComponent<YK_ScaleDownOrUp>();
+        m_nTimeLimitStorage = m_nTimeLimit;
     }
 
     void Update()
@@ -94,13 +96,14 @@ public class YK_Time : MonoBehaviour
 
         switch(Clock.GetSetTimeCount)
         {
+            case 3:
+                m_nTimeLimit = m_nTimeLimitStorage;
+                break;
             case 2:
                 m_nTimeLimit = 99;
-                //m_nNowTime %= 100;  //3桁目を減らす
                 break;
             case 1:
                 m_nTimeLimit = 9;
-                //m_nNowTime %= 10;   //2桁目を減らす
                 m_fTime %= 10;
                 Clock.GetSetTimeCount = 0;
                 break;
@@ -135,6 +138,11 @@ public class YK_Time : MonoBehaviour
     {
         //経過時間を引くことで現在時間が足される
         m_fTime -= Time;
+        EffectPlay();
+    }
+
+    public void EffectPlay()
+    {
         Effect.Play();
     }
 
