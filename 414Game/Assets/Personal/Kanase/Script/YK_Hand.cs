@@ -87,7 +87,9 @@ public class YK_Hand : MonoBehaviour
     void AnimationEnd()
     {
         // 武器を装備する(武器を表示する)
+        if(Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
         Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = true;
+
 
         UICatcher.ParticleStop();
     }
