@@ -90,8 +90,6 @@ public class YK_Hand : MonoBehaviour
         if(Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
         Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = true;
 
-
         UICatcher.ParticleStop();
     }
-
 }
