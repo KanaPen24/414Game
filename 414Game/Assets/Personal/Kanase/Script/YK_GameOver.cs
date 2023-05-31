@@ -67,7 +67,7 @@ public class YK_GameOver : MonoBehaviour
         if (GameManager.instance.GetSetGameState == GameState.GameOver)
         {
             m_fTime += Time.deltaTime;
-            m_rate = Mathf.Lerp(0.0f, 0.5f, m_fTime/3);
+            m_rate = Mathf.Lerp(0.0f, 0.5f, m_fTime/4);
             TextEntry.SetRate(m_rate);
         }
         if (GameManager.instance.GetSetGameState == GameState.GameOver&&!m_bGameOverFlg)
