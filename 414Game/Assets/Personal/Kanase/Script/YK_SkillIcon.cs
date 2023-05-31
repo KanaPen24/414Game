@@ -42,8 +42,8 @@ public class YK_SkillIcon : YK_UI
 
     private void Update()
     {
-        //カーソルが到達するまで
-        if (!MoveCursol.GetSetArrivalFlg)
+        //カーソルが動き始めるまで
+        if (!MoveCursol.GetSetMoveFlg)
         {
             GetComponent<BoxCollider2D>().enabled = false;
             GetComponent<PointEffector2D>().enabled = false;    //エフェクターを無効にすることで道中吸い寄せられない
@@ -74,14 +74,19 @@ public class YK_SkillIcon : YK_UI
                 if (SkillInner.fillAmount <= 0.0f)
                 {
                     m_bSkillUse = false;
-                    HealParticle.Play();
-                    RectTransform recttran = this.GetComponent<RectTransform>();
-                    Vector2 originalPos = recttran.anchoredPosition;
-                    recttran.DOJumpAnchorPos(originalPos, 10f, 1, 0.3f, true);
+                    HealEffect();
                 }
             }
         }
     }
+
+    public void HealEffect()
+    {
+        HealParticle.Play();
+        RectTransform recttran = this.GetComponent<RectTransform>();
+        Vector2 originalPos = recttran.anchoredPosition;
+        recttran.DOJumpAnchorPos(originalPos, 10f, 1, 0.3f, true);
+    }    
 
     public override void UIFadeIN()
     {

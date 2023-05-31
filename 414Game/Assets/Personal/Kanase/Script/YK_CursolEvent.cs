@@ -13,7 +13,6 @@ using UnityEngine.EventSystems;
 
 public class YK_CursolEvent : MonoBehaviour
 {
-    [SerializeField] private IS_Player m_Player; // Player
     [SerializeField] private List<YK_UI> m_Uis;  // ゲーム上にあるUIをすべて格納する
     private YK_UI m_CurrentUI;                   // 現在選択中のUI(カーソルが選択しているUI)
     private int Array;  //m_Uisの中身

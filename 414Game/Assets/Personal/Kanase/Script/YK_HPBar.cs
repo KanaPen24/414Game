@@ -29,6 +29,7 @@ public class YK_HPBar : YK_UI
     [SerializeField] private Image Crack;                        // ヒビの画像
     [SerializeField] private Image Refraction;                   // 反射光
     [SerializeField] private Image OutLine;                      // アウトライン    
+    [SerializeField] private YK_MoveCursol MoveCursol;
 
     /**
      * @brief スタート時に呼ばれる関数
@@ -46,6 +47,21 @@ public class YK_HPBar : YK_UI
         GetSetScale = HP.transform.localScale;                    // スケール取得
     }
 
+    private void Update()
+    {
+        //カーソルが動き始めるまで
+        if (!MoveCursol.GetSetMoveFlg)
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<PointEffector2D>().enabled = false;    //エフェクターを無効にすることで道中吸い寄せられない
+            return;
+        }
+        else
+        {
+            GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<PointEffector2D>().enabled = true;    
+        }
+    }
     /**
      * @brief UIのフェードイン処理
      *        バーとテクスチャのフェードインを行う

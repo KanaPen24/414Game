@@ -41,6 +41,7 @@ public enum SEType
     SE_HPBarCrack_3,    // HPBarの壊れる音
     SE_BookOpen,        // 本を開く音
     SE_BookClose,       // 本を閉じる音
+    SE_Tonkachi ,       // トンカチの修繕音
 
     MAX_SE
 }

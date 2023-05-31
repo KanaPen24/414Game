@@ -24,7 +24,8 @@ public class YK_BossHP : YK_UI
     [SerializeField] private Slider BossSlider;     // シーンに配置したSlider格納用
     [SerializeField] private GameObject BossBar;    // ボスのバーの大元
     [SerializeField] private NK_BossSlime Boss;
-    [SerializeField] private YK_Next Next;
+    //[SerializeField] private YK_Next Next;
+    [SerializeField] private YK_Clear Clear;
     [SerializeField] private Image FrontFill;       // バーの表面のテクスチャ
     [SerializeField] private Image BackFill;        // 後ろのバーの表面のテクスチャ
     [SerializeField] private Image BackGround;      // バーの裏のテクスチャ
@@ -80,8 +81,8 @@ public class YK_BossHP : YK_UI
             {
                 //ゲームのステートをクリア状態にする
                 GameManager.instance.GetSetGameState = GameState.GameGoal;
-                //ネクスト表示
-                Next.UIFadeIN();
+                //クリア表示
+                Clear.UIFadeIN();
                 //ボスバーの非表示
                 UIFadeOUT();
                 //ポストエフェクトのリセット

@@ -1,10 +1,11 @@
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
-Shader "Custom/ON_Text"
+Shader "Custom/ON_TextEntry"
 {
 	Properties{
 		_MainTex("Font Texture", 2D) = "white" {}
 		_Color("Text Color", Color) = (1,1,1,1)
+		_Rate("rate", Range(.0, .5)) = .0
 	}
 
 	SubShader{
@@ -36,6 +37,7 @@ Shader "Custom/ON_Text"
 			sampler2D _MainTex;
 			uniform float4 _MainTex_ST;
 			uniform fixed4 _Color;
+			float _Rate;
 
 			v2f vert(appdata_t v)
 			{
@@ -49,8 +51,9 @@ Shader "Custom/ON_Text"
 			fixed4 frag(v2f i) : COLOR
 			{
 				fixed4 col = i.color;
-				float dx = sin(i.texcoord.y * 180.0f) * 0.01f;
-				float2 uv = float2(i.texcoord.x + dx, i.texcoord.y);
+				float2 uv = i.texcoord;
+				uv.x = clamp(.0f, uv.x, _Rate);
+				uv.y = clamp(.0f, uv.y, _Rate);
 				col.a *= UNITY_SAMPLE_1CHANNEL(_MainTex, uv);
 				return col;
 			}

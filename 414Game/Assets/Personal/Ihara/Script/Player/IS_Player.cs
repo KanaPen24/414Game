@@ -144,7 +144,6 @@ public class IS_Player : MonoBehaviour
     private bool m_bChargeWalkFlg;     // 溜め移動開始フラグ
     private bool m_bAvoidFlg;          // 回避開始フラグ
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
-    private bool m_bItemHit;    //武器回復アイテムぶつかったら
 
     private void Start()
     {
@@ -187,6 +186,7 @@ public class IS_Player : MonoBehaviour
         // ゲームがプレイ中以外は更新しない
         if (GameManager.instance.GetSetGameState != GameState.GamePlay &&
             GameManager.instance.GetSetGameState != GameState.GameGoal &&
+            GameManager.instance.GetSetGameState != GameState.GameOver &&
             GameManager.instance.GetSetGameState != GameState.GameStart)
             return;
 
@@ -209,7 +209,9 @@ public class IS_Player : MonoBehaviour
                 RemovedWeapon();
             }
         }
+
         
+
         // 入力管理
         // Jump=Key.w,Joy.B
         if (Input.GetButtonDown("Jump"))
@@ -384,6 +386,8 @@ public class IS_Player : MonoBehaviour
         // HPが0以下になったら…
         if (m_nHp <= 0)
         {
+            //ゲームオーバーを体力がなくなったにする
+            YK_GameOver.instance.GetSetGameOverState = GameOverState.NoHP;
             // GameOverに移行
             GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;
@@ -686,17 +690,5 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_bAvoidFlg; }
         set { m_bAvoidFlg = value; }
-    }
-
-    /**
-   * @fn
-   * 武器アイテムヒットフラグのgetter・setter
-   * @return m_bItemHit(bool)
-   * @brief 武器アイテムヒットフラグを返す・セット
-   */
-    public bool GetSetItemHit
-    {
-        get { return m_bItemHit; }
-        set { m_bItemHit = value; }
     }
 }
