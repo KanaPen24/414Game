@@ -330,18 +330,28 @@ public class IS_Player : MonoBehaviour
                 // 装備武器の初期化処理
                 m_Weapons[(int)GetSetEquipWeaponState].Init();
 
+                if (m_UICatcher.GetSetSelectUI.GetSetUIType == UIType.DamageNumber &&
+                    GetSetPlayerEquipState == PlayerEquipState.Equip)
+                {
+                    if (m_UICatcher.GetSetlastUI != null)
+                        m_UICatcher.GetSetlastUI.UIFadeOUT();
+                }
+
+                // 装備状態にする
+                if (m_UICatcher.GetSetSelectUI.GetSetUIType != UIType.DamageNumber)
+                {
+                    RemovedWeapon();
+                    GetSetPlayerEquipState = PlayerEquipState.Equip;
+                }
+                else
+                {
+                    RemovedWeapon();
+                }
+
                 // UI取得状態に遷移(ゲームオーバー中はエフェクトのみ)
                 if (GetSetPlayerState != PlayerState.PlayerGameOver)
                     GetSetPlayerState = PlayerState.PlayerUICatch;
                 else m_UICatcher.ParticlePlay();
-
-                // 装備状態にする
-                if (m_UICatcher.GetSetSelectUI.GetSetUIType != UIType.DamageNumber)
-                    GetSetPlayerEquipState = PlayerEquipState.Equip;
-                else if (GetSetPlayerEquipState == PlayerEquipState.NoneEquip)
-                {
-                    RemovedWeapon();
-                }
 
                 Debug.Log("武器装備");
             }
