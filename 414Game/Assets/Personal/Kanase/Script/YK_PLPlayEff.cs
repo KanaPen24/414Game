@@ -17,19 +17,26 @@ public class YK_PLPlayEff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //プレイヤーがどういう時にどのエフェクトを流すかのやつ
-        switch(Player.GetSetPlayerState)
+        switch (Player.GetSetEquipWeaponState)
         {
-            case PlayerState.PlayerAttack01:
-            case PlayerState.PlayerAttack02:
-                AtkEff.Play();
-                break;
-            case PlayerState.PlayerAvoidance:
-                AvoEff.Play();
-                break;
-            default:
-                AtkEff.Stop();
-                AvoEff.Stop();
+            case EquipWeaponState.PlayerHpBar:
+            case EquipWeaponState.PlayerStart:
+
+                //プレイヤーがどういう時にどのエフェクトを流すかのやつ
+                switch (Player.GetSetPlayerState)
+                {
+                    case PlayerState.PlayerAttack01:
+                    case PlayerState.PlayerAttack02:
+                        AtkEff.Play();
+                        break;
+                    case PlayerState.PlayerAvoidance:
+                        AvoEff.Play();
+                        break;
+                    default:
+                        AtkEff.Stop();
+                        AvoEff.Stop();
+                        break;
+                }
                 break;
         }
     }

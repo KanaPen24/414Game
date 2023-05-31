@@ -187,6 +187,7 @@ public class IS_Player : MonoBehaviour
         // ゲームがプレイ中以外は更新しない
         if (GameManager.instance.GetSetGameState != GameState.GamePlay &&
             GameManager.instance.GetSetGameState != GameState.GameGoal &&
+            GameManager.instance.GetSetGameState != GameState.GameOver &&
             GameManager.instance.GetSetGameState != GameState.GameStart)
             return;
 
@@ -209,7 +210,9 @@ public class IS_Player : MonoBehaviour
                 RemovedWeapon();
             }
         }
+
         
+
         // 入力管理
         // Jump=Key.w,Joy.B
         if (Input.GetButtonDown("Jump"))
@@ -384,6 +387,8 @@ public class IS_Player : MonoBehaviour
         // HPが0以下になったら…
         if (m_nHp <= 0)
         {
+            //ゲームオーバーを体力がなくなったにする
+            YK_GameOver.instance.GetSetGameOverState = GameOverState.NoHP;
             // GameOverに移行
             GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;

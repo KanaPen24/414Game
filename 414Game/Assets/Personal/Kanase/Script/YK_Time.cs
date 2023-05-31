@@ -122,6 +122,8 @@ public class YK_Time : MonoBehaviour
         //制限時間が0になったら
         if (m_nNowTime <=0)
         {
+            //タイムアップかえる
+            YK_GameOver.instance.GetSetGameOverState = GameOverState.TimeLimit;
             //ゲームオーバー
             Player.GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;
