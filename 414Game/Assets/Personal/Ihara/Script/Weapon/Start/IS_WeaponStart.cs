@@ -68,6 +68,7 @@ public class IS_WeaponStart : IS_Weapon
         {
             m_nHp = m_nMaxHp;
         }
+
     }
 
     /**

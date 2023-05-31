@@ -98,6 +98,7 @@ public class YK_Crack : MonoBehaviour
         }
         else
         {
+            weaponHpBar.ChangeCrackLevel(IS_WeaponHPBar.CrackLevel.Level0);
             color.a = 0.0f;
         }
        
