@@ -211,6 +211,8 @@ public class NK_BossSlime : MonoBehaviour
                 IS_AudioManager.instance.PlaySE(SEType.SE_GameClear);
                 goalEffect.StartEffect();
                 goal.gameObject.SetActive(true);
+                IS_AudioManager.instance.AllStopBGM();
+                IS_AudioManager.instance.PlayBGM(BGMType.BGM_Game);
                 Destroy(this.gameObject);
             }
         }

@@ -56,6 +56,7 @@ public enum BGMType
     BGM_Game,  // ゲームBGM
     BGM_END,   // エンドBGM
     BGM_GAMEOVER,// ゲームオーバーBGM
+    BGM_BOSS,
 
     MAX_BGM
 }
