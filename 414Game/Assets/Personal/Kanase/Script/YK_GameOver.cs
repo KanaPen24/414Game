@@ -29,6 +29,7 @@ public class YK_GameOver : MonoBehaviour
     public static YK_GameOver instance;
     [SerializeField] private GameObject GameOver;
     [SerializeField] private YK_Clock clock;
+    [SerializeField] private ON_TextEntry TextEntry;
     private bool m_bGameOverFlg;
     [SerializeField] private GameOverState m_GameOverState;
     [SerializeField] private CanvasGroup TextCanvas;

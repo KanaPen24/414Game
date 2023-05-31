@@ -25,6 +25,7 @@ public enum UIType
     Exit,       //終了
     Combo,      //コンボ
     DamageNumber,  // ダメージ
+    Clear,      //クリア
 
     MaxUIType
 }
