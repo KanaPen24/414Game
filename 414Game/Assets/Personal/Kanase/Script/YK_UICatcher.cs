@@ -36,6 +36,7 @@ public class YK_UICatcher : MonoBehaviour
     private bool m_bParticleFlg;                        //パーティクルエフェクト用のフラグ
     private UICatcherState m_UICatcherState;            // UICatcherの状態
     private YK_UI m_SelectUI;                           // 選択中のUI(現在武器化しているUI)
+    private YK_UI m_lastUI;
     private int Array;  //m_Uisの中身
 
     // Start is called before the first frame update
@@ -65,6 +66,9 @@ public class YK_UICatcher : MonoBehaviour
         {
             BlackHolePL.transform.position = Player.transform.position + new Vector3(1.3f, 1.6f, -1.0f);
         }
+
+        //if(m_lastUI != null)
+        //Debug.Log(m_lastUI.GetSetUIType);
     }
 
     // 1. 再生
@@ -178,6 +182,9 @@ public class YK_UICatcher : MonoBehaviour
                 break;
             }
         }
+
+        if (m_SelectUI.GetSetUIType != UIType.DamageNumber)
+            m_lastUI = m_SelectUI;
     }
 
     /**
@@ -202,5 +209,11 @@ public class YK_UICatcher : MonoBehaviour
     {
         get { return m_SelectUI; }
         set { m_SelectUI = value; }
+    }
+
+    public YK_UI GetSetlastUI
+    {
+        get { return m_lastUI; }
+        set { m_lastUI = value; }
     }
 }
