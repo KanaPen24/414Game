@@ -13,6 +13,7 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
 {
     [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
+    [SerializeField] private ON_BlurController m_BlurController; // Playerのブラー
     [SerializeField] private float m_fAvoidTime; // 回避時間
     [SerializeField] private float m_MovePow;    // 移動速度
 
@@ -23,11 +24,12 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
             //回避の音再生
             IS_AudioManager.instance.PlaySE(SEType.SE_Avoidance);
 
-            // 攻撃開始時の処理
+            // 回避開始時の処理
             if (m_Player.GetSetAvoidFlg)
             {
                 m_Player.GetSetAvoidFlg = false;
                 m_Player.GetSetPlayerInvincible.GetSetInvincibleCnt = m_fAvoidTime;
+                m_BlurController.SetBlur(true);
             }
 
             // =========
@@ -37,12 +39,14 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
             if (m_Player.GetSetPlayerInvincible.GetSetInvincibleCnt <= 0f)
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                m_BlurController.SetBlur(false);
                 return;
             }
             // 「回避 → 落下」
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
                 m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
+                m_BlurController.SetBlur(false);
                 return;
             }
         }
