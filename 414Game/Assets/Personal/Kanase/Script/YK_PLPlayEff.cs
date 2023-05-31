@@ -19,6 +19,7 @@ public class YK_PLPlayEff : MonoBehaviour
     {
         switch (Player.GetSetEquipWeaponState)
         {
+            //近接武器のみ
             case EquipWeaponState.PlayerHpBar:
             case EquipWeaponState.PlayerStart:
 
@@ -29,15 +30,19 @@ public class YK_PLPlayEff : MonoBehaviour
                     case PlayerState.PlayerAttack02:
                         AtkEff.Play();
                         break;
-                    case PlayerState.PlayerAvoidance:
-                        AvoEff.Play();
-                        break;
                     default:
                         AtkEff.Stop();
-                        AvoEff.Stop();
                         break;
                 }
                 break;
+            default:
+                AtkEff.Stop();
+                break;
         }
+        //回避の場合
+        if (Player.GetSetPlayerState == PlayerState.PlayerAvoidance)
+            AvoEff.Play();
+        else
+            AvoEff.Stop();
     }
 }
