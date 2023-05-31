@@ -144,7 +144,6 @@ public class IS_Player : MonoBehaviour
     private bool m_bChargeWalkFlg;     // 溜め移動開始フラグ
     private bool m_bAvoidFlg;          // 回避開始フラグ
     private float m_fDeadZone;   //コントローラーのスティックデッドゾーン
-    private bool m_bItemHit;    //武器回復アイテムぶつかったら
 
     private void Start()
     {
@@ -691,17 +690,5 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_bAvoidFlg; }
         set { m_bAvoidFlg = value; }
-    }
-
-    /**
-   * @fn
-   * 武器アイテムヒットフラグのgetter・setter
-   * @return m_bItemHit(bool)
-   * @brief 武器アイテムヒットフラグを返す・セット
-   */
-    public bool GetSetItemHit
-    {
-        get { return m_bItemHit; }
-        set { m_bItemHit = value; }
     }
 }
