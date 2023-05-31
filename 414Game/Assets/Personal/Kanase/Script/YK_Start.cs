@@ -40,18 +40,18 @@ public class YK_Start : YK_UI
     }
     private void Update()
     {
-        //// カーソルが動き始めるまで
-        //if (!MoveCursol.GetSetMoveFlg)
-        //{
-        //    GetComponent<BoxCollider2D>().enabled = false;
-        //    GetComponent<PointEffector2D>().enabled = false;    //エフェクターを無効にすることで道中吸い寄せられない
-        //    return;
-        //}
-        //else
-        //{
-        //    GetComponent<BoxCollider2D>().enabled = true;
-        //    GetComponent<PointEffector2D>().enabled = true;
-        //}
+        // カーソルが動き始めるまで
+        if (!MoveCursol.GetSetMoveFlg)
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<PointEffector2D>().enabled = false;    //エフェクターを無効にすることで道中吸い寄せられない
+            return;
+        }
+        else
+        {
+            GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<PointEffector2D>().enabled = true;
+        }
 
         //ブラウン管のポストエフェクトを減らしていく処理
         if (!m_bVisibleStart)
