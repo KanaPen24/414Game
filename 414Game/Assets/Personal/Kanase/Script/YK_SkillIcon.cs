@@ -74,14 +74,19 @@ public class YK_SkillIcon : YK_UI
                 if (SkillInner.fillAmount <= 0.0f)
                 {
                     m_bSkillUse = false;
-                    HealParticle.Play();
-                    RectTransform recttran = this.GetComponent<RectTransform>();
-                    Vector2 originalPos = recttran.anchoredPosition;
-                    recttran.DOJumpAnchorPos(originalPos, 10f, 1, 0.3f, true);
+                    HealEffect();
                 }
             }
         }
     }
+
+    public void HealEffect()
+    {
+        HealParticle.Play();
+        RectTransform recttran = this.GetComponent<RectTransform>();
+        Vector2 originalPos = recttran.anchoredPosition;
+        recttran.DOJumpAnchorPos(originalPos, 10f, 1, 0.3f, true);
+    }    
 
     public override void UIFadeIN()
     {

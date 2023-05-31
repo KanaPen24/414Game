@@ -44,5 +44,6 @@ public class YK_PLPlayEff : MonoBehaviour
             AvoEff.Play();
         else
             AvoEff.Stop();
+        
     }
 }
