@@ -23,6 +23,7 @@ public enum BossSlimeState
     BossSlimeUp,
     BossSlimeFlight,
     BossSlimeFall,
+    BossSlimeAcid,
 
     MaxBossSlimeState
 }
@@ -211,7 +212,6 @@ public class NK_BossSlime : MonoBehaviour
                 goalEffect.StartEffect();
                 goal.gameObject.SetActive(true);
                 Destroy(this.gameObject);
-                m_Area.GetSetBattleFlag = false;
             }
         }
     }

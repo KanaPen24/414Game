@@ -32,6 +32,7 @@ public class YK_BossHP : YK_UI
     [SerializeField] private Image Refraction;      // 反射光
     [SerializeField] private YK_Hand m_Hand;
     [SerializeField] private YK_Clock clock;
+    [SerializeField] private YK_Time time;
     [SerializeField] private NK_BossSlime_Aera m_Area;
 
     /**
@@ -77,15 +78,18 @@ public class YK_BossHP : YK_UI
         {
             if (GameManager.instance.GetSetGameState == GameState.GamePlay)
             {
+                //ゲームのステートをクリア状態にする
+                GameManager.instance.GetSetGameState = GameState.GameGoal;
                 //ネクスト表示
                 Next.UIFadeIN();
                 //ボスバーの非表示
                 UIFadeOUT();
+                //ポストエフェクトのリセット
+                time.GetSetTimeFlg = true;
                 //時止め解除
                 clock.GetSetStopTime = false;
             }
-            //ゲームのステートをクリア状態にする
-            GameManager.instance.GetSetGameState = GameState.GameGoal;
+            
         }
     }
 

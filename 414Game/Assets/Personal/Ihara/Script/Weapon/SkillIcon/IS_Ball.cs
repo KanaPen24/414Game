@@ -92,6 +92,14 @@ public class IS_Ball : MonoBehaviour
                 hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, nAttackPow);
                 continue;
             }
+
+            if (hit.collider.gameObject.GetComponent<NK_SlimeBes>() != null &&
+                !hit.collider.gameObject.GetComponent<NK_Bat>().GetSetDamageFlag)
+            {
+                hit.collider.gameObject.GetComponent<NK_SlimeBes>().BesDamage(nAttackPow);
+                hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, nAttackPow);
+                continue;
+            }
         }
 
         // 自身のオブジェクトを削除

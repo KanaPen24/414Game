@@ -23,7 +23,7 @@ public class NK_BossSlime_Wait : NK_BossSlimeStrategy
         if (m_fCnt > m_fAttackTime)
         {
             m_fCnt = 0.0f;
-            if (m_BossSlime.GetSetHp <= 25 && !m_SPAttackFlag)
+            if (m_BossSlime.GetSetHp <= 40 && !m_SPAttackFlag)
             {
                 m_SPAttackFlag = true;
                 m_BossSlime.GetSetBossSlimeState = BossSlimeState.BossSlimeUp;

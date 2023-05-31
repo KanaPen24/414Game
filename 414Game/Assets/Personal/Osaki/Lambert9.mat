@@ -65,6 +65,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: bc68d9000ecfa304d980e337f3469eb0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -126,4 +130,5 @@ Material:
     - _LightColor: {r: 0.50980395, g: 0.45882356, b: 0.41960788, a: 0}
     - _ShadowColor: {r: 0.14117648, g: 0.15294118, b: 0.15686275, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TrailDir: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

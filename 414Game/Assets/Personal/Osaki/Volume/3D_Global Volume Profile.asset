@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   rate:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
 --- !u!114 &-4424258675505937243
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -47,3 +47,20 @@ MonoBehaviour:
   components:
   - {fileID: -4424258675505937243}
   - {fileID: -8149954671324580665}
+  - {fileID: 1846741389775585458}
+--- !u!114 &1846741389775585458
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e28e33ee1986f92458337ce83e7d8033, type: 3}
+  m_Name: ON_GaussianVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  rate:
+    m_OverrideState: 1
+    m_Value: 0
