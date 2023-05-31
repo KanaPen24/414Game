@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using DG.Tweening;
 
 public class YK_TargetCamera : MonoBehaviour
 {
@@ -20,8 +21,10 @@ public class YK_TargetCamera : MonoBehaviour
     [SerializeField] private GameObject m_BattleCameraPos;
     private float Shakefloat = 0.0f;
     private Vector3 RendaPos;
-    private bool m_OneFlag;
+    private bool m_OneFlg = false;
+    private bool m_OneFlg2 = false;
     [SerializeField] private float m_CameraSpeed;
+    private Vector3 TargetCameraPos;    //標的を置いた時のカメラの座標
     // Start is called before the first frame update
     void Start()
     {
@@ -40,32 +43,49 @@ public class YK_TargetCamera : MonoBehaviour
         if (GameManager.instance.GetSetGameState != GameState.GamePlay)
             return;
 
-        RendaPos = this.gameObject.transform.position;
+        TargetCameraPos= new Vector3(Player.transform.position.x, 0f, Player.transform.position.z) + offset +
+                new Vector3(m_fCameraMove, 0f, 0f);
 
-        //連打の振動
-        Shakefloat = Shakefloat * 0.99f - Shakefloat * 0.01f;
+        if (m_OneFlg)
+        {
+            RendaPos = this.gameObject.transform.position;
 
-        RendaPos.x = m_BattleCameraPos.transform.position.x + UnityEngine.Random.Range(-Shakefloat, Shakefloat);
-        RendaPos.y = m_BattleCameraPos.transform.position.y + UnityEngine.Random.Range(-Shakefloat, Shakefloat);
+            //連打の振動
+            Shakefloat = Shakefloat * 0.99f - Shakefloat * 0.01f;
 
-        this.gameObject.transform.position = RendaPos;
+            RendaPos.x = m_BattleCameraPos.transform.position.x + UnityEngine.Random.Range(-Shakefloat, Shakefloat);
+            RendaPos.y = m_BattleCameraPos.transform.position.y + UnityEngine.Random.Range(-Shakefloat, Shakefloat);
+
+            this.gameObject.transform.position = RendaPos;
+        }
         if (m_Area.GetSetBattleFlag)
         {
-            if(!m_OneFlag)
+            if (!m_OneFlg)
             {
                 this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, m_BattleCameraPos.transform.position, m_fMoveCamera * Time.deltaTime);
                 //ターゲットに到達したら
                 if (transform.position == m_BattleCameraPos.transform.position)
                 {
-                    m_OneFlag = true;
+                    m_OneFlg = true;
                 }
             }
         }
         else
         {
-            // カメラの位置をターゲットの位置にオフセットを足した場所にする。
-            gameObject.transform.position = new Vector3(Player.transform.position.x, 0f, Player.transform.position.z) + offset +
-                new Vector3(m_fCameraMove, 0f, 0f);
+            if (!m_OneFlg2)
+            {
+                this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, TargetCameraPos, m_fMoveCamera * Time.deltaTime*4);
+                //ターゲットに到達したら
+                if (transform.position == TargetCameraPos)
+                {
+                    m_OneFlg2 = true;
+                }
+            }
+            else
+            {
+                // カメラの位置をターゲットの位置にオフセットを足した場所にする。
+                gameObject.transform.position = TargetCameraPos;
+            }
         }
     }
 
