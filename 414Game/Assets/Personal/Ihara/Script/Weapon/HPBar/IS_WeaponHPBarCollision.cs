@@ -106,6 +106,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
             //HPバーが壊れたにかえる
             YK_GameOver.instance.GetSetGameOverState = GameOverState.BreakHPBar;
             GameManager.instance.GetSetGameState = GameState.GameOver;
+            Player.GetSetPlayerState = PlayerState.PlayerGameOver;
         }
     }
 }

@@ -27,13 +27,6 @@ public class IS_PlayerUICatch : IS_PlayerStrategy
                 m_Player.GetSetPlayerState = PlayerState.PlayerWait;
                 return;
             }
-            //// 「UI取得 → 移動」
-            //if (m_Player.bInputRight || m_Player.bInputLeft)
-            //{
-            //    m_Player.GetSetPlayerState = PlayerState.PlayerJump;
-            //    m_Player.GetSetWalkFlg = true;
-            //    return;
-            //}
         }
     }
 

@@ -76,6 +76,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         if (WeaponStart.GetSetHp <= 0)
         {
             Player.RemovedWeapon();
+            IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_3);
         }
     }
 }
