@@ -34,9 +34,9 @@ public class YK_SkillIcon : YK_UI
         m_eFadeState = FadeState.FadeNone;
         OutLine.enabled = false;
         //座標取得
-        GetSetPos = SkillIcon.GetComponent<RectTransform>().anchoredPosition;
+        GetSetUIPos = SkillIcon.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
-        GetSetScale = SkillIcon.transform.localScale;
+        GetSetUIScale = SkillIcon.transform.localScale;
 
     }
 
@@ -92,7 +92,7 @@ public class YK_SkillIcon : YK_UI
     {
         m_eFadeState = FadeState.FadeIN;
         // 0秒で後X,Y方向を元の大きさに変更
-        SkillIcon.transform.DOScale(GetSetScale, 0f);
+        SkillIcon.transform.DOScale(GetSetUIScale, 0f);
         // 0秒でテクスチャをフェードイン
         OutLine.DOFade(1f, 0f);
         SkillInner.DOFade(0.7f, 0f);

@@ -22,9 +22,9 @@ public class YK_Clear : YK_UI
         m_eUIType = UIType.Clear; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
         //UIが動くようならUpdateにかかなかん
-        GetSetPos = Clear.GetComponent<RectTransform>().anchoredPosition;
+        GetSetUIPos = Clear.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
-        GetSetScale = Clear.transform.localScale;
+        GetSetUIScale = Clear.transform.localScale;
         UIFadeOUT();
     }
 
@@ -41,7 +41,7 @@ public class YK_Clear : YK_UI
         GetComponent<PointEffector2D>().enabled = true;
         m_eFadeState = FadeState.FadeIN;
         // 1秒で後X,Y方向を元の大きさに変更
-        Clear.transform.DOScale(GetSetScale, 0f);
+        Clear.transform.DOScale(GetSetUIScale, 0f);
         // 1秒でテクスチャをフェードイン
         Clear.DOFade(1f, 0f).OnComplete(() =>
         {

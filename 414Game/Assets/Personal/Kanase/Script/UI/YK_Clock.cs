@@ -24,7 +24,6 @@ public class YK_Clock : YK_UI
     [SerializeField] private Image OutLine;         //アウトライン
     [SerializeField] private YK_Time m_Time;
     [SerializeField] private IS_Player Player;
-    [SerializeField] YK_Time Time; // 時間
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
     private Vector3 Second_Scale;
     float seconds = 0f;
@@ -44,13 +43,13 @@ public class YK_Clock : YK_UI
         m_eUIType = UIType.Clock; // UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
         OutLine.enabled = false;
-        // UIが動くようならUpdateにかからない
-        GetSetPos = Clock.GetComponent<RectTransform>().anchoredPosition;
+        // UIが動くようならUpdateにかかないといけない
+        GetSetUIPos = Clock.GetComponent<RectTransform>().anchoredPosition;
         // スケール取得
-        GetSetScale = Clock.transform.localScale;
+        GetSetUIScale = Clock.transform.localScale;
         Second_Scale = Second.transform.localScale;
         //タイムリミットの取得
-        m_nTimeLimit = Time.GetSetTimeLimit;
+        m_nTimeLimit = m_Time.GetSetTimeLimit;
     }
 
 
@@ -77,10 +76,10 @@ public class YK_Clock : YK_UI
         if (GameManager.instance.GetSetGameState != GameState.GamePlay)
             return;
         //受け取ったfloat型の値を代入する
-        Clock_Inner.fillAmount = 1.0f - Time.GetSetNowTime / (float)m_nTimeLimit;
+        Clock_Inner.fillAmount = 1.0f - m_Time.GetSetNowTime / (float)m_nTimeLimit;
 
         // 時計の針の回転
-        Second.transform.eulerAngles = new Vector3(0, 0, (Time.GetSetNowTime / (float)m_nTimeLimit) * 360.0f);
+        Second.transform.eulerAngles = new Vector3(0, 0, (m_Time.GetSetNowTime / (float)m_nTimeLimit) * 360.0f);
 
         // 時止め時間かどうかの判定
         if (m_bStopTime && m_bOnce)
@@ -128,7 +127,7 @@ public class YK_Clock : YK_UI
     {
         m_eFadeState = FadeState.FadeIN;
         // 0秒で後X,Y方向を元の大きさに変更
-        this.gameObject.transform.DOScale(GetSetScale, 0f);
+        this.gameObject.transform.DOScale(GetSetUIScale, 0f);
         Second.transform.DOScale(Second_Scale, 0f);
         // 0秒でテクスチャをフェードイン
         Clock.DOFade(1f, 0f);

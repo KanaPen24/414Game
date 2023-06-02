@@ -23,9 +23,9 @@ public class YK_Exit : YK_UI
         m_eUIType = UIType.Exit; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
         //UIが動くようならUpdateにかかなかん
-        GetSetPos = Exit.GetComponent<RectTransform>().anchoredPosition;
+        GetSetUIPos = Exit.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
-        GetSetScale = Exit.transform.localScale;
+        GetSetUIScale = Exit.transform.localScale;
     }
 
     private void Update()

@@ -42,8 +42,8 @@ public class YK_Combo: YK_UI
     {
         m_eUIType = UIType.Combo; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
-        GetSetPos = ComboNumber.GetComponent<RectTransform>().anchoredPosition; //UIが動くようならUpdateにかかなかん
-        GetSetScale = ComboNumber.transform.localScale; //スケール取得
+        GetSetUIPos = ComboNumber.GetComponent<RectTransform>().anchoredPosition; //UIが動くようならUpdateにかかなかん
+        GetSetUIScale = ComboNumber.transform.localScale; //スケール取得
         Combo_Scale = ComboTxt.transform.localScale;
         ComboNumber = GetComponent<Text>();
         m_nCountDownTime *= 60; //60FPSに合わせる
@@ -115,7 +115,7 @@ public class YK_Combo: YK_UI
     public override void UIFadeIN()
     {
         m_eFadeState = FadeState.FadeIN;
-        this.gameObject.transform.DOScale(GetSetScale, 0f); // 0秒で後X,Y方向を元の大きさに変更
+        this.gameObject.transform.DOScale(GetSetUIScale, 0f); // 0秒で後X,Y方向を元の大きさに変更
         ComboTxt.transform.DOScale(Combo_Scale, 0f);
         ComboNumber.DOFade(1f, 0f); //0秒でテクスチャをフェードイン
         ComboTxt.DOFade(1f, 0f).OnComplete(() =>

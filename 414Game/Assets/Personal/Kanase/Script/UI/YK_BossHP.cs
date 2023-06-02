@@ -47,8 +47,8 @@ public class YK_BossHP : YK_UI
         BossSlider.maxValue = Boss.GetSetMaxHp;         // Sliderの最大値を敵キャラのHP最大値と合わせる
         BossSlider.value = Boss.GetSetHp;               // Sliderの初期状態を設定（HP満タン）
 
-        GetSetPos = BossSlider.GetComponent<RectTransform>().anchoredPosition;  // 座標取得
-        GetSetScale = BossSlider.transform.localScale;                         // スケール取得
+        GetSetUIPos = BossSlider.GetComponent<RectTransform>().anchoredPosition;  // 座標取得
+        GetSetUIScale = BossSlider.transform.localScale;                         // スケール取得
 
         UIFadeOUT();  // 最初は消しておく
         GetComponent<BoxCollider2D>().enabled = false;
@@ -103,7 +103,7 @@ public class YK_BossHP : YK_UI
         m_eFadeState = FadeState.FadeIN;
 
         // 0秒で後X,Y方向を元の大きさに変更
-        BossSlider.transform.DOScale(GetSetScale, 0f);
+        BossSlider.transform.DOScale(GetSetUIScale, 0f);
         // 0秒でテクスチャをフェードイン
         FrontFill.DOFade(1f, 0f);
         Frame.DOFade(1f, 0f);

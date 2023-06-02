@@ -48,8 +48,8 @@ public class YK_UI : MonoBehaviour
     protected UIType m_eUIType;      // UIの種類
     protected FadeState m_eFadeState;// フェードの状態
     protected bool m_bVisible;       // 表示非表示フラグ
-    protected Vector3 m_Pos;         // UIの座標
-    protected Vector2 m_Scale;       // スケール
+    protected Vector3 m_UIPos;         // UIの座標
+    protected Vector2 m_UIScale;       // スケール
     protected Vector3 m_MinScale = new Vector3(0.5f, 0.5f, 0.0f); // 最小サイズ
     protected float m_fDelTime = 0.4f;            // 減算していく時間
 
@@ -92,26 +92,26 @@ public class YK_UI : MonoBehaviour
 
     /**
  * @fn
- * 表示非表示のgetter・setter
+ * UI座標のgetter・setter
  * @return m_Pos(Vector3)
- * @brief 表示中を返す・セット
+ * @brief UI座標を返す・セット
  */
-    public Vector3 GetSetPos
+    public Vector3 GetSetUIPos
     {
-        get { return m_Pos; }
-        set { m_Pos = value; }
+        get { return m_UIPos; }
+        set { m_UIPos = value; }
     }
 
     /**
 * @fn
-* 表示非表示のgetter・setter
+* UIスケールのgetter・setter
 * @return m_Scale(Vector3)
-* @brief 表示中を返す・セット
+* @brief UIスケールを返す・セット
 */
-    public Vector2 GetSetScale
+    public Vector2 GetSetUIScale
     {
-        get { return m_Scale; }
-        set { m_Scale = value; }
+        get { return m_UIScale; }
+        set { m_UIScale = value; }
     }
 
     public virtual void UIFadeIN()

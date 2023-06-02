@@ -30,9 +30,9 @@ public class YK_Start : YK_UI
         m_eUIType = UIType.Start; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
         //UIが動くようならUpdateにかかなかん
-        GetSetPos = StartUI.GetComponent<RectTransform>().anchoredPosition;
+        GetSetUIPos = StartUI.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
-        GetSetScale = StartUI.transform.localScale;
+        GetSetUIScale = StartUI.transform.localScale;
         //アウトライン取得
         outline = this.GetComponent<Outline>();
 
@@ -67,7 +67,7 @@ public class YK_Start : YK_UI
     {
         m_eFadeState = FadeState.FadeIN;
         // 0秒で後X,Y方向を元の大きさに変更
-        StartUI.transform.DOScale(GetSetScale, 0f);
+        StartUI.transform.DOScale(GetSetUIScale, 0f);
         // 0秒でテクスチャをフェードイン
         StartUI.DOFade(1f, 0f).OnComplete(() =>
         {
