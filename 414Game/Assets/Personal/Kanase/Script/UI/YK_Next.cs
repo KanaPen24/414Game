@@ -22,9 +22,9 @@ public class YK_Next : YK_UI
         m_eUIType = UIType.Next; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
         //UIが動くようならUpdateにかかなかん
-        GetSetPos = Next.GetComponent<RectTransform>().anchoredPosition;
+        GetSetUIPos = Next.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
-        GetSetScale = Next.transform.localScale;
+        GetSetUIScale = Next.transform.localScale;
         UIFadeOUT();
     }
 
@@ -41,7 +41,7 @@ public class YK_Next : YK_UI
         GetComponent<PointEffector2D>().enabled = true;
         m_eFadeState = FadeState.FadeIN;
         // 1秒で後X,Y方向を元の大きさに変更
-        Next.transform.DOScale(GetSetScale, 0f);
+        Next.transform.DOScale(GetSetUIScale, 0f);
         // 1秒でテクスチャをフェードイン
         Next.DOFade(1f, 0f).OnComplete(() =>
         {

@@ -75,7 +75,7 @@ public class YK_DamageUI : YK_UI
         {
             damageText.color = Color.blue;
         }
-        GetSetPos = collision.transform.position;
+        GetSetUIPos = collision.transform.position;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

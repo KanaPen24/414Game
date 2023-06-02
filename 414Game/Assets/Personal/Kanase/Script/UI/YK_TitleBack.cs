@@ -22,9 +22,9 @@ public class YK_TitleBack : YK_UI
         m_eUIType = UIType.TitleBack; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
         //UIが動くようならUpdateにかかなかん
-        GetSetPos = TitleBackUI.GetComponent<RectTransform>().anchoredPosition;
+        GetSetUIPos = TitleBackUI.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
-        GetSetScale = TitleBackUI.transform.localScale;
+        GetSetUIScale = TitleBackUI.transform.localScale;
     }
 
     // Update is called once per frame
@@ -38,7 +38,7 @@ public class YK_TitleBack : YK_UI
     {
         m_eFadeState = FadeState.FadeIN;
         // 0秒で後X,Y方向を元の大きさに変更
-        TitleBackUI.transform.DOScale(GetSetScale, 0f);
+        TitleBackUI.transform.DOScale(GetSetUIScale, 0f);
         // 0秒でテクスチャをフェードイン
         TitleBackUI.DOFade(1f, 0f).OnComplete(() =>
         {

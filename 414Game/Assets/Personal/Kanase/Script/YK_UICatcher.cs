@@ -160,8 +160,8 @@ public class YK_UICatcher : MonoBehaviour
                 m_SelectUI = m_Uis[i];
 
                 // エフェクトの位置を設定
-                BlackHoleUI.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetPos;
-                Hand.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetPos;
+                BlackHoleUI.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetUIPos;
+                Hand.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetUIPos;
                 
                 // for文から抜ける
                 break;

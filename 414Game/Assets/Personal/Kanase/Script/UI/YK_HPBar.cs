@@ -42,10 +42,10 @@ public class YK_HPBar : YK_UI
         m_eFadeState = FadeState.FadeNone;
         GetSetVisible = false;
         OutLine.enabled = false;
-        // UIが動くようならUpdateに書かない
-        GetSetPos = HP.GetComponent<RectTransform>().anchoredPosition;  // 位置取得
+        // UIが動くようならUpdateに書かないといけない
+        GetSetUIPos = HP.GetComponent<RectTransform>().anchoredPosition;  // 位置取得
         // スケール取得
-        GetSetScale = HP.transform.localScale;                    // スケール取得
+        GetSetUIScale = HP.transform.localScale;                    // スケール取得
     }
 
     private void Update()
@@ -84,7 +84,7 @@ public class YK_HPBar : YK_UI
     {
         m_eFadeState = FadeState.FadeIN;
         // 0秒で後X,Y方向を元の大きさに変更
-        HP.transform.DOScale(GetSetScale, 0f);
+        HP.transform.DOScale(GetSetUIScale, 0f);
         // 0秒でテクスチャをフェードイン
         FrontFill.DOFade(1f, 0f);
         BackFill.DOFade(1f, 0f);
