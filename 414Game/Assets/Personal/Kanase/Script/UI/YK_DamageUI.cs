@@ -22,6 +22,7 @@ public class YK_DamageUI : YK_UI
     [SerializeField] private int m_nCountDown;          // 消えるまでの時間（秒単位）
     private int m_nCountTime = 0;                       // 表示されている時間
     [SerializeField] YK_Time time;                      // 時間
+    private GameObject DamageUI;
     void Start()
     {        
         damageText = GetComponentInChildren<Text>();
@@ -29,6 +30,7 @@ public class YK_DamageUI : YK_UI
         m_eFadeState = FadeState.FadeNone;
         m_nCountDown *= 60; //60FPSに合わせる
         time= GameObject.Find("Timer").GetComponent<YK_Time>();
+        DamageUI = this.gameObject;
     }
 
     void LateUpdate()
@@ -43,7 +45,11 @@ public class YK_DamageUI : YK_UI
 
             if (damageText.color.a <= 0.1f)
             {
-                Destroy(gameObject);
+                Destroy(DamageUI);
+                //C#側のManaged Shellが残り続ける
+                //微々たる量であるがメモリを食い続けている
+                //なのでnullにすることでManaged Shellを消せる
+                DamageUI = null;
             }
         }
     }
@@ -62,11 +68,13 @@ public class YK_DamageUI : YK_UI
         m_eFadeState = FadeState.FadeOUT;
         // m_fDelTime秒でm_MinScaleに変更
         damageText.transform.DOScale(m_MinScale, m_fDelTime);
-        // m_fDelTime秒でテクスチャをフェードイン
+        // m_fDelTime秒でテクスチャをフェードアウト
         damageText.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             GetSetFadeState = FadeState.FadeNone;
             Destroy(gameObject);
+
+            DamageUI = null;
         });
     }
     private void OnTriggerEnter2D(Collider2D collision)

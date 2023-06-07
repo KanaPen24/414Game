@@ -41,12 +41,13 @@ public class YK_Retry : YK_UI
         });
     }
 
+    //RetryUIを非表示
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
         // m_fDelTime秒でm_MinScaleに変更
         RetryUI.transform.DOScale(m_MinScale, m_fDelTime);
-        // m_fDelTime秒でテクスチャをフェードイン
+        // m_fDelTime秒でテクスチャをフェードアウト
         RetryUI.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             //フェード処理終了時に呼ばれる
@@ -54,7 +55,6 @@ public class YK_Retry : YK_UI
             RetryPlay();
             Debug.Log("FadeOUT終了");
         });
-        
     }
     /**
  * @fn
