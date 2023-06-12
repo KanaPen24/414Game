@@ -5,18 +5,33 @@ using UnityEngine;
 public class NK_SlimeBes_Crawl : NK_SlimeBesStrategy
 {
     [SerializeField] private NK_SlimeBes m_SlimeBes;
-    [SerializeField] private float m_MovePow;
+    private float m_MovePow;
+    [SerializeField] private float m_MoveTime;
+    private float m_Cnt;
+    [SerializeField] private float m_StartTime;
+    private float m_StartCnt;
     public override void UpdateStrategy()
     {
-
-        if(m_SlimeBes.GetSetBesDir==BesDir.Left)
-        {
+        m_Cnt += Time.deltaTime;
+        m_SlimeBes.m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
+            if (m_Cnt < m_MoveTime)
+            {
+                m_MovePow += 0.03f;
+                if (m_SlimeBes.GetSetBesDir == BesDir.Left)
+                {
+                    m_SlimeBes.m_MoveValue.x += m_MovePow;
+                }
+                if (m_SlimeBes.GetSetBesDir == BesDir.Right)
+                {
+                    m_SlimeBes.m_MoveValue.x -= m_MovePow;
+                }
+            }
+            else
+            {
+            m_MovePow = 0.0f;
+            m_Cnt = 0;
             m_SlimeBes.GetSetBesState = SlimeBesState.BesWait;
-        }
-        if(m_SlimeBes.GetSetBesDir==BesDir.Right)
-        {
-            m_SlimeBes.m_MoveValue.x += m_MovePow;
-            m_SlimeBes.GetSetBesState = SlimeBesState.BesWait;
-        }
+            }
+        
     }
 }

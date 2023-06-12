@@ -22,6 +22,8 @@ public class YK_Start : YK_UI
     private bool m_bVisibleStart = true;
     private float m_rate = 1.0f;
     private float m_fTime;
+    [SerializeField] private YK_MoveCursol MoveCursol;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,19 @@ public class YK_Start : YK_UI
     }
     private void Update()
     {
+        // カーソルが動き始めるまで
+        if (!MoveCursol.GetSetMoveFlg)
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<PointEffector2D>().enabled = false;    //エフェクターを無効にすることで道中吸い寄せられない
+            return;
+        }
+        else
+        {
+            GetComponent<BoxCollider2D>().enabled = true;
+            GetComponent<PointEffector2D>().enabled = true;
+        }
+
         //ブラウン管のポストエフェクトを減らしていく処理
         if (!m_bVisibleStart)
         {
@@ -63,6 +78,8 @@ public class YK_Start : YK_UI
     //StartUIを非表示
     public override void UIFadeOUT()
     {
+        //ゲームのステートをプレイ状態にする
+        GameManager.instance.GetSetGameState = GameState.GamePlay;
         m_eFadeState = FadeState.FadeOUT;
         // m_fDelTime秒でm_MinScaleに変更
         StartUI.transform.DOScale(m_MinScale, m_fDelTime);
@@ -96,8 +113,6 @@ public class YK_Start : YK_UI
     public void StartPlay()
     {
         m_bVisibleStart = false;
-        //ゲームのステートをプレイ状態にする
-        GameManager.instance.GetSetGameState = GameState.GamePlay;
     }
     
 

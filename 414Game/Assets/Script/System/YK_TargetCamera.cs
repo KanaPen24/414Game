@@ -10,7 +10,7 @@ public class YK_TargetCamera : MonoBehaviour
     [SerializeField] private Vector3 offset;
     [SerializeField] private float m_fMaxCameraMove;
     [SerializeField] private float m_fMoveCnt;
-    [SerializeField] private float m_fMoveCamera;   //カメラの動くスピード
+    [SerializeField] private float m_fMoveCamera=2.0f;   //カメラの動くスピード
     private float m_fCameraMove;
     private float m_fCurrnetMoveCnt;
     private float m_fAccel;
