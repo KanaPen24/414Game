@@ -24,6 +24,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         {
             if (WeaponStart.GetSetAttack && !other.GetComponent<NK_BossSlime>().GetSetDamageFlag)
             {
+                YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponStart.GetSetHp -= m_nDamage2Start;
                 other.GetComponent<NK_BossSlime>().BossSlimeDamage(m_nDamage2Enemy);
@@ -37,6 +38,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         {
             if (WeaponStart.GetSetAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)
             {
+                YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponStart.GetSetHp -= m_nDamage2Start;
                 other.GetComponent<NK_Slime>().SlimeDamage(m_nDamage2Enemy);
@@ -51,6 +53,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         {
             if (WeaponStart.GetSetAttack && !other.GetComponent<NK_Bat>().GetSetDamageFlag)
             {
+                YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponStart.GetSetHp -= m_nDamage2Start;
                 other.GetComponent<NK_Bat>().BatDamage(m_nDamage2Enemy);
@@ -64,6 +67,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         // スライムベスへのダメージ処理
         if (other.gameObject.GetComponent<NK_SlimeBes>() != null)
         {
+            YK_Controller.instance.ControllerVibration(0.3f);
             IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
             WeaponStart.GetSetHp -= m_nDamage2Start;
             other.GetComponent<NK_SlimeBes>().BesDamage(m_nDamage2Enemy);
@@ -72,10 +76,12 @@ public class IS_WeaponStartCollision : MonoBehaviour
             HitEffect.Play();
         }
 
-        // 耐久値が0以下になったらゲームオーバー
+        // 耐久値が0以下になったら壊れる
         if (WeaponStart.GetSetHp <= 0)
         {
+            YK_Controller.instance.ControllerVibration(0.5f);
             Player.RemovedWeapon();
+            IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_3);
         }
     }
 }

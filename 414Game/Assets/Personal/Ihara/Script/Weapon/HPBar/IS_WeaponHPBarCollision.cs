@@ -30,6 +30,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
         {
             if (WeaponHPBar.GetSetAttack && !other.GetComponent<NK_BossSlime>().GetSetDamageFlag)
             {
+                YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
                 Player.GetSetHp += m_nDrainBossHp;
@@ -48,6 +49,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
         {
             if (WeaponHPBar.GetSetAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)
             {
+                YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
                 Player.GetSetHp += m_nDrainBossHp;
@@ -67,6 +69,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
         {
             if (WeaponHPBar.GetSetAttack && !other.GetComponent<NK_Bat>().GetSetDamageFlag)
             {
+                YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
                 Player.GetSetHp += m_nDrainBossHp;
@@ -84,6 +87,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
         // スライムベスへのダメージ処理
         if (other.gameObject.GetComponent<NK_SlimeBes>() != null)
         {
+            YK_Controller.instance.ControllerVibration(0.3f);
             IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
             WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
             Player.GetSetHp += m_nDrainBossHp;
@@ -101,11 +105,13 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
         // 耐久値が0以下になったら装備を外す
         if (WeaponHPBar.GetSetHp <= 0)
         {
+            YK_Controller.instance.ControllerVibration(1f);
             Player.RemovedWeapon();
             IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_3);
             //HPバーが壊れたにかえる
             YK_GameOver.instance.GetSetGameOverState = GameOverState.BreakHPBar;
             GameManager.instance.GetSetGameState = GameState.GameOver;
+            Player.GetSetPlayerState = PlayerState.PlayerGameOver;
         }
     }
 }

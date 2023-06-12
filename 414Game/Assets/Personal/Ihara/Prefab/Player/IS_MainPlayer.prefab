@@ -416,6 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 2602812492749303807}
   m_PlayerGroundColl: {fileID: 1434260197630297037}
+  m_BlurController: {fileID: 5664621278328256290}
   m_fAvoidTime: 0.2
   m_MovePow: 20
 --- !u!114 &3682025653976630071
@@ -503,7 +504,6 @@ MonoBehaviour:
   AtkEff: {fileID: 0}
   AvoEff: {fileID: 0}
   Player: {fileID: 2602812492749303807}
-  Weapon: {fileID: 3816624634288352196}
 --- !u!1001 &429338215743229632
 PrefabInstance:
   m_ObjectHideFlags: 0

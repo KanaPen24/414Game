@@ -93,8 +93,7 @@ public class IS_Ball : MonoBehaviour
                 continue;
             }
 
-            if (hit.collider.gameObject.GetComponent<NK_SlimeBes>() != null &&
-                !hit.collider.gameObject.GetComponent<NK_Bat>().GetSetDamageFlag)
+            if (hit.collider.gameObject.GetComponent<NK_SlimeBes>() != null)
             {
                 hit.collider.gameObject.GetComponent<NK_SlimeBes>().BesDamage(nAttackPow);
                 hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, nAttackPow);

@@ -29,6 +29,7 @@ public class YK_GameOver : MonoBehaviour
     public static YK_GameOver instance;
     [SerializeField] private GameObject GameOver;
     [SerializeField] private YK_Clock clock;
+    [SerializeField] private ON_TextEntry TextEntry;
     private bool m_bGameOverFlg;
     [SerializeField] private GameOverState m_GameOverState;
     [SerializeField] private CanvasGroup TextCanvas;
@@ -37,6 +38,8 @@ public class YK_GameOver : MonoBehaviour
     [SerializeField] private Text TimeLimit;
     private Vector2 FirstPos;
     [SerializeField]　private float m_fFadeTime; //フェードの時間
+    private float m_rate = 0.0f;
+    private float m_fTime;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +64,12 @@ public class YK_GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.GetSetGameState == GameState.GameOver)
+        {
+            m_fTime += Time.deltaTime;
+            m_rate = Mathf.Lerp(0.0f, 0.5f, m_fTime/4);
+            TextEntry.SetRate(m_rate);
+        }
         if (GameManager.instance.GetSetGameState == GameState.GameOver&&!m_bGameOverFlg)
         {
             TextCanvas.gameObject.SetActive(true);
@@ -68,7 +77,7 @@ public class YK_GameOver : MonoBehaviour
             if (!m_bGameOverFlg)
             {
                 IS_AudioManager.instance.AllStopSE();
-                IS_AudioManager.instance.StopBGM(BGMType.BGM_Game);
+                IS_AudioManager.instance.AllStopBGM();
                 IS_AudioManager.instance.PlayBGM(BGMType.BGM_GAMEOVER);
             }
             m_bGameOverFlg = true;
@@ -82,32 +91,25 @@ public class YK_GameOver : MonoBehaviour
         switch (m_GameOverState)
         {
             case GameOverState.BreakHPBar:
-                HPBarBroken.DOFade(1f, m_fFadeTime);
+                HPBarBroken.DOFade(1f, m_fFadeTime).OnComplete(() =>
+                {
+                    HPBarBroken.DOFade(0f, m_fFadeTime);
+                });
                 break;
             case GameOverState.NoHP:
-                NoHP.DOFade(1f, m_fFadeTime);
+                NoHP.DOFade(1f, m_fFadeTime).OnComplete(() =>
+                {
+                    NoHP.DOFade(0f, m_fFadeTime);
+                });
                 break;
             case GameOverState.TimeLimit:
-                TimeLimit.DOFade(1f, m_fFadeTime);
+                TimeLimit.DOFade(1f, m_fFadeTime).OnComplete(() =>
+                {
+                    TimeLimit.DOFade(0f, m_fFadeTime);
+                });
                 break;
         }
-        // 2秒で後X,Y方向を元の大きさに変更
-        TextCanvas.GetComponent<RectTransform>().DOAnchorPos(new Vector2(FirstPos.x, 0f), m_fFadeTime).OnComplete(() =>
-        {
-            TextCanvas.GetComponent<RectTransform>().DOAnchorPos(new Vector2(FirstPos.x, -FirstPos.y), m_fFadeTime);
-            switch (m_GameOverState)
-            {
-                case GameOverState.BreakHPBar:
-                    HPBarBroken.DOFade(0f, m_fFadeTime);
-                    break;
-                case GameOverState.NoHP:
-                    NoHP.DOFade(0f, m_fFadeTime);
-                    break;
-                case GameOverState.TimeLimit:
-                    TimeLimit.DOFade(0f, m_fFadeTime);
-                    break;
-            }
-        });
+       
 
     }
     /**
