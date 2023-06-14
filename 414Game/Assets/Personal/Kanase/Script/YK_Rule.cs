@@ -26,10 +26,10 @@ public class YK_Rule : MonoBehaviour
 
     private void Update()
     {
-        if (book.GetSetHitFlg)
+        if (book.GetSetItemHit)
         {
             FadeIN();
-            book.GetSetHitFlg = false;
+            book.GetSetItemHit = false;
         }
         if (m_bRuleVisible && Input.GetButton("Decision")) 
             FadeOUT();

@@ -8,28 +8,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YK_Book : MonoBehaviour
+public class YK_Book : YK_Item
 {
-    private bool m_Hit;
+    [SerializeField] GameObject book;
+
+    private void Start()
+    {
+        m_eItemType = ItemType.Book; //アイテムのタイプ設定
+        GetSetItemHit = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag=="Player")
         {
-            m_Hit = true;
+            GetSetItemHit = true;
         }
-        Destroy(gameObject);
+        Destroy(book);
+        book = null;
     }
-  
-    /**
-* @fn
-* 当たったかのgetter・setter
-* @return m_bHit(bool)
-* @brief 当たり判定
-*/
-    public bool GetSetHitFlg
-    {
-        get { return m_Hit; }
-        set { m_Hit = value; }
-    }
+ 
 }
