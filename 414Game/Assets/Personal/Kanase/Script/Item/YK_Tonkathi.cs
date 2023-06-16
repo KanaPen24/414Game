@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YK_Tonkathi : MonoBehaviour
+public class YK_Tonkathi : YK_Item
 {
     [SerializeField] private IS_Player Player;
     [SerializeField] private List<YK_SkillIcon> SkillIcons;
@@ -24,6 +24,8 @@ public class YK_Tonkathi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_eItemType = ItemType.Tonkathi; //アイテムのタイプ設定
+        GetSetItemHit = false;
         m_nSkillLimit = SkillIcons.Capacity - 1;//配列のため-１をして調整
     }
     //回避使用時に呼び出す関数
@@ -45,6 +47,8 @@ public class YK_Tonkathi : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            GetSetItemHit = true;
+
             //なに持ってない
             if (Player.GetSetPlayerEquipState == PlayerEquipState.NoneEquip)
                 return;

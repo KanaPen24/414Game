@@ -193,14 +193,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 380596899061131497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e3b17692d847614899b35422993f665, type: 3}
+  m_Script: {fileID: 11500000, guid: adddf928404771c46b08ae393f897503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 7096374214332199848}
   SkillInner: {fileID: 2592891712234899399}
   OutLine: {fileID: 6822737503444664033}
-  m_nStuck: 3
-  m_fCoolTimeLimit: 5
+  m_nStuck: 1
+  m_fCoolTimeLimit: 0
   Use: {fileID: 5496827138260071250}
   HealParticle: {fileID: 1263238548882970515}
   MoveCursol: {fileID: 2561112146707847214}
@@ -1644,10 +1644,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3485605411544655094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40989683990966947ba82c0958284e48, type: 3}
+  m_Script: {fileID: 11500000, guid: de499f988e320cb41b8f4549dfc8d749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Next: {fileID: 1406356346491746500}
+  Next: {fileID: 0}
   fade: {fileID: 0}
 --- !u!250 &2413587131873695908
 PointEffector2D:
@@ -1877,7 +1877,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4377861224097800853}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10ec68dcdd5fe36438ab0aa2f8816a55, type: 3}
+  m_Script: {fileID: 11500000, guid: 66d50540f479f6d43a10a25029b80866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   HP: {fileID: 6078767593954968639}
@@ -2308,14 +2308,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5272812111931121297}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e3b17692d847614899b35422993f665, type: 3}
+  m_Script: {fileID: 11500000, guid: adddf928404771c46b08ae393f897503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 2863066942283563853}
   SkillInner: {fileID: 3245806725021241744}
   OutLine: {fileID: 9119524462115296924}
-  m_nStuck: 3
-  m_fCoolTimeLimit: 5
+  m_nStuck: 1
+  m_fCoolTimeLimit: 0
   Use: {fileID: 5496827138260071250}
   HealParticle: {fileID: 8889720732218024442}
   MoveCursol: {fileID: 2561112146707847214}
@@ -2826,14 +2826,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6521790490711409283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e3b17692d847614899b35422993f665, type: 3}
+  m_Script: {fileID: 11500000, guid: adddf928404771c46b08ae393f897503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 1871805836552840424}
   SkillInner: {fileID: 2466564180303343867}
   OutLine: {fileID: 7659940590319079242}
-  m_nStuck: 3
-  m_fCoolTimeLimit: 5
+  m_nStuck: 1
+  m_fCoolTimeLimit: 0
   Use: {fileID: 5496827138260071250}
   HealParticle: {fileID: 1738282748212388673}
   MoveCursol: {fileID: 2561112146707847214}
@@ -2946,14 +2946,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6616016699473613740}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e3b17692d847614899b35422993f665, type: 3}
+  m_Script: {fileID: 11500000, guid: adddf928404771c46b08ae393f897503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 1345458143150749385}
   SkillInner: {fileID: 155176535934762334}
   OutLine: {fileID: 671649131468096357}
-  m_nStuck: 3
-  m_fCoolTimeLimit: 5
+  m_nStuck: 1
+  m_fCoolTimeLimit: 0
   Use: {fileID: 5496827138260071250}
   HealParticle: {fileID: 8728284164336663278}
   MoveCursol: {fileID: 2561112146707847214}
@@ -3156,7 +3156,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6999424355937643726}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 079d5aa93e614a940bdbce5eb2e77ec9, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a73c3e739253fd42b6e28bf42c14b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Clear: {fileID: 8553605537174658002}
@@ -3999,14 +3999,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7771082640797635859}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e3b17692d847614899b35422993f665, type: 3}
+  m_Script: {fileID: 11500000, guid: adddf928404771c46b08ae393f897503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SkillIcon: {fileID: 5357815216530760049}
   SkillInner: {fileID: 8584323896830477929}
   OutLine: {fileID: 8283103162062107326}
-  m_nStuck: 3
-  m_fCoolTimeLimit: 5
+  m_nStuck: 1
+  m_fCoolTimeLimit: 0
   Use: {fileID: 5496827138260071250}
   HealParticle: {fileID: 4013565979950578272}
   MoveCursol: {fileID: 2561112146707847214}
@@ -5108,11 +5108,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 357825147229127722}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0c80079e7b6d294681a3c34fd98dc0c, type: 3}
+  m_Script: {fileID: 11500000, guid: b31473180bf692940ba0414a54504ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fade: {fileID: 0}
-  RetryUI: {fileID: 357825147229127724}
+  RetryUI: {fileID: 0}
 --- !u!114 &4920406889218078429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5158,18 +5158,6 @@ MonoBehaviour:
   m_Reverse: 1
   m_Duration: 1
   m_UpdateMode: 0
---- !u!114 &357825147229127724 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1252618962852615568, guid: 536d72463a646b44eb2c1000869a281a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1555274985922417084}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 357825147229127722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8685728122696085300 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7862323879306296968, guid: 536d72463a646b44eb2c1000869a281a,
@@ -5944,7 +5932,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d40617ce0ff11d849aa6e237010bafef, type: 3}
+  m_Script: {fileID: 11500000, guid: 9502d4114fbbf7e4d8d1a0917e39de9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4875407256634638606
@@ -6251,7 +6239,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5965826253428260821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 188237fa880b1214fad6b6cc16a2358f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b1f7f226b3d9ad4fa7747ac5cc59318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Exit: {fileID: 5965826253428260827}
@@ -6380,7 +6368,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5965826255464846488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dd49756fc7bab54c805545560cfc1fb, type: 3}
+  m_Script: {fileID: 11500000, guid: fa8eef7777873f54489b4a557dbe297b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GameStart: {fileID: 5965826254180214864}
@@ -7527,7 +7515,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1391956764787822448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69f168a9afe35bc49a79a7577ab94941, type: 3}
+  m_Script: {fileID: 11500000, guid: 56ed17e5f5016dd4db1d2326f1c2ac65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ComboNumber: {fileID: 1391956764787822451}

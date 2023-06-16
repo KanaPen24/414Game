@@ -22,9 +22,9 @@ public class YK_Retry : YK_UI
         m_eUIType = UIType.Retry; //UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
         //UIが動くようならUpdateにかかなかん
-        GetSetPos = RetryUI.GetComponent<RectTransform>().anchoredPosition;
+        GetSetUIPos = RetryUI.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
-        GetSetScale = RetryUI.transform.localScale;
+        GetSetUIScale = RetryUI.transform.localScale;
     }
     
     //RetryUIを表示
@@ -32,7 +32,7 @@ public class YK_Retry : YK_UI
     {
         m_eFadeState = FadeState.FadeIN;
         // 0秒で後X,Y方向を元の大きさに変更
-        RetryUI.transform.DOScale(GetSetScale, 0f);
+        RetryUI.transform.DOScale(GetSetUIScale, 0f);
         // 0秒でテクスチャをフェードイン
         RetryUI.DOFade(1f, 0f).OnComplete(() =>
         {
@@ -41,12 +41,13 @@ public class YK_Retry : YK_UI
         });
     }
 
+    //RetryUIを非表示
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
         // m_fDelTime秒でm_MinScaleに変更
         RetryUI.transform.DOScale(m_MinScale, m_fDelTime);
-        // m_fDelTime秒でテクスチャをフェードイン
+        // m_fDelTime秒でテクスチャをフェードアウト
         RetryUI.DOFade(0f, m_fDelTime).OnComplete(() =>
         {
             //フェード処理終了時に呼ばれる
@@ -54,7 +55,6 @@ public class YK_Retry : YK_UI
             RetryPlay();
             Debug.Log("FadeOUT終了");
         });
-        
     }
     /**
  * @fn
