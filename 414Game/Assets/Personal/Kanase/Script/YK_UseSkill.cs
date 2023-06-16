@@ -36,7 +36,7 @@ public class YK_UseSkill : MonoBehaviour
         for (int i = 0; i <= m_nSkillLimit; i++)
         {
             //使えるスキルかどうか判断する
-            if (!SkillIcons[i].GetUseSkill)
+            if (!SkillIcons[i].GetSkillUse)
                 m_nSkillUse = i;    //使えるスキル番号を入れる
             else
                 m_nNoSkillUse++;    //使えないスキルを加算する

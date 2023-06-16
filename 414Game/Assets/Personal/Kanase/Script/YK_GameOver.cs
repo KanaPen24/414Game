@@ -1,6 +1,7 @@
 ﻿/**
  * @file   YK_GameOver.cs
  * @brief  ゲームオーバークラス
+           ゲームオーバーの状態を管理し、ゲームオーバー時の処理を制御
  * @author YoshidaKanase
  * @date   2023/04/26
  * @Update 2023/05/05 ゲームオーバーのBGM実装
@@ -11,15 +12,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-// ===============================================
-// GameOverState
-// … Gameの状態を管理する列挙体
-// ===============================================
 public enum GameOverState
 {
-   BreakHPBar,
-   NoHP,
-   TimeLimit,
+    BreakHPBar,   // HPバー破壊
+    NoHP,         // HPがゼロ
+    TimeLimit,    // 制限時間の経過
 
     MaxGameOverState
 }
@@ -27,21 +24,21 @@ public enum GameOverState
 public class YK_GameOver : MonoBehaviour
 {
     public static YK_GameOver instance;
-    [SerializeField] private GameObject GameOver;
-    [SerializeField] private YK_Clock clock;
-    [SerializeField] private ON_TextEntry TextEntry;
-    private bool m_bGameOverFlg;
-    [SerializeField] private GameOverState m_GameOverState;
-    [SerializeField] private CanvasGroup TextCanvas;
-    [SerializeField] private Text HPBarBroken;
-    [SerializeField] private Text NoHP;
-    [SerializeField] private Text TimeLimit;
-    private Vector2 FirstPos;
-    [SerializeField]　private float m_fFadeTime; //フェードの時間
-    private float m_rate = 0.0f;
-    private float m_fTime;
 
-    // Start is called before the first frame update
+    [SerializeField] private GameObject GameOver;  // ゲームオーバーUIのオブジェクト
+    [SerializeField] private YK_Clock clock;       // ゲーム内の時計オブジェクト
+    [SerializeField] private ON_TextEntry TextEntry;  // テキストエントリオブジェクト
+    private bool m_bGameOverFlg;  // ゲームオーバーフラグ
+    [SerializeField] private GameOverState m_GameOverState;  // ゲームオーバーの状態
+    [SerializeField] private CanvasGroup TextCanvas;  // テキストを表示するキャンバスグループ
+    [SerializeField] private Text HPBarBroken;  // HPバー破壊時のテキスト
+    [SerializeField] private Text NoHP;  // HPがゼロの時のテキスト
+    [SerializeField] private Text TimeLimit;  // 制限時間経過時のテキスト
+    private Vector2 FirstPos;  // テキストの初期位置
+    [SerializeField] private float m_fFadeTime;  // テキストのフェード時間
+    private float m_rate = 0.0f;  // フェード率
+    private float m_fTime;  // 経過時間
+
     void Start()
     {
         if (instance == null)
@@ -52,39 +49,37 @@ public class YK_GameOver : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        GameOver.SetActive(false);
-        m_bGameOverFlg = false;
-        HPBarBroken.DOFade(0f, 0f);
-        NoHP.DOFade(0f, 0f); 
-        TimeLimit.DOFade(0f, 0f);
-        FirstPos = TextCanvas.GetComponent<RectTransform>().anchoredPosition; 
-
+        GameOver.SetActive(false);  // ゲームオーバーUIを非表示にする
+        m_bGameOverFlg = false;  // ゲームオーバーフラグを初期化する
+        HPBarBroken.DOFade(0f, 0f);  // HPバー破壊時のテキストを非表示にする
+        NoHP.DOFade(0f, 0f);  // HPがゼロの時のテキストを非表示にする
+        TimeLimit.DOFade(0f, 0f);  // 制限時間経過時のテキストを非表示にする
+        FirstPos = TextCanvas.GetComponent<RectTransform>().anchoredPosition;  // テキストの初期位置を保存する
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (GameManager.instance.GetSetGameState == GameState.GameOver)
         {
             m_fTime += Time.deltaTime;
-            m_rate = Mathf.Lerp(0.0f, 0.5f, m_fTime/4);
-            TextEntry.SetRate(m_rate);
+            m_rate = Mathf.Lerp(0.0f, 0.5f, m_fTime / 4);  // フェード率を時間に基づいて変化させる
+            TextEntry.SetRate(m_rate);  // テキストエントリのフェード率を更新する
         }
-        if (GameManager.instance.GetSetGameState == GameState.GameOver&&!m_bGameOverFlg)
+        if (GameManager.instance.GetSetGameState == GameState.GameOver && !m_bGameOverFlg)
         {
-            TextCanvas.gameObject.SetActive(true);
-            FadeIN();
+            TextCanvas.gameObject.SetActive(true);  // テキストを表示するキャンバスをアクティブにする
+            FadeIN();  // テキストのフェードイン処理を実行する
             if (!m_bGameOverFlg)
             {
-                IS_AudioManager.instance.AllStopSE();
-                IS_AudioManager.instance.AllStopBGM();
-                IS_AudioManager.instance.PlayBGM(BGMType.BGM_GAMEOVER);
+                IS_AudioManager.instance.AllStopSE();  // すべてのSEを停止する
+                IS_AudioManager.instance.AllStopBGM();  // すべてのBGMを停止する
+                IS_AudioManager.instance.PlayBGM(BGMType.BGM_GAMEOVER);  // ゲームオーバーのBGMを再生する
             }
-            m_bGameOverFlg = true;
-            //Time.timeScale = 0.0f;
-            GameOver.SetActive(true);
+            m_bGameOverFlg = true;  // ゲームオーバーフラグを設定する
+            GameOver.SetActive(true);  // ゲームオーバーUIを表示する
         }
     }
+
     //Ruleを表示
     public void FadeIN()
     {
@@ -93,35 +88,34 @@ public class YK_GameOver : MonoBehaviour
             case GameOverState.BreakHPBar:
                 HPBarBroken.DOFade(1f, m_fFadeTime).OnComplete(() =>
                 {
-                    HPBarBroken.DOFade(0f, m_fFadeTime);
+                    HPBarBroken.DOFade(0f, m_fFadeTime);  // テキストのフェードアウト処理を実行する
                 });
                 break;
             case GameOverState.NoHP:
                 NoHP.DOFade(1f, m_fFadeTime).OnComplete(() =>
                 {
-                    NoHP.DOFade(0f, m_fFadeTime);
+                    NoHP.DOFade(0f, m_fFadeTime);  // テキストのフェードアウト処理を実行する
                 });
                 break;
             case GameOverState.TimeLimit:
                 TimeLimit.DOFade(1f, m_fFadeTime).OnComplete(() =>
                 {
-                    TimeLimit.DOFade(0f, m_fFadeTime);
+                    TimeLimit.DOFade(0f, m_fFadeTime);  // テキストのフェードアウト処理を実行する
                 });
                 break;
         }
-       
-
     }
+
     /**
- * @fn
- * GameOverの状態のgetter・setter
- * @return m_GameState
- * @brief GameOverの状態を返す・セット
- */
+     * @fn
+     * ゲームオーバーの状態のgetter・setter
+     * @return m_GameState
+     * @brief ゲームオーバーの状態を返す・セットする
+     */
     public GameOverState GetSetGameOverState
     {
         get { return m_GameOverState; }
         set { m_GameOverState = value; }
     }
-
 }
+
