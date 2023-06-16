@@ -1,6 +1,6 @@
 ﻿/**
  * @file YK_TakeDamage.cs
- * @brief 敵にダメージを表記するため
+ * @brief 敵にダメージを表記するためのスクリプト
  * @author 吉田叶聖
  * @date 2023/05/02
  */
