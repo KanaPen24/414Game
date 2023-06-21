@@ -200,7 +200,7 @@ MonoBehaviour:
   SkillInner: {fileID: 2592891712234899399}
   OutLine: {fileID: 6822737503444664033}
   m_nStuck: 1
-  m_fCoolTimeLimit: 0
+  m_fCoolTimeLimit: 3
   Use: {fileID: 5496827138260071250}
   HealParticle: {fileID: 1263238548882970515}
   MoveCursol: {fileID: 2561112146707847214}
@@ -2315,7 +2315,7 @@ MonoBehaviour:
   SkillInner: {fileID: 3245806725021241744}
   OutLine: {fileID: 9119524462115296924}
   m_nStuck: 1
-  m_fCoolTimeLimit: 0
+  m_fCoolTimeLimit: 3
   Use: {fileID: 5496827138260071250}
   HealParticle: {fileID: 8889720732218024442}
   MoveCursol: {fileID: 2561112146707847214}
@@ -2833,7 +2833,7 @@ MonoBehaviour:
   SkillInner: {fileID: 2466564180303343867}
   OutLine: {fileID: 7659940590319079242}
   m_nStuck: 1
-  m_fCoolTimeLimit: 0
+  m_fCoolTimeLimit: 3
   Use: {fileID: 5496827138260071250}
   HealParticle: {fileID: 1738282748212388673}
   MoveCursol: {fileID: 2561112146707847214}
@@ -2953,7 +2953,7 @@ MonoBehaviour:
   SkillInner: {fileID: 155176535934762334}
   OutLine: {fileID: 671649131468096357}
   m_nStuck: 1
-  m_fCoolTimeLimit: 0
+  m_fCoolTimeLimit: 3
   Use: {fileID: 5496827138260071250}
   HealParticle: {fileID: 8728284164336663278}
   MoveCursol: {fileID: 2561112146707847214}
@@ -4006,7 +4006,7 @@ MonoBehaviour:
   SkillInner: {fileID: 8584323896830477929}
   OutLine: {fileID: 8283103162062107326}
   m_nStuck: 1
-  m_fCoolTimeLimit: 0
+  m_fCoolTimeLimit: 3
   Use: {fileID: 5496827138260071250}
   HealParticle: {fileID: 4013565979950578272}
   MoveCursol: {fileID: 2561112146707847214}
@@ -5112,7 +5112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fade: {fileID: 0}
-  RetryUI: {fileID: 0}
+  RetryUI: {fileID: 357825147229127724}
 --- !u!114 &4920406889218078429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5158,6 +5158,18 @@ MonoBehaviour:
   m_Reverse: 1
   m_Duration: 1
   m_UpdateMode: 0
+--- !u!114 &357825147229127724 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1252618962852615568, guid: 536d72463a646b44eb2c1000869a281a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1555274985922417084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357825147229127722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8685728122696085300 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7862323879306296968, guid: 536d72463a646b44eb2c1000869a281a,
