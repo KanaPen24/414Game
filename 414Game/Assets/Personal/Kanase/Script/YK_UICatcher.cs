@@ -14,7 +14,6 @@ public enum UICatcherState
 {
     None,
     UI2Weapon,
-    Weapon2UI,
 
     MaxUICatcherState
 }
@@ -169,14 +168,14 @@ public class YK_UICatcher : MonoBehaviour
         }
 
         // 武器を装備する(武器チェンジ)
-        for(int i = 0,size = (int)EquipWeaponState.MaxEquipWeaponState; i < size;++i)
+        for(int i = 0,size = (int)EquipState.MaxEquipState; i < size;++i)
         {
             // 番号が一致したら…
             if((int)m_SelectUI.GetSetUIType == i)
             {
                 // その番号の武器を装備する
                 // ※ 装備武器の列挙数とUIの種類の列挙数は一致していることが条件
-                Player.GetSetEquipWeaponState = (EquipWeaponState)i;
+                Player.GetSetEquipState = (EquipState)i;
 
                 // for文から抜ける
                 break;
@@ -191,18 +190,30 @@ public class YK_UICatcher : MonoBehaviour
      * @fn
      * 武器をUIにするイベントの発生
      * @return なし
-     * @brief 武器をUIにするイベント発生(特に今のところ処理はなし)
+     * @brief 武器をUIにするイベント発生
      */
     public void StartWeapon2UIEvent()
     {
         // 武器を非表示にする
-        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = false;
+        Player.GetWeapons((int)Player.GetSetEquipState).GetSetVisible = false;
 
         // 選択したUIのフェードイン開始
         m_SelectUI.UIFadeIN();
 
         // 選択したUIを空にする
         m_SelectUI = null;
+    }
+
+    /**
+     * @fn
+     * 武器を変更するイベント
+     * @return なし
+     * @brief 武器を変更するイベント
+     */
+    public void StartChangeWeaponEvent()
+    {
+        StartWeapon2UIEvent();
+        StartUI2WeaponEvent();
     }
 
     public YK_UI GetSetSelectUI

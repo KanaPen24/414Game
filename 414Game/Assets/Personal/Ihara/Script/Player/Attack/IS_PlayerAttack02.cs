@@ -11,36 +11,35 @@ using UnityEngine;
 
 public class IS_PlayerAttack02 : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
     private PlayerAnimState m_CurrentPlayerAnimState;
 
     private void Update()
     {
-        if (m_Player.GetSetPlayerState == PlayerState.PlayerAttack02)
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerAttack02)
         {
             // 攻撃開始時の処理
-            if (m_Player.GetSetAttackFlg)
+            if (IS_Player.instance.GetFlg().m_bAttackFlg)
             {
-                m_Player.GetSetAttackFlg = false;
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartAttack();
+                IS_Player.instance.GetFlg().m_bAttackFlg = false;
+                IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).StartAttack();
             }
 
             // =========
             // 状態遷移
             // =========
             // 「攻撃02 → 待機」
-            if (m_Player.GetPlayerAnimator().AnimEnd(m_CurrentPlayerAnimState) &&
-                !m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+            if (IS_Player.instance.GetPlayerAnimator().AnimEnd(m_CurrentPlayerAnimState) &&
+                !IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).GetSetAttack)
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWait;
                 return;
             }
             // 「攻撃02 → 落下」
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinAttack();
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerDrop;
+                IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinAttack();
                 return;
             }
         }
@@ -57,11 +56,11 @@ public class IS_PlayerAttack02 : IS_PlayerStrategy
         UpdateAnim();
 
         // 合計移動量をリセット
-        m_Player.GetSetMoveAmount =
+        IS_Player.instance.m_vMoveAmount =
             new Vector3(0f, 0f, 0f);
 
         // 指定した武器で攻撃処理
-        m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).UpdateAttack();
+        IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).UpdateAttack();
     }
 
     /**
@@ -72,14 +71,14 @@ public class IS_PlayerAttack02 : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        switch (m_Player.GetSetEquipWeaponState)
+        switch (IS_Player.instance.GetSetEquipState)
         {
-            case EquipWeaponState.PlayerHpBar:
-                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack02HPBar);
+            case EquipState.EquipHpBar:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack02HPBar);
                 m_CurrentPlayerAnimState = PlayerAnimState.Attack02HPBar;
                 break;
-            case EquipWeaponState.PlayerStart:
-                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack02HPBar);
+            case EquipState.EquipStart:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack02HPBar);
                 m_CurrentPlayerAnimState = PlayerAnimState.Attack02HPBar;
                 break;
         }

@@ -11,7 +11,6 @@ using UnityEngine;
 
 public class IS_PlayerGameOver : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player;                          // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
 
     /**
@@ -26,7 +25,7 @@ public class IS_PlayerGameOver : IS_PlayerStrategy
         UpdateAnim();
 
         // 合計移動量をリセット
-        m_Player.GetSetMoveAmount = new Vector3(0f, 0f, 0f);
+        IS_Player.instance.m_vMoveAmount = new Vector3(0f, 0f, 0f);
     }
 
     /**
@@ -37,6 +36,6 @@ public class IS_PlayerGameOver : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.GameOver);
+        IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.GameOver);
     }
 }

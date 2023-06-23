@@ -38,7 +38,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
     [SerializeField] private ChargeLevel m_ChargeLevel; // 溜め段階を管理する
 
     private int   m_nCnt;               // 表示確認用
-    private bool  m_bChargeFlg;         // 溜めフラグ
     private float m_fCurrentChargeTime; // 現在の溜め時間
     private float m_fCurrentPow;        // 現在の力
     private float m_fReactionTime;      // 反動時間         
@@ -61,7 +60,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
         m_bDestroy = false;
 
         m_nCnt = 0;
-        m_bChargeFlg = false;
         m_fCurrentChargeTime = 0f;
         m_fCurrentPow = 0f;
 
@@ -85,14 +83,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
 
     private void Update()
     {
-        if(Player.GetSetEquipWeaponState == EquipWeaponState.PlayerSkillIcon)
-        {
-            if (Input.GetButton("Atk"))
-            {
-                m_bChargeFlg = true;
-            }
-            else m_bChargeFlg = false;
-        }
         // 前回と状態が違ったら
         if (m_nCnt != Convert.ToInt32(m_bVisible))
         {
@@ -136,9 +126,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
         m_ChargeLevel = ChargeLevel.ChargeLevel_0; // 溜め段階を0にする
         m_fCurrentPow = 0f;
         m_fCurrentChargeTime = 0f;
-
-        // ストック数をUIの方にも反映させる
-        IS_UIManager.instance.FindUI(m_YKSkillIcon).GetComponent<YK_SkillIcon>().GetSetStuck = m_nHp;
     }
 
     /**
@@ -159,11 +146,11 @@ public class IS_WeaponSkillIcon : IS_Weapon
         // 弾数を減らす
         m_nHp--;
 
-        // 攻撃終了時に弾数が0だったら(バグが起きる可能性あり)
-        if (m_nHp <= 0)
+        // 残段数が0になったら非表示にする
+        // ※攻撃終了後に武器化は解かれる
+        if(m_nHp <= 0)
         {
-            // 装備解除する
-            Player.RemovedWeapon();
+            m_bVisible = false;
         }
     }
 
@@ -192,6 +179,17 @@ public class IS_WeaponSkillIcon : IS_Weapon
         m_ChargeLevel = ChargeLevel.ChargeLevel_0; // 溜め段階を0にする
         m_fCurrentPow = 0f;
         m_fCurrentChargeTime = 0f;
+
+        // ストック数をUIの方にも反映させる
+        IS_UIManager.instance.FindUI(m_YKSkillIcon).GetComponent<YK_SkillIcon>().GetSetStuck = m_nHp;
+
+        // 攻撃終了時に弾数が0だったら(バグが起きる可能性あり)
+        if (m_nHp <= 0)
+        {
+            // 装備解除する
+            Player.RemovedWeapon();
+            Player.GetSetPlayerState = PlayerState.PlayerWait;
+        }
     }
 
     /**
@@ -231,20 +229,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
         // 溜め段階チェック
         CheckChargeLevel();
 
-        //溜め中は移動できる!!
-        // 右向き
-        if (Player.bInputRight)
-        {
-            Player.m_vMoveAmount.x += m_fPlayerMovePow;
-            Player.GetSetPlayerDir = PlayerDir.Right;
-        }
-        // 左向き
-        if (Player.bInputLeft)
-        {
-            Player.m_vMoveAmount.x -= m_fPlayerMovePow;
-            Player.GetSetPlayerDir = PlayerDir.Left;
-        }
-
         // 溜めエフェクトの位置更新
         m_ChargeEffect.transform.position = this.gameObject.transform.position;
     }
@@ -276,7 +260,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
     private void ChargePow()
     {
         // 溜めフラグが立っていたら…
-        if (m_bChargeFlg)
+        if (GetSetCharge)
         {
             // 力を溜める
             m_fCurrentPow = m_fMinPow + (m_fMaxPow - m_fMinPow) * (m_fCurrentChargeTime / m_fMaxChargeTime);

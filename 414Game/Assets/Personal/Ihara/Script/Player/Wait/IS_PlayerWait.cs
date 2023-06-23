@@ -13,13 +13,12 @@ using UnityEngine;
 
 public class IS_PlayerWait : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player;                          // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
     [SerializeField] private YK_UseSkill m_UseSkill;                      // 回避できるかのスクリプト
 
     private void Update()
     {
-        if(m_Player.GetSetPlayerState == PlayerState.PlayerWait)
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerWait)
         {
             if (GameManager.instance.GetSetGameState == GameState.GameRule)
                 return;
@@ -29,50 +28,69 @@ public class IS_PlayerWait : IS_PlayerStrategy
             //「待機 → 落下」
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerDrop;
                 return;
             }
             //「待機 → 跳躍」
-            if (m_Player.bInputJump)
+            if (Input.GetKeyDown(IS_XBoxInput.B))
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerJump;
-                m_Player.GetSetJumpFlg = true;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerJump;
+                IS_Player.instance.GetFlg().m_bJumpFlg = true;
                 return;
             }
             // 「待機 → 移動」
-            if (m_Player.bInputRight || m_Player.bInputLeft)
+            if (IS_XBoxInput.LStick_H >= 0.2 || IS_XBoxInput.LStick_H <= -0.2)
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerWalk;
-                m_Player.GetSetWalkFlg = true;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWalk;
+                IS_Player.instance.GetFlg().m_bWalkFlg = true;
                 return;
             }
             // 「待機 → 溜め待機 or 攻撃01 」
-            if (m_Player.bInputAttack &&
-                m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
+            if (Input.GetKeyDown(IS_XBoxInput.X) &&
+                IS_Player.instance.GetSetEquipState != EquipState.EquipNone)
             {
-                if (m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerSkillIcon)
+                if(IS_Player.instance.GetSetEquipState == EquipState.EquipSkillIcon)
                 {
-                    m_Player.GetSetPlayerState = PlayerState.PlayerChargeWait;
-                    m_Player.GetSetChargeWaitFlg = true;
+                    IS_Player.instance.GetSetPlayerState = PlayerState.PlayerChargeWait;
+                    IS_Player.instance.GetFlg().m_bChargeWaitFlg = true;
                 }
                 else
                 {
-                    m_Player.GetSetPlayerState = PlayerState.PlayerAttack01;
-                    m_Player.GetSetAttackFlg = true;
+                    IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAttack01;
+                    IS_Player.instance.GetFlg().m_bAttackFlg = true;
                 }
                 return;
             }
             // 「待機 → 回避」
-            if (m_Player.bInputAvoid && m_UseSkill.UseSkillJudge())
+            if (Input.GetKeyDown(IS_XBoxInput.A) && m_UseSkill.UseSkillJudge())
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerAvoidance;
-                m_Player.GetSetAvoidFlg = true;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAvoidance;
+                IS_Player.instance.GetFlg().m_bAvoidFlg = true;
                 return;
             }
-            // 「待機 → 回避」
-            if (Input.GetButtonDown("Decision") || Input.GetButtonDown("Decision_Debug"))
-            {
 
+            // 待機 → UI取得orUI解放」
+            if((Input.GetKeyDown(IS_XBoxInput.LB) || Input.GetKeyDown(IS_XBoxInput.RB)) &&
+                IS_Player.instance.GetUICatcher().GetSetUICatcherState == UICatcherState.None)
+            {
+                // カーソルがUIを取得している && カーソルが取得しているUIが現在武器にしているUIではない場合…
+                // UI取得に遷移
+                if(IS_Player.instance.GetCursolEvent().GetSetCurrentUI != null &&
+                   (IS_Player.instance.GetCursolEvent().GetSetCurrentUI != 
+                    IS_Player.instance.GetUICatcher().GetSetSelectUI))
+                {
+                    IS_Player.instance.GetSetPlayerState = PlayerState.PlayerUICatch;
+                    IS_Player.instance.GetFlg().m_bUICatchFlg = true;
+                    return;
+                }
+                // 武器を何も装備していない場合
+                // UI解放に遷移
+                else if(IS_Player.instance.GetSetEquipState != EquipState.EquipNone)
+                {
+                    IS_Player.instance.GetSetPlayerState = PlayerState.PlayerUIRelease;
+                    IS_Player.instance.GetFlg().m_bUIReleaseFlg = true;
+                    return;
+                }
             }
         }
     }
@@ -89,7 +107,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
         UpdateAnim();
 
         // 合計移動量をリセット
-        m_Player.GetSetMoveAmount = new Vector3(0f, 0f, 0f);
+        IS_Player.instance.m_vMoveAmount = new Vector3(0f, 0f, 0f);
     }
 
     /**
@@ -100,27 +118,26 @@ public class IS_PlayerWait : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        if (m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
+        switch (IS_Player.instance.GetSetEquipState)
         {
-            switch (m_Player.GetSetEquipWeaponState)
-            {
-                case EquipWeaponState.PlayerHpBar:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitHPBar);
-                    break;
-                case EquipWeaponState.PlayerSkillIcon:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitSkillIcon);
-                    break;
-                case EquipWeaponState.PlayerBossBar:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitBossBar);
-                    break;
-                case EquipWeaponState.PlayerClock:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitClock);
-                    break;
-                case EquipWeaponState.PlayerStart:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitHPBar);
-                    break;
-            }
+            case EquipState.EquipHpBar:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitHPBar);
+                break;
+            case EquipState.EquipSkillIcon:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitSkillIcon);
+                break;
+            case EquipState.EquipBossBar:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitBossBar);
+                break;
+            case EquipState.EquipClock:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitClock);
+                break;
+            case EquipState.EquipStart:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitHPBar);
+                break;
+            default:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Wait);
+                break;
         }
-        else m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Wait);
     }
 }

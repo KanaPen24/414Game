@@ -17,11 +17,11 @@ using UnityEngine;
 // ================================================
 public enum WeaponType
 {
-    HPBar,     // HPバー
-    SkillIcon, // スキルアイコン
-    BossBar,   // Bossバー
-    Clock,     // 時計
-    Start,     // スタート
+    HPBar     = 1, // HPバー
+    SkillIcon = 2, // スキルアイコン
+    BossBar   = 3, // Bossバー
+    Clock     = 4, // 時計
+    Start     = 5, // スタート
 
     MaxWeaponType
 }

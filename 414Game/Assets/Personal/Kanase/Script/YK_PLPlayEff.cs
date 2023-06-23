@@ -17,11 +17,11 @@ public class YK_PLPlayEff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (Player.GetSetEquipWeaponState)
+        switch (Player.GetSetEquipState)
         {
             //近接武器のみ
-            case EquipWeaponState.PlayerHpBar:
-            case EquipWeaponState.PlayerStart:
+            case EquipState.EquipHpBar:
+            case EquipState.EquipStart:
 
                 //プレイヤーがどういう時にどのエフェクトを流すかのやつ
                 switch (Player.GetSetPlayerState)

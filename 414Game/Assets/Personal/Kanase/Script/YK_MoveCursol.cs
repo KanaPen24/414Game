@@ -3,6 +3,7 @@
  * @brief  カーソルを動かす
  * @author 吉田叶聖
  * @date   2023/03/31
+ * @Update 2023/06/19 Inout情報改定(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -83,7 +84,8 @@ public class YK_MoveCursol : MonoBehaviour
                 Circle();
             }
             //ちょっとでも動かしたら
-            if (Mathf.Abs(Input.GetAxis("HorizontalR")) >= m_fDeadZone || Mathf.Abs(Input.GetAxis("VerticalR")) >= m_fDeadZone)
+            //if (Mathf.Abs(Input.GetAxis("HorizontalR")) >= m_fDeadZone || Mathf.Abs(Input.GetAxis("VerticalR")) >= m_fDeadZone)
+            if (Mathf.Abs(IS_XBoxInput.RStick_H) >= m_fDeadZone || Mathf.Abs(IS_XBoxInput.RStick_V) >= m_fDeadZone)
             {
                 m_bMove = true;
                 //  元に戻す
@@ -93,7 +95,8 @@ public class YK_MoveCursol : MonoBehaviour
             return;
         }
         //　移動キーを押していなければ円運動
-        if (Mathf.Approximately(Input.GetAxis("HorizontalR"), 0f) && Mathf.Approximately(Input.GetAxis("VerticalR"), 0f))
+        //if (Mathf.Approximately(Input.GetAxis("HorizontalR"), 0f) && Mathf.Approximately(Input.GetAxis("VerticalR"), 0f))
+        if (Mathf.Approximately(IS_XBoxInput.RStick_H, 0f) && Mathf.Approximately(IS_XBoxInput.RStick_V, 0f))
         {
             Circle();
             if (CursolEvent.GetSetCurrentUI == null)
@@ -101,7 +104,8 @@ public class YK_MoveCursol : MonoBehaviour
             return;
         }
         //　移動先を計算
-        var pos = rect.anchoredPosition + new Vector2(Input.GetAxis("HorizontalR") * m_fIconSpeed, Input.GetAxis("VerticalR") * -m_fIconSpeed) * Time.deltaTime;
+        //var pos = rect.anchoredPosition + new Vector2(Input.GetAxis("HorizontalR") * m_fIconSpeed, Input.GetAxis("VerticalR") * -m_fIconSpeed) * Time.deltaTime;
+        var pos = rect.anchoredPosition + new Vector2(IS_XBoxInput.RStick_H * m_fIconSpeed, IS_XBoxInput.RStick_V * m_fIconSpeed) * Time.deltaTime;
 
        
         //　カーソルが画面内でループ

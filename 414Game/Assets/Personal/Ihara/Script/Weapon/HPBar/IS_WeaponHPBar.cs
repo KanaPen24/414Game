@@ -89,7 +89,7 @@ public class IS_WeaponHPBar : IS_Weapon
         else m_CapsuleCollider.enabled = false;
 
         // 液体の量をPlayerのHPに依存させる
-        m_BottleLiquid.ChangeFillingRate((float)(m_Player.GetSetHp / 100.0f));
+        m_BottleLiquid.ChangeFillingRate((float)(IS_Player.instance.GetParam().m_nHP / 100.0f));
 
         if(m_nHp > m_nMaxHp)
         {
@@ -148,14 +148,14 @@ public class IS_WeaponHPBar : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        switch(m_Player.GetSetPlayerState)
+        switch(IS_Player.instance.GetSetPlayerState)
         {
             case PlayerState.PlayerAttack01:
-                if(m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack01HPBar))
+                if(IS_Player.instance.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack01HPBar))
                     FinAttack();
                 break;
             case PlayerState.PlayerAttack02:
-                if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack02HPBar))
+                if (IS_Player.instance.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack02HPBar))
                     FinAttack();
                 break;
             default:

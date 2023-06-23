@@ -3,6 +3,7 @@
  * @brief ルール画面表示
  * @author 吉田叶聖
  * @date 2023/05/28
+ * @Update 2023/06/23 入力変更(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ public class YK_Rule : MonoBehaviour
             FadeIN();
             book.GetSetItemHit = false;
         }
-        if (m_bRuleVisible && Input.GetButton("Decision")) 
+        if (m_bRuleVisible && Input.GetKeyDown(IS_XBoxInput.LB)) 
             FadeOUT();
     }
 
