@@ -50,29 +50,29 @@ public class YK_Tonkathi : YK_Item
             GetSetItemHit = true;
 
             //なに持ってない
-            if (Player.GetSetPlayerEquipState == PlayerEquipState.NoneEquip)
+            if (Player.GetSetEquipState == EquipState.EquipNone)
                 return;
-            switch(Player.GetSetEquipWeaponState)
+            switch(Player.GetSetEquipState)
             {
-                case EquipWeaponState.PlayerHpBar:
+                case EquipState.EquipHpBar:
                     // SE再生
                     IS_AudioManager.instance.PlaySE(SEType.SE_Tonkachi);
                     Effect.Play();
                     WeaponHPBar.AddLife(WeaponHPBar.GetSetMaxHp / 2);
                     Destroy(gameObject);
                     break;
-                case EquipWeaponState.PlayerStart:
+                case EquipState.EquipStart:
                     IS_AudioManager.instance.PlaySE(SEType.SE_Tonkachi);
                     Effect.Play();
                     WeaponStart.AddLife(WeaponStart.GetSetMaxHp / 2);
                     Destroy(gameObject);
                     break;
-                case EquipWeaponState.PlayerSkillIcon:
+                case EquipState.EquipSkillIcon:
                     IS_AudioManager.instance.PlaySE(SEType.SE_Tonkachi);
                     SkillHeal();                    
                     Destroy(gameObject);
                     break;
-                case EquipWeaponState.PlayerClock:
+                case EquipState.EquipClock:
                     IS_AudioManager.instance.PlaySE(SEType.SE_Tonkachi);
                     time.EffectPlay();
                     Clock.GetSetTimeCount += 1;

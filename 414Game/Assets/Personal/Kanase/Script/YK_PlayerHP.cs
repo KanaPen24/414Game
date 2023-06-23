@@ -25,7 +25,7 @@ public class YK_PlayerHP : MonoBehaviour
     [SerializeField] private Slider BulkHPSlider;
 
     // Player
-    [SerializeField] private IS_Player Player;
+    [SerializeField] private IS_PlayerParam PlayerParam;
 
     // HP減少フラグ
     private bool m_bDelFlg;
@@ -33,29 +33,29 @@ public class YK_PlayerHP : MonoBehaviour
     void Start()
     {
         // メンバの初期化
-        HpSlider.maxValue = Player.GetSetMaxHp;
-        HpSlider.value = Player.GetSetHp;
-        BulkHPSlider.maxValue = Player.GetSetMaxHp;
-        BulkHPSlider.value = Player.GetSetHp;
+        HpSlider.maxValue = PlayerParam.m_nMaxHP;
+        HpSlider.value = PlayerParam.m_nHP;
+        BulkHPSlider.maxValue = PlayerParam.m_nMaxHP;
+        BulkHPSlider.value = PlayerParam.m_nHP;
         m_bDelFlg = false;
     }
 
     void Update()
     {
-        if(BulkHPSlider.value > Player.GetSetHp)
+        if(BulkHPSlider.value > PlayerParam.m_nHP)
         {
-            DelLife((int)HpSlider.value - Player.GetSetHp);
+            DelLife((int)HpSlider.value - PlayerParam.m_nHP);
         }
-        else if(BulkHPSlider.value < Player.GetSetHp)
+        else if(BulkHPSlider.value < PlayerParam.m_nHP)
         {
-            AddLife(Player.GetSetHp - (int)HpSlider.value);
+            AddLife(PlayerParam.m_nHP - (int)HpSlider.value);
         }
 
         if(m_bDelFlg)
         {
             if(m_fCountLime >= m_fDelCount)
             {
-                HpSlider.value = Player.GetSetHp;
+                HpSlider.value = PlayerParam.m_nHP;
                 m_fCountLime = 0.0f;
                 m_bDelFlg = false;
             }
@@ -67,14 +67,14 @@ public class YK_PlayerHP : MonoBehaviour
     public void DelLife(int damage)
     {
         m_fCountLime = 0.0f;
-        BulkHPSlider.value = Player.GetSetHp;
+        BulkHPSlider.value = PlayerParam.m_nHP;
         m_bDelFlg = true;
     }
     // ダメージ処理
     // 回復処理
     public void AddLife(int damege)
     {
-        HpSlider.value = Player.GetSetHp;
-        BulkHPSlider.value = Player.GetSetHp;
+        HpSlider.value = PlayerParam.m_nHP;
+        BulkHPSlider.value = PlayerParam.m_nHP;
     }
 }

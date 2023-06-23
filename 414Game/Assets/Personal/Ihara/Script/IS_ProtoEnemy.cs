@@ -19,7 +19,7 @@ public class IS_ProtoEnemy : MonoBehaviour
         // 武器だったら
         if (collision.gameObject.tag == "Weapon")
         {
-            if (m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
+            if (m_Player.GetWeapons((int)m_Player.GetSetEquipState).GetSetAttack)
             {
                 Debug.Log("Enemy Damage!!");
                 //m_HpBarHP.DelLife(10);

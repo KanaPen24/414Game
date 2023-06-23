@@ -11,18 +11,17 @@ using UnityEngine;
 
 public class IS_PlayerJumpAttack : IS_PlayerStrategy
 {
-    [SerializeField] IS_Player m_Player;       // IS_Playerをアタッチする
     [SerializeField] IS_PlayerGroundCollision　m_PlayerGroundCollision; // 地面判定
 
     private void Update()
     {
-        if (m_Player.GetSetPlayerState == PlayerState.PlayerJumpAttack)
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerJumpAttack)
         {
             // 跳躍攻撃開始時に
-            if (m_Player.GetSetJumpAttackFlg)
+            if (IS_Player.instance.GetFlg().m_bJumpAttackFlg)
             {
-                m_Player.GetSetJumpAttackFlg = false;
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartAttack();
+                IS_Player.instance.GetFlg().m_bJumpAttackFlg = false;
+                IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).StartAttack();
             }
 
             // =========
@@ -31,8 +30,8 @@ public class IS_PlayerJumpAttack : IS_PlayerStrategy
             // 「跳躍攻撃 → 待ち」
             if (m_PlayerGroundCollision.IsGroundCollision())
             {
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinAttack();
-                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
+                IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinAttack();
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerDrop;
                 return;
             }
         }
@@ -49,11 +48,11 @@ public class IS_PlayerJumpAttack : IS_PlayerStrategy
         UpdateAnim();
 
         // 合計移動量をリセット(y成分はリセットしない)
-        m_Player.GetSetMoveAmount =
-            new Vector3(0f, m_Player.GetSetMoveAmount.y, 0f);
+        IS_Player.instance.m_vMoveAmount =
+            new Vector3(0f, IS_Player.instance.m_vMoveAmount.y, 0f);
 
         // 重力を合計移動量に加算
-        m_Player.m_vMoveAmount.y += m_Player.GetSetGravity;
+        IS_Player.instance.m_vMoveAmount.y += IS_Player.instance.GetParam().m_fGravity;
     }
 
     /**
@@ -64,20 +63,17 @@ public class IS_PlayerJumpAttack : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        if (m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
+        switch (IS_Player.instance.GetSetEquipState)
         {
-            switch (m_Player.GetSetEquipWeaponState)
-            {
-                case EquipWeaponState.PlayerHpBar:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpAttackHPBar);
-                    break;
-                case EquipWeaponState.PlayerBossBar:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpAttackHPBar);
-                    break;
-                case EquipWeaponState.PlayerStart:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpAttackHPBar);
-                    break;
-            }
+            case EquipState.EquipHpBar:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpAttackHPBar);
+                break;
+            case EquipState.EquipBossBar:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpAttackHPBar);
+                break;
+            case EquipState.EquipStart:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.JumpAttackHPBar);
+                break;
         }
     }
 }

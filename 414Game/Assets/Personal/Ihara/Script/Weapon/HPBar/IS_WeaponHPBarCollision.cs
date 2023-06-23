@@ -33,7 +33,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
-                Player.GetSetHp += m_nDrainBossHp;
+                Player.GetParam().m_nHP += m_nDrainBossHp;
                 other.GetComponent<NK_BossSlime>().BossSlimeDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
                 HitEffect.transform.position = other.transform.position;
@@ -52,7 +52,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
-                Player.GetSetHp += m_nDrainBossHp;
+                Player.GetParam().m_nHP += m_nDrainBossHp;
                 other.GetComponent<NK_Slime>().SlimeDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
                 HitEffect.transform.position = other.transform.position;
@@ -72,7 +72,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
-                Player.GetSetHp += m_nDrainBossHp;
+                Player.GetParam().m_nHP += m_nDrainBossHp;
                 other.GetComponent<NK_Bat>().BatDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
                 HitEffect.transform.position = other.transform.position;
@@ -90,7 +90,7 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
             YK_Controller.instance.ControllerVibration(0.3f);
             IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
             WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
-            Player.GetSetHp += m_nDrainBossHp;
+            Player.GetParam().m_nHP += m_nDrainBossHp;
             other.GetComponent<NK_SlimeBes>().BesDamage(m_nDamage2Enemy);
             other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
             HitEffect.transform.position = other.transform.position;
