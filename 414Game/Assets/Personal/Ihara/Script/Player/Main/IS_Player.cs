@@ -41,6 +41,7 @@ public enum PlayerState
     PlayerAvoidance,      // 回避状態
     PlayerUICatch,        // UI取得状態
     PlayerUIRelease,      // UI解放状態
+    PlayerUICatchGameOver,// UI取得ゲームオーバー状態
     PlayerGameOver,       // ゲームオーバー状態
     PlayerJumpAttack,     // 跳躍攻撃状態
 
@@ -116,6 +117,7 @@ public class C_Invincible
 [RequireComponent(typeof(IS_PlayerAvoidance))]
 [RequireComponent(typeof(IS_PlayerUICatch))]
 [RequireComponent(typeof(IS_PlayerUIRelease))]
+[RequireComponent(typeof(IS_PlayerUICatchGameOver))]
 [RequireComponent(typeof(IS_PlayerGameOver))]
 [RequireComponent(typeof(IS_PlayerJumpAttack))]
 
@@ -198,6 +200,7 @@ public class IS_Player : MonoBehaviour
         m_PlayerStrategys.Add(GetComponent<IS_PlayerAvoidance>());
         m_PlayerStrategys.Add(GetComponent<IS_PlayerUICatch>());
         m_PlayerStrategys.Add(GetComponent<IS_PlayerUIRelease>());
+        m_PlayerStrategys.Add(GetComponent<IS_PlayerUICatchGameOver>());
         m_PlayerStrategys.Add(GetComponent<IS_PlayerGameOver>());
         m_PlayerStrategys.Add(GetComponent<IS_PlayerJumpAttack>());
 
@@ -241,6 +244,8 @@ public class IS_Player : MonoBehaviour
 
         // 無敵チェック
         CheckInvincible();
+
+        //Debug.Log(this.gameObject.transform.position);
     }
 
     /**
@@ -336,11 +341,12 @@ public class IS_Player : MonoBehaviour
         }
 
         // HPが0以下になったら…
-        if (GetParam().m_nHP <= 0)
+        if (GetParam().m_nHP <= 0 && !GetFlg().m_bGameOverFlg)
         {
             //ゲームオーバーを体力がなくなったにする
             YK_GameOver.instance.GetSetGameOverState = GameOverState.NoHP;
             // GameOverに移行
+            GetFlg().m_bGameOverFlg = true;
             GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;
         }
@@ -466,6 +472,12 @@ public class IS_Player : MonoBehaviour
     {
         get { return m_PlayerState; }
         set { m_PlayerState = value; }
+    }
+
+    public Vector3 GetSetPlayerPos
+    {
+        get { return this.gameObject.transform.position; }
+        set { this.gameObject.transform.position = value; }
     }
 
     /**

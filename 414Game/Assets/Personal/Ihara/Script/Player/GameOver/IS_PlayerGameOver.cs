@@ -16,18 +16,21 @@ public class IS_PlayerGameOver : IS_PlayerStrategy
 
     private void Update()
     {
-        // ゲームオーバー → UI取得」
-        if ((Input.GetKeyDown(IS_XBoxInput.LB) || Input.GetKeyDown(IS_XBoxInput.RB)) &&
-            IS_Player.instance.GetUICatcher().GetSetUICatcherState == UICatcherState.None)
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerGameOver)
         {
-            // カーソルがUIを取得している && カーソルが取得しているUIが現在武器にしているUIではない場合…
-            // UI取得に遷移
-            if (IS_Player.instance.GetCursolEvent().GetSetCurrentUI.GetSetUIType == UIType.Retry ||
-                IS_Player.instance.GetCursolEvent().GetSetCurrentUI.GetSetUIType == UIType.TitleBack)
+            // ゲームオーバー → UI取得ゲームオーバー」
+            if ((Input.GetKeyDown(IS_XBoxInput.LB) || Input.GetKeyDown(IS_XBoxInput.RB)) &&
+            IS_Player.instance.GetUICatcher().GetSetUICatcherState == UICatcherState.None)
             {
-                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerUICatch;
-                IS_Player.instance.GetFlg().m_bUICatchFlg = true;
-                return;
+                // カーソルがUIを取得している && カーソルが取得しているUIが現在武器にしているUIではない場合…
+                // UI取得に遷移
+                if (IS_Player.instance.GetCursolEvent().GetSetCurrentUI.GetSetUIType == UIType.Retry ||
+                    IS_Player.instance.GetCursolEvent().GetSetCurrentUI.GetSetUIType == UIType.TitleBack)
+                {
+                    IS_Player.instance.GetSetPlayerState = PlayerState.PlayerUICatchGameOver;
+                    IS_Player.instance.GetFlg().m_bUICatchFlg = true;
+                    return;
+                }
             }
         }
     }
