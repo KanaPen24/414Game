@@ -17,6 +17,7 @@ using UnityEngine;
 // ================================================
 public enum WeaponType
 {
+    None      = 0, // 武器無
     HPBar     = 1, // HPバー
     SkillIcon = 2, // スキルアイコン
     BossBar   = 3, // Bossバー

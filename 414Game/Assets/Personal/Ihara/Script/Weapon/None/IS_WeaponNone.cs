@@ -1,19 +1,18 @@
 ﻿/*
- * @file   IS_WeaponStart.cs
- * @brief  Startの武器クラス
+ * @file   IS_WeaponNone.cs
+ * @brief  武器無の武器クラス
  * @author IharaShota
- * @date   2023/05/25
- * @Update 2023/05/25 作成
+ * @date   2023/06/26
+ * @Update 2023/06/26 作成
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class IS_WeaponStart : IS_Weapon
+public class IS_WeaponNone : IS_Weapon
 {
     [SerializeField] private CapsuleCollider m_CapsuleCollider;// 当たり判定
-    [SerializeField] private MeshRenderer m_MeshRender;        // メッシュ
     private int m_nCnt;
 
     /**
@@ -24,7 +23,7 @@ public class IS_WeaponStart : IS_Weapon
     protected override void Awake()
     {
         // メンバの初期化
-        m_eWeaponType = WeaponType.Start; // 武器種類はStart
+        m_eWeaponType = WeaponType.None; // 武器種類は武器無
         m_bAttack = false;
         m_bCharge = false;
         m_bVisible = false;
@@ -62,12 +61,6 @@ public class IS_WeaponStart : IS_Weapon
             m_CapsuleCollider.enabled = true;
         }
         else m_CapsuleCollider.enabled = false;
-
-        if (m_nHp > m_nMaxHp)
-        {
-            m_nHp = m_nMaxHp;
-        }
-
     }
 
     /**
@@ -147,13 +140,11 @@ public class IS_WeaponStart : IS_Weapon
         if (m_bVisible)
         {
             m_CapsuleCollider.enabled = true;
-            m_MeshRender.enabled = true;
         }
         // 非表示状態だったら
         else
         {
             m_CapsuleCollider.enabled = false;
-            m_MeshRender.enabled = false;
         }
     }
 }
