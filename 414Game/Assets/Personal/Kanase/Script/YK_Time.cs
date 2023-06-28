@@ -16,7 +16,6 @@ public class YK_Time : MonoBehaviour
     private int m_nTimeLimitStorage;                    //タイムリミット保存用
     [SerializeField] private Text timerText;            //表示するテキスト
     [SerializeField] private YK_Clock Clock;            //時止め使うためのコンポーネント
-    [SerializeField] private IS_Player Player;          //プレイヤーをアタッチ
     [SerializeField] ON_VolumeManager PostEffect;       //ポストエフェクト
     private Outline outline;
     [SerializeField] private float m_fTime;              //進行時間
@@ -128,7 +127,7 @@ public class YK_Time : MonoBehaviour
             //タイムアップかえる
             YK_GameOver.instance.GetSetGameOverState = GameOverState.TimeLimit;
             //ゲームオーバー
-            Player.GetSetPlayerState = PlayerState.PlayerGameOver;
+            IS_Player.instance.GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;
         }
     }

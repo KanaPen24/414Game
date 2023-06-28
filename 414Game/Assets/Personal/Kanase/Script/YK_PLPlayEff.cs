@@ -12,19 +12,18 @@ public class YK_PLPlayEff : MonoBehaviour
 {
     [SerializeField] private ParticleSystem AtkEff; //攻撃エフェクト
     [SerializeField] private ParticleSystem AvoEff; //回避エフェクト
-    [SerializeField] private IS_Player Player;
 
     // Update is called once per frame
     void Update()
     {
-        switch (Player.GetSetEquipState)
+        switch (IS_Player.instance.GetSetEquipState)
         {
             //近接武器のみ
             case EquipState.EquipHpBar:
             case EquipState.EquipStart:
 
                 //プレイヤーがどういう時にどのエフェクトを流すかのやつ
-                switch (Player.GetSetPlayerState)
+                switch (IS_Player.instance.GetSetPlayerState)
                 {
                     case PlayerState.PlayerAttack01:
                     case PlayerState.PlayerAttack02:
@@ -40,7 +39,7 @@ public class YK_PLPlayEff : MonoBehaviour
                 break;
         }
         //回避の場合
-        if (Player.GetSetPlayerState == PlayerState.PlayerAvoidance)
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerAvoidance)
             AvoEff.Play();
         else
             AvoEff.Stop();

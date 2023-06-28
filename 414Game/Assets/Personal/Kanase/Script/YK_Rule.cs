@@ -17,7 +17,6 @@ public class YK_Rule : MonoBehaviour
     [SerializeField] YK_Book book;
     private Vector2 StartPos;
     private bool m_bRuleVisible = false;
-    [SerializeField] IS_Player Player;
 
     private void Start()
     {
@@ -40,7 +39,7 @@ public class YK_Rule : MonoBehaviour
     public void FadeIN()
     {
         GameManager.instance.GetSetGameState = GameState.GameRule;
-        Player.GetSetPlayerState = PlayerState.PlayerWait;
+        IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWait;
         //開くの音再生
         IS_AudioManager.instance.PlaySE(SEType.SE_BookOpen);
         // 2秒で後X,Y方向を元の大きさに変更

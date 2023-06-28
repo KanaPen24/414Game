@@ -22,8 +22,7 @@ public class YK_Clock : YK_UI
     [SerializeField] private Image Clock_Inner;     //時計の赤い部分
     [SerializeField] private Image Second_Image;    //時計の針
     [SerializeField] private Image OutLine;         //アウトライン
-    [SerializeField] private YK_Time m_Time;
-    [SerializeField] private IS_Player Player;
+    [SerializeField] private YK_Time m_Time;    
     [SerializeField] ON_VolumeManager PostEffect; // ポストエフェクト
     private Vector3 Second_Scale;
     float seconds = 0f;
@@ -115,8 +114,7 @@ public class YK_Clock : YK_UI
         //UIFadeIN();
         // BGM再生
         IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).UnPause();
-        //Player.RemovedWeapon();
-        Debug.Log("元戻る");
+        //Debug.Log("元戻る");
     }
 
     /**
