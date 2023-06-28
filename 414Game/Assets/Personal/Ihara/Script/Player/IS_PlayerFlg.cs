@@ -20,6 +20,7 @@ public class IS_PlayerFlg : MonoBehaviour
     public bool m_bAvoidFlg;          // 回避開始フラグ
     public bool m_bUICatchFlg;        // UI取得開始フラグ
     public bool m_bUIReleaseFlg;      // UI解放開始フラグ
+    public bool m_bGameOverFlg;       // ゲームオーバーフラグ
 
     // Start is called before the first frame update
     void Start()
@@ -33,5 +34,6 @@ public class IS_PlayerFlg : MonoBehaviour
         m_bAvoidFlg = false;
         m_bUICatchFlg = false;
         m_bUIReleaseFlg = false;
+        m_bGameOverFlg = false;
     }
 }
