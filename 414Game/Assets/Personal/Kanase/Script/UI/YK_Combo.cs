@@ -17,7 +17,7 @@ using DG.Tweening;
 public class YK_Combo : YK_UI
 {
     [SerializeField] private Text ComboNumber;    // コンボの数値表示テキスト
-    [SerializeField] private Text ComboTxt;       // コンボのテキスト表示
+    [SerializeField] private Image ComboTxt;       // コンボの画像
     private int m_Combo;                          // 現在のコンボ数
     private float a_color = 0f;                   // コンボ表示のアルファ値
     private float f_colordown = 0.016f;           // コンボ表示のアルファ値減少量
@@ -77,10 +77,10 @@ public class YK_Combo : YK_UI
             {
                 m_bHitFlg = false;
                 ResetCombo();    // カウントダウン時間を超えたらコンボをリセットする
-                m_nCountComboTime = 0;
             }
         }
 
+        //初期カラー
         ComboNumber.color = new Color(0.5f, 0.5f, 1f, a_color);    // コンボ表示の色を設定
         ComboTxt.color = new Color(0.5f, 0.5f, 1f, a_color);       // コンボテキストの色を設定
 
@@ -147,6 +147,7 @@ public class YK_Combo : YK_UI
      */
     public void AddCombo()
     {
+        m_nCountComboTime = 0;
         m_bHitFlg = true;
         a_color = 1.0f;
         m_Combo++;

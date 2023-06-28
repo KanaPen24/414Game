@@ -88,6 +88,7 @@ public class YK_Retry : YK_UI
         fade.FadeIn(1f, () =>
         {
             IS_AudioManager.instance.StopBGM(BGMType.BGM_GAMEOVER); // BGMを停止する
+            YK_JsonSave.instance.Load();
             SceneManager.LoadScene("GameScene"); // 指定のシーンを読み込む
         });
     }
