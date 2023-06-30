@@ -4,6 +4,7 @@
  * @author IharaShota
  * @date   2023/05/25
  * @Update 2023/05/25 作成
+ * @Update 2023/06/30 コンボ処理追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
                 HitEffect.transform.position = other.transform.position;
                 HitEffect.Play();
+                YK_Combo.AddCombo();
             }
         }
         // スライムへのダメージ処理
@@ -45,6 +47,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
                 HitEffect.transform.position = other.transform.position;
                 HitEffect.Play();
+                YK_Combo.AddCombo();
             }
         }
 
@@ -60,6 +63,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
                 HitEffect.transform.position = other.transform.position;
                 HitEffect.Play();
+                YK_Combo.AddCombo();
             }
         }
 
@@ -74,6 +78,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
             other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
             HitEffect.transform.position = other.transform.position;
             HitEffect.Play();
+            YK_Combo.AddCombo();
         }
 
         // 耐久値が0以下になったら壊れる

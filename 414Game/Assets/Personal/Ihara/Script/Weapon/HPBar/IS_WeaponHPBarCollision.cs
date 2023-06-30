@@ -42,6 +42,8 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 m_DrainEffect.SetStartPos(other.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
+
+                YK_Combo.AddCombo();
             }
         }
         // スライムへのダメージ処理
@@ -61,6 +63,8 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 m_DrainEffect.SetStartPos(other.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
+
+                YK_Combo.AddCombo();
             }
         }
 
@@ -81,6 +85,8 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
                 m_DrainEffect.SetStartPos(other.transform.position);
                 m_DrainEffect.GetVisualEffect().Reinit();
                 m_DrainEffect.GetVisualEffect().Play();
+
+                YK_Combo.AddCombo();
             }
         }
 
@@ -99,7 +105,9 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
             m_DrainEffect.SetStartPos(other.transform.position);
             m_DrainEffect.GetVisualEffect().Reinit();
             m_DrainEffect.GetVisualEffect().Play();
-            
+
+            YK_Combo.AddCombo();
+
         }
 
         // 耐久値が0以下になったら装備を外す
