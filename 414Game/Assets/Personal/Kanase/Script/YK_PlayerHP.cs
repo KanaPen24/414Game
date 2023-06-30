@@ -42,24 +42,33 @@ public class YK_PlayerHP : MonoBehaviour
 
     void Update()
     {
-        if(BulkHPSlider.value > PlayerParam.m_nHP)
+        // BulkHPSliderの値とプレイヤーのHPを比較して、差分を調べる
+        if (BulkHPSlider.value > PlayerParam.m_nHP)
         {
+            // HPが減少した場合はDelLifeメソッドを呼び出し、差分のダメージを渡す
             DelLife((int)HpSlider.value - PlayerParam.m_nHP);
         }
-        else if(BulkHPSlider.value < PlayerParam.m_nHP)
+        else if (BulkHPSlider.value < PlayerParam.m_nHP)
         {
+            // HPが増加した場合はAddLifeメソッドを呼び出し、差分の回復量を渡す
             AddLife(PlayerParam.m_nHP - (int)HpSlider.value);
         }
 
-        if(m_bDelFlg)
+        // HP減少フラグが立っている場合の処理
+        if (m_bDelFlg)
         {
-            if(m_fCountLime >= m_fDelCount)
+            // 指定の時間が経過したらHPを更新し、フラグを解除する
+            if (m_fCountLime >= m_fDelCount)
             {
                 HpSlider.value = PlayerParam.m_nHP;
                 m_fCountLime = 0.0f;
                 m_bDelFlg = false;
             }
-            else m_fCountLime += Time.deltaTime;
+            else
+            {
+                // 経過時間をカウントする
+                m_fCountLime += Time.deltaTime;
+            }
         }
     }
 

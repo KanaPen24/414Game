@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/**
+ * @file   SaveData.cs
+ * @brief  Jsonを利用したセーブとロード
+ * @author 吉田叶聖
+ * @date   2023/06/20
+ */
+ using System.Collections;
 using System.Collections.Generic;
 using System.IO;  //StreamWriterなどを使うために追加
 using UnityEngine;
@@ -21,14 +27,17 @@ public class YK_JsonSave : MonoBehaviour
         //先に武器のHPのListを準備しておく
         //先にやらないとオーバーフローする
         data.WeaponHp.Capacity = WeaponHp.Capacity;
-        
+
         // ファイルがないとき、ファイル作成
         if (!File.Exists(filepath))
-        {   
+        {
             Save(false);
         }
-       //ファイルを読み込んでdataに格納
-       Load();
+        else
+        {
+            //ファイルを読み込んでdataに格納
+            Load();
+        }
     }
     private void Start()
     {
@@ -42,7 +51,13 @@ public class YK_JsonSave : MonoBehaviour
         }
     }
 
-    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F3))    // F3キーが押されたらファイルを削除する
+        {
+            DelFile();
+        }
+    }
 
     //-------------------------------------------------------------------
     // jsonとしてデータを保存
@@ -94,6 +109,11 @@ public class YK_JsonSave : MonoBehaviour
         {
             WeaponHp[i].GetSetHp = data.WeaponHp[i];
         }
+    }
+
+    public void DelFile()
+    {
+        File.Delete(filepath);
     }
 
 }

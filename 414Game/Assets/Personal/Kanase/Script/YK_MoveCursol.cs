@@ -3,7 +3,7 @@
  * @brief  カーソルを動かす
  * @author 吉田叶聖
  * @date   2023/03/31
- * @Update 2023/06/19 Inout情報改定(Ihara)
+ * @Update 2023/06/19 Input情報改定(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -95,7 +95,6 @@ public class YK_MoveCursol : MonoBehaviour
             return;
         }
         //　移動キーを押していなければ円運動
-        //if (Mathf.Approximately(Input.GetAxis("HorizontalR"), 0f) && Mathf.Approximately(Input.GetAxis("VerticalR"), 0f))
         if (Mathf.Approximately(IS_XBoxInput.RStick_H, 0f) && Mathf.Approximately(IS_XBoxInput.RStick_V, 0f))
         {
             Circle();
@@ -104,7 +103,6 @@ public class YK_MoveCursol : MonoBehaviour
             return;
         }
         //　移動先を計算
-        //var pos = rect.anchoredPosition + new Vector2(Input.GetAxis("HorizontalR") * m_fIconSpeed, Input.GetAxis("VerticalR") * -m_fIconSpeed) * Time.deltaTime;
         var pos = rect.anchoredPosition + new Vector2(IS_XBoxInput.RStick_H * m_fIconSpeed, IS_XBoxInput.RStick_V * m_fIconSpeed) * Time.deltaTime;
 
        
