@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class YK_Start : YK_UI
 {
@@ -18,9 +19,10 @@ public class YK_Start : YK_UI
     [SerializeField] private Image TitleUI;          // タイトルUIイメージ
     [SerializeField] ON_VolumeManager PostEffect;    // ポストエフェクト
     private Outline outline;                         // アウトライン
-    private bool m_bVisibleStart = true;              // スタートUIの表示フラグ
-    private float m_rate = 1.0f;                      // ポストエフェクトの割合
-    private float m_fTime;                            // 経過時間
+    private bool m_bVisibleStart = true;             // スタートUIの表示フラグ
+    private bool m_bVisibleTitle = false;            // タイトルの表示フラグ
+    private float m_rate = 1.0f;                     // ポストエフェクトの割合
+    private float m_fTime;                           // 経過時間
     [SerializeField] private YK_MoveCursol MoveCursol; // カーソル移動制御オブジェクト
 
     /**
@@ -48,6 +50,17 @@ public class YK_Start : YK_UI
      */
     private void Update()
     {
+        //リセットフラグが立っているとき
+        if (YK_JsonSave.instance && YK_JsonSave.instance.GetSetResetFlg)
+        {
+            GameStart.SetActive(false);
+            PostEffect.SetBraunRate(0.0f);
+        }
+        else
+        {
+            GameStart.SetActive(true);
+            // PostEffect.SetBraunRate(1.0f);
+        }
         // カーソルが動き始めるまで
         if (!MoveCursol.GetSetMoveFlg)
         {
@@ -68,6 +81,8 @@ public class YK_Start : YK_UI
             m_rate = Mathf.Lerp(1.0f, 0.0f, m_fTime);
             PostEffect.SetBraunRate(m_rate);
         }
+        if(m_bVisibleTitle)
+            GameStart.SetActive(false);
     }
 
     //StartUIを表示
@@ -101,7 +116,7 @@ public class YK_Start : YK_UI
             ExitUI.DOFade(0f, 1.0f);
             TitleUI.DOFade(0f, 1.0f).OnComplete(() =>
             {
-                GameStart.SetActive(false);
+                m_bVisibleTitle = true;
             });
             Debug.Log("FadeOUT終了");
         });
@@ -122,5 +137,19 @@ public class YK_Start : YK_UI
     public void StartPlay()
     {
         m_bVisibleStart = false;
+    }
+
+    
+
+    // イベントハンドラー（イベント発生時に動かしたい処理）
+    void SceneLoaded(Scene nextScene, LoadSceneMode mode)
+    {
+        Debug.Log(nextScene.name);
+        Debug.Log(mode);
+    }
+
+    void SceneUnloaded(Scene thisScene)
+    {
+        Debug.Log(thisScene.name);
     }
 }
