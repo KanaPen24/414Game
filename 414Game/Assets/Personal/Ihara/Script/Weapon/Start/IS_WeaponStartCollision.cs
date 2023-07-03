@@ -23,7 +23,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         // ボスへのダメージ処理
         if (other.gameObject.GetComponent<NK_BossSlime>() != null)
         {
-            if (WeaponStart.GetSetAttack && !other.GetComponent<NK_BossSlime>().GetSetDamageFlag)
+            if (IS_Player.instance.GetFlg().m_bAttack && !other.GetComponent<NK_BossSlime>().GetSetDamageFlag)
             {
                 YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
@@ -38,7 +38,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         // スライムへのダメージ処理
         if (other.gameObject.GetComponent<NK_Slime>() != null)
         {
-            if (WeaponStart.GetSetAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)
+            if (IS_Player.instance.GetFlg().m_bAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)
             {
                 YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
@@ -54,7 +54,7 @@ public class IS_WeaponStartCollision : MonoBehaviour
         // 蝙蝠へのダメージ処理
         if (other.gameObject.GetComponent<NK_Bat>() != null)
         {
-            if (WeaponStart.GetSetAttack && !other.GetComponent<NK_Bat>().GetSetDamageFlag)
+            if (IS_Player.instance.GetFlg().m_bAttack && !other.GetComponent<NK_Bat>().GetSetDamageFlag)
             {
                 YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
@@ -79,14 +79,6 @@ public class IS_WeaponStartCollision : MonoBehaviour
             HitEffect.transform.position = other.transform.position;
             HitEffect.Play();
             YK_Combo.AddCombo();
-        }
-
-        // 耐久値が0以下になったら壊れる
-        if (WeaponStart.GetSetHp <= 0)
-        {
-            YK_Controller.instance.ControllerVibration(0.5f);
-            Player.RemovedWeapon();
-            IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_3);
         }
     }
 }

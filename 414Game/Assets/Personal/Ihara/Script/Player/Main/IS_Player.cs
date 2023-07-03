@@ -67,12 +67,12 @@ public enum PlayerDir
 // ================================================
 public enum EquipState
 {
-    EquipNone      = -1,// 無(殴るモード)
-    EquipHpBar     = 0, // HPバー
-    EquipSkillIcon = 1, // Ball
-    EquipBossBar   = 2, // Bossバー
-    EquipClock     = 3, // 時計
-    EquipStart     = 4, // スタート
+    EquipNone      = 0,// 無(殴るモード)
+    EquipHpBar     = 1, // HPバー
+    EquipSkillIcon = 2, // Ball
+    EquipBossBar   = 3, // Bossバー
+    EquipClock     = 4, // 時計
+    EquipStart     = 5, // スタート
 
     MaxEquipState
 }
@@ -205,6 +205,7 @@ public class IS_Player : MonoBehaviour
         m_PlayerStrategys.Add(GetComponent<IS_PlayerJumpAttack>());
 
         // 武器のコンポーネント
+        m_Weapons.Add(GetComponentInChildren<IS_WeaponNone>());
         m_Weapons.Add(GetComponentInChildren<IS_WeaponHPBar>());
         m_Weapons.Add(GetComponentInChildren<IS_WeaponSkillIcon>());
         m_Weapons.Add(GetComponentInChildren<IS_WeaponBossBar>());
@@ -341,12 +342,12 @@ public class IS_Player : MonoBehaviour
         }
 
         // HPが0以下になったら…
-        if (GetParam().m_nHP <= 0 && !GetFlg().m_bGameOverFlg)
+        if (GetParam().m_nHP <= 0 && !GetFlg().m_bStartGameOverFlg)
         {
             //ゲームオーバーを体力がなくなったにする
             YK_GameOver.instance.GetSetGameOverState = GameOverState.NoHP;
             // GameOverに移行
-            GetFlg().m_bGameOverFlg = true;
+            GetFlg().m_bStartGameOverFlg = true;
             GetSetPlayerState = PlayerState.PlayerGameOver;
             GameManager.instance.GetSetGameState = GameState.GameOver;
         }

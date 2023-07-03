@@ -35,14 +35,14 @@ public class IS_PlayerWait : IS_PlayerStrategy
             if (Input.GetKeyDown(IS_XBoxInput.B))
             {
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerJump;
-                IS_Player.instance.GetFlg().m_bJumpFlg = true;
+                IS_Player.instance.GetFlg().m_bStartJumpFlg = true;
                 return;
             }
             // 「待機 → 移動」
             if (IS_XBoxInput.LStick_H >= 0.2 || IS_XBoxInput.LStick_H <= -0.2)
             {
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWalk;
-                IS_Player.instance.GetFlg().m_bWalkFlg = true;
+                IS_Player.instance.GetFlg().m_bStartWalkFlg = true;
                 return;
             }
             // 「待機 → 溜め待機 or 攻撃01 」
@@ -52,12 +52,12 @@ public class IS_PlayerWait : IS_PlayerStrategy
                 if(IS_Player.instance.GetSetEquipState == EquipState.EquipSkillIcon)
                 {
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerChargeWait;
-                    IS_Player.instance.GetFlg().m_bChargeWaitFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartChargeWaitFlg = true;
                 }
                 else
                 {
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAttack01;
-                    IS_Player.instance.GetFlg().m_bAttackFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartAttackFlg = true;
                 }
                 return;
             }
@@ -65,7 +65,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
             if (Input.GetKeyDown(IS_XBoxInput.A) && m_UseSkill.UseSkillJudge())
             {
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAvoidance;
-                IS_Player.instance.GetFlg().m_bAvoidFlg = true;
+                IS_Player.instance.GetFlg().m_bStartAvoidFlg = true;
                 return;
             }
 
@@ -80,7 +80,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
                     IS_Player.instance.GetUICatcher().GetSetSelectUI))
                 {
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerUICatch;
-                    IS_Player.instance.GetFlg().m_bUICatchFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartUICatchFlg = true;
                     return;
                 }
                 // 武器を何も装備していない場合
@@ -88,7 +88,7 @@ public class IS_PlayerWait : IS_PlayerStrategy
                 else if(IS_Player.instance.GetSetEquipState != EquipState.EquipNone)
                 {
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerUIRelease;
-                    IS_Player.instance.GetFlg().m_bUIReleaseFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartUIReleaseFlg = true;
                     return;
                 }
             }

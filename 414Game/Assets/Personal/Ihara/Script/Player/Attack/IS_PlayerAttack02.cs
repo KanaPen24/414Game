@@ -19,9 +19,9 @@ public class IS_PlayerAttack02 : IS_PlayerStrategy
         if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerAttack02)
         {
             // 攻撃開始時の処理
-            if (IS_Player.instance.GetFlg().m_bAttackFlg)
+            if (IS_Player.instance.GetFlg().m_bStartAttackFlg)
             {
-                IS_Player.instance.GetFlg().m_bAttackFlg = false;
+                IS_Player.instance.GetFlg().m_bStartAttackFlg = false;
                 IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).StartAttack();
             }
 
@@ -30,7 +30,7 @@ public class IS_PlayerAttack02 : IS_PlayerStrategy
             // =========
             // 「攻撃02 → 待機」
             if (IS_Player.instance.GetPlayerAnimator().AnimEnd(m_CurrentPlayerAnimState) &&
-                !IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).GetSetAttack)
+                !IS_Player.instance.GetFlg().m_bAttack)
             {
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWait;
                 return;

@@ -40,7 +40,7 @@ public class IS_PlayerDrop : IS_PlayerStrategy
                 if (IS_XBoxInput.LStick_H >= 0.2 || IS_XBoxInput.LStick_H <= -0.2)
                 {
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWalk;
-                    IS_Player.instance.GetFlg().m_bWalkFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartWalkFlg = true;
                     return;
                 }
 
@@ -54,7 +54,7 @@ public class IS_PlayerDrop : IS_PlayerStrategy
                    IS_Player.instance.GetSetEquipState == EquipState.EquipBossBar ||
                    IS_Player.instance.GetSetEquipState == EquipState.EquipStart)
                 {
-                    IS_Player.instance.GetFlg().m_bJumpAttackFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartJumpAttackFlg = true;
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerJumpAttack;
                     return;
                 }

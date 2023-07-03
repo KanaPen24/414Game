@@ -24,9 +24,9 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
             IS_AudioManager.instance.PlaySE(SEType.SE_Avoidance);
 
             // 回避開始時の処理
-            if (IS_Player.instance.GetFlg().m_bAvoidFlg)
+            if (IS_Player.instance.GetFlg().m_bStartAvoidFlg)
             {
-                IS_Player.instance.GetFlg().m_bAvoidFlg = false;
+                IS_Player.instance.GetFlg().m_bStartAvoidFlg = false;
                 IS_Player.instance.GetSetPlayerInvincible.GetSetInvincibleCnt = m_fAvoidTime;
                 m_BlurController.SetBlur(true);
             }

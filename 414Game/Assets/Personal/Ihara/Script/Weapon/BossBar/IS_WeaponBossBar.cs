@@ -26,8 +26,6 @@ public class IS_WeaponBossBar : IS_Weapon
     {
         // メンバの初期化
         m_eWeaponType = WeaponType.BossBar; // 武器種類はBossバー
-        m_bAttack = false;
-        m_bCharge = false;
         m_bVisible = false;
         m_bDestroy = false;
     }
@@ -52,6 +50,14 @@ public class IS_WeaponBossBar : IS_Weapon
 
         // 現在の状態に更新
         m_nCnt = Convert.ToInt32(m_bVisible);
+
+        //攻撃中だったら当たり判定をON
+        if (IS_Player.instance.GetFlg().m_bAttack &&
+            IS_Player.instance.GetSetEquipState == EquipState.EquipBossBar)
+        {
+            m_CapsuleCollider.enabled = true;
+        }
+        else m_CapsuleCollider.enabled = false;
     }
 
     /**
@@ -65,7 +71,7 @@ public class IS_WeaponBossBar : IS_Weapon
         IS_AudioManager.instance.PlaySE(SEType.SE_FireHPBar);
 
         // 攻撃ON
-        GetSetAttack = true;
+        IS_Player.instance.GetFlg().m_bAttack = true;
     }
 
     /**
@@ -75,7 +81,7 @@ public class IS_WeaponBossBar : IS_Weapon
      */
     public override void FinAttack()
     {
-        GetSetAttack = false; // 攻撃OFF
+        IS_Player.instance.GetFlg().m_bAttack = false; // 攻撃OFF
     }
 
     /**
