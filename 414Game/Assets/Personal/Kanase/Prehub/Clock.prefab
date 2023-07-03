@@ -90,18 +90,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 3604931699140249299}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d40617ce0ff11d849aa6e237010bafef, type: 3}
+  m_Script: {fileID: 11500000, guid: 9502d4114fbbf7e4d8d1a0917e39de9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Second: {fileID: 4783614940159663580}
   Clock: {fileID: 1709200369888334767}
+  Clock_Inner: {fileID: 6424088624521762985}
   Second_Image: {fileID: 6316984337230150796}
-  m_Hand: {fileID: 0}
+  OutLine: {fileID: 0}
   m_Time: {fileID: 0}
-  timerLimit: 5
-  m_MinScale: {x: 0.5, y: 0.5, z: 0}
-  m_fDelTime: 0.5
+  Player: {fileID: 0}
   Time: {fileID: 0}
+  PostEffect: {fileID: 0}
+  m_nTimeCount: 3
+  m_bStopTime: 0
+  m_nStopTime: 0
+  MoveCursol: {fileID: 0}
 --- !u!61 &6213050717087377015
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -364,3 +368,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8584870252147752893}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6424088624521762985 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3316167283825108756, guid: c965e39c093ce08489369f777e31e1fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 8584870252147752893}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,7 +12,6 @@ using UnityEngine;
 
 public class IS_PlayerAttack01 : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
     [SerializeField] private float m_fMax2NextAttackTime; // 次の攻撃に移れる最大時間
     private PlayerAnimState m_CurrentPlayerAnimState;
@@ -20,13 +19,13 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
 
     private void Update()
     {
-        if (m_Player.GetSetPlayerState == PlayerState.PlayerAttack01)
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerAttack01)
         {
             // 攻撃開始時の処理
-            if (m_Player.GetSetAttackFlg)
+            if (IS_Player.instance.GetFlg().m_bStartAttackFlg)
             {
-                m_Player.GetSetAttackFlg = false;
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartAttack();
+                IS_Player.instance.GetFlg().m_bStartAttackFlg = false;
+                IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).StartAttack();
                 f2NextAttackTime = 0.0f;
             }
 
@@ -36,39 +35,39 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
             // 「攻撃01 → 落下」
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinAttack();
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerDrop;
+                IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinAttack();
                 return;
             }
             // 「攻撃01 → 攻撃02」
             if (f2NextAttackTime <= m_fMax2NextAttackTime &&
-                m_Player.bInputAttack)
+                Input.GetKeyDown(IS_XBoxInput.X))
             {
-                if (m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerHpBar ||
-                    m_Player.GetSetEquipWeaponState == EquipWeaponState.PlayerStart)
+                if (IS_Player.instance.GetSetEquipState == EquipState.EquipHpBar ||
+                    IS_Player.instance.GetSetEquipState == EquipState.EquipStart)
                 {
-                    m_Player.GetSetPlayerState = PlayerState.PlayerAttack02;
-                    m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinAttack();
-                    m_Player.GetSetAttackFlg = true;
+                    IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAttack02;
+                    IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinAttack();
+                    IS_Player.instance.GetFlg().m_bStartAttackFlg = true;
                     return;
                 }
             }
             // 「攻撃01 → 移動」
-            if (!m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack  &&
-                (m_Player.bInputRight || m_Player.bInputLeft))
+            if (!IS_Player.instance.GetFlg().m_bAttack &&
+                (IS_XBoxInput.LStick_H >= 0.2 || IS_XBoxInput.LStick_H <= -0.2))
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWait;
                 return;
             }
             // 「攻撃01 → 待機」
             if (f2NextAttackTime >= m_fMax2NextAttackTime)
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWait;
                 return;
             }
 
-            if(!m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetAttack)
-            f2NextAttackTime += Time.deltaTime;
+            if (!IS_Player.instance.GetFlg().m_bAttack)
+                f2NextAttackTime += Time.deltaTime;
         }
     }
     /**
@@ -83,11 +82,11 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
         UpdateAnim();
 
         // 合計移動量をリセット
-        m_Player.GetSetMoveAmount =
+        IS_Player.instance.GetSetMoveAmount =
             new Vector3(0f, 0f, 0f);
 
         // 指定した武器で攻撃処理
-        m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).UpdateAttack();
+        IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).UpdateAttack();
     }
 
     /**
@@ -98,27 +97,22 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        switch (m_Player.GetSetEquipWeaponState)
+        switch (IS_Player.instance.GetSetEquipState)
         {
-            case EquipWeaponState.PlayerHpBar:
-                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack01HPBar);
-                m_CurrentPlayerAnimState = PlayerAnimState.Attack01HPBar;
+            case EquipState.EquipHpBar:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack01HPBar);
                 break;
-            case EquipWeaponState.PlayerSkillIcon:
-                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackSkillIcon);
-                m_CurrentPlayerAnimState = PlayerAnimState.AttackSkillIcon;
+            case EquipState.EquipSkillIcon:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackSkillIcon);
                 break;
-            case EquipWeaponState.PlayerBossBar:
-                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackBossBar);
-                m_CurrentPlayerAnimState = PlayerAnimState.AttackBossBar;
+            case EquipState.EquipBossBar:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackBossBar);
                 break;
-            case EquipWeaponState.PlayerClock:
-                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackClock);
-                m_CurrentPlayerAnimState = PlayerAnimState.AttackClock;
+            case EquipState.EquipClock:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.AttackClock);
                 break;
-            case EquipWeaponState.PlayerStart:
-                m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack01HPBar);
-                m_CurrentPlayerAnimState = PlayerAnimState.Attack01HPBar;
+            case EquipState.EquipStart:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Attack01HPBar);
                 break;
         }
     }

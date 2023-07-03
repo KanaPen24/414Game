@@ -87,7 +87,7 @@ public class IS_PlayerAnimator : MonoBehaviour
         else return false;
     }
 
-    private void ParticlePlay()
+    public void ParticlePlay()
     {
         UICatcher.ParticlePlay();
     }

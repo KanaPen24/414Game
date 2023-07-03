@@ -11,7 +11,6 @@ using UnityEngine;
 
 public class IS_PlayerAvoidance : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
     [SerializeField] private ON_BlurController m_BlurController; // Playerのブラー
     [SerializeField] private float m_fAvoidTime; // 回避時間
@@ -19,16 +18,16 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
 
     private void Update()
     {
-        if (m_Player.GetSetPlayerState == PlayerState.PlayerAvoidance)
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerAvoidance)
         {
             //回避の音再生
             IS_AudioManager.instance.PlaySE(SEType.SE_Avoidance);
 
             // 回避開始時の処理
-            if (m_Player.GetSetAvoidFlg)
+            if (IS_Player.instance.GetFlg().m_bStartAvoidFlg)
             {
-                m_Player.GetSetAvoidFlg = false;
-                m_Player.GetSetPlayerInvincible.GetSetInvincibleCnt = m_fAvoidTime;
+                IS_Player.instance.GetFlg().m_bStartAvoidFlg = false;
+                IS_Player.instance.GetSetPlayerInvincible.GetSetInvincibleCnt = m_fAvoidTime;
                 m_BlurController.SetBlur(true);
             }
 
@@ -36,16 +35,16 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
             // 状態遷移
             // =========
             // 「回避 → 待機」
-            if (m_Player.GetSetPlayerInvincible.GetSetInvincibleCnt <= 0f)
+            if (IS_Player.instance.GetSetPlayerInvincible.GetSetInvincibleCnt <= 0f)
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWait;
                 m_BlurController.SetBlur(false);
                 return;
             }
             // 「回避 → 落下」
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerDrop;
                 m_BlurController.SetBlur(false);
                 return;
             }
@@ -63,15 +62,13 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
         UpdateAnim();
 
         // 合計移動量をリセット
-        if (m_Player.GetSetPlayerDir == PlayerDir.Right)
+        if (IS_Player.instance.GetSetPlayerDir == PlayerDir.Right)
         {
-            m_Player.GetSetMoveAmount =
-                new Vector3(m_MovePow, 0f, 0f);
+            IS_Player.instance.m_vMoveAmount = new Vector3(m_MovePow, 0f, 0f);
         }
-        else if (m_Player.GetSetPlayerDir == PlayerDir.Left)
+        else if (IS_Player.instance.GetSetPlayerDir == PlayerDir.Left)
         {
-            m_Player.GetSetMoveAmount =
-                new Vector3(-m_MovePow, 0f, 0f);
+            IS_Player.instance.m_vMoveAmount = new Vector3(-m_MovePow, 0f, 0f);
         }
     }
 
@@ -83,6 +80,6 @@ public class IS_PlayerAvoidance : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Avoid);
+        IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Avoid);
     }
 }

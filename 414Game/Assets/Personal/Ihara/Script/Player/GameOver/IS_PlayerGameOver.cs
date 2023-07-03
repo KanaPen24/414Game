@@ -11,9 +11,29 @@ using UnityEngine;
 
 public class IS_PlayerGameOver : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player;                          // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
 
+
+    private void Update()
+    {
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerGameOver)
+        {
+            // ゲームオーバー → UI取得ゲームオーバー」
+            if ((Input.GetKeyDown(IS_XBoxInput.LB) || Input.GetKeyDown(IS_XBoxInput.RB)) &&
+            IS_Player.instance.GetUICatcher().GetSetUICatcherState == UICatcherState.None)
+            {
+                // カーソルがUIを取得している && カーソルが取得しているUIが現在武器にしているUIではない場合…
+                // UI取得に遷移
+                if (IS_Player.instance.GetCursolEvent().GetSetCurrentUI.GetSetUIType == UIType.Retry ||
+                    IS_Player.instance.GetCursolEvent().GetSetCurrentUI.GetSetUIType == UIType.TitleBack)
+                {
+                    IS_Player.instance.GetSetPlayerState = PlayerState.PlayerUICatchGameOver;
+                    IS_Player.instance.GetFlg().m_bStartUICatchFlg = true;
+                    return;
+                }
+            }
+        }
+    }
     /**
      * @fn
      * 更新処理
@@ -26,7 +46,7 @@ public class IS_PlayerGameOver : IS_PlayerStrategy
         UpdateAnim();
 
         // 合計移動量をリセット
-        m_Player.GetSetMoveAmount = new Vector3(0f, 0f, 0f);
+        IS_Player.instance.m_vMoveAmount = new Vector3(0f, 0f, 0f);
     }
 
     /**
@@ -37,6 +57,6 @@ public class IS_PlayerGameOver : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.GameOver);
+        IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.GameOver);
     }
 }

@@ -14,7 +14,6 @@ public enum UICatcherState
 {
     None,
     UI2Weapon,
-    Weapon2UI,
 
     MaxUICatcherState
 }
@@ -36,6 +35,7 @@ public class YK_UICatcher : MonoBehaviour
     private bool m_bParticleFlg;                        //パーティクルエフェクト用のフラグ
     private UICatcherState m_UICatcherState;            // UICatcherの状態
     private YK_UI m_SelectUI;                           // 選択中のUI(現在武器化しているUI)
+    private YK_UI m_lastUI;
     private int Array;  //m_Uisの中身
 
     // Start is called before the first frame update
@@ -54,7 +54,7 @@ public class YK_UICatcher : MonoBehaviour
         Array = m_Uis.Capacity - 1; //配列のため-1する
     }
 
-        private void Update()
+    private void Update()
     {
         //プレイヤーの向き比較
         if(Player.GetSetPlayerDir == PlayerDir.Left)
@@ -65,6 +65,9 @@ public class YK_UICatcher : MonoBehaviour
         {
             BlackHolePL.transform.position = Player.transform.position + new Vector3(1.3f, 1.6f, -1.0f);
         }
+
+        //if(m_lastUI != null)
+        //Debug.Log(m_lastUI.GetSetUIType);
     }
 
     // 1. 再生
@@ -156,8 +159,8 @@ public class YK_UICatcher : MonoBehaviour
                 m_SelectUI = m_Uis[i];
 
                 // エフェクトの位置を設定
-                BlackHoleUI.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetPos;
-                Hand.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetPos;
+                BlackHoleUI.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetUIPos;
+                Hand.GetComponent<RectTransform>().anchoredPosition = m_SelectUI.GetSetUIPos;
                 
                 // for文から抜ける
                 break;
@@ -165,31 +168,34 @@ public class YK_UICatcher : MonoBehaviour
         }
 
         // 武器を装備する(武器チェンジ)
-        for(int i = 0,size = (int)EquipWeaponState.MaxEquipWeaponState; i < size;++i)
+        for(int i = 0,size = (int)EquipState.MaxEquipState; i < size;++i)
         {
             // 番号が一致したら…
             if((int)m_SelectUI.GetSetUIType == i)
             {
                 // その番号の武器を装備する
                 // ※ 装備武器の列挙数とUIの種類の列挙数は一致していることが条件
-                Player.GetSetEquipWeaponState = (EquipWeaponState)i;
+                Player.GetSetEquipState = (EquipState)i;
 
                 // for文から抜ける
                 break;
             }
         }
+
+        if (m_SelectUI.GetSetUIType != UIType.DamageNumber)
+            m_lastUI = m_SelectUI;
     }
 
     /**
      * @fn
      * 武器をUIにするイベントの発生
      * @return なし
-     * @brief 武器をUIにするイベント発生(特に今のところ処理はなし)
+     * @brief 武器をUIにするイベント発生
      */
     public void StartWeapon2UIEvent()
     {
         // 武器を非表示にする
-        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = false;
+        Player.GetWeapons((int)Player.GetSetEquipState).GetSetVisible = false;
 
         // 選択したUIのフェードイン開始
         m_SelectUI.UIFadeIN();
@@ -198,9 +204,27 @@ public class YK_UICatcher : MonoBehaviour
         m_SelectUI = null;
     }
 
+    /**
+     * @fn
+     * 武器を変更するイベント
+     * @return なし
+     * @brief 武器を変更するイベント
+     */
+    public void StartChangeWeaponEvent()
+    {
+        StartWeapon2UIEvent();
+        StartUI2WeaponEvent();
+    }
+
     public YK_UI GetSetSelectUI
     {
         get { return m_SelectUI; }
         set { m_SelectUI = value; }
+    }
+
+    public YK_UI GetSetlastUI
+    {
+        get { return m_lastUI; }
+        set { m_lastUI = value; }
     }
 }

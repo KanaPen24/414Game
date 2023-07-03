@@ -14,7 +14,6 @@ public class YK_Hand : MonoBehaviour
     [SerializeField] private YK_UICatcher UICatcher;
     private CubismRenderController renderController;
     [SerializeField] private YK_CursolEvent CursolEvent;          //カーソルイベント
-    [SerializeField] private IS_Player Player;
     private bool m_bOpacity = false;
     private Vector2 Scale;
 
@@ -87,11 +86,8 @@ public class YK_Hand : MonoBehaviour
     void AnimationEnd()
     {
         // 武器を装備する(武器を表示する)
-        if(Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
-        Player.GetWeapons((int)Player.GetSetEquipWeaponState).GetSetVisible = true;
-
+        IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).GetSetVisible = true;
 
         UICatcher.ParticleStop();
     }
-
 }

@@ -11,21 +11,20 @@ using UnityEngine;
 
 public class IS_PlayerChargeWait : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player; // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
 
     private void Update()
     {
-        if (m_Player.GetSetPlayerState == PlayerState.PlayerChargeWait)
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerChargeWait)
         {
             // 溜め待機開始時に
-            if (m_Player.GetSetChargeWaitFlg)
+            if (IS_Player.instance.GetFlg().m_bStartChargeWaitFlg)
             {
-                if(!m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetCharge)
+                if (!IS_Player.instance.GetFlg().m_bCharge)
                 {
-                    m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartCharge();
+                    IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).StartCharge();
                 }
-                m_Player.GetSetChargeWaitFlg = false;
+                IS_Player.instance.GetFlg().m_bStartChargeWaitFlg = false;
             }
 
             // =========
@@ -34,24 +33,24 @@ public class IS_PlayerChargeWait : IS_PlayerStrategy
             //「溜め待機 → 落下」
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinCharge();
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerDrop;
+                IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinCharge();
                 return;
             }
             // 「溜め待機 → 溜め移動」
-            if (m_Player.bInputRight || m_Player.bInputLeft)
+            if (IS_XBoxInput.LStick_H >= 0.2 || IS_XBoxInput.LStick_H <= -0.2)
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerChargeWalk;
-                m_Player.GetSetChargeWalkFlg = true;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerChargeWalk;
+                IS_Player.instance.GetFlg().m_bStartChargeWalkFlg = true;
                 return;
             }
             // 「溜め移動 → 攻撃01」
-            if (!m_Player.bInputCharge &&
-                m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
+            if (!Input.GetKey(IS_XBoxInput.X) &&
+                IS_Player.instance.GetSetEquipState != EquipState.EquipNone)
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerAttack01;
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinCharge();
-                m_Player.GetSetAttackFlg = true;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAttack01;
+                IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinCharge();
+                IS_Player.instance.GetFlg().m_bStartAttackFlg = true;
                 return;
             }
         }
@@ -69,10 +68,10 @@ public class IS_PlayerChargeWait : IS_PlayerStrategy
         UpdateAnim();
 
         // 合計移動量をリセット
-        m_Player.GetSetMoveAmount = new Vector3(0f, 0f, 0f);
+        IS_Player.instance.GetSetMoveAmount = new Vector3(0f, 0f, 0f);
 
         // 指定した武器で溜め処理
-        m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).UpdateCharge();
+        IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).UpdateCharge();
     }
 
     /**
@@ -83,14 +82,11 @@ public class IS_PlayerChargeWait : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        if (m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
+        switch (IS_Player.instance.GetSetEquipState)
         {
-            switch (m_Player.GetSetEquipWeaponState)
-            {
-                case EquipWeaponState.PlayerSkillIcon:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.ChargeWaitSkillIcon);
-                    break;
-            }
+            case EquipState.EquipSkillIcon:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.ChargeWaitSkillIcon);
+                break;
         }
     }
 }
