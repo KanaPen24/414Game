@@ -37,13 +37,7 @@ public class YK_JsonSave : MonoBehaviour
             }
             Save(false);
         }
-        else
-        {
-            //ファイルを読み込んでdataに格納
-            Load();
-        }
-        if (data.RetryFlg)
-            GameManager.instance.GetSetGameState = GameState.GamePlay;
+        Load();
     }
 
     private void FixedUpdate()
@@ -64,8 +58,6 @@ public class YK_JsonSave : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        if (data.RetryFlg)
-            GameManager.instance.GetSetGameState = GameState.GamePlay;
     }
 
     //-------------------------------------------------------------------
@@ -135,11 +127,6 @@ public class YK_JsonSave : MonoBehaviour
     {
         get { return data.RetryFlg; }
         set { data.RetryFlg = value; }
-    }
-
-    private void OnEnable()
-    {
-     
     }
 
 }

@@ -47,13 +47,14 @@ public class YK_CursolEvent : MonoBehaviour
             {
                 // 選択中のUIを事前に格納しておく
                 m_CurrentUI = m_Uis[i];
-                //Debug.Log(m_CurrentUI.GetSetUIType);
+//                Debug.Log(m_CurrentUI.GetSetUIType);
 
                 // ダメージのUIの場合、カーソルの当たり判定で位置を特定する
                 if (m_CurrentUI.GetSetUIType == UIType.DamageNumber)
                 {
                     m_CurrentUI.GetSetUIPos = this.gameObject.GetComponent<RectTransform>().anchoredPosition;
                 }
+                
                 return;
             }
         }

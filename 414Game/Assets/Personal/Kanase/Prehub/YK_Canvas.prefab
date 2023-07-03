@@ -5107,6 +5107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fade: {fileID: 0}
   RetryUI: {fileID: 357825147229127724}
+  Data: {fileID: 0}
 --- !u!114 &4920406889218078429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7450,7 +7451,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 12800000, guid: 1062c701058745940ae5dca6219c64c8,
+      objectReference: {fileID: 12800000, guid: 2267e83aaa099d14691ffb2adc529101,
         type: 3}
     - target: {fileID: 7233422735636838374, guid: 75fe365991b7a71408f0212a8666d4b5,
         type: 3}
@@ -7524,7 +7525,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ed17e5f5016dd4db1d2326f1c2ac65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ComboNumber: {fileID: 1391956764787822451}
   ComboTxt: {fileID: 4092247397387557478}
   m_nCountDownTime: 2
 --- !u!224 &1391956764787822449 stripped
@@ -7533,18 +7533,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8589348458354145429}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1391956764787822451 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7233422735636838374, guid: 75fe365991b7a71408f0212a8666d4b5,
-    type: 3}
-  m_PrefabInstance: {fileID: 8589348458354145429}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1391956764787822448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8776784507204636036
 PrefabInstance:
   m_ObjectHideFlags: 0
