@@ -24,7 +24,7 @@ public class YK_TargetCamera : MonoBehaviour
     private bool m_OneFlg = false;
     private bool m_OneFlg2 = false;
     [SerializeField] private float m_CameraSpeed;
-    private Vector3 TargetCameraPos;    //標的を置いた時のカメラの座標
+    private Vector3 TargetCameraPos;    //標的を置いた時のカメラの座標    
     // Start is called before the first frame update
     void Start()
     {
@@ -87,10 +87,23 @@ public class YK_TargetCamera : MonoBehaviour
                 gameObject.transform.position = TargetCameraPos;
             }
         }
+        //リセットフラグが立っているとき
+        if (YK_JsonSave.instance && YK_JsonSave.instance.GetSetResetFlg)
+        {
+            Vector3 pos = transform.position;
+            pos.x = TargetCameraPos.x;
+            transform.position = pos;
+        }
     }
 
     public void GetShakeFloat(float Shake)
     {
         Shakefloat = Shake;
+    }
+
+    public Vector3 GetSetCameraPos
+    {
+        get { return this.gameObject.transform.position; }
+        set { this.gameObject.transform.position = value; }
     }
 }

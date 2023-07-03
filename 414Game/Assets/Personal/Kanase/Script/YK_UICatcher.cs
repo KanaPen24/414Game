@@ -54,7 +54,7 @@ public class YK_UICatcher : MonoBehaviour
         Array = m_Uis.Capacity - 1; //配列のため-1する
     }
 
-        private void Update()
+    private void Update()
     {
         //プレイヤーの向き比較
         if(Player.GetSetPlayerDir == PlayerDir.Left)

@@ -19,6 +19,7 @@ public class YK_Retry : YK_UI
     [SerializeField] Fade fade;
     [SerializeField] private Image RetryUI;
     private bool m_bVisibleRetry = false;
+    [SerializeField] private YK_JsonSave Data;
 
     /**
      * @brief Start関数
@@ -87,9 +88,11 @@ public class YK_Retry : YK_UI
     {
         fade.FadeIn(1f, () =>
         {
+            Data.Load();
             IS_AudioManager.instance.StopBGM(BGMType.BGM_GAMEOVER); // BGMを停止する
-            YK_JsonSave.instance.Load();
-            SceneManager.LoadScene("GameScene"); // 指定のシーンを読み込む
+            //SceneManager.LoadScene("GameScene"); // 指定のシーンを読み込む
+            // デバック用
+            SceneManager.LoadScene("KanaseScene"); // 指定のシーンを読み込む
         });
     }
 }
