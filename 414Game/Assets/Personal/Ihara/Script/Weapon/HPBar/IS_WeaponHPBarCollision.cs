@@ -44,14 +44,14 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
             }
         }
         // スライムへのダメージ処理
-        if (other.gameObject.GetComponent<NK_Slime>() != null)
+        if (other.gameObject.GetComponent<slime>() != null)
         {
-            if (WeaponHPBar.GetSetAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)
+            if (WeaponHPBar.GetSetAttack && !other.GetComponent<slime>().GetSetDamageFlag)
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
                 Player.GetSetHp += m_nDrainBossHp;
-                other.GetComponent<NK_Slime>().SlimeDamage(m_nDamage2Enemy);
+                other.GetComponent<slime>().SlimeDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
                 HitEffect.transform.position = other.transform.position;
                 HitEffect.Play();
@@ -63,14 +63,14 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
         }
 
         // 蝙蝠へのダメージ処理
-        if (other.gameObject.GetComponent<NK_Bat>() != null)
+        if (other.gameObject.GetComponent<bat>() != null)
         {
-            if (WeaponHPBar.GetSetAttack && !other.GetComponent<NK_Bat>().GetSetDamageFlag)
+            if (WeaponHPBar.GetSetAttack && !other.GetComponent<bat>().GetSetDamageFlag)
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
                 Player.GetSetHp += m_nDrainBossHp;
-                other.GetComponent<NK_Bat>().BatDamage(m_nDamage2Enemy);
+                other.GetComponent<bat>().BatDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
                 HitEffect.transform.position = other.transform.position;
                 HitEffect.Play();

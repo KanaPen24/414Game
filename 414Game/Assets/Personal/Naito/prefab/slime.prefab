@@ -471,9 +471,9 @@ GameObject:
   - component: {fileID: 80574011}
   - component: {fileID: 80574012}
   - component: {fileID: 80574027}
-  - component: {fileID: 80574028}
   - component: {fileID: 80574029}
   - component: {fileID: -6609427029950439471}
+  - component: {fileID: 2559093791352979251}
   m_Layer: 7
   m_Name: slime
   m_TagString: Enemy
@@ -690,38 +690,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfa4cdc4695474439465ce5c784ad8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Slime: {fileID: 80574028}
+  m_Slime: {fileID: 2559093791352979251}
   m_fAttackTime: 4
---- !u!114 &80574028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4719255700450072065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf0a997f3950c2b49ae8180a3a6c5194, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_nHP: 15
-  m_nMaxHP: 15
-  m_Player: {fileID: 0}
-  m_SlimeStrategy:
-  - {fileID: 80574027}
-  - {fileID: 80574029}
-  m_SlimeState: 0
-  m_SlimeDir: 0
-  m_DieEffect: {fileID: 6814668452755134957, guid: 4424c2c298bfb2345bba73411e81288d,
-    type: 3}
-  m_Clock: {fileID: 0}
-  renderController: {fileID: 2458192959598078437}
-  m_InvincibleTime: 0
-  Shadow: {fileID: 1583492506907936919}
-  m_fMovePower: 3
-  m_fJumpPower: 5
-  m_MoveReng: 0
-  m_PlayerDamage: 10
 --- !u!114 &80574029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,7 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_fMovePower: 3
   m_fJumpPower: 5
-  m_Slime: {fileID: 80574028}
+  m_Slime: {fileID: 2559093791352979251}
 --- !u!114 &-6609427029950439471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,6 +721,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageUI: {fileID: 1589118213952898113, guid: b685cb64ab74a4947b9fdcbcf93524f1,
     type: 3}
+--- !u!114 &2559093791352979251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4719255700450072065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59100ce00f5d69240b53451f510fc5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nHP: 15
+  m_nMaxHP: 15
+  m_InvincibleTime: 0
+  m_SPlayer: {fileID: 0}
+  m_SlimeStrategy:
+  - {fileID: 80574027}
+  - {fileID: 80574029}
+  m_SlimeState: 0
+  m_DieEffect: {fileID: 6814668452755134957, guid: 4424c2c298bfb2345bba73411e81288d,
+    type: 3}
+  m_Clock: {fileID: 0}
+  renderController: {fileID: 2458192959598078437}
+  Shadow: {fileID: 1583492506907936919}
+  m_fMovePower: 3
+  m_fJumpPower: 5
+  m_MoveReng: 3
+  m_PlayerDamage: 10
 --- !u!1 &6748625974661061672
 GameObject:
   m_ObjectHideFlags: 0

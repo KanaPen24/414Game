@@ -7,7 +7,7 @@ public class NK_Bat_Fall : NK_BatStrategy
     [SerializeField] private float m_FloorPos;
     //落ちる時の力
     [SerializeField] private float m_FallPow;
-    [SerializeField] private NK_Bat m_Bat;
+    [SerializeField] private bat m_Bat;
     [SerializeField] private float m_UpTime;
     private float m_Cnt;
     [SerializeField] private GameObject m_FallEffect;
@@ -32,7 +32,7 @@ public class NK_Bat_Fall : NK_BatStrategy
             {
                 m_Cnt = 0f;
                 m_Bat.GetSetFallFlag = false;
-                m_Bat.GetSetBatState = BatState.BatUp;
+                m_Bat.GetSetBatState = batState.BatUp;
             }
         }
     }

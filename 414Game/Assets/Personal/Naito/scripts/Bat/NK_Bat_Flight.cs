@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NK_Bat_Flight : NK_BatStrategy
 {
-    [SerializeField] private NK_Bat m_Bat;
+    [SerializeField] private bat m_Bat;
     [SerializeField] private float m_Reng;
     [SerializeField] private float m_fMovePow;
     [SerializeField] private float m_MoveTime;
@@ -20,11 +20,11 @@ public class NK_Bat_Flight : NK_BatStrategy
     {
         m_Cnt += Time.deltaTime;
         m_Bat.m_MoveValue = new Vector3(0.0f, 0.0f, 0.0f);
-        if (m_Bat.GetSetBatDir == BatDir.Left)
+        if (m_Bat.GetSetEnemyDir == EnemyDir.Left)
         {
             transform.rotation = Quaternion.AngleAxis(30.0f, new Vector3(0, 0, 1));
         }
-        else if (m_Bat.GetSetBatDir == BatDir.Right)
+        else if (m_Bat.GetSetEnemyDir == EnemyDir.Right)
         {
             transform.rotation = Quaternion.AngleAxis(-30.0f, new Vector3(0, 0, 1));
         }
@@ -49,22 +49,20 @@ public class NK_Bat_Flight : NK_BatStrategy
                     m_FlightCnt = 0f;
                     m_Cnt = 0f;
                     m_FallEffect.SetActive(true);
-                    m_Bat.GetSetBatState = BatState.BatFall;
+                    m_Bat.GetSetBatState = batState.BatFall;
                 }
             }
             else
             {
-                if (m_Bat.GetSetBatDir == BatDir.Left)
+                if (m_Bat.GetSetEnemyDir == EnemyDir.Left)
                 {
                     m_Bat.m_MoveValue.x -= m_fMovePow;
                 }
-                if (m_Bat.GetSetBatDir == BatDir.Right)
+                if (m_Bat.GetSetEnemyDir == EnemyDir.Right)
                 {
                     m_Bat.m_MoveValue.x += m_fMovePow;
                 }
             }
         }
-
-
     }
 }

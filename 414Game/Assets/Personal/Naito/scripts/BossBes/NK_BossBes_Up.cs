@@ -6,7 +6,7 @@ public class NK_BossBes_Up : NK_BossBesStrategy
 {
     [SerializeField] private float m_UpPosY;
     private Rigidbody m_Rbody;
-    [SerializeField] private NK_BossBes m_BossSlime;
+    [SerializeField] private Bossbes m_BossSlime;
     [SerializeField] private float m_UpPow;
     [SerializeField] private GameObject m_Danger;
 
@@ -25,7 +25,7 @@ public class NK_BossBes_Up : NK_BossBesStrategy
         else
         {
             m_Danger.SetActive(true);
-            m_BossSlime.GetSetBossBesState = BossBesState.BossBesFlight;
+            m_BossSlime.GetSetBossBesState = BossbesState.BossBesFlight;
         }
     }
 }
