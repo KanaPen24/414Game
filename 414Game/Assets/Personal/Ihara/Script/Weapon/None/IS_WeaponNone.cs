@@ -12,7 +12,6 @@ using System;
 
 public class IS_WeaponNone : IS_Weapon
 {
-    [SerializeField] private CapsuleCollider m_CapsuleCollider;// 当たり判定
     private int m_nCnt;
 
     /**
@@ -24,8 +23,6 @@ public class IS_WeaponNone : IS_Weapon
     {
         // メンバの初期化
         m_eWeaponType = WeaponType.None; // 武器種類は武器無
-        m_bAttack = false;
-        m_bCharge = false;
         m_bVisible = false;
         m_bDestroy = false;
     }
@@ -54,13 +51,6 @@ public class IS_WeaponNone : IS_Weapon
 
         // 現在の状態に更新
         m_nCnt = Convert.ToInt32(m_bVisible);
-
-        //攻撃中だったら当たり判定をON
-        if (GetSetAttack)
-        {
-            m_CapsuleCollider.enabled = true;
-        }
-        else m_CapsuleCollider.enabled = false;
     }
 
     /**
@@ -90,11 +80,8 @@ public class IS_WeaponNone : IS_Weapon
     */
     public override void StartAttack()
     {
-        // SE再生
-        IS_AudioManager.instance.PlaySE(SEType.SE_FireHPBar);
-
         // 攻撃ON
-        GetSetAttack = true;
+        IS_Player.instance.GetFlg().m_bAttack = true;
     }
 
     /**
@@ -104,7 +91,7 @@ public class IS_WeaponNone : IS_Weapon
      */
     public override void FinAttack()
     {
-        GetSetAttack = false; // 攻撃OFF
+        IS_Player.instance.GetFlg().m_bAttack = false; // 攻撃OFF
     }
 
     /**
@@ -114,19 +101,6 @@ public class IS_WeaponNone : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        switch (IS_Player.instance.GetSetPlayerState)
-        {
-            case PlayerState.PlayerAttack01:
-                if (IS_Player.instance.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack01HPBar))
-                    FinAttack();
-                break;
-            case PlayerState.PlayerAttack02:
-                if (IS_Player.instance.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack02HPBar))
-                    FinAttack();
-                break;
-            default:
-                break;
-        }
     }
 
     /**
@@ -136,15 +110,5 @@ public class IS_WeaponNone : IS_Weapon
      */
     public override void UpdateVisible()
     {
-        // 表示状態だったら
-        if (m_bVisible)
-        {
-            m_CapsuleCollider.enabled = true;
-        }
-        // 非表示状態だったら
-        else
-        {
-            m_CapsuleCollider.enabled = false;
-        }
     }
 }

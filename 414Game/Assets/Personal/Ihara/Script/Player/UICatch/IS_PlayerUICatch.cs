@@ -18,7 +18,7 @@ public class IS_PlayerUICatch : IS_PlayerStrategy
         if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerUICatch)
         {
             // UI取得開始時だったら
-            if(IS_Player.instance.GetFlg().m_bUICatchFlg)
+            if(IS_Player.instance.GetFlg().m_bStartUICatchFlg)
             {
                 // 武器をしていなかったら…
                 if(IS_Player.instance.GetSetEquipState == EquipState.EquipNone)
@@ -33,7 +33,7 @@ public class IS_PlayerUICatch : IS_PlayerStrategy
                     IS_Player.instance.ChangeWeapon();
                 }
 
-                IS_Player.instance.GetFlg().m_bUICatchFlg = false;
+                IS_Player.instance.GetFlg().m_bStartUICatchFlg = false;
             }
             // =========
             // 状態遷移

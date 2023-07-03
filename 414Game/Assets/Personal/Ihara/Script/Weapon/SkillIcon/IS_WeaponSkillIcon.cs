@@ -54,8 +54,6 @@ public class IS_WeaponSkillIcon : IS_Weapon
         m_ChargeLevel = ChargeLevel.ChargeLevel_0;
 
         m_eWeaponType = WeaponType.SkillIcon; // 武器種類はBall
-        m_bAttack = false;
-        m_bCharge = false;
         m_bVisible = false;
         m_bDestroy = false;
 
@@ -122,7 +120,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
      */
     public override void Uninit()
     {
-        GetSetAttack = false; // 攻撃OFF
+        IS_Player.instance.GetFlg().m_bAttack = false; // 攻撃OFF
         m_ChargeLevel = ChargeLevel.ChargeLevel_0; // 溜め段階を0にする
         m_fCurrentPow = 0f;
         m_fCurrentChargeTime = 0f;
@@ -135,7 +133,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
     */
     public override void StartAttack()
     {
-        GetSetAttack = true; // 攻撃ON
+        IS_Player.instance.GetFlg().m_bAttack = true; // 攻撃ON
 
         // 弾を生成し攻撃開始!!
         IS_AudioManager.instance.PlaySE(SEType.SE_FireSkillIcon);
@@ -161,7 +159,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
      */
     public override void StartCharge()
     {
-        GetSetCharge = true; // 溜めON
+        IS_Player.instance.GetFlg().m_bCharge = true;// 溜めON
         IS_AudioManager.instance.PlaySE(SEType.SE_Charge);
         m_ChargeEffect.Reinit();
         m_ChargeEffect.Play();
@@ -175,7 +173,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
      */
     public override void FinAttack()
     {
-        GetSetAttack = false; // 攻撃OFF
+        IS_Player.instance.GetFlg().m_bAttack = false; // 攻撃OFF
         m_ChargeLevel = ChargeLevel.ChargeLevel_0; // 溜め段階を0にする
         m_fCurrentPow = 0f;
         m_fCurrentChargeTime = 0f;
@@ -199,7 +197,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
      */
     public override void FinCharge()
     {
-        GetSetCharge = false; // 攻撃OFF
+        IS_Player.instance.GetFlg().m_bCharge = false; // 攻撃OFF
         m_fCurrentChargeTime = 0f;
         m_ChargeEffect.Stop();
         IS_AudioManager.instance.StopSE(SEType.SE_Charge);
@@ -260,7 +258,7 @@ public class IS_WeaponSkillIcon : IS_Weapon
     private void ChargePow()
     {
         // 溜めフラグが立っていたら…
-        if (GetSetCharge)
+        if (IS_Player.instance.GetFlg().m_bCharge)
         {
             // 力を溜める
             m_fCurrentPow = m_fMinPow + (m_fMaxPow - m_fMinPow) * (m_fCurrentChargeTime / m_fMaxChargeTime);

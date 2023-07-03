@@ -28,8 +28,6 @@ public class IS_WeaponClock : IS_Weapon
     {
         // メンバの初期化
         m_eWeaponType = WeaponType.Clock; // 武器種類は時計
-        m_bAttack = false;
-        m_bCharge = false;
         m_bVisible = false;
         m_bDestroy = false;
     }
@@ -85,7 +83,7 @@ public class IS_WeaponClock : IS_Weapon
         IS_AudioManager.instance.PlaySE(SEType.SE_StopTime);
         IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).Pause();
         // 攻撃ON
-        GetSetAttack = true;
+        IS_Player.instance.GetFlg().m_bAttack = true;
         clock.GetSetStopTime = true;
     }
 
@@ -96,7 +94,7 @@ public class IS_WeaponClock : IS_Weapon
      */
     public override void FinAttack()
     {
-        GetSetAttack = false; // 攻撃OFF
+        IS_Player.instance.GetFlg().m_bAttack = false; // 攻撃OFF
     }
 
     /**

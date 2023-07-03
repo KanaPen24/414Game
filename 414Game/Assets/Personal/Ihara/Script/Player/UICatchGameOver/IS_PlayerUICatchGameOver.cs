@@ -16,12 +16,12 @@ public class IS_PlayerUICatchGameOver : IS_PlayerStrategy
         if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerUICatchGameOver)
         {
             // UI取得開始時だったら
-            if (IS_Player.instance.GetFlg().m_bUICatchFlg)
+            if (IS_Player.instance.GetFlg().m_bStartUICatchFlg)
             {
                 IS_Player.instance.GetPlayerAnimator().ParticlePlay();
                 IS_Player.instance.GetCursolEvent().GetSetCurrentUI.UIFadeOUT();
 
-                IS_Player.instance.GetFlg().m_bUICatchFlg = false;
+                IS_Player.instance.GetFlg().m_bStartUICatchFlg = false;
             }
         }
     }

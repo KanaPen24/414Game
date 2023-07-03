@@ -6,6 +6,7 @@
  *        DOTweenパッケージを使用
  * @author 吉田叶聖
  * @date   2023/05/15
+ * @Update 2023/06/30 一部変数,関数を静的化しました(Ihara)
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -16,19 +17,24 @@ using DG.Tweening;
 
 public class YK_Combo : YK_UI
 {
-    [SerializeField] private Text ComboNumber;    // コンボの数値表示テキスト
-    [SerializeField] private Image ComboTxt;       // コンボの画像
-    private int m_Combo;                          // 現在のコンボ数
-    private float a_color = 0f;                   // コンボ表示のアルファ値
+    // --- 静的メンバ(AddComboを外部で使用するため) ---
+    static private Text ComboNumber;   　      // コンボの数値表示テキスト
+    static private int m_Combo;                // 現在のコンボ数
+    static private float a_color = 0f;         // コンボ表示のアルファ値
+    static private int m_nCountComboTime = 0;  // コンボが表示されている時間
+    static private bool m_bHitFlg = false;     // コンボがヒットしたかどうかのフラグ
+    // -----------------------------------------------------------------------------------
+
+    // --- 動的メンバ ---
+    [SerializeField] private Image ComboTxt;      // コンボの画像
     private float f_colordown = 0.016f;           // コンボ表示のアルファ値減少量
     private int ComboS = 0;                       // 小コンボの閾値
     private int ComboM = 5;                       // 中コンボの閾値
     private int ComboL = 10;                      // 大コンボの閾値
     private int ComboXL = 15;                     // 特大コンボの閾値
     [SerializeField] private int m_nCountDownTime;    // コンボが消えるまでの時間（秒単位）
-    private int m_nCountComboTime = 0;            // コンボが表示されている時間
-    private bool m_bHitFlg = false;               // コンボがヒットしたかどうかのフラグ
     private Vector3 Combo_Scale;                  // コンボ表示の初期スケール
+    // ------------------------------------------------------------------------------------
 
     // Start is called before the first frame update
     /**
@@ -40,6 +46,7 @@ public class YK_Combo : YK_UI
     {
         m_eUIType = UIType.Combo;                                 // UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
+        ComboNumber = GetComponentInChildren<Text>();
         GetSetUIPos = ComboNumber.GetComponent<RectTransform>().anchoredPosition;    // UIの座標取得
         GetSetUIScale = ComboNumber.transform.localScale;                           // UIのスケール取得
         Combo_Scale = ComboTxt.transform.localScale;                                // コンボ表示の初期スケール取得
@@ -143,9 +150,9 @@ public class YK_Combo : YK_UI
 
     /**
      * @fn
-     * コンボを加算する関数
+     * コンボを加算する静的関数
      */
-    public void AddCombo()
+    public static void AddCombo()
     {
         m_nCountComboTime = 0;
         m_bHitFlg = true;

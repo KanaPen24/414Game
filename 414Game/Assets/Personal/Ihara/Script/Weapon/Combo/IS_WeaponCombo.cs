@@ -1,19 +1,17 @@
-﻿/*
- * @file   IS_WeaponStart.cs
- * @brief  Startの武器クラス
+﻿/**
+ * @file   IS_WeaponCombo.cs
+ * @brief  コンボの武器クラス
  * @author IharaShota
- * @date   2023/05/25
- * @Update 2023/05/25 作成
+ * @date   2023/06/30
+ * @Update 2023/06/30 作成
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class IS_WeaponStart : IS_Weapon
+public class IS_WeaponCombo : IS_Weapon
 {
-    [SerializeField] private CapsuleCollider m_CapsuleCollider;// 当たり判定
-    [SerializeField] private MeshRenderer m_MeshRender;        // メッシュ
     private int m_nCnt;
 
     /**
@@ -24,9 +22,10 @@ public class IS_WeaponStart : IS_Weapon
     protected override void Awake()
     {
         // メンバの初期化
-        m_eWeaponType = WeaponType.Start; // 武器種類はStart
+        m_eWeaponType = WeaponType.HPBar; // 武器種類はHPバー
         m_bVisible = false;
         m_bDestroy = false;
+
     }
 
     /**
@@ -54,19 +53,10 @@ public class IS_WeaponStart : IS_Weapon
         // 現在の状態に更新
         m_nCnt = Convert.ToInt32(m_bVisible);
 
-        //攻撃中だったら当たり判定をON
-        if (IS_Player.instance.GetFlg().m_bAttack &&
-            IS_Player.instance.GetSetEquipState == EquipState.EquipStart)
-        {
-            m_CapsuleCollider.enabled = true;
-        }
-        else m_CapsuleCollider.enabled = false;
-
         if (m_nHp > m_nMaxHp)
         {
             m_nHp = m_nMaxHp;
         }
-
     }
 
     /**
@@ -111,14 +101,6 @@ public class IS_WeaponStart : IS_Weapon
     public override void FinAttack()
     {
         IS_Player.instance.GetFlg().m_bAttack = false; // 攻撃OFF
-
-        // 耐久値が0以下になったら壊れる
-        if (GetSetHp <= 0)
-        {
-            YK_Controller.instance.ControllerVibration(0.5f);
-            IS_Player.instance.RemovedWeapon();
-            IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_3);
-        }
     }
 
     /**
@@ -153,14 +135,11 @@ public class IS_WeaponStart : IS_Weapon
         // 表示状態だったら
         if (m_bVisible)
         {
-            m_CapsuleCollider.enabled = true;
-            m_MeshRender.enabled = true;
         }
         // 非表示状態だったら
         else
         {
-            m_CapsuleCollider.enabled = false;
-            m_MeshRender.enabled = false;
+
         }
     }
 }

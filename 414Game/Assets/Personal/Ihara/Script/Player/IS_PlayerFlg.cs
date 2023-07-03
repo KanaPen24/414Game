@@ -11,29 +11,35 @@ using UnityEngine;
 
 public class IS_PlayerFlg : MonoBehaviour
 {
-    public bool m_bWalkFlg;           // 歩行開始フラグ
-    public bool m_bJumpFlg;           // 跳躍開始フラグ
-    public bool m_bAttackFlg;         // 攻撃開始フラグ
-    public bool m_bJumpAttackFlg;     // 跳躍攻撃開始フラグ
-    public bool m_bChargeWaitFlg;     // 溜め待機開始フラグ
-    public bool m_bChargeWalkFlg;     // 溜め移動開始フラグ
-    public bool m_bAvoidFlg;          // 回避開始フラグ
-    public bool m_bUICatchFlg;        // UI取得開始フラグ
-    public bool m_bUIReleaseFlg;      // UI解放開始フラグ
-    public bool m_bGameOverFlg;       // ゲームオーバーフラグ
+    public bool m_bStartWalkFlg;       // 歩行開始フラグ
+    public bool m_bStartJumpFlg;       // 跳躍開始フラグ
+    public bool m_bStartAttackFlg;     // 攻撃開始フラグ
+    public bool m_bStartJumpAttackFlg; // 跳躍攻撃開始フラグ
+    public bool m_bStartChargeWaitFlg; // 溜め待機開始フラグ
+    public bool m_bStartChargeWalkFlg; // 溜め移動開始フラグ
+    public bool m_bStartAvoidFlg;      // 回避開始フラグ
+    public bool m_bStartUICatchFlg;    // UI取得開始フラグ
+    public bool m_bStartUIReleaseFlg;  // UI解放開始フラグ
+    public bool m_bStartGameOverFlg;   // ゲームオーバーフラグ
+
+    public bool m_bAttack;
+    public bool m_bCharge;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_bWalkFlg = false;
-        m_bJumpFlg = false;
-        m_bAttackFlg = false;
-        m_bJumpAttackFlg = false;
-        m_bChargeWaitFlg = false;
-        m_bChargeWalkFlg = false;
-        m_bAvoidFlg = false;
-        m_bUICatchFlg = false;
-        m_bUIReleaseFlg = false;
-        m_bGameOverFlg = false;
+        m_bStartWalkFlg = false;
+        m_bStartJumpFlg = false;
+        m_bStartAttackFlg = false;
+        m_bStartJumpAttackFlg = false;
+        m_bStartChargeWaitFlg = false;
+        m_bStartChargeWalkFlg = false;
+        m_bStartAvoidFlg = false;
+        m_bStartUICatchFlg = false;
+        m_bStartUIReleaseFlg = false;
+        m_bStartGameOverFlg = false;
+
+        m_bAttack = false;
+        m_bCharge = false;
     }
 }

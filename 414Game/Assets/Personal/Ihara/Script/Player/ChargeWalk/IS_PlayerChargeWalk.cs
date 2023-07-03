@@ -34,14 +34,14 @@ public class IS_PlayerChargeWalk : IS_PlayerStrategy
         if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerChargeWalk)
         {
             // 溜め移動開始時に
-            if (IS_Player.instance.GetFlg().m_bChargeWalkFlg)
+            if (IS_Player.instance.GetFlg().m_bStartChargeWalkFlg)
             {
-                if (!IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).GetSetCharge)
+                if (!IS_Player.instance.GetFlg().m_bCharge)
                 {
                     IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).StartCharge();
                     IS_AudioManager.instance.PlaySE(SEType.SE_PlayerWalk);
                 }
-                IS_Player.instance.GetFlg().m_bChargeWalkFlg = false;
+                IS_Player.instance.GetFlg().m_bStartChargeWalkFlg = false;
             }
 
             // =========
@@ -60,7 +60,7 @@ public class IS_PlayerChargeWalk : IS_PlayerStrategy
             {
                 IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerChargeWait;
-                IS_Player.instance.GetFlg().m_bChargeWaitFlg = true;
+                IS_Player.instance.GetFlg().m_bStartChargeWaitFlg = true;
                 return;
             }
             // 「溜め移動 → 攻撃01」
@@ -70,7 +70,7 @@ public class IS_PlayerChargeWalk : IS_PlayerStrategy
                 IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAttack01;
                 IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinCharge();
-                IS_Player.instance.GetFlg().m_bAttackFlg = true;
+                IS_Player.instance.GetFlg().m_bStartAttackFlg = true;
                 return;
             }
         }

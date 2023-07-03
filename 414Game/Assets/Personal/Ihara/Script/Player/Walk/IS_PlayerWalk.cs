@@ -38,10 +38,10 @@ public class IS_PlayerWalk : IS_PlayerStrategy
         if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerWalk)
         {
             // 歩行開始時に
-            if (IS_Player.instance.GetFlg().m_bWalkFlg)
+            if (IS_Player.instance.GetFlg().m_bStartWalkFlg)
             {
                 IS_AudioManager.instance.PlaySE(SEType.SE_PlayerWalk);
-                IS_Player.instance.GetFlg().m_bWalkFlg = false;
+                IS_Player.instance.GetFlg().m_bStartWalkFlg = false;
             }
 
             // =========
@@ -66,7 +66,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             {
                 IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerJump;
-                IS_Player.instance.GetFlg().m_bJumpFlg = true;
+                IS_Player.instance.GetFlg().m_bStartJumpFlg = true;
                 return;
             }
             // 「移動 → 溜め移動 or 攻撃01」
@@ -77,12 +77,12 @@ public class IS_PlayerWalk : IS_PlayerStrategy
                 if (IS_Player.instance.GetSetEquipState == EquipState.EquipSkillIcon)
                 {
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerChargeWalk;
-                    IS_Player.instance.GetFlg().m_bChargeWaitFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartChargeWaitFlg = true;
                 }
                 else
                 {
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAttack01;
-                    IS_Player.instance.GetFlg().m_bAttackFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartAttackFlg = true;
                 }
                 return;
             }
@@ -91,7 +91,7 @@ public class IS_PlayerWalk : IS_PlayerStrategy
             {
                 IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAvoidance;
-                IS_Player.instance.GetFlg().m_bAvoidFlg = true;
+                IS_Player.instance.GetFlg().m_bStartAvoidFlg = true;
                 return;
             }
         }

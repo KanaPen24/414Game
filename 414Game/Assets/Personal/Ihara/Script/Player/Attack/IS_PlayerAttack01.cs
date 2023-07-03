@@ -22,9 +22,9 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
         if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerAttack01)
         {
             // 攻撃開始時の処理
-            if (IS_Player.instance.GetFlg().m_bAttackFlg)
+            if (IS_Player.instance.GetFlg().m_bStartAttackFlg)
             {
-                IS_Player.instance.GetFlg().m_bAttackFlg = false;
+                IS_Player.instance.GetFlg().m_bStartAttackFlg = false;
                 IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).StartAttack();
                 f2NextAttackTime = 0.0f;
             }
@@ -48,12 +48,12 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
                 {
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAttack02;
                     IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinAttack();
-                    IS_Player.instance.GetFlg().m_bAttackFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartAttackFlg = true;
                     return;
                 }
             }
             // 「攻撃01 → 移動」
-            if (!IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).GetSetAttack &&
+            if (!IS_Player.instance.GetFlg().m_bAttack &&
                 (IS_XBoxInput.LStick_H >= 0.2 || IS_XBoxInput.LStick_H <= -0.2))
             {
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWait;
@@ -66,7 +66,7 @@ public class IS_PlayerAttack01 : IS_PlayerStrategy
                 return;
             }
 
-            if (!IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).GetSetAttack)
+            if (!IS_Player.instance.GetFlg().m_bAttack)
                 f2NextAttackTime += Time.deltaTime;
         }
     }

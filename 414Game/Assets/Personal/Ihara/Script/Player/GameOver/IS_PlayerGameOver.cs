@@ -28,7 +28,7 @@ public class IS_PlayerGameOver : IS_PlayerStrategy
                     IS_Player.instance.GetCursolEvent().GetSetCurrentUI.GetSetUIType == UIType.TitleBack)
                 {
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerUICatchGameOver;
-                    IS_Player.instance.GetFlg().m_bUICatchFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartUICatchFlg = true;
                     return;
                 }
             }

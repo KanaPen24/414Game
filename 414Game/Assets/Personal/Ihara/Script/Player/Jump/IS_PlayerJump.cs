@@ -22,7 +22,7 @@ public class IS_PlayerJump : IS_PlayerStrategy
         if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerJump)
         {
             // 跳躍開始時に跳躍力を合計移動量に加算
-            if (IS_Player.instance.GetFlg().m_bJumpFlg)
+            if (IS_Player.instance.GetFlg().m_bStartJumpFlg)
             {
                 // エフェクト再生
                 ParticleSystem Effect = Instantiate(jumpEffect);
@@ -33,7 +33,7 @@ public class IS_PlayerJump : IS_PlayerStrategy
 
                 IS_AudioManager.instance.PlaySE(SEType.SE_PlayerJump);
                 IS_Player.instance.GetSetMoveAmount = new Vector3(0f, m_fJumpPow, 0f);
-                IS_Player.instance.GetFlg().m_bJumpFlg = false;
+                IS_Player.instance.GetFlg().m_bStartJumpFlg = false;
             }
 
             // =========
@@ -52,7 +52,7 @@ public class IS_PlayerJump : IS_PlayerStrategy
                    IS_Player.instance.GetSetEquipState == EquipState.EquipBossBar ||
                    IS_Player.instance.GetSetEquipState == EquipState.EquipStart)
                 {
-                    IS_Player.instance.GetFlg().m_bJumpAttackFlg = true;
+                    IS_Player.instance.GetFlg().m_bStartJumpAttackFlg = true;
                     IS_Player.instance.GetSetPlayerState = PlayerState.PlayerJumpAttack;
                     return;
                 }

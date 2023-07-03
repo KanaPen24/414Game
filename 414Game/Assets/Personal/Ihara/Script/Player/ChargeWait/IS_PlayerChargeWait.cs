@@ -18,13 +18,13 @@ public class IS_PlayerChargeWait : IS_PlayerStrategy
         if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerChargeWait)
         {
             // 溜め待機開始時に
-            if (IS_Player.instance.GetFlg().m_bChargeWaitFlg)
+            if (IS_Player.instance.GetFlg().m_bStartChargeWaitFlg)
             {
-                if (!IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).GetSetCharge)
+                if (!IS_Player.instance.GetFlg().m_bCharge)
                 {
                     IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).StartCharge();
                 }
-                IS_Player.instance.GetFlg().m_bChargeWaitFlg = false;
+                IS_Player.instance.GetFlg().m_bStartChargeWaitFlg = false;
             }
 
             // =========
@@ -41,7 +41,7 @@ public class IS_PlayerChargeWait : IS_PlayerStrategy
             if (IS_XBoxInput.LStick_H >= 0.2 || IS_XBoxInput.LStick_H <= -0.2)
             {
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerChargeWalk;
-                IS_Player.instance.GetFlg().m_bChargeWalkFlg = true;
+                IS_Player.instance.GetFlg().m_bStartChargeWalkFlg = true;
                 return;
             }
             // 「溜め移動 → 攻撃01」
@@ -50,7 +50,7 @@ public class IS_PlayerChargeWait : IS_PlayerStrategy
             {
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAttack01;
                 IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinCharge();
-                IS_Player.instance.GetFlg().m_bAttackFlg = true;
+                IS_Player.instance.GetFlg().m_bStartAttackFlg = true;
                 return;
             }
         }

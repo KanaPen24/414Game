@@ -18,9 +18,9 @@ public class IS_PlayerJumpAttack : IS_PlayerStrategy
         if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerJumpAttack)
         {
             // 跳躍攻撃開始時に
-            if (IS_Player.instance.GetFlg().m_bJumpAttackFlg)
+            if (IS_Player.instance.GetFlg().m_bStartJumpAttackFlg)
             {
-                IS_Player.instance.GetFlg().m_bJumpAttackFlg = false;
+                IS_Player.instance.GetFlg().m_bStartJumpAttackFlg = false;
                 IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).StartAttack();
             }
 

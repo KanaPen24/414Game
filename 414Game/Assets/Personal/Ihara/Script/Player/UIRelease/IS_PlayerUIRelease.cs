@@ -16,12 +16,12 @@ public class IS_PlayerUIRelease : IS_PlayerStrategy
         if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerUIRelease)
         {
             // UI取得開始時だったら
-            if (IS_Player.instance.GetFlg().m_bUIReleaseFlg)
+            if (IS_Player.instance.GetFlg().m_bStartUIReleaseFlg)
             {
                 // 装備解除
                 IS_Player.instance.RemovedWeapon();
 
-                IS_Player.instance.GetFlg().m_bUIReleaseFlg = false;
+                IS_Player.instance.GetFlg().m_bStartUIReleaseFlg = false;
             }
             // =========
             // 状態遷移
