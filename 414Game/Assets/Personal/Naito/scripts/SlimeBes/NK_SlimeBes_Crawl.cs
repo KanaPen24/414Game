@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NK_SlimeBes_Crawl : NK_SlimeBesStrategy
 {
-    [SerializeField] private NK_SlimeBes m_SlimeBes;
+    [SerializeField] private bes m_SlimeBes;
     private float m_MovePow;
     [SerializeField] private float m_MoveTime;
     private float m_Cnt;
@@ -17,20 +17,20 @@ public class NK_SlimeBes_Crawl : NK_SlimeBesStrategy
             if (m_Cnt < m_MoveTime)
             {
                 m_MovePow += 0.03f;
-                if (m_SlimeBes.GetSetBesDir == BesDir.Left)
-                {
-                    m_SlimeBes.m_MoveValue.x += m_MovePow;
-                }
-                if (m_SlimeBes.GetSetBesDir == BesDir.Right)
+                if (m_SlimeBes.GetSetEnemyDir == EnemyDir.Left)
                 {
                     m_SlimeBes.m_MoveValue.x -= m_MovePow;
+                }
+                if (m_SlimeBes.GetSetEnemyDir == EnemyDir.Right)
+                {
+                    m_SlimeBes.m_MoveValue.x += m_MovePow;
                 }
             }
             else
             {
             m_MovePow = 0.0f;
             m_Cnt = 0;
-            m_SlimeBes.GetSetBesState = SlimeBesState.BesWait;
+            m_SlimeBes.GetSetBesState = BesState.BesWait;
             }
         
     }

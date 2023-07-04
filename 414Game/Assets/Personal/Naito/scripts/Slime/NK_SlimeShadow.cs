@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NK_SlimeShadow : MonoBehaviour
 {
-    [SerializeField] private NK_Slime m_Slime;
+    [SerializeField] private slime m_Slime;
 
     private void Update()
     {

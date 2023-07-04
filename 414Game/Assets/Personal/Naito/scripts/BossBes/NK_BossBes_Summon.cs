@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class NK_BossBes_Summon : NK_BossBesStrategy
 {
-    [SerializeField] private NK_BossBes m_BossSlime;//NK_BossSlimeをアタッチする
+    [SerializeField] private Bossbes m_BossSlime;//NK_BossSlimeをアタッチする
     [SerializeField] private GameObject m_KidsSlime;//召喚するすらいむ
     [SerializeField] private GameObject m_SummonPos;
     [SerializeField] private float m_SummonTime;
@@ -31,7 +31,7 @@ public class NK_BossBes_Summon : NK_BossBesStrategy
             // =========
             // 「召喚 → 待機」
             m_BossSlime.GetSetSAnimFlag = false;
-            m_BossSlime.GetSetBossBesState = BossBesState.BossBesWait;
+            m_BossSlime.GetSetBossBesState = BossbesState.BossBesWait;
         }
     }
 

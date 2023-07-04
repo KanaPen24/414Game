@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class NK_Slime_Wait : NK_SlimeStrategy
 {
-    [SerializeField] private NK_Slime m_Slime;//NK_Slimeをアタッチする
+    //[SerializeField] private NK_Slime m_Slime;//NK_Slimeをアタッチする
+    [SerializeField] private slime m_Slime;
     [SerializeField] private float m_fAttackTime;//攻撃間隔
     private float m_fCnt;
     //private Animator anim;

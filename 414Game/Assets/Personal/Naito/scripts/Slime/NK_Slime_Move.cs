@@ -11,7 +11,9 @@ public class NK_Slime_Move : NK_SlimeStrategy
     //ジャンプ力
     [SerializeField] private float m_fJumpPower;
     //NK_Slimeをアタッチする
-    [SerializeField] private NK_Slime m_Slime;
+    //[SerializeField] private NK_Slime m_Slime;
+    //slimeをアタッチ
+    [SerializeField] private slime m_Slime;
 
     private void Start()
     {
@@ -20,7 +22,7 @@ public class NK_Slime_Move : NK_SlimeStrategy
 
     public override void UpdateStrategy()
     {
-        if(m_Slime.GetSetSlimeDir==SlimeDir.Left)
+        if(m_Slime.GetSetEnemyDir==EnemyDir.Left)
         {
             m_rBody.AddForce(transform.up * m_fJumpPower, ForceMode.Impulse);
             m_rBody.AddForce(transform.right * -m_fMovePower, ForceMode.Impulse);

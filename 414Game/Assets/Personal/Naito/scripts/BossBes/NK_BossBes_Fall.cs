@@ -5,7 +5,7 @@ using UnityEngine;
 public class NK_BossBes_Fall : NK_BossBesStrategy
 {
     //ボスすらいむをアタッチ
-    [SerializeField] private NK_BossBes m_BossSlime;
+    [SerializeField] private Bossbes m_BossSlime;
     [SerializeField] private float m_FloorPos;
     [SerializeField] private float m_FallPow;
     [SerializeField] private GameObject m_FallEffect;
@@ -25,7 +25,7 @@ public class NK_BossBes_Fall : NK_BossBesStrategy
             // SE再生
             IS_AudioManager.instance.PlaySE(SEType.SE_SlimeFall);
             m_FallEffect.SetActive(false);
-            m_BossSlime.GetSetBossBesState = BossBesState.BossBesWait;
+            m_BossSlime.GetSetBossBesState = BossbesState.BossBesWait;
         }
     }
 

@@ -8,7 +8,7 @@ public class NK_Bat_Up : NK_BatStrategy
     private float m_FlyPosY;
     //上がる速度
     [SerializeField] private float m_FlyPow;
-    [SerializeField] private NK_Bat m_Bat;
+    [SerializeField] private bat m_Bat;
     
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class NK_Bat_Up : NK_BatStrategy
         }
         else
         {
-            m_Bat.GetSetBatState = BatState.BatMove;
+            m_Bat.GetSetBatState = batState.BatMove;
         }
     }
 }
