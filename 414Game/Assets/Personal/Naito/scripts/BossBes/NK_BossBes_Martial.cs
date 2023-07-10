@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NK_BossBes_Martial : NK_BossBesStrategy
 {
-    [SerializeField] private NK_BossBes m_BossSlime;//NK_BossSlimeをアタッチする
+    [SerializeField] private Bossbes m_BossSlime;//NK_BossSlimeをアタッチする
     [SerializeField] private GameObject m_MartialArts;//攻撃の当たり判定
     [SerializeField] private GameObject m_MartialArtsPos;//攻撃発生場所
     private float m_Cnt;
@@ -25,7 +25,7 @@ public class NK_BossBes_Martial : NK_BossBesStrategy
             // =========
             // 「攻撃 → 待機」
             m_BossSlime.GetSetMAnimFlag = false;
-            m_BossSlime.GetSetBossBesState = BossBesState.BossBesWait;
+            m_BossSlime.GetSetBossBesState = BossbesState.BossBesWait;
         }
     }
 }

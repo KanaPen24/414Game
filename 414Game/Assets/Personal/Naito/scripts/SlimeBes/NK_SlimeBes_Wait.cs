@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NK_SlimeBes_Wait : NK_SlimeBesStrategy
 {
-    [SerializeField] private NK_SlimeBes m_Bes;
+    [SerializeField] private bes m_Bes;
     [SerializeField] private float m_MoveTime;
     private float m_fCnt;
     private int m_AcidCnt;
@@ -20,14 +20,14 @@ public class NK_SlimeBes_Wait : NK_SlimeBesStrategy
                 m_AcidCnt += 1;
                 m_Bes.GetSetMoveAnimFlag = true;
                 Invoke("MFlagChange", 0.45f);
-                m_Bes.GetSetBesState = SlimeBesState.BesCrawl;
+                m_Bes.GetSetBesState = BesState.BesCrawl;
             }
             else
             {
                 m_AcidCnt = 0;
                 m_Bes.GetSetMoveAnimFlag = true;
-                Invoke("MFlagChange", 0.5f);
-                m_Bes.GetSetBesState = SlimeBesState.BesCrawl;
+                Invoke("AFlagChange", 0.5f);
+                m_Bes.GetSetBesState = BesState.BesAcid;
             }
         }
     }

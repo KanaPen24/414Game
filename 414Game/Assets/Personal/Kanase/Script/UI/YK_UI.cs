@@ -14,18 +14,18 @@ using UnityEngine;
 // ================================================
 public enum UIType
 {
-    HPBar,      // HPバー
-    SkillIcon,  // スキルアイコン
-    BossBar,    // Bossバー
-    Clock,      // 時計
-    Start,      //スタート
-    Next,       // Next
-    Retry,      // リトライ
-    TitleBack,  // タイトルへ戻る
-    Exit,       //終了
-    Combo,      //コンボ
-    DamageNumber,  // ダメージ
-    Clear,      //クリア
+    HPBar        = 1, // HPバー
+    SkillIcon    = 2, // スキルアイコン
+    BossBar      = 3, // Bossバー
+    Clock        = 4, // 時計
+    Start        = 5, //スタート
+    Next         = 6, // Next
+    Retry        = 7, // リトライ
+    TitleBack    = 8, // タイトルへ戻る
+    Exit         = 9, //終了
+    Combo        = 10,//コンボ
+    DamageNumber = 11,// ダメージ
+    Clear        = 12,//クリア
 
     MaxUIType
 }

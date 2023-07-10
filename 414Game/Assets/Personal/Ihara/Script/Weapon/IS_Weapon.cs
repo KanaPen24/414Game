@@ -17,11 +17,12 @@ using UnityEngine;
 // ================================================
 public enum WeaponType
 {
-    HPBar,     // HPバー
-    SkillIcon, // スキルアイコン
-    BossBar,   // Bossバー
-    Clock,     // 時計
-    Start,     // スタート
+    None      = 0, // 武器無
+    HPBar     = 1, // HPバー
+    SkillIcon = 2, // スキルアイコン
+    BossBar   = 3, // Bossバー
+    Clock     = 4, // 時計
+    Start     = 5, // スタート
 
     MaxWeaponType
 }
@@ -29,8 +30,6 @@ public enum WeaponType
 public class IS_Weapon : MonoBehaviour
 {
     [SerializeField] protected WeaponType m_eWeaponType;             // 武器の種類
-    [SerializeField] protected bool m_bAttack;                       // 攻撃中かどうか
-    [SerializeField] protected bool m_bCharge;                       // 溜め中かどうか
     [SerializeField] protected bool m_bVisible;                      // 表示するかどうか
     [SerializeField] protected bool m_bDestroy;                      // 破壊されたかどうか
     [SerializeField] protected int  m_nHp;                           // 耐久値
@@ -156,30 +155,6 @@ public class IS_Weapon : MonoBehaviour
     {
         get { return m_eWeaponType; }
         set { m_eWeaponType = value; }
-    }
-
-    /**
-     * @fn
-     * 攻撃中のgetter・setter
-     * @return m_bAttack(bool)
-     * @brief 攻撃中を返す・セット
-     */
-    public bool GetSetAttack
-    {
-        get { return m_bAttack; }
-        set { m_bAttack = value; }
-    }
-
-    /**
-     * @fn
-     * 溜め中のgetter・setter
-     * @return m_bCharge(bool)
-     * @brief 溜め中を返す・セット
-     */
-    public bool GetSetCharge
-    {
-        get { return m_bCharge; }
-        set { m_bCharge = value; }
     }
 
     /**

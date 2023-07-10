@@ -1,6 +1,9 @@
 ﻿/**
  * @file YK_SkillIcon.cs
- * @brief スキルのアイコン処理
+ * @brief スキルのアイコン処理を管理するクラスです。
+ *        スキルのアイコンの表示と非表示、スキルのクールダウン処理を行います。
+ *        スキルアイコンの使用状態を取得するプロパティがあります。
+ *        DOTweenライブラリを使用します。
  * @author 吉田叶聖
  * @date 2023/03/16
  * @Update 2023/04/03 フェード処理実装(Ihara)
@@ -28,6 +31,11 @@ public class YK_SkillIcon : YK_UI
     private int m_nJump = 1;    //跳ぶ回数
     [SerializeField] private float m_fJumpTime = 0.3f;      //跳ぶ時間
 
+    /**
+     * @brief Start関数
+     *        UIのタイプを設定し、アウトラインを非表示
+     *        スキルアイコンの座標とスケールを取得
+     */
     private void Start()
     {
         m_eUIType = UIType.SkillIcon;   //UIのタイプ設定
@@ -37,9 +45,14 @@ public class YK_SkillIcon : YK_UI
         GetSetUIPos = SkillIcon.GetComponent<RectTransform>().anchoredPosition;
         //スケール取得
         GetSetUIScale = SkillIcon.transform.localScale;
-
     }
 
+    /**
+     * @brief Update関数
+     *        カーソルが動き始めるまで当たり判定を無効にし、エフェクターを無効
+     *        ストック数を制限し、ストック数が0になったらアイコンを非表示
+     *        スキルが使われていて、かつ武器化中でない場合はクールダウン処理
+     */
     private void Update()
     {
         //カーソルが動き始めるまで
@@ -80,14 +93,21 @@ public class YK_SkillIcon : YK_UI
         }
     }
 
+    /**
+     * @brief HealEffect関数は回復エフェクトを再生し、アイコンを跳ねさせる処理
+     */
     public void HealEffect()
     {
         HealParticle.Play();
         RectTransform recttran = this.GetComponent<RectTransform>();
         Vector2 originalPos = recttran.anchoredPosition;
         recttran.DOJumpAnchorPos(originalPos, 10f, 1, 0.3f, true);
-    }    
+    }
 
+    /**
+     * @brief UIFadeIN関数はUIのフェードイン処理
+     *        スキルアイコンのスケールと透明度を元の状態にする
+     */
     public override void UIFadeIN()
     {
         m_eFadeState = FadeState.FadeIN;
@@ -103,6 +123,10 @@ public class YK_SkillIcon : YK_UI
         });
     }
 
+    /**
+     * @brief UIFadeOUT関数はUIのフェードアウト処理を行う
+     *        スキルアイコンのスケールを最小値に変更し、透明度を0
+     */
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
@@ -118,6 +142,9 @@ public class YK_SkillIcon : YK_UI
         });
     }
 
+    /**
+     * @brief UseSkill関数はスキルを使用し、クールダウンを開始
+     */
     public void UseSkill()
     {
         m_bSkillUse = true;
@@ -125,11 +152,20 @@ public class YK_SkillIcon : YK_UI
         m_fCoolTime = 0.0f;
     }
 
+    /**
+     * @brief GetSetStuckプロパティはストック数を取得および設定
+     */
     public int GetSetStuck
     {
         get { return m_nStuck; }
         set { m_nStuck = value; }
     }
+
+    /**
+     * @brief OnTriggerEnter2D関数は当たり判定が有効になったときに呼び出さる
+     *        当たり判定の対象がカーソルである場合、アウトラインを表示
+     * @param collision 当たり判定の相手のCollider2D
+     */
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Cursol")
@@ -137,19 +173,30 @@ public class YK_SkillIcon : YK_UI
             OutLine.enabled = true;
         }
     }
+
+    /**
+     * @brief OnTriggerExit2D関数は当たり判定が無効になったときに呼び出される
+     *        アウトラインを非表示にします。
+     * @param collision 当たり判定の相手のCollider2D
+     */
     private void OnTriggerExit2D(Collider2D collision)
     {
         OutLine.enabled = false;
     }
+
     /**
-* @fn
-* スキル使用のgetter
-* @return m_bSkillUse(bool)
-* @brief 使ってるかどうかを返す
-*/
-    public bool GetUseSkill
+     * @brief GetSetSkillUseプロパティはスキルの使用状態を取得
+     */
+    public bool GetSkillUse
     {
         get { return m_bSkillUse; }
     }
 
+    /**
+     * @brief GetSetNowWeaponプロパティは武器化中かどうかを取得
+     */
+    public bool GetNowWeapon
+    {
+        get { return m_bNowWeapon; }
+    }
 }

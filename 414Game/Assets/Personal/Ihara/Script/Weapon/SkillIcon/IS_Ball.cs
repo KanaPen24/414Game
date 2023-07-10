@@ -6,6 +6,7 @@
  * @Update 2023/03/19 作成
  * @Update 2023/04/06 着弾エフェクト実装 
  * @Update 2023/04/17 SE実装
+ * @Update 2023/06/30 コンボ処理追加
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -74,22 +75,25 @@ public class IS_Ball : MonoBehaviour
             {
                 hit.collider.gameObject.GetComponent<NK_BossSlime>().BossSlimeDamage(nAttackPow);
                 hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, nAttackPow);
+                YK_Combo.AddCombo();
                 continue;
             }
 
-            if (hit.collider.gameObject.GetComponent<NK_Slime>() != null &&
-                !hit.collider.gameObject.GetComponent<NK_Slime>().GetSetDamageFlag)
+            if (hit.collider.gameObject.GetComponent<slime>() != null &&
+                !hit.collider.gameObject.GetComponent<slime>().GetSetDamageFlag)
             {
-                hit.collider.gameObject.GetComponent<NK_Slime>().SlimeDamage(nAttackPow);
+                hit.collider.gameObject.GetComponent<slime>().SlimeDamage(nAttackPow);
                 hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, nAttackPow);
+                YK_Combo.AddCombo();
                 continue;
             }
 
-            if (hit.collider.gameObject.GetComponent<NK_Bat>() != null &&
-                !hit.collider.gameObject.GetComponent<NK_Bat>().GetSetDamageFlag)
+            if (hit.collider.gameObject.GetComponent<bat>() != null &&
+                !hit.collider.gameObject.GetComponent<bat>().GetSetDamageFlag)
             {
-                hit.collider.gameObject.GetComponent<NK_Bat>().BatDamage(nAttackPow);
+                hit.collider.gameObject.GetComponent<bat>().BatDamage(nAttackPow);
                 hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, nAttackPow);
+                YK_Combo.AddCombo();
                 continue;
             }
 
@@ -97,6 +101,7 @@ public class IS_Ball : MonoBehaviour
             {
                 hit.collider.gameObject.GetComponent<NK_SlimeBes>().BesDamage(nAttackPow);
                 hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, nAttackPow);
+                YK_Combo.AddCombo();
                 continue;
             }
         }

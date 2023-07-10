@@ -12,7 +12,6 @@ using System;
 
 public class IS_WeaponStart : IS_Weapon
 {
-    [SerializeField] private IS_Player m_Player;               // Player
     [SerializeField] private CapsuleCollider m_CapsuleCollider;// 当たり判定
     [SerializeField] private MeshRenderer m_MeshRender;        // メッシュ
     private int m_nCnt;
@@ -26,8 +25,6 @@ public class IS_WeaponStart : IS_Weapon
     {
         // メンバの初期化
         m_eWeaponType = WeaponType.Start; // 武器種類はStart
-        m_bAttack = false;
-        m_bCharge = false;
         m_bVisible = false;
         m_bDestroy = false;
     }
@@ -58,7 +55,8 @@ public class IS_WeaponStart : IS_Weapon
         m_nCnt = Convert.ToInt32(m_bVisible);
 
         //攻撃中だったら当たり判定をON
-        if (GetSetAttack)
+        if (IS_Player.instance.GetFlg().m_bAttack &&
+            IS_Player.instance.GetSetEquipState == EquipState.EquipStart)
         {
             m_CapsuleCollider.enabled = true;
         }
@@ -102,7 +100,7 @@ public class IS_WeaponStart : IS_Weapon
         IS_AudioManager.instance.PlaySE(SEType.SE_FireHPBar);
 
         // 攻撃ON
-        GetSetAttack = true;
+        IS_Player.instance.GetFlg().m_bAttack = true;
     }
 
     /**
@@ -112,7 +110,15 @@ public class IS_WeaponStart : IS_Weapon
      */
     public override void FinAttack()
     {
-        GetSetAttack = false; // 攻撃OFF
+        IS_Player.instance.GetFlg().m_bAttack = false; // 攻撃OFF
+
+        // 耐久値が0以下になったら壊れる
+        if (GetSetHp <= 0)
+        {
+            YK_Controller.instance.ControllerVibration(0.5f);
+            IS_Player.instance.RemovedWeapon();
+            IS_AudioManager.instance.PlaySE(SEType.SE_HPBarCrack_3);
+        }
     }
 
     /**
@@ -122,14 +128,14 @@ public class IS_WeaponStart : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        switch (m_Player.GetSetPlayerState)
+        switch (IS_Player.instance.GetSetPlayerState)
         {
             case PlayerState.PlayerAttack01:
-                if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack01HPBar))
+                if (IS_Player.instance.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack01HPBar))
                     FinAttack();
                 break;
             case PlayerState.PlayerAttack02:
-                if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack02HPBar))
+                if (IS_Player.instance.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack02HPBar))
                     FinAttack();
                 break;
             default:

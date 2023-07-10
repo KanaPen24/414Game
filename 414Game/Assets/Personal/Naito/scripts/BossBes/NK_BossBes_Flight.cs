@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NK_BossBes_Flight : NK_BossBesStrategy
 {
-    [SerializeField] private NK_BossBes m_BossSlime;
+    [SerializeField] private Bossbes m_BossSlime;
     [SerializeField] private float m_fMovePow;
     [SerializeField] private float m_Reng;
     private bool m_FallFlag;
@@ -30,11 +30,11 @@ public class NK_BossBes_Flight : NK_BossBesStrategy
         {
             if (!m_FallFlag)
             {
-                if (m_BossSlime.GetSetBossBesDir == BossBesDir.Left)
+                if (m_BossSlime.GetSetEnemyDir == EnemyDir.Left)
                 {
                     m_BossSlime.m_BBMoveValue.x -= m_fMovePow;
                 }
-                if (m_BossSlime.GetSetBossBesDir == BossBesDir.Right)
+                if (m_BossSlime.GetSetEnemyDir == EnemyDir.Right)
                 {
                     m_BossSlime.m_BBMoveValue.x += m_fMovePow;
                 }
@@ -57,7 +57,7 @@ public class NK_BossBes_Flight : NK_BossBesStrategy
                 //    this.transform.position.y - 0.45f, this.transform.position.z);
                 //Destroy(Effect.gameObject, 5.0f);
                 m_FallEffect.SetActive(true);
-                m_BossSlime.GetSetBossBesState = BossBesState.BossBesFall;
+                m_BossSlime.GetSetBossBesState = BossbesState.BossBesFall;
             }
         }
     }

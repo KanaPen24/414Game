@@ -1,9 +1,14 @@
 ﻿/**
  * @file YK_TitleBack.cs
  * @brief TitleBackUIの処理
+ * 
+ * TitleBackUIの表示と非表示、およびシーン遷移を制御するスクリプト
+ * このスクリプトはYK_UIクラスを継承しており、UIの基本機能を利用
+ *  
  * @author 吉田叶聖
  * @date 2023/05/02
  */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,24 +21,25 @@ public class YK_TitleBack : YK_UI
     [SerializeField] Fade fade;
     [SerializeField] private Image TitleBackUI;
     private bool m_bVisibleTitleBack = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        m_eUIType = UIType.TitleBack; //UIのタイプ設定
+        m_eUIType = UIType.TitleBack; // UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
-        //UIが動くようならUpdateにかかなかん
+        // UIが動くようならUpdateにかからない
         GetSetUIPos = TitleBackUI.GetComponent<RectTransform>().anchoredPosition;
-        //スケール取得
+        // スケール取得
         GetSetUIScale = TitleBackUI.transform.localScale;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-     
-    }
-
-    //TitleBackUIを表示
+    /**
+     * @brief TitleBackUIを表示
+     * 
+     * TitleBackUIをフェードインさせて表示
+     * 0秒でUIのスケールを元の大きさに変更し、テクスチャを不透明に設定
+     * フェードインのアニメーションが完了した後、フェード状態を設定
+     */
     public override void UIFadeIN()
     {
         m_eFadeState = FadeState.FadeIN;
@@ -47,6 +53,14 @@ public class YK_TitleBack : YK_UI
         });
     }
 
+    /**
+     * @brief TitleBackUIを非表示にする
+     * 
+     * TitleBackUIをフェードアウトさせて非表示にします。
+     * 指定された時間でUIのスケールを最小化し、テクスチャを透明に設定
+     * フェードアウトのアニメーションが完了した後、フェード状態を設定
+     * TitleBackPlay()関数が呼ばれ、ゲームのステートをスタート状態に設定し、シーン遷移
+     */
     public override void UIFadeOUT()
     {
         m_eFadeState = FadeState.FadeOUT;
@@ -60,22 +74,31 @@ public class YK_TitleBack : YK_UI
         });
         TitleBackPlay();
     }
+
     /**
- * @fn
- * 表示非表示のgetter・setter
- * @return m_bVisibleTitleBack(bool)
- * @brief 表示非表示処理
- */
+     * @brief TitleBackUIの表示状態のgetter・setter
+     * 
+     * TitleBackUIの表示状態を取得または設定
+     * 
+     * @return m_bVisibleTitleBack(bool) TitleBackUIの表示状態
+     */
     public bool GetSetVisibleFlg
     {
         get { return m_bVisibleTitleBack; }
         set { m_bVisibleTitleBack = value; }
     }
+
+    /**
+     * @brief TitleBackUIの再生処理
+     * 
+     * ゲームのステートをスタート状態に設定し、BGMを停止した後、指定のシーンにトランジション効果を掛けて遷移
+     * シーン遷移時にはFadeクラスのFadeIn()関数を使用
+     */
     public void TitleBackPlay()
     {
-        //ゲームのステートをスタート状態にする
+        // ゲームのステートをスタート状態にする
         GameManager.instance.GetSetGameState = GameState.GameStart;
-        //トランジションを掛けてシーン遷移する
+        // トランジションを掛けてシーン遷移する
         fade.FadeIn(1f, () =>
         {
             IS_AudioManager.instance.StopBGM(BGMType.BGM_GAMEOVER);
@@ -83,3 +106,5 @@ public class YK_TitleBack : YK_UI
         });
     }
 }
+
+

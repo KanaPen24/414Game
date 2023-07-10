@@ -50,6 +50,5 @@ public class NK_Acid : MonoBehaviour
             Destroy(Effect.gameObject, 2.0f);
             Destroy(this.gameObject);
         }
-
     }
 }

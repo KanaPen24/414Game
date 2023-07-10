@@ -11,20 +11,37 @@ using UnityEngine;
 
 public class IS_PlayerUICatch : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player;                          // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
 
     private void Update()
     {
-        if (m_Player.GetSetPlayerState == PlayerState.PlayerUICatch)
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerUICatch)
         {
+            // UI取得開始時だったら
+            if(IS_Player.instance.GetFlg().m_bStartUICatchFlg)
+            {
+                // 武器をしていなかったら…
+                if(IS_Player.instance.GetSetEquipState == EquipState.EquipNone)
+                {
+                    // 武器装備
+                    IS_Player.instance.EquipWeapon();
+                }
+                // 装備していたら…
+                else
+                {
+                    // 武器変更
+                    IS_Player.instance.ChangeWeapon();
+                }
+
+                IS_Player.instance.GetFlg().m_bStartUICatchFlg = false;
+            }
             // =========
             // 状態遷移
             // =========
             // 「UI取得 → 待機」
-            if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.UICatch))
+            if (IS_Player.instance.GetPlayerAnimator().AnimEnd(PlayerAnimState.UICatch))
             {
-                m_Player.GetSetPlayerState = PlayerState.PlayerWait;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWait;
                 return;
             }
         }
@@ -42,7 +59,7 @@ public class IS_PlayerUICatch : IS_PlayerStrategy
         UpdateAnim();
 
         // 合計移動量をリセット
-        m_Player.GetSetMoveAmount = new Vector3(0f, 0f, 0f);
+        IS_Player.instance.m_vMoveAmount = new Vector3(0f, 0f, 0f);
     }
 
     /**
@@ -53,6 +70,6 @@ public class IS_PlayerUICatch : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.UICatch);
+        IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.UICatch);
     }
 }

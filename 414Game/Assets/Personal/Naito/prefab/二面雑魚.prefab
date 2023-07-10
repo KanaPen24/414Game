@@ -1756,9 +1756,9 @@ GameObject:
   - component: {fileID: 2768162793742960935}
   - component: {fileID: 2768162793742960936}
   - component: {fileID: 2768162793742960937}
-  - component: {fileID: 2768162793742960938}
   - component: {fileID: 2768162793742960949}
   - component: {fileID: -6078628421359857553}
+  - component: {fileID: 3381433494761119600}
   m_Layer: 7
   m_Name: "\u4E8C\u9762\u96D1\u9B5A"
   m_TagString: Untagged
@@ -1978,7 +1978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_gSonic: {fileID: 0}
   m_SonicPos: {fileID: 2768162795316133110}
-  m_Bat: {fileID: 2768162793742960938}
+  m_Bat: {fileID: 3381433494761119600}
 --- !u!114 &2768162793742960934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1993,7 +1993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_FloorPos: 2
   m_FallPow: 10
-  m_Bat: {fileID: 2768162793742960938}
+  m_Bat: {fileID: 3381433494761119600}
   m_UpTime: 1
   m_FallEffect: {fileID: 3967796006303646544}
 --- !u!114 &2768162793742960935
@@ -2009,7 +2009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_FlyPow: 0.2
-  m_Bat: {fileID: 2768162793742960938}
+  m_Bat: {fileID: 3381433494761119600}
 --- !u!114 &2768162793742960936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2022,7 +2022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb8d98690e1c804a872d7566a4359e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Bat: {fileID: 2768162793742960938}
+  m_Bat: {fileID: 3381433494761119600}
   m_fMovePow: 1.5
   m_fMoveCnt: 5
   m_Reng: 0.5
@@ -2038,40 +2038,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e5f016932286448bde37868257d8c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Bat: {fileID: 2768162793742960938}
+  m_Bat: {fileID: 3381433494761119600}
   m_MoveTime: 2
---- !u!114 &2768162793742960938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7409205144173188313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdaa0e0774485324ea4abf5551c87ad7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_nHP: 3
-  m_nMaxHP: 3
-  m_BPlayer: {fileID: 0}
-  m_BatStrategy:
-  - {fileID: 2768162793742960937}
-  - {fileID: 2768162793742960936}
-  - {fileID: 2768162793742960933}
-  - {fileID: 2768162793742960949}
-  - {fileID: 2768162793742960934}
-  - {fileID: 2768162793742960935}
-  m_BatState: 0
-  m_BatDir: 0
-  m_Clock: {fileID: 0}
-  m_MoveValue: {x: 0, y: 0, z: 0}
-  m_InvincibleTime: 0
-  m_MoveReng: 0
-  m_DieEffect: {fileID: 6814668452755134957, guid: 4424c2c298bfb2345bba73411e81288d,
-    type: 3}
-  m_PlayerDamage: 20
-  m_FallEffact: {fileID: 3762828481114052837}
 --- !u!114 &2768162793742960949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2084,7 +2052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e600eed8bc122d46bc1039f0a166f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Bat: {fileID: 2768162793742960938}
+  m_Bat: {fileID: 3381433494761119600}
   m_Reng: 1
   m_fMovePow: 5
   m_MoveTime: 1.5
@@ -2105,6 +2073,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageUI: {fileID: 1589118213952898113, guid: b685cb64ab74a4947b9fdcbcf93524f1,
     type: 3}
+--- !u!114 &3381433494761119600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7409205144173188313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1082267527583438873b8cdfc23aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nHP: 3
+  m_nMaxHP: 3
+  m_InvincibleTime: 0
+  m_BPlayer: {fileID: 0}
+  m_BatStrategy:
+  - {fileID: 2768162793742960937}
+  - {fileID: 2768162793742960936}
+  - {fileID: 2768162793742960933}
+  - {fileID: 2768162793742960949}
+  - {fileID: 2768162793742960934}
+  - {fileID: 2768162793742960935}
+  m_BatState: 0
+  m_Clock: {fileID: 0}
+  m_MoveValue: {x: 0, y: 0, z: 0}
+  m_MoveReng: 0
+  m_DieEffect: {fileID: 6814668452755134957, guid: 4424c2c298bfb2345bba73411e81288d,
+    type: 3}
+  m_PlayerDamage: 20
+  m_FallEffact: {fileID: 3762828481114052837}
+  m_Area: {fileID: 0}
 --- !u!1 &7510626889654095519
 GameObject:
   m_ObjectHideFlags: 0

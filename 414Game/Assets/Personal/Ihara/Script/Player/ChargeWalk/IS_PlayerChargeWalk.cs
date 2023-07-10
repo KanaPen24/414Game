@@ -11,7 +11,6 @@ using UnityEngine;
 
 public class IS_PlayerChargeWalk : IS_PlayerStrategy
 {
-    [SerializeField] private IS_Player m_Player;                          // IS_Playerをアタッチする
     [SerializeField] private IS_PlayerGroundCollision m_PlayerGroundColl; // Playerの地面判定
     [SerializeField] private ParticleSystem walkEffect;                   // 歩行エフェクト
     [SerializeField] private float m_fMovePow;                            // 移動する力
@@ -32,17 +31,17 @@ public class IS_PlayerChargeWalk : IS_PlayerStrategy
 
     private void Update()
     {
-        if (m_Player.GetSetPlayerState == PlayerState.PlayerChargeWalk)
+        if (IS_Player.instance.GetSetPlayerState == PlayerState.PlayerChargeWalk)
         {
             // 溜め移動開始時に
-            if (m_Player.GetSetChargeWalkFlg)
+            if (IS_Player.instance.GetFlg().m_bStartChargeWalkFlg)
             {
-                if (!m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).GetSetCharge)
+                if (!IS_Player.instance.GetFlg().m_bCharge)
                 {
-                    m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).StartCharge();
+                    IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).StartCharge();
                     IS_AudioManager.instance.PlaySE(SEType.SE_PlayerWalk);
                 }
-                m_Player.GetSetChargeWalkFlg = false;
+                IS_Player.instance.GetFlg().m_bStartChargeWalkFlg = false;
             }
 
             // =========
@@ -52,26 +51,26 @@ public class IS_PlayerChargeWalk : IS_PlayerStrategy
             if (!m_PlayerGroundColl.IsGroundCollision())
             {
                 IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
-                m_Player.GetSetPlayerState = PlayerState.PlayerDrop;
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinCharge();
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerDrop;
+                IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinCharge();
                 return;
             }
             // 「溜め移動 → 溜め待機」
-            if (!m_Player.bInputRight && !m_Player.bInputLeft)
+            if (IS_XBoxInput.LStick_H < 0.2 && IS_XBoxInput.LStick_H > -0.2)
             {
                 IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
-                m_Player.GetSetPlayerState = PlayerState.PlayerChargeWait;
-                m_Player.GetSetChargeWaitFlg = true;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerChargeWait;
+                IS_Player.instance.GetFlg().m_bStartChargeWaitFlg = true;
                 return;
             }
             // 「溜め移動 → 攻撃01」
-            if (!m_Player.bInputCharge &&
-                m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
+            if (!Input.GetKey(IS_XBoxInput.X) &&
+                IS_Player.instance.GetSetEquipState != EquipState.EquipNone)
             {
                 IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
-                m_Player.GetSetPlayerState = PlayerState.PlayerAttack01;
-                m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).FinCharge();
-                m_Player.GetSetAttackFlg = true;
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAttack01;
+                IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).FinCharge();
+                IS_Player.instance.GetFlg().m_bStartAttackFlg = true;
                 return;
             }
         }
@@ -89,18 +88,19 @@ public class IS_PlayerChargeWalk : IS_PlayerStrategy
         UpdateAnim();
 
         // 合計移動量をリセット
-        m_Player.GetSetMoveAmount = new Vector3(0f, 0f, 0f);
+        IS_Player.instance.GetSetMoveAmount = new Vector3(0f, 0f, 0f);
 
-        // DAキーで移動する
-        if (m_Player.bInputRight)
+        // 左向きに移動
+        if (IS_XBoxInput.LStick_H >= 0.2)
         {
-            m_Player.m_vMoveAmount.x += m_fMovePow;
-            m_Player.GetSetPlayerDir = PlayerDir.Right;
+            IS_Player.instance.m_vMoveAmount.x -= m_fMovePow;
+            IS_Player.instance.GetSetPlayerDir = PlayerDir.Left;
         }
-        if (m_Player.bInputLeft)
+        // 右向きに移動
+        if (IS_XBoxInput.LStick_H <= -0.2)
         {
-            m_Player.m_vMoveAmount.x -= m_fMovePow;
-            m_Player.GetSetPlayerDir = PlayerDir.Left;
+            IS_Player.instance.m_vMoveAmount.x += m_fMovePow;
+            IS_Player.instance.GetSetPlayerDir = PlayerDir.Right;
         }
 
         // m_fMaxDustCntの数値間隔で砂埃エフェクト発生
@@ -112,7 +112,7 @@ public class IS_PlayerChargeWalk : IS_PlayerStrategy
         else m_fDustCnt += Time.deltaTime;
 
         // 指定した武器で溜め処理
-        m_Player.GetWeapons((int)m_Player.GetSetEquipWeaponState).UpdateCharge();
+        IS_Player.instance.GetWeapons((int)IS_Player.instance.GetSetEquipState).UpdateCharge();
     }
 
     /**
@@ -129,15 +129,15 @@ public class IS_PlayerChargeWalk : IS_PlayerStrategy
         Effect.transform.localScale = new Vector3(1f, 1f, 1f);
 
         // Playerの向きによってエフェクト位置修正
-        if (m_Player.GetSetPlayerDir == PlayerDir.Right)
+        if (IS_Player.instance.GetSetPlayerDir == PlayerDir.Right)
         {
-            Effect.transform.position = m_Player.gameObject.transform.position +
+            Effect.transform.position = IS_Player.instance.gameObject.transform.position +
                 new Vector3(-m_vEffectLocalPos.x, m_vEffectLocalPos.y, m_vEffectLocalPos.z);
 
         }
-        else if (m_Player.GetSetPlayerDir == PlayerDir.Left)
+        else if (IS_Player.instance.GetSetPlayerDir == PlayerDir.Left)
         {
-            Effect.transform.position = m_Player.gameObject.transform.position +
+            Effect.transform.position = IS_Player.instance.gameObject.transform.position +
                 new Vector3(+m_vEffectLocalPos.x, m_vEffectLocalPos.y, m_vEffectLocalPos.z);
         }
 
@@ -152,14 +152,11 @@ public class IS_PlayerChargeWalk : IS_PlayerStrategy
      */
     public override void UpdateAnim()
     {
-        if (m_Player.GetSetPlayerEquipState == PlayerEquipState.Equip)
+        switch (IS_Player.instance.GetSetEquipState)
         {
-            switch (m_Player.GetSetEquipWeaponState)
-            {
-                case EquipWeaponState.PlayerSkillIcon:
-                    m_Player.GetPlayerAnimator().ChangeAnim(PlayerAnimState.ChargeWalkSkillIcon);
-                    break;
-            }
+            case EquipState.EquipSkillIcon:
+                IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.ChargeWalkSkillIcon);
+                break;
         }
     }
 }

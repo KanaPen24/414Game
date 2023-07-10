@@ -31,7 +31,6 @@ public class IS_WeaponHPBar : IS_Weapon
         public List<MeshRenderer> m_MeshRender; // メッシュのリスト
         public List<Material> m_Material; // マテリアルのリスト
     }
-    [SerializeField] private IS_Player m_Player;               // Player
     [SerializeField] private C_MaterialMesh m_MaterialMesh;    // メッシュとマテリアルのリスト
     [SerializeField] private ON_BottleLiquid m_BottleLiquid;   // 液体シェーダー
     [SerializeField] private CapsuleCollider m_CapsuleCollider;// 当たり判定
@@ -47,8 +46,6 @@ public class IS_WeaponHPBar : IS_Weapon
     {
         // メンバの初期化
         m_eWeaponType = WeaponType.HPBar; // 武器種類はHPバー
-        m_bAttack  = false;
-        m_bCharge  = false;
         m_bVisible = false;
         m_bDestroy = false;
 
@@ -72,29 +69,31 @@ public class IS_WeaponHPBar : IS_Weapon
 
     private void Update()
     {
+        //攻撃中だったら当たり判定をON
+        if (IS_Player.instance.GetFlg().m_bAttack &&
+            IS_Player.instance.GetSetEquipState == EquipState.EquipHpBar)
+        {
+            m_CapsuleCollider.enabled = true;
+        }
+        else m_CapsuleCollider.enabled = false;
+
         // 前回と状態が違ったら
         if (m_nCnt != Convert.ToInt32(m_bVisible))
         {
             UpdateVisible();
         }
 
-        // 現在の状態に更新
-        m_nCnt = Convert.ToInt32(m_bVisible);
-
-        //攻撃中だったら当たり判定をON
-        if (GetSetAttack)
-        {
-            m_CapsuleCollider.enabled = true;
-        }
-        else m_CapsuleCollider.enabled = false;
-
         // 液体の量をPlayerのHPに依存させる
-        m_BottleLiquid.ChangeFillingRate((float)(m_Player.GetSetHp / 100.0f));
+        m_BottleLiquid.ChangeFillingRate((float)(IS_Player.instance.GetParam().m_nHP / 100.0f));
 
+        // 最大HP管理
         if(m_nHp > m_nMaxHp)
         {
             m_nHp = m_nMaxHp;
         }
+
+        // 現在の状態に更新
+        m_nCnt = Convert.ToInt32(m_bVisible);
     }
 
     /**
@@ -128,7 +127,7 @@ public class IS_WeaponHPBar : IS_Weapon
         IS_AudioManager.instance.PlaySE(SEType.SE_FireHPBar);
 
         // 攻撃ON
-        GetSetAttack = true;
+        IS_Player.instance.GetFlg().m_bAttack = true;
     }
 
     /**
@@ -138,7 +137,7 @@ public class IS_WeaponHPBar : IS_Weapon
      */
     public override void FinAttack()
     {
-        GetSetAttack = false; // 攻撃OFF
+        IS_Player.instance.GetFlg().m_bAttack = false; // 攻撃OFF
     }
 
     /**
@@ -148,14 +147,14 @@ public class IS_WeaponHPBar : IS_Weapon
      */
     public override void UpdateAttack()
     {
-        switch(m_Player.GetSetPlayerState)
+        switch(IS_Player.instance.GetSetPlayerState)
         {
             case PlayerState.PlayerAttack01:
-                if(m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack01HPBar))
+                if(IS_Player.instance.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack01HPBar))
                     FinAttack();
                 break;
             case PlayerState.PlayerAttack02:
-                if (m_Player.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack02HPBar))
+                if (IS_Player.instance.GetPlayerAnimator().AnimEnd(PlayerAnimState.Attack02HPBar))
                     FinAttack();
                 break;
             default:

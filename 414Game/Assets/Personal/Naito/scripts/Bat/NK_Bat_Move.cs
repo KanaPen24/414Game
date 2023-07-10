@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NK_Bat_Move : NK_BatStrategy
 {
-    [SerializeField] private NK_Bat m_Bat;
+    [SerializeField] private bat m_Bat;
     [SerializeField] private float m_fMovePow;
     private float m_fCnt;
     //動き出すまでの時間
@@ -29,13 +29,13 @@ public class NK_Bat_Move : NK_BatStrategy
             if(m_Rand <= 1)
             {
                 m_Bat.GetSetFlightFlag = true;
-                m_Bat.GetSetBatState = BatState.BatFlight;
+                m_Bat.GetSetBatState = batState.BatFlight;
             }
             else
             {
                 // SE再生
                 IS_AudioManager.instance.PlaySE(SEType.SE_Sonic);
-                m_Bat.GetSetBatState = BatState.BatSonic;
+                m_Bat.GetSetBatState = batState.BatSonic;
             }
         }
 
@@ -46,11 +46,11 @@ public class NK_Bat_Move : NK_BatStrategy
         }
         else
         {
-            if (m_Bat.GetSetBatDir == BatDir.Left)
+            if (m_Bat.GetSetEnemyDir == EnemyDir.Left)
             {
                 m_Bat.m_MoveValue.x -= m_fMovePow;
             }
-            if (m_Bat.GetSetBatDir == BatDir.Right)
+            if (m_Bat.GetSetEnemyDir == EnemyDir.Right)
             {
                 m_Bat.m_MoveValue.x += m_fMovePow;
             }
