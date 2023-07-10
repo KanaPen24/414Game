@@ -13,7 +13,6 @@ public enum slimeState
 
 public class slime : NK_Enemy
 {
-    public IS_Player m_SPlayer;
     [SerializeField] private List<NK_SlimeStrategy> m_SlimeStrategy;
     [SerializeField] private SlimeState m_SlimeState;
     [SerializeField] private ParticleSystem m_DieEffect;
@@ -58,7 +57,7 @@ public class slime : NK_Enemy
         }
         if (!m_ClockFlag)
         {
-            if (m_SPlayer.transform.position.x > this.gameObject.transform.position.x)
+            if (IS_Player.instance.transform.position.x > this.gameObject.transform.position.x)
             {
                 GetSetEnemyDir = EnemyDir.Right;
                 this.transform.localScale =
@@ -108,10 +107,10 @@ public class slime : NK_Enemy
     private void OnTriggerEnter(Collider other)
     {
         // プレイヤーだったら
-        if (other.gameObject == m_SPlayer.gameObject)
+        if (other.gameObject == IS_Player.instance.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_SPlayer.Damage(m_PlayerDamage, 1.5f);
+            IS_Player.instance.Damage(m_PlayerDamage, 1.5f);
         }
     }
 

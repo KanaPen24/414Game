@@ -20,7 +20,7 @@ public class NK_But_Sonic : NK_BatStrategy
     private float GetAim()
     {
         Vector2 p1 = m_SonicPos.transform.position;
-        Vector2 p2 = m_Bat.m_BPlayer.transform.position;
+        Vector2 p2 = IS_Player.instance.transform.position;
         float dx = p2.x - p1.x;
         float dy = p2.y - p1.y;
         float rad = Mathf.Atan2(dy, dx);
