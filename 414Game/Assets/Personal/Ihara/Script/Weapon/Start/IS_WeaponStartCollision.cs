@@ -36,14 +36,14 @@ public class IS_WeaponStartCollision : MonoBehaviour
             }
         }
         // スライムへのダメージ処理
-        if (other.gameObject.GetComponent<NK_Slime>() != null)
+        if (other.gameObject.GetComponent<slime>() != null)
         {
-            if (IS_Player.instance.GetFlg().m_bAttack && !other.GetComponent<NK_Slime>().GetSetDamageFlag)
+            if (IS_Player.instance.GetFlg().m_bAttack && !other.GetComponent<slime>().GetSetDamageFlag)
             {
                 YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponStart.GetSetHp -= m_nDamage2Start;
-                other.GetComponent<NK_Slime>().SlimeDamage(m_nDamage2Enemy);
+                other.GetComponent<slime>().SlimeDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
                 HitEffect.transform.position = other.transform.position;
                 HitEffect.Play();
@@ -52,14 +52,14 @@ public class IS_WeaponStartCollision : MonoBehaviour
         }
 
         // 蝙蝠へのダメージ処理
-        if (other.gameObject.GetComponent<NK_Bat>() != null)
+        if (other.gameObject.GetComponent<bat>() != null)
         {
-            if (IS_Player.instance.GetFlg().m_bAttack && !other.GetComponent<NK_Bat>().GetSetDamageFlag)
+            if (IS_Player.instance.GetFlg().m_bAttack && !other.GetComponent<bat>().GetSetDamageFlag)
             {
                 YK_Controller.instance.ControllerVibration(0.3f);
                 IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
                 WeaponStart.GetSetHp -= m_nDamage2Start;
-                other.GetComponent<NK_Bat>().BatDamage(m_nDamage2Enemy);
+                other.GetComponent<bat>().BatDamage(m_nDamage2Enemy);
                 other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
                 HitEffect.transform.position = other.transform.position;
                 HitEffect.Play();
@@ -69,12 +69,12 @@ public class IS_WeaponStartCollision : MonoBehaviour
 
 
         // スライムベスへのダメージ処理
-        if (other.gameObject.GetComponent<NK_SlimeBes>() != null)
+        if (other.gameObject.GetComponent<bes>() != null)
         {
             YK_Controller.instance.ControllerVibration(0.3f);
             IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
             WeaponStart.GetSetHp -= m_nDamage2Start;
-            other.GetComponent<NK_SlimeBes>().BesDamage(m_nDamage2Enemy);
+            other.GetComponent<bes>().BesDamage(m_nDamage2Enemy);
             other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
             HitEffect.transform.position = other.transform.position;
             HitEffect.Play();

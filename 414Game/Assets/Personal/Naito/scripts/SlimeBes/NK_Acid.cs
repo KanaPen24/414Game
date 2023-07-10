@@ -46,6 +46,7 @@ public class NK_Acid : MonoBehaviour
         {
             ParticleSystem Effect = Instantiate(m_DestroyEffect);
             Effect.Play();
+            Debug.Log("a");
             Effect.transform.position = this.transform.position;
             Destroy(Effect.gameObject, 2.0f);
             Destroy(this.gameObject);
