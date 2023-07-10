@@ -23,7 +23,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _GravityScale: 1
-    - _Rate: 0.197
+    - _Rate: 0
     - _ScaleFactor: 5
     m_Colors:
     - _Gravity: {r: 0, g: -1, b: 0, a: 0}

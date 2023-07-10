@@ -1,25 +1,22 @@
-// テセレーション
-Shader "Custom/ON_Tessellesion"
+Shader "Custom/ON_Weapon_Base"
 {
 	Properties
 	{
 		_MainTex("Texture", 2D) = "white" {}
 
 		_Gravity("Gravity", Vector) = (.0, -1, .0, .0)
-		_GravityScale("Gravity Scale", float) = 1
-		_ScaleFactor("Scale Factor", float) = 0.5
+		_GravityScale("Gravity Scale", float) = 2
+		_ScaleFactor("Scale Factor", float) = 5
 		_Rate("Effect Rate", Range(0, 1)) = 0
 
-		_TessFactor("Tess Factor",Vector) = (2,2,2,2)
+		_TessFactor("Tess Factor",Vector) = (1,5,1,1)
 	}
 		SubShader
 	{
 		Tags {
-			"RenderType" = "Transparent"
-			"Queue" = "Transparent"
+			"RenderType" = "Opaque"
 			"RenderPipeline" = "UniversalPipeline"
 		}
-		Blend SrcAlpha OneMinusSrcAlpha
 		LOD 100
 		Cull Off
 
@@ -35,44 +32,50 @@ Shader "Custom/ON_Tessellesion"
 			#pragma geometry geom
 			#pragma fragment frag
 		// make fog work
-			#pragma multi_compile_fog
+		#pragma multi_compile_fog
 
-			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+		#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
 		struct appdata
 		{
-			float4 positionOS : POSITION;
+			float4 vertex : POSITION;
 			float2 uv : TEXCOORD0;
 			float3 normal : NORMAL;
 		};
 
+		// 頂点からハルへ
 		struct VertexOutPut
 		{
 			float2 uv : TEXCOORD0;
 			float3 positionWS : TEXCOORD1;
 		};
 
+		// ハルからドメインへ
 		struct h2d_main
 		{
 			float3 pos:POS;
+			float2 uv : TEXCOORD0;
+
 		};
-		
+
 		struct h2d_const
 		{
 			float tess_factor[3] : SV_TessFactor;
 			float InsideTessFactor : SV_InsideTessFactor;
 		};
 
+		// ドメインからジオメトリーへ
 		struct d2g
 		{
 			float2 uv : TEXCOORD0;
 			float3 positionWS : TEXCOORD1;
 		};
 
+		// ジオメトリーからフラグメントへ
 		struct g2f
 		{
-			float4 positionCS : SV_POSITION;
-			float2 uv : TEXCOORD1;
+			float2 uv : TEXCOORD0;
+			float4 vertex : SV_POSITION;
 		};
 
 		TEXTURE2D(_MainTex);
@@ -86,6 +89,7 @@ Shader "Custom/ON_Tessellesion"
 		float _Rate;
 		float4 _TessFactor;
 		CBUFFER_END
+
 
 		// 2次元ベクトルをシードとして0～1のランダム値を返す
 		float rand(float2 co)
@@ -113,10 +117,9 @@ Shader "Custom/ON_Tessellesion"
 		{
 			VertexOutPut o = (VertexOutPut)0;
 
-			VertexPositionInputs vertexInput = GetVertexPositionInputs(v.positionOS.xyz);
+			VertexPositionInputs vertexInput = GetVertexPositionInputs(v.vertex.xyz);
 			o.positionWS = vertexInput.positionWS;
 			o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-
 			return o;
 		}
 
@@ -137,6 +140,7 @@ Shader "Custom/ON_Tessellesion"
 		h2d_main hs(InputPatch<VertexOutPut, 3> i, uint id:SV_OutputControlPointID) {
 			h2d_main o = (h2d_main)0;
 			o.pos = i[id].positionWS;
+			o.uv = i[id].uv;
 			return o;
 		}
 
@@ -145,11 +149,13 @@ Shader "Custom/ON_Tessellesion"
 			d2g o = (d2g)0;
 			float3 pos = i[0].pos * bary.x + i[1].pos * bary.y + i[2].pos * bary.z;
 			o.positionWS = pos;
+			float2 uv = i[0].uv * bary.x + i[1].uv * bary.y + i[2].uv * bary.z;
+			o.uv = uv;
 			return o;
 		}
 
 		[maxvertexcount(3)]
-		void geom(triangle VertexOutPut input[3], inout TriangleStream<g2f> stream)
+		void geom(triangle d2g input[3], inout TriangleStream<g2f> stream)
 		{
 			// ポリゴンの中心を取得
 			float3 center = (input[0].positionWS + input[1].positionWS + input[2].positionWS) / 3; // ポリゴンのセンター
@@ -167,7 +173,7 @@ Shader "Custom/ON_Tessellesion"
 			[unroll]
 			for (int i = 0; i < 3; i++)
 			{
-				VertexOutPut v = input[i];
+				d2g v = input[i];
 				g2f o;
 				// centerを基準に拡縮
 				v.positionWS.xyz = (v.positionWS.xyz - center) * (1 - _Rate) + center;
@@ -181,7 +187,7 @@ Shader "Custom/ON_Tessellesion"
 				// _Gravityに引っ張られて落ちていく
 				v.positionWS.xyz += gravity * _GravityScale;
 
-				o.positionCS = TransformObjectToHClip(v.positionWS);
+				o.vertex = TransformObjectToHClip(v.positionWS);
 				o.uv = v.uv;
 
 				stream.Append(o);
@@ -191,8 +197,8 @@ Shader "Custom/ON_Tessellesion"
 
 		float4 frag(g2f i) : SV_Target
 		{
-			float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);
-			col.a = lerp(1, 0, _Rate);
+			// add base color
+			float4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv);;
 
 			return col;
 		}
