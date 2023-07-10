@@ -39,8 +39,8 @@ public class NK_Bat_Move : NK_BatStrategy
             }
         }
 
-        if (this.gameObject.transform.position.x > m_Bat.m_BPlayer.transform.position.x - m_Reng &&
-            this.gameObject.transform.position.x < m_Bat.m_BPlayer.transform.position.x + m_Reng)
+        if (this.gameObject.transform.position.x > IS_Player.instance.transform.position.x - m_Reng &&
+            this.gameObject.transform.position.x < IS_Player.instance.transform.position.x + m_Reng)
         {
 
         }
