@@ -18,14 +18,15 @@ public enum UIType
     SkillIcon    = 2, // スキルアイコン
     BossBar      = 3, // Bossバー
     Clock        = 4, // 時計
-    Start        = 5, //スタート
+    Start        = 5, // スタート
     Next         = 6, // Next
     Retry        = 7, // リトライ
     TitleBack    = 8, // タイトルへ戻る
-    Exit         = 9, //終了
-    Combo        = 10,//コンボ
+    Exit         = 9, // 終了
+    Combo        = 10,// コンボ
     DamageNumber = 11,// ダメージ
-    Clear        = 12,//クリア
+    Clear        = 12,// クリア
+    Notification = 13,// 通知
 
     MaxUIType
 }
