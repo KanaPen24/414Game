@@ -90,7 +90,22 @@ public class YK_Retry : YK_UI
         {
             Data.Load();
             IS_AudioManager.instance.StopBGM(BGMType.BGM_GAMEOVER); // BGMを停止する
-            SceneManager.LoadScene("GameScene"); // 指定のシーンを読み込む
+                                                                    //シーンごとのステート管理
+            switch (GameManager.instance.GetSetSceneState)
+            {
+                case SceneState.GameScene:
+                    SceneManager.LoadScene("GameScene"); // 指定のシーンを読み込む
+                    break;
+                case SceneState.GameScene2:
+                    SceneManager.LoadScene("GameScene 2"); // 指定のシーンを読み込む
+                    break;
+                case SceneState.GameScene3:
+                    SceneManager.LoadScene("GameScene 3"); // 指定のシーンを読み込む
+                    break;
+                default:
+                    break;
+            }
+            
             // デバック用
            // SceneManager.LoadScene("KanaseScene"); // 指定のシーンを読み込む
         });

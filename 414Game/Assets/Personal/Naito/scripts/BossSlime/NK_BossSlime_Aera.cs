@@ -5,12 +5,11 @@ using UnityEngine;
 public class NK_BossSlime_Aera : MonoBehaviour
 {
     private bool BossBattleFlag;
-    [SerializeField] private IS_Player m_Player;
     [SerializeField] private GameObject m_BossSlime;
     private bool m_One;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject==m_Player.gameObject && !m_One)
+        if(other.tag=="Player" && !m_One)
         {
             m_One = true;
             BossBattleFlag = true;

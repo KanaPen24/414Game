@@ -86,13 +86,13 @@ public class YK_TargetCamera : MonoBehaviour
                 // カメラの位置をターゲットの位置にオフセットを足した場所にする。
                 gameObject.transform.position = TargetCameraPos;
             }
-        }
-        //リセットフラグが立っているとき
-        if (YK_JsonSave.instance && YK_JsonSave.instance.GetSetResetFlg)
-        {
-            Vector3 pos = transform.position;
-            pos.x = TargetCameraPos.x;
-            transform.position = pos;
+            //リセットフラグが立っているとき
+            if (YK_JsonSave.instance && YK_JsonSave.instance.GetSetResetFlg)
+            {
+                Vector3 pos = transform.position;
+                pos.x = TargetCameraPos.x;
+                transform.position = pos;
+            }
         }
     }
 

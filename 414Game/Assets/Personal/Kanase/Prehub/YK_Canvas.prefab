@@ -1631,7 +1631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4974656085316096320
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1649,7 +1649,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 262, y: 6}
+  m_AnchoredPosition: {x: 323, y: 6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &524872923446384367
@@ -1728,7 +1728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de499f988e320cb41b8f4549dfc8d749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Next: {fileID: 0}
+  Next: {fileID: 1406356346491746500}
   fade: {fileID: 0}
 --- !u!250 &2413587131873695908
 PointEffector2D:
@@ -4012,7 +4012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8a78be65b926c4a8a2b5e986c37acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossSlider: {fileID: 2233976303911657129}
+  BossSlider: {fileID: 7495203909688170979}
   BossBar: {fileID: 7630735543527690732}
   Boss: {fileID: 0}
   Clear: {fileID: 8635633975098094186}
