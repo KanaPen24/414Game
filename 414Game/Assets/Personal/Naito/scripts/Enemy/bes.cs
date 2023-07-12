@@ -13,7 +13,6 @@ public enum BesState
 
 public class bes : NK_Enemy
 {
-    public IS_Player m_BesPlayer;//プレイヤー
     [SerializeField] private List<NK_SlimeBesStrategy> m_BesStrategy; // BossBat挙動クラスの動的配列
     [SerializeField] private BesState m_BesState;      // BossBatの状態を管理する
     [SerializeField] private EnemyDir m_BesDir;        // BossBatの向きを管理する
@@ -50,7 +49,7 @@ public class bes : NK_Enemy
         m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
         if (!m_Clock.GetSetStopTime)
         {
-            if (m_BesPlayer.transform.position.x > this.gameObject.transform.position.x)
+            if (IS_Player.instance.transform.position.x > this.gameObject.transform.position.x)
             {
                 GetSetEnemyDir = EnemyDir.Right;
                 this.transform.localScale =
@@ -89,10 +88,10 @@ public class bes : NK_Enemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == m_BesPlayer.gameObject)
+        if (other.gameObject == IS_Player.instance.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_BesPlayer.Damage(m_PlayerDamage, 1.5f);
+            IS_Player.instance.Damage(m_PlayerDamage, 1.5f);
         }
     }
 

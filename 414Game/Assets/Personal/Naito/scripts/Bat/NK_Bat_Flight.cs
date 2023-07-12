@@ -30,8 +30,8 @@ public class NK_Bat_Flight : NK_BatStrategy
         }
         if (m_Cnt > m_MoveTime)
         {
-            if ((this.gameObject.transform.position.x > m_Bat.m_BPlayer.transform.position.x - m_Reng) &&
-                (this.gameObject.transform.position.x < m_Bat.m_BPlayer.transform.position.x + m_Reng)&&
+            if ((this.gameObject.transform.position.x > IS_Player.instance.transform.position.x - m_Reng) &&
+                (this.gameObject.transform.position.x < IS_Player.instance.transform.position.x + m_Reng)&&
                 !m_FallFlag)
             {
                 m_FallFlag = true;

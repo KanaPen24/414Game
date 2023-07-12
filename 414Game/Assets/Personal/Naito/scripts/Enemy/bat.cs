@@ -22,7 +22,6 @@ public enum batState
 
 public class bat : NK_Enemy
 {
-    public IS_Player m_BPlayer;
     [SerializeField] private List<NK_BatStrategy> m_BatStrategy; // BossBat挙動クラスの動的配列
     [SerializeField] private batState m_BatState;      // BossBatの状態を管理する
     //時を止めるUIをアタッチ
@@ -67,7 +66,7 @@ public class bat : NK_Enemy
         }
         if (!m_ClockFlag)
         {
-            if (m_BPlayer.transform.position.x > this.gameObject.transform.position.x)
+            if (IS_Player.instance.transform.position.x > this.gameObject.transform.position.x)
             {
                 GetSetEnemyDir = EnemyDir.Right;
                 this.transform.localScale =
@@ -126,10 +125,10 @@ public class bat : NK_Enemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == m_BPlayer.gameObject)
+        if (other.gameObject == IS_Player.instance.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_BPlayer.Damage(m_PlayerDamage, 2.0f);
+            IS_Player.instance.Damage(m_PlayerDamage, 2.0f);
         }
     }
 
