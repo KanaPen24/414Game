@@ -29,10 +29,11 @@ public class NK_BossBes_Wait : NK_BossBesStrategy
                 m_SPAttackFlag = true;
                 m_BossSlime.GetSetBossBesState = BossbesState.BossBesUp;
             }
-            else if(m_AcidCnt>5)
+            else if(m_AcidCnt>3)
             {
                 m_BossSlime.GetSetSAnimFlag = true;
                 m_BossSlime.GetSetBossBesState = BossbesState.BossBesAcid;
+                m_AcidCnt = 0;
             }
             else if ((this.transform.position.x - m_fAttackRange >= m_Player.transform.position.x) ||
                 (this.transform.position.x + m_fAttackRange <= m_Player.transform.position.x))

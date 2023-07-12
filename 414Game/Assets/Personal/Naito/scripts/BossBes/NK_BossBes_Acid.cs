@@ -16,5 +16,6 @@ public class NK_BossBes_Acid : NK_BossBesStrategy
         Instantiate(m_Acid2, m_AcidPos.transform.position, Quaternion.identity);
         Instantiate(m_Acid3, m_AcidPos.transform.position, Quaternion.identity);
         m_BossSlime.GetSetBossBesState = BossbesState.BossBesWait;
+        m_BossSlime.GetSetSAnimFlag = false;
     }
 }
