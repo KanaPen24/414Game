@@ -15,7 +15,10 @@ public class YK_NotificationController : YK_UI
 
     private void Start()
     {
-        
+        m_eUIType = UIType.Notification;       // UIのタイプ設定
+        m_eFadeState = FadeState.FadeNone;
+        GetSetUIPos = this.GetComponent<RectTransform>().anchoredPosition;    // UIの座標取得
+        GetSetUIScale = this.transform.localScale;                           // UIのスケール取得
     }
 
     void Update()
@@ -43,5 +46,35 @@ public class YK_NotificationController : YK_UI
         
 
         m_Sequence.Play();
+    }
+
+    /**
+     * @fn
+     * UIのフェードイン処理を行う関数
+     */
+    public override void UIFadeIN()
+    {
+        m_eFadeState = FadeState.FadeIN;
+        this.gameObject.transform.DOScale(GetSetUIScale, 0f);    // 0秒で後X,Y方向を元の大きさに変更
+        m_CanvasGroup.DOFade(1f, 0f).OnComplete(() =>
+        {
+            GetSetFadeState = FadeState.FadeNone;
+            Debug.Log("FadeIN終了");
+        });
+    }
+
+    /**
+     * @fn
+     * UIのフェードアウト処理を行う関数
+     */
+    public override void UIFadeOUT()
+    {
+        m_eFadeState = FadeState.FadeOUT;
+        this.gameObject.transform.DOScale(m_MinScale, m_fDelTime);    // m_fDelTime秒でm_MinScaleに変更
+        m_CanvasGroup.DOFade(0f, m_fDelTime).OnComplete(() =>
+        {
+            GetSetFadeState = FadeState.FadeNone;
+            Debug.Log("FadeOUT終了");
+        });
     }
 }
