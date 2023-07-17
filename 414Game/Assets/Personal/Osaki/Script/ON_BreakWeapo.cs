@@ -10,19 +10,21 @@ public class ON_BreakWeapo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        materials = new List<Material>();
-        for (int i = 0; i < objects.Length; ++i)
-        {
-            materials.Add(objects[i].GetComponent<Renderer>().material);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < materials.Count; ++i)
+        materials = new List<Material>();
+        for (int i = 0; i < objects.Length; ++i)
+        {
+            materials.Add(objects[i].GetComponent<Renderer>().material);
+        }
+
+        for (int i = 0; i < materials.Count; ++i)
         {
             materials[i].SetFloat("_Rate", rate);
         }
+        materials.Clear();
     }
 }

@@ -36,16 +36,18 @@ public class ON_BottleLiquid : MonoBehaviour
     [SerializeField] private float deltaCycleMax = 10.0f;   // 差分による変化量最大(波の周期)
     [SerializeField] private Texture2D[] brokeTex;      // 破壊具合のテクスチャ
     [SerializeField] private int texIdx = 0; // 現在のテクスチャ番号 
-    private Material[] targetMaterials; // 制御対象のマテリアル
+    public Material[] targetMaterials; // 制御対象のマテリアル
     private Vector3 prevPosition;   // 前回参照位置
     private Vector3 prevEulerAngle; // 前回参照オイラー角
     private Vector4 waveCurrentParams;  // 現在の液体波パラメータ
+    private MeshRenderer meshRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         // 初期化
         Renderer targetRenderer = GetComponent<Renderer>();
+        meshRenderer = GetComponent<MeshRenderer>();
         if (targetRenderer == null)
             return;
 
@@ -55,7 +57,7 @@ public class ON_BottleLiquid : MonoBehaviour
             for(int i = 0; i < targetRenderer.sharedMaterials.Length; ++i)
             {
                 Material material = targetRenderer.sharedMaterials[i];
-                if (material.shader.name.Contains("ON_Liquid"))
+                if (material.shader.name.Contains("ON_Mat_Liquid"))
                 {
                     targetMaterialList.Add(material);
                 }
@@ -71,6 +73,8 @@ public class ON_BottleLiquid : MonoBehaviour
     {
         if (targetMaterials == null || targetMaterials.Length <= 0)
             return;
+
+        meshRenderer.materials = targetMaterials;
 
         CalculateWaveParams();
         SetupMaterials();
