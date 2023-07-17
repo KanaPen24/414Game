@@ -47,35 +47,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameState m_GameState;
     [SerializeField] private SceneState m_SceneState;
 
-    private void Start()
+    private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
-
-        IS_AudioManager.instance.PlayBGM(BGMType.BGM_Game);
-    }
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            Debug.Log("GameQuit!!");
-            Application.Quit();             //ゲーム終了処理
-        }
-
-        if (IS_AudioManager.instance.GetSE(SEType.SE_GameClear).isPlaying)
-        {
-            IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).mute = true;
-        }
-        else IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).mute = false;
-
         //シーンごとのステート管理
-        switch(SceneManager.GetActiveScene().name)
+        switch (SceneManager.GetActiveScene().name)
         {
             case "GameScene":
                 m_SceneState = SceneState.GameScene;
@@ -89,6 +64,31 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+        IS_AudioManager.instance.PlayBGM(BGMType.BGM_Game);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Debug.Log("GameQuit!!");
+            Application.Quit();             //ゲーム終了処理
+        }
+
+        if (IS_AudioManager.instance.GetSE(SEType.SE_GameClear).isPlaying)
+        {
+            IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).mute = true;
+        }
+        else IS_AudioManager.instance.GetBGM(BGMType.BGM_Game).mute = false;
     }
 
     /**

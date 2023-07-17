@@ -26,8 +26,13 @@ public class YK_JsonSave : MonoBehaviour
         // パス名取得
         filepath = Application.dataPath + "/" + fileName;
 
+        //ファイルがあれば削除
+        if (File.Exists(filepath))
+        {
+            DelFile();                     // セーブデータの削除
+        }
         // ファイルがないとき、ファイル作成
-        if (!File.Exists(filepath))
+        else
         {
             //先に武器のHPのListを準備しておく
             //最初にやらないとオーバーフローする
