@@ -3581,53 +3581,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!28 &258356410
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 2
-  m_Width: 2
-  m_Height: 128
-  m_CompleteImageSize: 1024
-  m_MipsStripped: 0
-  m_TextureFormat: 4
-  m_MipCount: 1
-  m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMasterTextureLimit: 0
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 0
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_LightmapFormat: 0
-  m_ColorSpace: 0
-  m_PlatformBlob: 
-  image data: 1024
-  _typelessdata: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff7f7f00f5ec7000ff7f7f00f5ec7000ff7f7f00ea00ff00ff7f7f00ea00ff00
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &267757680
 GameObject:
   m_ObjectHideFlags: 1
@@ -7339,6 +7292,53 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1841473239}
   m_PrefabAsset: {fileID: 0}
+--- !u!28 &456479763
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 2
+  m_Width: 2
+  m_Height: 128
+  m_CompleteImageSize: 1024
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 0
+  m_PlatformBlob: 
+  image data: 1024
+  _typelessdata: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ff7f7f00ea00ff00ff7f7f00f5ec7000ff7f7f00f5ec7000ff7f7f00ea00ff00
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!4 &458782461 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5728500850515902544, guid: 4d9e74ca64c77b1459817e3b17cab041,
@@ -11072,7 +11072,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6514631379394958123, guid: 30727121350b85a4aaf9f1a6f5f089d8, type: 3}
+    - {fileID: 6122548564909137366, guid: 30727121350b85a4aaf9f1a6f5f089d8, type: 3}
+    - {fileID: 6122548564909137361, guid: 30727121350b85a4aaf9f1a6f5f089d8, type: 3}
+    - {fileID: 6122548564909137360, guid: 30727121350b85a4aaf9f1a6f5f089d8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 30727121350b85a4aaf9f1a6f5f089d8, type: 3}
 --- !u!4 &768982484 stripped
 Transform:
@@ -11080,6 +11084,70 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 768982483}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &768982485 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 509024959760812531, guid: 30727121350b85a4aaf9f1a6f5f089d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 768982483}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &768982486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768982485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d41ec0143d9da24dae818443a1b1841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SlimeBes: {fileID: 768982488}
+  m_MoveTime: 1
+  m_StartTime: 1
+--- !u!114 &768982487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768982485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dcec2d16a11a8b438f121dd2320233b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Slime: {fileID: 768982488}
+  m_fAttackTime: 1
+--- !u!114 &768982488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768982485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f35f10c543b53a4ba23f7a03136db62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nHP: 5
+  m_nMaxHP: 5
+  m_InvincibleTime: 0
+  m_BesStrategy:
+  - {fileID: 768982487}
+  - {fileID: 768982486}
+  m_BesState: 0
+  m_BesDir: 0
+  m_Clock: {fileID: 1099680606}
+  m_MoveValue: {x: 0, y: 0, z: 0}
+  m_MoveReng: 3
+  m_PlayerDamage: 10
+  m_fMovePower: 3
+  m_fJumpPower: 5
+  m_DieEffect: {fileID: 6814668452755134957, guid: 4424c2c298bfb2345bba73411e81288d,
+    type: 3}
+  m_Hammer: {fileID: 1560026242}
 --- !u!114 &779954525 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3327335840334610119, guid: 5cdd905d94b0d6e44b9af74582986062,
@@ -15046,6 +15114,51 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!21 &1121861502
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI-Effect-Dissolve-Add_UIDissolveNoise
+  m_Shader: {fileID: 4800000, guid: e1b48dc831eb147e9886c049033213bf, type: 3}
+  m_ValidKeywords:
+  - ADD
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: 3e04c247fb2604af186173fce0bc62de, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParamTex:
+        m_Texture: {fileID: 456479763}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
 --- !u!4 &1124125584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4105829027268245888, guid: cc4b9458c37dc344c946265faf686ebb,
@@ -16803,51 +16916,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1253520194}
   m_PrefabAsset: {fileID: 0}
---- !u!21 &1255863994
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: UI-Effect-Dissolve-Add_UIDissolveNoise
-  m_Shader: {fileID: 4800000, guid: e1b48dc831eb147e9886c049033213bf, type: 3}
-  m_ValidKeywords:
-  - ADD
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NoiseTex:
-        m_Texture: {fileID: 2800000, guid: 3e04c247fb2604af186173fce0bc62de, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ParamTex:
-        m_Texture: {fileID: 258356410}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _ColorMask: 15
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _UseUIAlphaClip: 0
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1001 &1269477507
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21516,7 +21584,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6514631379394958123, guid: 30727121350b85a4aaf9f1a6f5f089d8, type: 3}
+    - {fileID: 6122548564909137366, guid: 30727121350b85a4aaf9f1a6f5f089d8, type: 3}
+    - {fileID: 6122548564909137361, guid: 30727121350b85a4aaf9f1a6f5f089d8, type: 3}
+    - {fileID: 6122548564909137360, guid: 30727121350b85a4aaf9f1a6f5f089d8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 30727121350b85a4aaf9f1a6f5f089d8, type: 3}
 --- !u!4 &1646528518 stripped
 Transform:
@@ -21524,6 +21596,70 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1646528517}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1646528519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 509024959760812531, guid: 30727121350b85a4aaf9f1a6f5f089d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1646528517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1646528520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646528519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d41ec0143d9da24dae818443a1b1841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SlimeBes: {fileID: 1646528522}
+  m_MoveTime: 1
+  m_StartTime: 1
+--- !u!114 &1646528521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646528519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dcec2d16a11a8b438f121dd2320233b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Slime: {fileID: 1646528522}
+  m_fAttackTime: 1
+--- !u!114 &1646528522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646528519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f35f10c543b53a4ba23f7a03136db62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_nHP: 5
+  m_nMaxHP: 5
+  m_InvincibleTime: 0
+  m_BesStrategy:
+  - {fileID: 1646528521}
+  - {fileID: 1646528520}
+  m_BesState: 0
+  m_BesDir: 0
+  m_Clock: {fileID: 1099680606}
+  m_MoveValue: {x: 0, y: 0, z: 0}
+  m_MoveReng: 3
+  m_PlayerDamage: 10
+  m_fMovePower: 3
+  m_fJumpPower: 5
+  m_DieEffect: {fileID: 6814668452755134957, guid: 4424c2c298bfb2345bba73411e81288d,
+    type: 3}
+  m_Hammer: {fileID: 1560026242}
 --- !u!114 &1653980259 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7111819576557512756, guid: 7e9ed24051ee45f4496066d407091c07,

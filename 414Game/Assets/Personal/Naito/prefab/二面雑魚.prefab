@@ -2088,7 +2088,6 @@ MonoBehaviour:
   m_nHP: 3
   m_nMaxHP: 3
   m_InvincibleTime: 0
-  m_BPlayer: {fileID: 0}
   m_BatStrategy:
   - {fileID: 2768162793742960937}
   - {fileID: 2768162793742960936}
@@ -2099,7 +2098,7 @@ MonoBehaviour:
   m_BatState: 0
   m_Clock: {fileID: 0}
   m_MoveValue: {x: 0, y: 0, z: 0}
-  m_MoveReng: 0
+  m_MoveReng: 3
   m_DieEffect: {fileID: 6814668452755134957, guid: 4424c2c298bfb2345bba73411e81288d,
     type: 3}
   m_PlayerDamage: 20
