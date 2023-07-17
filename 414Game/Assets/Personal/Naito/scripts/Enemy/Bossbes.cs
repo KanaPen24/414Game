@@ -146,4 +146,8 @@ public class Bossbes : NK_Enemy
             }
         }
     }
+    private void InvincibleEnd()
+    {
+        m_DamageFlag = false;
+    }
 }

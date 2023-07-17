@@ -35,6 +35,23 @@ public class IS_WeaponStartCollision : MonoBehaviour
                 YK_Combo.AddCombo();
             }
         }
+
+        // ボスへのダメージ処理
+        if (other.gameObject.GetComponent<Bossbes>() != null)
+        {
+            if (IS_Player.instance.GetFlg().m_bAttack && !other.GetComponent<Bossbes>().GetSetDamageFlag)
+            {
+                YK_Controller.instance.ControllerVibration(0.3f);
+                IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
+                WeaponStart.GetSetHp -= m_nDamage2Start;
+                other.GetComponent<Bossbes>().BossSlimeDamage(m_nDamage2Enemy);
+                other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
+                HitEffect.transform.position = other.transform.position;
+                HitEffect.Play();
+                YK_Combo.AddCombo();
+            }
+        }
+
         // スライムへのダメージ処理
         if (other.gameObject.GetComponent<slime>() != null)
         {
