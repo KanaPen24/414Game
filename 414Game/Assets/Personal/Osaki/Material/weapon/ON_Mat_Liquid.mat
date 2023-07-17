@@ -121,7 +121,7 @@ Material:
     - _LiquidColorForward: {r: 0.5, g: 0.6, b: 0.9, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _TessFactor: {r: 1, g: 5, b: 1, a: 1}
-    - _WaveCenter: {r: 1.8827341, g: 1.5901283, b: -2.40233, a: 0}
+    - _WaveCenter: {r: 0.44008106, g: 1.9687475, b: -2.374942, a: 0}
     - _WaveParams: {r: 0, g: 0, b: 12, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &22174789665155056
