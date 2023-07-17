@@ -4015,6 +4015,7 @@ MonoBehaviour:
   BossSlider: {fileID: 7495203909688170979}
   BossBar: {fileID: 7630735543527690732}
   Boss: {fileID: 0}
+  Next: {fileID: 3167593543491518652}
   Clear: {fileID: 8635633975098094186}
   FrontFill: {fileID: 1141875360679443149}
   BackFill: {fileID: 3614546344597714229}
