@@ -34,6 +34,7 @@ public class bes : NK_Enemy
     private Animator m_Anim;
     private bool m_MoveAnimFlag;
     private bool m_AcidAnimFlag;
+    private Vector3 m_gravity;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +42,7 @@ public class bes : NK_Enemy
         m_Rbody = GetComponent<Rigidbody>();
         m_localScalex = this.transform.localScale.x;
         m_Anim = GetComponent<Animator>();
+        m_Rbody.useGravity = false;
     }
 
     // Update is called once per frame
@@ -84,6 +86,11 @@ public class bes : NK_Enemy
 
         m_Anim.SetBool("AcidFlag", m_AcidAnimFlag);
         m_Anim.SetBool("IdouFlag", m_MoveAnimFlag);
+
+        // -9.8fがデフォルトなのでこれを変えれば任意の重力にできる
+        Vector3 gravity = new Vector3(0, -20.0f, 0);
+
+        m_Rbody.AddForce(gravity, ForceMode.Acceleration);
     }
 
     private void OnTriggerEnter(Collider other)
