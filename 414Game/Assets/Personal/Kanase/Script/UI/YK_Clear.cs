@@ -78,6 +78,7 @@ public class YK_Clear : YK_UI
             {
                 IS_AudioManager.instance.StopBGM(BGMType.BGM_Game);   // BGMを停止
                 SceneManager.LoadScene("GameScene");                  // ゲームシーンをリロード
+                YK_JsonSave.instance.DelFile();                       // セーブデータの削除
             }
         });
     }

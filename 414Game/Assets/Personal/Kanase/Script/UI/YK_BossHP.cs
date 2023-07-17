@@ -23,8 +23,9 @@ public class YK_BossHP : YK_UI
 {
     [SerializeField] private Slider BossSlider;     // シーンに配置したSlider格納用
     [SerializeField] private GameObject BossBar;    // ボスのバーの大元
-    [SerializeField] private NK_BossSlime Boss;
-    //[SerializeField] private YK_Next Next;
+    [SerializeField] private NK_BossSlime Boss1;
+    [SerializeField] private Bossbes Boss2;
+    [SerializeField] private YK_Next Next;
     [SerializeField] private YK_Clear Clear;
     [SerializeField] private Image FrontFill;       // バーの表面のテクスチャ
     [SerializeField] private Image BackFill;        // 後ろのバーの表面のテクスチャ
@@ -44,8 +45,17 @@ public class YK_BossHP : YK_UI
     {
         m_eUIType = UIType.BossBar;                     // UIのタイプ設定
         m_eFadeState = FadeState.FadeNone;
-        BossSlider.maxValue = Boss.GetSetMaxHp;         // Sliderの最大値を敵キャラのHP最大値と合わせる
-        BossSlider.value = Boss.GetSetHp;               // Sliderの初期状態を設定（HP満タン）
+        switch (GameManager.instance.GetSetSceneState)
+        {
+            case SceneState.GameScene:
+                BossSlider.maxValue = Boss1.GetSetMaxHp;         // Sliderの最大値を敵キャラのHP最大値と合わせる
+                BossSlider.value = Boss1.GetSetHp;               // Sliderの初期状態を設定（HP満タン）
+                break;
+            case SceneState.GameScene2:
+                BossSlider.maxValue = Boss2.GetSetMaxHp;         // Sliderの最大値を敵キャラのHP最大値と合わせる
+                BossSlider.value = Boss2.GetSetHp;               // Sliderの初期状態を設定（HP満タン）
+                break;
+        }
 
         GetSetUIPos = BossSlider.GetComponent<RectTransform>().anchoredPosition;  // 座標取得
         GetSetUIScale = BossSlider.transform.localScale;                         // スケール取得
@@ -71,27 +81,44 @@ public class YK_BossHP : YK_UI
             GetComponent<PointEffector2D>().enabled = true;
         }
 
-        // Sliderの更新
-        BossSlider.value = Boss.GetSetHp;
-
-        // ボスのHPがなくなったら（例：ボスキャラを倒したら）
-        if (Boss.GetSetHp <= 0)
+        switch (GameManager.instance.GetSetSceneState)
         {
-            if (GameManager.instance.GetSetGameState == GameState.GamePlay)
-            {
-                //ゲームのステートをクリア状態にする
-                GameManager.instance.GetSetGameState = GameState.GameGoal;
-                //クリア表示
-                Clear.UIFadeIN();
-                //ボスバーの非表示
-                UIFadeOUT();
-                //ポストエフェクトのリセット
-                time.GetSetTimeFlg = true;
-                //時止め解除
-                clock.GetSetStopTime = false;
-            }
-            
+            case SceneState.GameScene:
+                // Sliderの更新
+                BossSlider.value = Boss1.GetSetHp;
+                // ボスのHPがなくなったら（例：ボスキャラを倒したら）
+                if (Boss1.GetSetHp <= 0)
+                {
+                    //ネクスト表示
+                    Next.UIFadeIN();
+                    //ゲームのステートをクリア状態にする
+                    GameManager.instance.GetSetGameState = GameState.GameGoal;
+                }
+                break;
+            case SceneState.GameScene2:
+                // Sliderの更新
+                BossSlider.value = Boss2.GetSetHp;
+                // ボスのHPがなくなったら（例：ボスキャラを倒したら）
+                if (Boss2.GetSetHp <= 0)
+                {
+                    //クリア表示
+                    Clear.UIFadeIN();
+                    //ゲームのステートをクリア状態にする
+                    GameManager.instance.GetSetGameState = GameState.GameGoal;
+                }
+                break;
         }
+
+        //もしゴールにたどり着いたら
+        if (GameManager.instance.GetSetGameState == GameState.GameGoal)
+        {
+            //ボスバーの非表示
+            UIFadeOUT();
+            //ポストエフェクトのリセット
+            time.GetSetTimeFlg = true;
+            //時止め解除
+            clock.GetSetStopTime = false;
+        }    
     }
 
     /**

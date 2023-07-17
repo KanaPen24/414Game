@@ -26,8 +26,13 @@ public class YK_JsonSave : MonoBehaviour
         // パス名取得
         filepath = Application.dataPath + "/" + fileName;
 
+        //ファイルがあれば削除
+        if (File.Exists(filepath))
+        {
+            DelFile();                     // セーブデータの削除
+        }
         // ファイルがないとき、ファイル作成
-        if (!File.Exists(filepath))
+        else
         {
             //先に武器のHPのListを準備しておく
             //最初にやらないとオーバーフローする
@@ -69,6 +74,7 @@ public class YK_JsonSave : MonoBehaviour
             data.WeaponHp[i] = WeaponHp[i].GetSetHp;
         }
         data.pos = Player.GetSetPlayerPos;          // dataの座標保存
+        data.Scene = GameManager.instance.GetSetSceneState; //シーンの保存
         string json = JsonUtility.ToJson(data);                 // jsonとして変換
         StreamWriter wr = new StreamWriter(filepath, false);    // ファイル書き込み指定
         wr.WriteLine(json);                                     // json変換した情報を書き込み
@@ -113,10 +119,16 @@ public class YK_JsonSave : MonoBehaviour
             WeaponHp[i].GetSetHp = data.WeaponHp[i];
         }
         Player.GetSetPlayerPos = data.pos;
+        GameManager.instance.GetSetSceneState = data.Scene;
     }
 
     //ゲーム終了時
     private void OnApplicationQuit()
+    {
+        DelFile();
+    }
+
+    public void DelFile()
     {
         //ファイル削除
         File.Delete(filepath);

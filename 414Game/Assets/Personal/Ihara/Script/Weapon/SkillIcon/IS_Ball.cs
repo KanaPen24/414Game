@@ -79,6 +79,15 @@ public class IS_Ball : MonoBehaviour
                 continue;
             }
 
+            if (hit.collider.gameObject.GetComponent<Bossbes>() != null &&
+                !hit.collider.gameObject.GetComponent<Bossbes>().GetSetDamageFlag)
+            {
+                hit.collider.gameObject.GetComponent<Bossbes>().BossSlimeDamage(nAttackPow);
+                hit.collider.transform.GetComponent<YK_TakeDamage>().Damage(hit.collider, nAttackPow);
+                YK_Combo.AddCombo();
+                continue;
+            }
+
             if (hit.collider.gameObject.GetComponent<slime>() != null &&
                 !hit.collider.gameObject.GetComponent<slime>().GetSetDamageFlag)
             {

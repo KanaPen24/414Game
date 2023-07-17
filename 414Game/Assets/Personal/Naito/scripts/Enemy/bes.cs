@@ -13,7 +13,6 @@ public enum BesState
 
 public class bes : NK_Enemy
 {
-    public IS_Player m_BesPlayer;//プレイヤー
     [SerializeField] private List<NK_SlimeBesStrategy> m_BesStrategy; // BossBat挙動クラスの動的配列
     [SerializeField] private BesState m_BesState;      // BossBatの状態を管理する
     [SerializeField] private EnemyDir m_BesDir;        // BossBatの向きを管理する
@@ -35,6 +34,7 @@ public class bes : NK_Enemy
     private Animator m_Anim;
     private bool m_MoveAnimFlag;
     private bool m_AcidAnimFlag;
+    private Vector3 m_gravity;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +42,7 @@ public class bes : NK_Enemy
         m_Rbody = GetComponent<Rigidbody>();
         m_localScalex = this.transform.localScale.x;
         m_Anim = GetComponent<Animator>();
+        m_Rbody.useGravity = false;
     }
 
     // Update is called once per frame
@@ -50,7 +51,7 @@ public class bes : NK_Enemy
         m_fViewX = Camera.main.WorldToViewportPoint(this.transform.position).x;
         if (!m_Clock.GetSetStopTime)
         {
-            if (m_BesPlayer.transform.position.x > this.gameObject.transform.position.x)
+            if (IS_Player.instance.transform.position.x > this.gameObject.transform.position.x)
             {
                 GetSetEnemyDir = EnemyDir.Right;
                 this.transform.localScale =
@@ -85,14 +86,19 @@ public class bes : NK_Enemy
 
         m_Anim.SetBool("AcidFlag", m_AcidAnimFlag);
         m_Anim.SetBool("IdouFlag", m_MoveAnimFlag);
+
+        // -9.8fがデフォルトなのでこれを変えれば任意の重力にできる
+        Vector3 gravity = new Vector3(0, -20.0f, 0);
+
+        m_Rbody.AddForce(gravity, ForceMode.Acceleration);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == m_BesPlayer.gameObject)
+        if (other.gameObject == IS_Player.instance.gameObject)
         {
             Debug.Log("Player Damage!!");
-            m_BesPlayer.Damage(m_PlayerDamage, 1.5f);
+            IS_Player.instance.Damage(m_PlayerDamage, 1.5f);
         }
     }
 

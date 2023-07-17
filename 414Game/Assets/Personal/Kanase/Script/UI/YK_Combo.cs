@@ -65,7 +65,7 @@ public class YK_Combo : YK_UI
      */
     void Update()
     {
-        if (GameManager.instance.GetSetGameState != GameState.GamePlay)    // ゲームがプレイ中または武器中以外は更新しない
+        if (GameManager.instance.GetSetGameState != GameState.GamePlay || GameManager.instance.GetSetGameState != GameState.GameGoal)    // ゲームがプレイ中またはゴール中または武器中以外は更新しない
             return;
 
         if (Input.GetKeyDown(KeyCode.F2))    // F2キーが押されたらコンボを加算する
