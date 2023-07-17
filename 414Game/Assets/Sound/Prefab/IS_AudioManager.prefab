@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 9072753791662180210}
   - component: {fileID: 7177226016520285944}
   m_Layer: 0
-  m_Name: Tonkachi
+  m_Name: Tonkachi(Sound)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
