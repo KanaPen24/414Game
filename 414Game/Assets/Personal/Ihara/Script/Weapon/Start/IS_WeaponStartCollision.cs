@@ -68,6 +68,22 @@ public class IS_WeaponStartCollision : MonoBehaviour
             }
         }
 
+        // トンカチスライムへのダメージ処理
+        if (other.gameObject.GetComponent<tonkatienemy>() != null)
+        {
+            if (IS_Player.instance.GetFlg().m_bAttack && !other.GetComponent<tonkatienemy>().GetSetDamageFlag)
+            {
+                YK_Controller.instance.ControllerVibration(0.3f);
+                IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
+                WeaponStart.GetSetHp -= m_nDamage2Start;
+                other.GetComponent<tonkatienemy>().BesDamage(m_nDamage2Enemy);
+                other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
+                HitEffect.transform.position = other.transform.position;
+                HitEffect.Play();
+                YK_Combo.AddCombo();
+            }
+        }
+
         // 蝙蝠へのダメージ処理
         if (other.gameObject.GetComponent<bat>() != null)
         {

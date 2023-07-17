@@ -132,6 +132,26 @@ public class IS_WeaponHPBarCollision : MonoBehaviour
 
         }
 
+        // スライムトンカチへのダメージ処理
+        if (other.gameObject.GetComponent<tonkatienemy>() != null)
+        {
+            YK_Controller.instance.ControllerVibration(0.3f);
+            IS_AudioManager.instance.PlaySE(SEType.SE_HitHPBar);
+            WeaponHPBar.GetSetHp -= m_nDamage2HPBar;
+            Player.GetParam().m_nHP += m_nDrainBossHp;
+            other.GetComponent<tonkatienemy>().BesDamage(m_nDamage2Enemy);
+            other.transform.GetComponent<YK_TakeDamage>().Damage(other, m_nDamage2Enemy);
+            HitEffect.transform.position = other.transform.position;
+            HitEffect.Play();
+
+            m_DrainEffect.SetStartPos(other.transform.position);
+            m_DrainEffect.GetVisualEffect().Reinit();
+            m_DrainEffect.GetVisualEffect().Play();
+
+            YK_Combo.AddCombo();
+
+        }
+
         // 耐久値が0以下になったら装備を外す
         if (WeaponHPBar.GetSetHp <= 0)
         {
