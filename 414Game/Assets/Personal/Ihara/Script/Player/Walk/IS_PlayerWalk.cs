@@ -86,13 +86,19 @@ public class IS_PlayerWalk : IS_PlayerStrategy
                 }
                 return;
             }
-            // 「待機 → 回避」
+            // 「移動 → 回避」
             if (Input.GetKeyDown(IS_XBoxInput.A) && m_UseSkill.UseSkillJudge())
             {
                 IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
                 IS_Player.instance.GetSetPlayerState = PlayerState.PlayerAvoidance;
                 IS_Player.instance.GetFlg().m_bStartAvoidFlg = true;
                 return;
+            }
+            // 「移動 → 待機」
+            if(GameManager.instance.GetSetGameState == GameState.GameRule)
+            {
+                IS_AudioManager.instance.StopSE(SEType.SE_PlayerWalk);
+                IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWait;
             }
         }
     }

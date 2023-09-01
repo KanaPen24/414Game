@@ -36,6 +36,30 @@ public class YK_Book : YK_Item
         if (other.tag == "Player")
         {
             GetSetItemHit = true; // アイテム取得フラグを立てる
+            IS_AudioManager.instance.AllStopSE();
+            IS_Player.instance.GetSetPlayerState = PlayerState.PlayerWait;
+
+            switch (IS_Player.instance.GetSetEquipState)
+            {
+                case EquipState.EquipHpBar:
+                    IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitHPBar);
+                    break;
+                case EquipState.EquipSkillIcon:
+                    IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitSkillIcon);
+                    break;
+                case EquipState.EquipBossBar:
+                    IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitBossBar);
+                    break;
+                case EquipState.EquipClock:
+                    IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitClock);
+                    break;
+                case EquipState.EquipStart:
+                    IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.WaitHPBar);
+                    break;
+                default:
+                    IS_Player.instance.GetPlayerAnimator().ChangeAnim(PlayerAnimState.Wait);
+                    break;
+            }
         }
 
         Destroy(book); // 本を破壊する
